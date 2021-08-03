@@ -88,7 +88,8 @@ const ProductivitySub = (props) => {
         {
           loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginTop:fontScale(20)}}/> : null
         }
-        <FlatList style={styles.list}
+        <FlatList 
+          style={styles.list}
           data={data}
           // data={listMenu}
           keyExtractor={(index, item) => index.toString()}
@@ -106,6 +107,7 @@ const ProductivitySub = (props) => {
               ]}
               fieldDataOne={[
                 item.postSub
+                
                 
 
               ]}

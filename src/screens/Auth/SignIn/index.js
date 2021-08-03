@@ -13,8 +13,8 @@ import { images } from '../../../utils/Images';
 import { checkLogin } from '../../../utils/Logistics';
 
 const SignIn = (props) => {
-    const [userName, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const [userName, setUsername] = useState('testCompany')
+    const [password, setPassword] = useState('123456')
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
 
