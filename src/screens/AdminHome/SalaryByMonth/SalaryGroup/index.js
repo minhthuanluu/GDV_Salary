@@ -3,9 +3,9 @@ import { SafeAreaView } from 'react-native';
 
 const index=(props)=> {
     return (
-        <SafeAreaView>
-            
-        </SafeAreaView>
+        <View>
+            <Text></Text>
+        </View>
     );
 }
 

@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native";
-import { fontScale } from "../../../utils/Fonts";
+import { colors } from "../../../../../utils/Colors";
+
 
 export const styles = StyleSheet.create({
     container:{
-        paddingTop: fontScale(5)
+        flex:1,
+        backgroundColor:colors.primary
     }
 })

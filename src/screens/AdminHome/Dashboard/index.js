@@ -26,7 +26,6 @@ const Dashboard=(route)=> {
     const getData = async () => {
         setLoading(true)
         await getProfile(navigation).then((res) => {
-            console.log(res.data.displayName)
             if(res.status == "success") {
                 setLoading(false)
                 setUserData(res.data) 

@@ -19,11 +19,10 @@ const KPIHome=(props)=> {
         {
           <Header title={text.kpi}/>
         }
-        {/* <Text>{JSON.stringify(user)}</Text> */}
         <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
         <View style={styles.body}>
           <MenuItem style={{ marginTop: fontScale(30) }} title={text.topTellers} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.toptellers} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminTopTellersKPI")} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.groupKPI} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.groupkpi} iconStyle={{width: fontScale(70), height: fontScale(80)}} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryByMonthDashboard")} />
+          <MenuItem style={{ marginTop: fontScale(60) }} title={text.groupKPI} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.groupkpi} iconStyle={{width: fontScale(70), height: fontScale(80)}} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIGroupKPI")} />
           <MenuItem style={{ marginTop: fontScale(60) }} title={text.kpiMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.kpiByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIMonth")} />
           <MenuItem style={{ marginTop: fontScale(60) }} title={text.productivityAverage} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.productivitySub} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminProductivitySub")} />
           
