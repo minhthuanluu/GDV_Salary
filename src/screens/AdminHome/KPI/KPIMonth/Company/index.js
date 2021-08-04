@@ -14,6 +14,7 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { _retrieveData } from "../../../../../utils/Storage";
 
 
 const index = (props) => {
@@ -24,8 +25,9 @@ const index = (props) => {
   const navigation = useNavigation();
 
   const getData = async (month, branchcode, shopCode) => {
+    console.log(month, branchcode)
     setLoading(true);
-    await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+    await getKPIByMonth(month, branchcode,shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
         setGeneralData(data.data.general);
@@ -36,7 +38,11 @@ const index = (props) => {
 
   useEffect(() => {
     getData(month, "", "");
-  }, [""]);
+  }, [month]);
+
+  const getUserInfo = async() => {
+    await _retrieveData("")
+  }
 
   const _onChangeMonth = (value) => {
     setMonth(value);
@@ -72,10 +78,8 @@ const index = (props) => {
                 item={[item.prePaid, item.postPaid, item.vas]}
                 title={item.shopName}
                 onPress={() => navigation.navigate("AdminKPIMonthShop",{
-                  item:{
-                    "branchCode":item.shopCode,
-                    "month":month
-                  }
+                    item:item,
+                    month:month
                 })}
               />
             )}

@@ -14,6 +14,7 @@ import { images } from "../../../../utils/Images";
 
 import { BackHandler } from "react-native";
 import { getMonthSalaryGroup } from "../../../../adminapi";
+import { ActivityIndicator } from "react-native";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -167,7 +168,8 @@ const index = () => {
         onChangeDate={(date) => _onChangeMonth(date)}
       />
       <Body />
-      <View style={{ flex: 1, backgroundColor: colors.white, }}>
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
+        {loading==true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
       <View style={{marginTop: -30}}></View>
         <Table
           style={styles.table}

@@ -33,7 +33,7 @@
     "react-native-screens": "~3.0.0",
     "react-native-simple-month-year-picker": "^1.2.1",
     "react-native-simple-radio-button": "^2.7.4",
-    "react-native-svg": "^12.1.1",
+    "react-native-svg": "12.1.0",
     "react-native-toast-message": "^1.4.9",
     "react-native-web": "~0.13.12"
   },

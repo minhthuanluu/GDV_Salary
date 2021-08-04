@@ -22,6 +22,7 @@ import { BackHandler } from "react-native";
 import moment from "moment";
 import Toast from 'react-native-toast-message';
 import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop } from "../../../../adminapi";
+import { _retrieveData } from "../../../../utils/Storage";
 
 const AdminTopTeller = () => {
   const [data, setData] = useState([]);
@@ -40,6 +41,9 @@ const AdminTopTeller = () => {
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
   const [placeHolder,setPlaceHolder] = useState('')
+  const [role,setRole] = useState();
+  const [defaultShopCode,setDefaultShopCode] = useState('')
+  const [defaultShopName,setDefaultShopName] = useState('')
 
   const getBranchList = async () => {
     setLoading(true)
@@ -47,7 +51,6 @@ const AdminTopTeller = () => {
       if (res.status == "success") {
         setLoading(false);
         setBranchList(res.data);
-        console.log(res.data)
         setBranchCode(res.data[0].shopCode);
 
       }
@@ -68,7 +71,6 @@ const AdminTopTeller = () => {
   }
 
   const onChangeBranch = async (value) => {
-    console.log(value)
     setLoading(true)
     setBranchCode(value);
     await getAllShop(navigation, branchCode).then((res) => {
@@ -128,13 +130,13 @@ const AdminTopTeller = () => {
   // }
 
   const getData = async (branchCode, month, sort) => {
-    console.log(branchCode, month, sort)
     setMessage("");
     setLoadingData(true);
     setData([])
     await getAdminKPIMonthTopTeller(navigation, branchCode, month, sort).then((res) => {
       setLoadingData(false);
         if (res.status == "success") {
+          console.log(res.data)
           if (res.data.length > 0 || res.data.data.length > 0) {
             setData(res.data.data);
             setLoadingData(false);
@@ -164,8 +166,9 @@ const AdminTopTeller = () => {
       backAction
     );
     getBranchList();
-    getData(branchCode, month, sort); // gọi data thật
-    setPlaceHolder("Chọn chi nhánh")
+    getData(branchCode, month, sort);
+    setPlaceHolder("Chọn chi nhánh");
+    checkRole();
     return () => {
       backHandler.remove();
     };
@@ -174,6 +177,16 @@ const AdminTopTeller = () => {
   const _onChangeMonth = async (value) => {
     setMonth(value);
     await getData(branchCode, value, sort)
+  }
+
+  const checkRole = async () => {
+    await _retrieveData("userInfo").then((user) => {
+      let role = user?.userId.userGroupId.code;
+      console.log(user?.userId)
+      setDefaultShopName(user?.userId.shopId.shopName);
+      setDefaultShopCode(user?.userId.shopId.shopCode)
+      setRole(role) 
+    })
   }
 
   return (
@@ -197,10 +210,10 @@ const AdminTopTeller = () => {
         fieldTwo={shopList.map((item) => item.shopName)}
         fieldThree={empList.map((item, index) => item.maGDV)}
         onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
-        // onChangePickerTwo={(value) => onChangeShop(value.shopCode)}
-        // onChangePickerThree={(value) => onChangeEmp(value.maGDV)}
-        showPicker={[true, false, false]}
-        onPressOK={(value)=>getData(value.branchCode,month,value.sort)}
+        showPicker={[true, true, false]}
+        onPressOK={(value)=>getData(branchCode||defaultShopCode,month,value.sort)}
+        fixed={role!="VMS_CTY" ? true : false}
+        fixedData={defaultShopName}
       />
 
       <Body

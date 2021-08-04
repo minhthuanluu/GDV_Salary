@@ -109,15 +109,9 @@ const index = (props) => {
                                 ])
                             }
                             hideFirstColHeader
-                            boldFirstColumn
-                            // firstRowBg={"#FBFDC3"}
-                            fontWeight={"bold"}
-                            lastIcon={data.map((item, index) => item.detail == true ? images.eye : null)}
-                            lastIconStyle={{ tintColor: colors.grey }}
-                            canPress={data.map((item, index) => item.detail == true ? true : false)}
-                            boldFirstColText
-                            style={{ marginTop: fontScale(30) }}
-                            textColor={data.map((item, index) => colors.primary)}
+                            boldFirstColumn="bold"
+                            fontWeight={["normal"]}
+                            textColor={data.data.map((item, index) => colors.primary)}
                             rowBg={"#fff"}
                         />
                     </View>

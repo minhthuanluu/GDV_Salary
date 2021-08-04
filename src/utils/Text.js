@@ -93,6 +93,7 @@ salaryMonth: "Lương tháng",
 // Admin Bình quân thu nhập
 groupSalaryAverage: "Nhóm lương BQ",
 salaryAverage: "Lương BQ",
+salAverage: "Lương bình quân",
 
 
   // Tổng lương dự kiến
@@ -208,5 +209,6 @@ productivitySub: "Năng suất bình quân",
   fixed:"Cố định",
   incentive:"Khoán sp",
   topSeller:"Top GDV",
+  totalOutcome:"Tổng chi phí",
   search:"Tìm kiếm"
 };

@@ -80,7 +80,6 @@ export const getShopList = async(branchCode) => {
             Authorization: `${variable.token}`,
         },
     }).then(async (res) => {
-        console.log(res.data)
         if (res.status == 200) {
             if (res.data.V_ERROR) {
               data = {
@@ -170,7 +169,6 @@ export const getEmpList = async(branchCode,shopCode) => {
 
 // https://hochiminh.mobifone.vn/salary/api/ScreenSalaryManagement/getFixedWageSalary?branchCode=2HCMTPTD&month=01%2F06%2F2021&shopCode=BHKV-TD.01-FMCG-2.9.TDU&sort=1
 export const getFixedWageSalary = async(month,sort,branchCode,shopCode,empCode) => {
-    console.log(month,sort,branchCode,shopCode,empCode)
     let data = {
         message: "",
         status: "",
@@ -189,7 +187,6 @@ export const getFixedWageSalary = async(month,sort,branchCode,shopCode,empCode) 
         },
     }).then(async (res) => {
         if (res.status == 200) {
-          console.log(res.data)
             if (res.data.V_ERROR) {
               data = {
                 message: "Chức năng này đang được bảo trì",
@@ -211,7 +208,6 @@ export const getFixedWageSalary = async(month,sort,branchCode,shopCode,empCode) 
           }
     }).catch( (error) => {
         if (error) {
-            console.log(error)
             data = {
               message: error.response.data.message,
               isLoading: false,

@@ -94,15 +94,15 @@ const index = (props) => {
                         " TBTS thoại gói > =99k",]}
                       item={[item.prePaid, item.postPaid, item.vas, item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine]}
                       title={item.shopName}
-                      onPress={() =>
-                        navigation.navigate("AdminKPIMonthGDV", {
-                          item: {
-                            branchCode: route.params?.item.branchCode,
-                            shopCode: item.shopCode,
-                            month: month,
-                          },
-                        })
-                      }
+                      // onPress={() =>
+                      //   navigation.navigate("AdminKPIMonthGDV", {
+                      //     item: {
+                      //       branchCode: route.params?.item.branchCode,
+                      //       shopCode: item.shopCode,
+                      //       month: month,
+                      //     },
+                      //   })
+                      // }
                     />
                    {
                        index==data.length-1 ?  <GeneralListItem

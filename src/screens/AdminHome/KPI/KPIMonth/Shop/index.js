@@ -29,28 +29,24 @@ const index = (props) => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const getData = async (month, branchcode, shopCode) => {
+  const getData = async () => {
+    const {item,month} = route.params;
+    let shopCode = item.shopCode;
     setLoading(true);
-    await getKPIByMonth(month, branchcode, shopCode).then((data) => {
-      if (data.status == "success") {
-        setData(data.data.data);
-        setGeneralData(data.data.general);
-        setLoading(false);
-      }
-      console.log(data);
-    });
+    console.log(month+' - '+shopCode)
+    
   };
 
   useEffect(() => {
-    const { month, branchCode } = route.params?.item;
+    const {item,month} = route.params;
     setMonth(month);
-    getData(month, branchCode, "");
-  }, [""]);
+    getData();
+  }, [month]);
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const { branchCode } = route.params?.item;
-    getData(value, branchCode, "");
+    const {item,month} = route.params;
+    getData(value, item.shopCode);
   };
   return (
     <SafeAreaView style={styles.container}>

@@ -14,10 +14,12 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 
 
 const index = (props) => {
   const [data, setData] = useState({});
+  const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
@@ -25,18 +27,38 @@ const index = (props) => {
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
+    setMessage("")
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
-        setData(data.data.data);
-        setGeneralData(data.data.general);
         setLoading(false);
+        if (data.length == 0) {
+          setData([])
+          setMessage(data.message);
+        } else {
+          setData(data.data.data);
+          setGeneralData(data.data.general);
+        }
+      }
+
+      if (data.status == "failed") {
+        setLoading(false);
+      }
+      if (data.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     });
   };
 
   useEffect(() => {
     getData(month, "", "");
-  }, [""]);
+  }, [month])
 
   const _onChangeMonth = (value) => {
     setMonth(value);
@@ -57,39 +79,46 @@ const index = (props) => {
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary}style={{ marginTop: fontScale(20) }}/>: null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+        <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
-            style={{ marginTop: fontScale(10) }}
             data={data}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <GeneralListItem
-                style={{ marginTop: fontScale(20) }}
-                columns
-                rightIcon={images.branch}
-                titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
-                item={[item.totalSalary, item.incentiveSalary, item.totalEmp]}
-                title={item.shopName}
-                onPress={() => navigation.navigate("AdminMonthSalaryShop",{
-                  item:{
-                    "branchCode":item.shopCode,
-                    "month":month
-                  }
-                })}
-              />
+              <View>
+                <GeneralListItem
+                  style={{ marginTop: fontScale(20) }}
+                  columns
+                  rightIcon={images.branch}
+                  titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
+                  item={[item.totalSalary, item.incentiveSalary, item.totalEmp]}
+                  title={item.shopName}
+                  onPress={() => navigation.navigate("AdminMonthSalaryShop", {
+                    item: {
+                      "branchCode": item.shopCode,
+                      "month": month
+                    }
+                  })} />
+                { index == data.length - 1 ?
+                  <GeneralListItem
+                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                    fiveColumnCompany
+                    title={generalData.shopName}
+                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
+                    item={[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    icon={images.company} /> : null
+                }
+              </View>
             )}
           />
-         <GeneralListItem 
-         style={{marginTop:-fontScale(30)}} 
-         fiveColumnCompany 
-         title={generalData.shopName} 
-         titleArray={["Tổng chi 1 tháng","Cố định","Khoán sp","Chi hỗ trợ","CFKK","Khác"]} 
-         item={[generalData.monthOutcome,generalData.permanentSalary,generalData.incentiveSalary,generalData.supportOutcome,generalData.encouSalary,generalData.other]} 
-         icon={images.company}/>
+
+
         </View>
-        
+
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };

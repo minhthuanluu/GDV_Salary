@@ -8,12 +8,10 @@ import { width } from "../../../../utils/Dimenssion";
 import { fontScale } from "../../../../utils/Fonts";
 import { text } from "../../../../utils/Text";
 import { styles } from "./style";
-
-import Table from "../../../../comps/table";
-import { images } from "../../../../utils/Images";
-
+import Table from "../../../../comps/table";  
 import { BackHandler } from "react-native";
 import { getKPIGroup } from "../../../../adminapi";
+import { ActivityIndicator } from "react-native";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -28,7 +26,7 @@ const index = () => {
     setMessage("");
     setLoading(true);
     await getKPIGroup(navigation, month).then((res) => {
-        console.log(res);
+      console.log(res);
       setLoading(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
@@ -63,98 +61,6 @@ const index = () => {
     setMonth(value);
     await getData(value);
   };
-  // const data = [
-  //     {
-  //         "id": 0,
-  //         "shopName": "CTY 2",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "company"
-
-  //     },
-  //     {
-  //         "id": 1,
-  //         "shopName": "2MFHCM1",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "branch"
-  //     },
-  //     {
-  //         "id": 2,
-  //         "shopName": "CH ND",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     },
-  //     {
-  //         "id": 4,
-  //         "shopName": "CH PDL",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     },
-  //     {
-  //         "id": 3,
-  //         "shopName": "2MFHCM2",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "branch"
-  //     },
-  //     {
-  //         "id": 6,
-  //         "shopName": "CH THT",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     },
-  //     {
-  //         "id": 80,
-  //         "shopName": "CH Q7",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     },
-  //     {
-  //         "id": 80,
-  //         "shopName": "CH Q7",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     }, {
-  //         "id": 80,
-  //         "shopName": "CH Q7",
-  //         'target100': 30,
-  //         "target90": 100,
-  //         "target70": 70,
-  //         "targetLesser70": 150,
-  //         "totalEmp": 90,
-  //         "shopType": "shop"
-  //     },
-  // ]
 
   return (
     <SafeAreaView style={styles.container}>
@@ -168,6 +74,7 @@ const index = () => {
       />
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white, }}>
+        {loading==true ? <ActivityIndicator style={{marginVertical:fontScale(5)}} color={colors.primary} size="small"/>:null}
       <View style={{marginTop: -30}}>
         <Table
           style={styles.table}
@@ -188,12 +95,12 @@ const index = () => {
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(140),
             fontScale(100),
             fontScale(100),
             fontScale(100),
             fontScale(100),
-            fontScale(90),
+            fontScale(100),
+            fontScale(100),
           ]}
           fields={data.map((item) => [
             item.shopName,
@@ -206,22 +113,19 @@ const index = () => {
           loading={loading}
           hideFirstColHeader
           firstRowBg={"#FBFDC3"}
-          // lastIcon={images.check}
           fontWeight={data.map((item, index) =>
             index == 0 || item.shopType == "BRANCH" ? "bold" : "normal"
           )}
           style={{ marginTop: fontScale(30) }}
           textAlign = "center"
           textColor={data.map((item, index) =>
-            item.shopType == "BRANCH"
-              ? "#000"
-              : item.shopType == "SHOP"
-              ? "#D19E01"
-              : "#000"
+            item.shopType=="BRANCH" || index==0? "#000" : "#D19E01"
           )}
           rowBg={data.map((item, index) =>
             item.shopType == "BRANCH" ? "#EBFDFD" : "#fff"
           )}
+          headerMarginLeft={-fontScale(26)}
+          textAlign="center"
         />
       </View>
       </View>
