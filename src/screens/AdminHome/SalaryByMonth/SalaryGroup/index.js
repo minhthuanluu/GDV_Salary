@@ -29,7 +29,6 @@ const index = () => {
     setMessage("");
     setLoading(true);
     await getMonthSalaryGroup(navigation, month).then((res) => {
-        console.log(res);
       setLoading(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
@@ -178,24 +177,24 @@ const index = () => {
           numColumn={6}
           headers={[
             "",
-            "CF>=20tr",
-            "GF>=17tr",
-            "CF>=12tr",
-            "CF<12tr",
+            ">=20tr",
+            ">=17tr",
+            ">=12tr",
+            "<12tr",
             "Tổng GDV",
           ]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-          headerMarginLeft = {fontScale(14)}
+          headerMarginLeft = {fontScale(5)}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(140),
             fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(90),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(70),
           ]}
           fields={data.map((item) => [
             item.shopName,

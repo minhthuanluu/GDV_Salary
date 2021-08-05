@@ -41,6 +41,10 @@ const Dashboard=(route)=> {
         
     }
 
+    const warning=()=>{
+      ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)
+    }
+
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
           if (!navigation.isFocused()) {
@@ -84,7 +88,7 @@ const Dashboard=(route)=> {
           <MenuItem style={{ marginTop: fontScale(60) }} title={text.averageIncome} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.avgIcome} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeDashboard")} />
           <MenuItem style={{ marginTop: fontScale(60) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)} />
           <MenuItem style={{ marginTop: fontScale(60) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={() => ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)} />
+          <MenuItem style={{ marginTop: fontScale(60) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => warning()} />
         </View>
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </SafeAreaView>

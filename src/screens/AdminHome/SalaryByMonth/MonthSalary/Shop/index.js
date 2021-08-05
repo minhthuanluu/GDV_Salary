@@ -87,7 +87,7 @@ const index = (props) => {
                   style={{ marginTop: fontScale(20) }}
                   columns
                   rightIcon={images.store}
-                  titleArray={["TBTS", "TBTT", "VAS"]}
+                  titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
                   item={[item.prePaid, item.postPaid, item.vas]}
                   title={item.shopName}
                   onPress={() =>
@@ -102,31 +102,12 @@ const index = (props) => {
                 />
                {
                    index==data.length-1 ?  <GeneralListItem
-                  company
-                  style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
-                  icon={images.branch}
-                  titleArray={[
-                    "TBTS", 
-                    "TBTT",
-                    "Vas",
-                    "KHTT",
-                    "Bán lẻ",
-                    "% Lên gói",
-                    "TBTT",
-                    " TBTS thoại gói > =99k",
-                  ]}
-                  item={[
-                    generalData.prePaid,
-                    generalData.postPaid,
-                    generalData.vas,
-                    generalData.importantPlan,
-                    generalData.retailRevenue,
-                    "",
-                    generalData.prePaidPck,
-                    generalData.postPaidOverNinetyNine,
-                  ]}
-                  title={generalData.shopName}
-                /> : null
+                   style={{ marginBottom: fontScale(80), marginTop: -fontScale(3) }}
+                   fiveColumnCompany
+                   title={generalData.shopName}
+                   titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
+                   item={[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                   icon={images.branch} />  : null
                }
               </View>
             )}

@@ -91,7 +91,6 @@ const Search = (props) => {
 
     const onRadioPress = (value) => {
         setRadioValue(value)
-        console.log(value)
     }
 
     return (
@@ -184,11 +183,12 @@ const Search = (props) => {
                                     />
                             }
 
-                            {/* {
+                            {
                                 props.showPicker[1] == true && props.dataTwo?
                                     <DataPicker
                                         advancedSearch
                                         data={props.dataTwo&&props.dataTwo}
+                                        fixed={props.fixed}
                                         width={width - fontScale(65)}
                                         field={props.fieldTwo}
                                         fieldKey={props.fieldTwo}
@@ -201,17 +201,14 @@ const Search = (props) => {
                                     <DataPicker
                                         advancedSearch
                                         data={props.dataThree&&props.dataThree}
+                                        fixed={props.fixed}
                                         width={width - fontScale(65)}
                                         field={props.fieldThree}
                                         fieldKey={props.fieldThree}
                                         onPress={props.onChangePickerThree}
                                         style={{ marginTop: fontScale(20), marginRight: fontScale(5) }}
                                     /> : null
-                            } */}
-                            {/* {
-                                props.withPermission ? 
-                                
-                            } */}
+                            }
                             <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                                 <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.cancle} onPress={() => setSelectModal(!selectModal)} />
                                 <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.yes} color="green" width={fontScale(100)} icon={images.check} onPress={() => _onPressOK()} />

@@ -60,7 +60,6 @@ const index = (props) => {
     }
 
     const getData = async (month, branchCode, shopCode, empCode, sort) => {
-        console.log(month, branchCode, shopCode, empCode, sort)
         setLoading(true)
         setData([])
         setMessage("")

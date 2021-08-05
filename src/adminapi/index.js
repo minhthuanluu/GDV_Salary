@@ -202,7 +202,6 @@ export const getAdminKPIMonthTopTeller = async (
       navigation.navigate("SignIn");
     }
   });
-  console.log(branchCode, month, sort,token);
   let data = {
     message: "",
     status: "",
@@ -256,7 +255,6 @@ export const getAdminKPIMonthTopTeller = async (
 };
 
 export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
-  console.log(branchCode, sort);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -318,7 +316,6 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
 };
 
 export const getKPIGroup = async (navigation, month) => {
-  console.log(month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -380,6 +377,7 @@ export const getKPIGroup = async (navigation, month) => {
 };
 
 export const getKPIByMonth = async (month, branchCode, shopCode) => {
+  console.log(month, branchCode, shopCode)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -393,9 +391,9 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
     status: "",
     res: null,
     loading: null,
+    length:0,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
@@ -407,7 +405,6 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -417,7 +414,7 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
             length: 0,
             error: null,
           };
-        } else if (res.data.data.length > 0) {
+        } else if (res.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
@@ -425,6 +422,15 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
             length: res.data.data.length,
             error: null,
           };
+        } else {
+          data = {
+            data: res.data.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          }
         }
       }
     })

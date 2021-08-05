@@ -1116,7 +1116,6 @@ export const getAllEmp = async (navigation, branchCode) => {
 };
 
 export const getAdminKPITopTeller = async (navigation, branchCode, month, sort) => {
-  console.log(branchCode, month, sort)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1483,7 +1482,6 @@ export const getExpenseManagement = async (month) => {
     },
   })
     .then((res) => {
-      console.log(res.data)
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
@@ -1630,7 +1628,6 @@ export const getAllAvgIncome = async (navigation, branchCode, shopCode) => {
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",

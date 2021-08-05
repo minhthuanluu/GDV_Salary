@@ -30,7 +30,6 @@ const index = () => {
     setMessage("");
     setLoading(true);
     await getAllAvgIncomeGroup(navigation).then((res) => {
-        console.log(res);
       setLoading(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {

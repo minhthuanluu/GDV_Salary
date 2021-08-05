@@ -50,7 +50,6 @@ const AdminTopTellerAvgIncome = () => {
       if (res.status == "success") {
         setLoading(false);
         setBranchList(res.data);
-        console.log(res.data)
         setBranchCode(res.data[0].shopCode);
 
       }
@@ -71,7 +70,6 @@ const AdminTopTellerAvgIncome = () => {
   }
 
   const onChangeBranch = async (value) => {
-    console.log(value)
     setLoading(true)
     setBranchCode(value);
     await getAllShop(navigation, branchCode).then((res) => {
@@ -97,12 +95,9 @@ const AdminTopTellerAvgIncome = () => {
   }
 
   const getData = async (branchCode, sort) => {
-    // console.log(branchCode, month, sort)
-
     setMessage("");
     setLoadingData(true);
     await getTopTellerByAvgIncome(navigation, branchCode, sort).then((res) => {
-        console.log(res)
       setLoadingData(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {

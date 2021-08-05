@@ -29,24 +29,28 @@ const index = (props) => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const getData = async () => {
-    const {item,month} = route.params;
-    let shopCode = item.shopCode;
+  const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    console.log(month+' - '+shopCode)
-    
+    await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+      if (data.status == "success") {
+        setData(data.data.data);
+        setGeneralData(data.data.general);
+        setLoading(false);
+      }
+      console.log(data);
+    });
   };
 
   useEffect(() => {
-    const {item,month} = route.params;
+    const { month, branchCode } = route.params?.item;
     setMonth(month);
-    getData();
-  }, [month]);
+    getData(month, branchCode, "");
+  }, [""]);
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const {item,month} = route.params;
-    getData(value, item.shopCode);
+    const { branchCode } = route.params?.item;
+    getData(value, branchCode, "");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -101,6 +105,7 @@ const index = (props) => {
                   company
                   style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
                   icon={images.branch}
+                  color={"#D19E01"}
                   titleArray={[
                     "TBTS", 
                     "TBTT",

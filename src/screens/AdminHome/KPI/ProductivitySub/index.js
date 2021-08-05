@@ -77,7 +77,7 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[fontScale(100), fontScale(100), fontScale(100), fontScale(100), fontScale(100), fontScale(90)]}
+          widthArray={[fontScale(100), fontScale(50), width/7, width/7, fontScale(60), fontScale(60)]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
@@ -91,7 +91,7 @@ const index = (props) => {
           }
           loading={loading}
           hideFirstColHeader
-          headerMarginLeft={-fontScale(27)}
+          headerMarginLeft={fontScale(22)}
           textAlign="center"
           firstRowBg={"#FBFDC3"}
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}

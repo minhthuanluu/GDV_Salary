@@ -95,39 +95,9 @@ const AdminTopTeller = () => {
     })
   }
 
-  // const getData = async (branchCode, month, sort) => {
-  //   console.log(branchCode, month, sort)
-
-  //   setMessage("");
-  //   setLoadingData(true);
-  //   await getAdminKPIMonthTopTeller(navigation, branchCode, month, sort).then((res) => {
-  //     setLoadingData(false);
-  //     if (res.status == "success") {
-  //       if (res.data.length > 0 || res.data.data.length > 0) {
-  //         setData(res.data.data);
-  //         setLoadingData(false);
-  //       } else {
-  //         setData([])
-  //         setMessage(res.message)
-  //         setLoadingData(false);
-  //       }
-  //     }
-  //     if (res.status == "failed") {
-  //       setMessage("Không có dữ liệu")
-  //       setLoadingData(false);
-  //     }
-  //     if (res.status == "v_error") {
-  //       Toast.show({
-  //         text1: "Cảnh báo",
-  //         text2: res.message,
-  //         type: "error",
-  //         visibilityTime: 1000,
-  //         autoHide: true,
-  //         onHide: () => navigation.navigate("AdminHome")
-  //       })
-  //     }
-  //   })
-  // }
+  const onChangeShop = async(value)=>{
+    getAllEmp()
+  }
 
   const getData = async (branchCode, month, sort) => {
     setMessage("");
@@ -135,7 +105,6 @@ const AdminTopTeller = () => {
     await getAdminKPIMonthTopTeller(navigation, branchCode, month, sort).then((res) => {
       setLoadingData(false);
         if (res.status == "success") {
-          console.log(res.data)
           if (res.data.length > 0 || res.data.data.length > 0) {
             setData(res.data.data);
             setLoadingData(false);
@@ -181,7 +150,6 @@ const AdminTopTeller = () => {
   const checkRole = async () => {
     await _retrieveData("userInfo").then((user) => {
       let role = user?.userId.userGroupId.code;
-      console.log(user?.userId)
       setDefaultShopName(user?.userId.shopId.shopName);
       setDefaultShopCode(user?.userId.shopId.shopCode)
       setRole(role) 
@@ -209,7 +177,7 @@ const AdminTopTeller = () => {
         fieldTwo={shopList.map((item) => item.shopName)}
         fieldThree={empList.map((item, index) => item.maGDV)}
         onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
-        showPicker={[true, true, false]}
+        showPicker={[true, false, false]}
         onPressOK={(value)=>getData(branchCode||defaultShopCode,month,value.sort)}
         fixed={role!="VMS_CTY" ? true : false}
         fixedData={defaultShopName}
