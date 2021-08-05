@@ -60,6 +60,7 @@ const index = (props) => {
     }
 
     const getData = async (month, branchCode, shopCode, empCode, sort) => {
+        console.log(month, branchCode, shopCode, empCode, sort)
         setLoading(true)
         setData([])
         setMessage("")
@@ -159,7 +160,7 @@ const index = (props) => {
                 fieldTwo={shopList.map((item) => item.shopName)}
                 fieldThree={empList.map((item, index) => item.maGDV)}
                 onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
-                showPicker={[true, true, false]}
+                showPicker={[true, false, false]}
                 onPressOK={() => getData(month, branchCode, shopCode, empCode, sort)}
                 fixed={role!="VMS_CTY" ? true : false}
                 fixedData={defaultShopName}
@@ -167,8 +168,6 @@ const index = (props) => {
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
                 {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
-
-
                 <Table
                     data={data}
                     table

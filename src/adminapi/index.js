@@ -394,9 +394,10 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
     length:0,
     error: null,
   };
+  
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
+    url: shopCode ? `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}` : `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -424,7 +425,7 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
           };
         } else {
           data = {
-            data: res.data.data,
+            data: res.data,
             isLoading: false,
             status: "success",
             length: Object.values(res.data.data).length,
@@ -518,6 +519,7 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
       navigation.navigate("SignIn");
     }
   });
+  console.log(token)
   let data = {
     message: "",
     status: "",

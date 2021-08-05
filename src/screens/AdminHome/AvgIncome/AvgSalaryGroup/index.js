@@ -171,10 +171,10 @@ const index = () => {
           numColumn={6}
           headers={[
             "",
-            "CF>20tr",
-            "CF>=17tr",
-            "CF>=12tr",
-            "CF<12tr",
+            ">20tr",
+            ">=17tr",
+            ">=12tr",
+            "<12tr",
             "Tổng GDV",
           ]}
           headersTextColor={"#00BECC"}
@@ -183,12 +183,12 @@ const index = () => {
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(140),
             fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(90)
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(70)
           ]}
           fields={data.map((item) => [
             item.shopName,

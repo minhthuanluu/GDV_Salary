@@ -30,7 +30,7 @@ const AdminTopTeller = () => {
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
   const navigation = useNavigation();
-  const [branchCode, setBranchCode] = useState("2MFHCM1");
+  const [branchCode, setBranchCode] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [shopList, setShopList] = useState([]);
   const [shopCode, setShopCode] = useState('');
@@ -134,7 +134,7 @@ const AdminTopTeller = () => {
       backAction
     );
     getBranchList();
-    getData(branchCode, month, sort);
+    getData("", month, sort);
     setPlaceHolder("Chọn chi nhánh");
     checkRole();
     return () => {

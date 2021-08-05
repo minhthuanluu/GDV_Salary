@@ -19,7 +19,6 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -37,20 +36,19 @@ const index = (props) => {
         setGeneralData(data.data.general);
         setLoading(false);
       }
-      console.log(data);
     });
   };
 
   useEffect(() => {
-    const { month, branchCode } = route.params?.item;
+    const { month, shopCode } = route.params?.branchItem;
     setMonth(month);
-    getData(month, branchCode, "");
+    getData(month, shopCode, "");
   }, [""]);
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const { branchCode } = route.params?.item;
-    getData(value, branchCode, "");
+    const { shopCode } = route.params?.branchItem;
+    getData(value, shopCode, "");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -93,42 +91,42 @@ const index = (props) => {
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
                       item: {
-                        branchCode: route.params?.item.branchCode,
-                        shopCode: item.shopCode,
-                        month: month,
-                      },
+                        "branchCode": route.params?.branchItem?.shopCode,
+                        "shopCode": item.shopCode,
+                        "month": month
+                      }
                     })
                   }
                 />
-               {
-                   index==data.length-1 ?  <GeneralListItem
-                  company
-                  style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
-                  icon={images.branch}
-                  color={"#D19E01"}
-                  titleArray={[
-                    "TBTS", 
-                    "TBTT",
-                    "Vas",
-                    "KHTT",
-                    "Bán lẻ",
-                    "% Lên gói",
-                    "TBTT",
-                    " TBTS thoại gói > =99k",
-                  ]}
-                  item={[
-                    generalData.prePaid,
-                    generalData.postPaid,
-                    generalData.vas,
-                    generalData.importantPlan,
-                    generalData.retailRevenue,
-                    "",
-                    generalData.prePaidPck,
-                    generalData.postPaidOverNinetyNine,
-                  ]}
-                  title={generalData.shopName}
-                /> : null
-               }
+                {
+                  index == data.length - 1 ? <GeneralListItem
+                    company
+                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                    icon={images.branch}
+                    color={"#D19E01"}
+                    titleArray={[
+                      "TBTS",
+                      "TBTT",
+                      "Vas",
+                      "KHTT",
+                      "Bán lẻ",
+                      "% Lên gói",
+                      "TBTT",
+                      " TBTS thoại gói > =99k",
+                    ]}
+                    item={[
+                      generalData.prePaid,
+                      generalData.postPaid,
+                      generalData.vas,
+                      generalData.importantPlan,
+                      generalData.retailRevenue,
+                      "",
+                      generalData.prePaidPck,
+                      generalData.postPaidOverNinetyNine,
+                    ]}
+                    title={generalData.shopName}
+                  /> : null
+                }
               </View>
             )}
           />

@@ -89,9 +89,9 @@ const GeneralListItem = (props) => {
               </View>
               <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(5), marginTop: fontScale(20) }}>
 
-                <Item title={props.titleArray[5]} content={props.item[5]} />
-                <Item title={props.titleArray[6]} content={props.item[6]} />
-                <Item title={props.titleArray[7]} content={props.item[7]} />
+                <Item title={props.titleArray[5]} content={props.item[5]} style={props.styleCol6}/>
+                <Item title={props.titleArray[6]} content={props.item[6]} style={props.styleCol7} />
+                <Item title={props.titleArray[7]} content={props.item[7]} style={props.styleCol8}/>
               </View>
             </View>
             :
@@ -119,8 +119,8 @@ const GeneralListItem = (props) => {
                 <View style={{ flexDirection: "row" }}>
                   {
                     props.titleArray.map((item, index) => <View style={{ flex: 1 }} >
-                      <Text key={index} style={{ textAlign: "center", fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{item}</Text>
-                      <Text style={{ textAlign: "center", fontWeight: "bold", color: colors.primary, fontSize: fontScale(14) }}>{props.item[index]}</Text>
+                      <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{item}</Text>
+                      <Text key={index} style={{ textAlign: "center", fontWeight: "bold", color: colors.primary, fontSize: fontScale(14) }}>{props.item[index]}</Text>
                     </View>)
                   }
                 </View>
@@ -143,7 +143,7 @@ const GeneralListItem = (props) => {
 
 const Item = (props) => {
   return (
-    <View style={[{ justifyContent: "center", flex: 1 }]}>
+    <View>
       <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.grey }}>{props.title}</Text>
       <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(10) }}>{props.content}</Text>
     </View>

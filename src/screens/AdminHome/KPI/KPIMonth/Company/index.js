@@ -19,16 +19,29 @@ import { useNavigation } from "@react-navigation/native";
 const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [generalData, setGeneralData] = useState({});
+  const [generalData, setGeneralData] = useState({
+    "icon": "",
+    "importantPlan": "",
+    "postPaid": "",
+    "postPaidOverNinetyNine": "",
+    "prePaid": "",
+    "prePaidPck": "",
+    "retailRevenue": "",
+    "shopCode": "",
+    "shopName": "",
+    "vas": "",
+  });
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const navigation = useNavigation();
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+      console.log(data.data.general)
       if (data.status == "success") {
         setData(data.data.data);
         setGeneralData(data.data.general);
+        console.log(data.data.general)
         setLoading(false);
       }
     });
@@ -57,39 +70,46 @@ const index = (props) => {
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary}style={{ marginTop: fontScale(20) }}/>: null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
         <View>
           <FlatList
             style={{ marginTop: fontScale(10) }}
             data={data}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <GeneralListItem
-                style={{ marginTop: fontScale(20) }}
-                columns
-                rightIcon={images.branch}
-                titleArray={["TBTS", "TBTT", "VAS"]}
-                item={[item.prePaid, item.postPaid, item.vas]}
-                title={item.shopName}
-                onPress={() => navigation.navigate("AdminKPIMonthShop",{
-                  item:{
-                    "branchCode":item.shopCode,
-                    "month":month
-                  }
-                })}
-              />
+              <View>
+                <GeneralListItem
+                  style={{ marginTop: fontScale(20) }}
+                  columns
+                  
+                  rightIcon={images.branch}
+                  titleArray={["TBTS", "TBTT", "VAS"]}
+                  item={[item.prePaid, item.postPaid, item.vas]}
+                  title={item.shopName}
+                  onPress={() => navigation.navigate("AdminKPIMonthShop", {
+                    item: {
+                      "branchCode": item.shopCode,"month": month
+                    }
+                  })}
+                />
+                { index == data.length - 1 ?
+                  <GeneralListItem company
+                  style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                    icon={images.company}
+                    color={"#D19E01"}
+                    titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
+                    item={[generalData.prePaid, generalData.postPaid, generalData.vas, generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
+                    title={generalData.shopName}
+                    styleCol8={{width:400}}
+                  /> : null
+                }
+              </View>
             )}
           />
-          <GeneralListItem company
-            style={{ marginTop: -fontScale(30) }}
-            icon={images.company}
-            color={"#D19E01"}
-            titleArray={["TBTS","TBTT","Vas","KHTT","Bán lẻ","% Lên gói","TBTT"," TBTS thoại gói > =99k",]}
-            item={[generalData.prePaid,generalData.postPaid,generalData.vas,generalData.importantPlan,generalData.retailRevenue,"",generalData.prePaidPck,generalData.postPaidOverNinetyNine]}
-            title={generalData.shopName}
-          />
+
         </View>
-        
+
       </View>
     </SafeAreaView>
   );

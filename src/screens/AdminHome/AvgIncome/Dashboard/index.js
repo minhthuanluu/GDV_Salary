@@ -18,6 +18,7 @@ const index = (props) => {
   const [user,setUser] = useState(User)
 
   const checkAdminAvgIncomeRole = () => {
+    console.log('go to Lương Bình Quân')
      _retrieveData("userInfo").then((item) => {
       setUser(item)
       if (item.userId.userGroupId.code == "VMS_CTY") {

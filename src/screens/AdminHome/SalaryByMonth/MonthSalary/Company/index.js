@@ -29,12 +29,14 @@ const index = (props) => {
     setLoading(true);
     setMessage("")
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
+      console.log(data.data.general)
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
           setData([])
           setMessage(data.message);
         } else {
+          
           setData(data.data.data);
           setGeneralData(data.data.general);
         }

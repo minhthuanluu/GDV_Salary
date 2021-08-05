@@ -80,7 +80,7 @@ const index = (props) => {
                 renderItem={({ item, index }) => (
                   <View>
                     <GeneralListItem company
-                      style={{ marginTop: fontScale(5) }}
+                      style={{ marginTop: fontScale(-20),marginBottom:fontScale(40) }}
                       columns
                       backgroundColor={colors.white}
                       color={colors.black}
@@ -108,7 +108,7 @@ const index = (props) => {
                    {
                        index==data.length-1 ?  <GeneralListItem
                       company
-                      style={{ marginBottom: fontScale(80),marginTop:fontScale(35) }}
+                      style={{ marginBottom: fontScale(80),marginTop:fontScale(20) }}
                       icon={images.store}
                       color={"#D19E01"}
                       titleArray={[
