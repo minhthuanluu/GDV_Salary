@@ -171,14 +171,7 @@ const AdminTopTeller = () => {
     setMonth(value);
     await getData(branchCode, shopCode, sort, defaultShopName)
   }
-
-  const checkRole = async () => {
-    await _retrieveData("userInfo").then((user) => {
-      let role = user?.userId.userGroupId.code;
-      setRole(role)
-    })
-  }
-
+  
   const checkRole = async () => {
     await _retrieveData("userInfo").then((user) => {
       let role = user?.userId.userGroupId.code;

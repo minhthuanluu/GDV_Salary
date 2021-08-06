@@ -215,7 +215,7 @@ productivitySub: "Năng suất bình quân",
 
   //Admin > Chất lượng thuê bao
   alert: "Cảnh báo vi phạm",
-  summary: "Thống kê"
+  summary: "Thống kê",
 
   totalOutcome:"Tổng chi phí"
 };

@@ -51,6 +51,7 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
     import AdminSubscriberQualityFCard3TB from "./AdminHome/SubscriberQuality/Summary/FCard3TB";// Admin > Bình quân thu nhập > Lương BQ
         import AdminAvgIncomeShop from "./AdminHome/AvgIncome/AvgSalary/Shop"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng
         import AdminAvgIncomeTellers from "./AdminHome/AvgIncome/AvgSalary/Shop/Tellers"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng > Giao dịch viên
+import AdminTopTeller from './AdminHome/KPI/TopTeller';
 
 
 // GDV's screen
@@ -83,7 +84,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
             export const AdminDetailProductivitySubScreen = () => {return <AdminDetailProductivitySub />}
     export const AdminSalaryByMonthDashboardScreen = () => {return <AdminSalaryByMonthDashboard />}
         export const AdminExpenseManagementScreen = () => {return <AdminExpenseManagement />}
-        export const AdminTopTellersScreen = () => {return <View />}
+        export const AdminTopTellersScreen = () => {return <AdminTopTeller />}
         export const AdminSalaryGroupScreen = () => {return <AdminSalaryGroup />}
         export const AdminMonthSalaryScreen = () => {return <AdminMonthSalary />}
             export const AdminMonthSalaryShopScreen = () => {return <AdminMonthSalaryShop />}

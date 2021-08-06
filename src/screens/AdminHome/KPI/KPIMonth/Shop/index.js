@@ -92,7 +92,7 @@ const index = (props) => {
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
-                      branchItem: {
+                      item: {
                         branchCode: route.params?.branchItem.branchCode,
                         shopCode: item.shopCode,
                         month: month,
