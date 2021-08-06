@@ -4,7 +4,7 @@ import { Image, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminSubscriberQualityDasboardScreen, AdminSubscriberQualityFCard1TBScreen, AdminSubscriberQualityFCard3TBScreen } from './src/screens';
+import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen } from './src/screens';
 import { colors } from './src/utils/Colors';
 import { images } from './src/utils/Images';
 import { _retrieveData } from './src/utils/Storage';
@@ -139,14 +139,10 @@ const AdminStack = () => {
       <Stack.Screen name="AdminAvgIncomeTopSellers" component={AdminAvgIncomeTopSellersScreen} />
       <Stack.Screen name="AdminAvgIncomeSalaryGroup" component={AdminAvgIncomeSalaryGroupScreen} />
       <Stack.Screen name="AdminAvgIncome" component={AdminAvgIncomeScreen} />
-      {/* <Stack.Screen name="AdminAvgIncomeShop" component={AdminAvgIncomeShopScreen} /> */}
-      {/* <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} /> */}
+      <Stack.Screen name="AdminAvgIncomeShop" component={AdminAvgIncomeShopScreen} />
+      <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} />
       <Stack.Screen name="AdminExpenseManagement" component={AdminExpenseManagementScreen} />
-      {/* <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} /> */}
-      <Stack.Screen name="AdminSubscriberQualityDasboard" component={AdminSubscriberQualityDasboardScreen} />
-      <Stack.Screen name="AdminSubscriberQualityFCard1TB" component={AdminSubscriberQualityFCard1TBScreen} />
-      <Stack.Screen name="AdminSubscriberQualityFCard3TB" component={AdminSubscriberQualityFCard3TBScreen} />
-      
+      <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
       
       {/* AdminExpenseManagementScreen || AdminKPIGroupKPI || AdminTopTellers*/}
     </Stack.Navigator>
