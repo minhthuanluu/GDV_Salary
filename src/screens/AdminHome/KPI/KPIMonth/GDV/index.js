@@ -61,7 +61,10 @@ const index = (props) => {
           <Body
             showInfo={false}
             style={{ marginTop: fontScale(25), zIndex: -10 }}
+            
           />
+         
+          
           <View style={{ flex: 1, backgroundColor: colors.white }}>
             {loading == true ? (
               <ActivityIndicator
@@ -71,6 +74,10 @@ const index = (props) => {
               />
             ) : null}
     
+            <View style={{flexDirection: "row", alignSelf: "center"}}>
+            <Text style={styles.title}>Cửa hàng: </Text>
+            <Text style={styles.text}>{route.params?.item.shopName}</Text>
+    </View>
             <View style={{ flex: 1 }}>
               <FlatList
                 style={{ marginTop: -fontScale(20) }}
@@ -83,6 +90,7 @@ const index = (props) => {
                       style={{ marginTop: fontScale(5) }}
                       columns
                       backgroundColor={colors.white}
+                      color={colors.black}
                     //   rightIcon={images.store}
                       titleArray={[ "TBTS", 
                         "TBTT",
@@ -92,7 +100,7 @@ const index = (props) => {
                         "% Lên gói",
                         "TBTT",
                         " TBTS thoại gói > =99k",]}
-                      item={[item.prePaid, item.postPaid, item.vas, item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine]}
+                      item={[item.postPaid, item.prePaid, item.vas, item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine]}
                       title={item.shopName}
                       onPress={() =>
                         navigation.navigate("AdminKPIMonthGDV", {
@@ -109,6 +117,7 @@ const index = (props) => {
                       company
                       style={{ marginBottom: fontScale(80),marginTop:fontScale(35) }}
                       icon={images.store}
+                      color={"#D19E01"}
                       titleArray={[
                         "TBTS", 
                         "TBTT",
@@ -120,8 +129,8 @@ const index = (props) => {
                         " TBTS thoại gói > =99k",
                       ]}
                       item={[
-                        generalData.prePaid,
                         generalData.postPaid,
+                        generalData.prePaid,
                         generalData.vas,
                         generalData.importantPlan,
                         generalData.retailRevenue,

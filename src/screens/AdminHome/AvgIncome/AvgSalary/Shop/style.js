@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
-import { colors } from "../../../../utils/Colors";
-import { fontScale } from "../../../../utils/Fonts";
+import { colors } from "../../../../../utils/Colors";
+import { fontScale } from "../../../../../utils/Fonts";
 
 export const styles = StyleSheet.create({
     container:{
@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     },
     body:{
         flex:1,
+        marginTop:-fontScale(10),
         backgroundColor:colors.white
     }
 })

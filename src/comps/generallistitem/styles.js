@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { fontScale } from "../../utils/Fonts";
-
+ 
 export const styles = StyleSheet.create({
     container:{
         marginHorizontal:fontScale(10),

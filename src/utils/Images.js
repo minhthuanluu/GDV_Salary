@@ -71,6 +71,8 @@ export const images = {
     toptellers: require("../../assets/ic_toptellers.png"),
     groupkpi: require("../../assets/ic_groupkpi.png"),
     teamwork: require("../../assets/teamwork.png"),
+    alert: require("../../assets/ic_alert.png"),
+    summary: require("../../assets/ic_summary.png"),
 
     
 }

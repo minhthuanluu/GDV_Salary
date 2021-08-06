@@ -36,7 +36,7 @@ import AdminKPIDashboard from "./AdminHome/KPI/Dashboard"; // AdminHome > KPI
     import AdminProductivitySub from "./AdminHome/KPI/ProductivitySub"; // AdminHome > KPI > Năng suất bình quân
 import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  // AdminHome > Lương theo tháng
     import AdminExpenseManagement from "./AdminHome/SalaryByMonth/ExpenseManagement"; // AdminHome > Lương theo tháng > Quản lý chi phí
-    import AdminTopTellers from "./AdminHome/SalaryByMonth/TopSellers"; // AdminHome > Lương theo tháng >Top GDV
+    // import AdminTopTellers from "./AdminHome/SalaryByMonth/TopSellers"; // AdminHome > Lương theo tháng >Top GDV
     import AdminSalaryGroup from "./AdminHome/SalaryByMonth/SalaryGroup"; // AdminHome > Lương theo tháng > Nhóm lương
     import AdminMonthSalary from "./AdminHome/SalaryByMonth/MonthSalary/Company"; // AdminHome > Lương theo tháng > Lương tháng
          import AdminMonthSalaryShop from "./AdminHome/SalaryByMonth/MonthSalary/Shop"; 
@@ -45,6 +45,10 @@ import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  
     import AdminAvgIncomeTopSellers from "./AdminHome/AvgIncome/TopTellers"; // AdminHome > Bình quân thu nhập > Top GDV
     import AdminAvgIncomeSalaryGroup from "./AdminHome/AvgIncome/AvgSalaryGroup"; // Admin > Bình quân thu nhập > Nhóm lương BQ
     import AdminAvgIncome from "./AdminHome/AvgIncome/AvgSalary"; // Admin > Bình quân thu nhập > Lương BQ
+    import AdminSubscriberQualityDasboard from "./AdminHome/SubscriberQuality/Dashboard"; 
+    import AdminSubscriberQualityFCard1TB from "./AdminHome/SubscriberQuality/Summary/FCard1TB";
+    import AdminSubscriberQualityFCard3TB from "./AdminHome/SubscriberQuality/Summary/FCard3TB";// Admin > Bình quân thu nhập > Lương BQ
+import { View } from 'react-native';
 
 
 // GDV's screen
@@ -76,7 +80,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminProductivitySubScreen = () => {return <AdminProductivitySub />}
     export const AdminSalaryByMonthDashboardScreen = () => {return <AdminSalaryByMonthDashboard />}
         export const AdminExpenseManagementScreen = () => {return <AdminExpenseManagement />}
-        export const AdminTopTellersScreen = () => {return <AdminTopTellers />}
+        export const AdminTopTellersScreen = () => {return <View />}
         export const AdminSalaryGroupScreen = () => {return <AdminSalaryGroup />}
         export const AdminMonthSalaryScreen = () => {return <AdminMonthSalary />}
         export const AdminMonthSalaryShopScreen = () => {return <AdminMonthSalaryShop />}
@@ -85,6 +89,9 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminAvgIncomeTopSellersScreen = () => {return <AdminAvgIncomeTopSellers />}
         export const AdminAvgIncomeSalaryGroupScreen = () => {return <AdminAvgIncomeSalaryGroup />}
         export const AdminAvgIncomeScreen = () => {return <AdminAvgIncome />}
+    export const AdminSubscriberQualityDasboardScreen = () => {return <AdminSubscriberQualityDasboard/>}   
+        export const AdminSubscriberQualityFCard1TBScreen = () => {return <AdminSubscriberQualityFCard1TB />}
+        export const AdminSubscriberQualityFCard3TBScreen = () => {return <AdminSubscriberQualityFCard3TB />}  
         
 
 // Auth's screen

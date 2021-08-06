@@ -69,7 +69,7 @@ const index = (props) => {
                 columns
                 rightIcon={images.branch}
                 titleArray={["TBTS", "TBTT", "VAS"]}
-                item={[item.prePaid, item.postPaid, item.vas]}
+                item={[item.postPaid, item.prePaid, item.vas]}
                 title={item.shopName}
                 onPress={() => navigation.navigate("AdminKPIMonthShop",{
                   item:{
@@ -83,8 +83,9 @@ const index = (props) => {
           <GeneralListItem company
             style={{ marginTop: -fontScale(30) }}
             icon={images.company}
+            color={"#D19E01"}
             titleArray={["TBTS","TBTT","Vas","KHTT","Bán lẻ","% Lên gói","TBTT"," TBTS thoại gói > =99k",]}
-            item={[generalData.prePaid,generalData.postPaid,generalData.vas,generalData.importantPlan,generalData.retailRevenue,"",generalData.prePaidPck,generalData.postPaidOverNinetyNine]}
+            item={[generalData.postPaid,generalData.prePaid,generalData.vas,generalData.importantPlan,generalData.retailRevenue,"",generalData.prePaidPck,generalData.postPaidOverNinetyNine]}
             title={generalData.shopName}
           />
         </View>

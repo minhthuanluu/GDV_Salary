@@ -1,4 +1,3 @@
-import color from 'color';
 import React from 'react';
 import { Text } from 'react-native';
 import { TouchableOpacity } from 'react-native';
@@ -7,6 +6,7 @@ import { View } from 'react-native';
 import { colors } from '../../../utils/Colors';
 import { fontScale } from '../../../utils/Fonts';
 import { styles } from "./styles";
+
 const TableRow = (props) => {
    const { index, fields, numColumn, lastIcon, widthArray, main, contentTextColor, fontWeight } = props;
  

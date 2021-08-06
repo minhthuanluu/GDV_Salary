@@ -88,7 +88,7 @@ const index = (props) => {
                   columns
                   rightIcon={images.store}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.prePaid, item.postPaid, item.vas]}
+                  item={[item.postPaid, item.prePaid, item.vas]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
@@ -96,6 +96,7 @@ const index = (props) => {
                         branchCode: route.params?.item.branchCode,
                         shopCode: item.shopCode,
                         month: month,
+                        shopName: item.shopName
                       },
                     })
                   }
@@ -105,6 +106,7 @@ const index = (props) => {
                   company
                   style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
                   icon={images.branch}
+                  color={"#D19E01"}
                   titleArray={[
                     "TBTS", 
                     "TBTT",
@@ -116,8 +118,8 @@ const index = (props) => {
                     " TBTS thoại gói > =99k",
                   ]}
                   item={[
-                    generalData.prePaid,
                     generalData.postPaid,
+                    generalData.prePaid,
                     generalData.vas,
                     generalData.importantPlan,
                     generalData.retailRevenue,

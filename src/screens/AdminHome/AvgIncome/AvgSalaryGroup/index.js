@@ -14,6 +14,7 @@ import { images } from "../../../../utils/Images";
 
 import { BackHandler } from "react-native";
 import { getAllAvgIncomeGroup, getKPIGroup } from "../../../../adminapi";
+import { ActivityIndicator } from "react-native";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -162,7 +163,8 @@ const index = () => {
       <Text style={styles.notification}>{notification}</Text>
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white, }}>
-      <View style={{marginTop: -30}}>
+          {loading==true ? <ActivityIndicator color={colors.primary} size="small"/> : null}
+      <View style={{marginTop: -fontScale(30)}}>
         <Table
           style={styles.table}
           data={data}
@@ -187,7 +189,7 @@ const index = () => {
             fontScale(100),
             fontScale(100),
             fontScale(100),
-            fontScale(90),
+            fontScale(90)
           ]}
           fields={data.map((item) => [
             item.shopName,

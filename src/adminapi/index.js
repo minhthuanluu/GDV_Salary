@@ -194,7 +194,6 @@ export const getAdminKPIMonthTopTeller = async (
   month,
   sort
 ) => {
-  console.log(branchCode, month, sort);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -203,6 +202,7 @@ export const getAdminKPIMonthTopTeller = async (
       navigation.navigate("SignIn");
     }
   });
+  console.log(branchCode, month, sort,token);
   let data = {
     message: "",
     status: "",
@@ -395,6 +395,7 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
     loading: null,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
@@ -406,6 +407,7 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
   })
     .then((res) => {
       if (res.status == 200) {
+        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -415,12 +417,12 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
             length: 0,
             error: null,
           };
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null,
           };
         }
@@ -441,7 +443,6 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
 };
 
 export const getMonthSalaryGroup = async (navigation, month) => {
-  console.log(month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -515,6 +516,7 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
     message: "",
     status: "",
     res: null,
+    length:0,
     loading: null,
     error: null,
   };
@@ -545,6 +547,15 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
             status: "success",
             length: Object.values(res.data.data).length,
             error: null,
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
           };
         }
       }
@@ -622,5 +633,69 @@ export const getAllAvgIncomeGroup = async (navigation) => {
         };
       }
     });
+  return data;
+};
+
+export const getAdminSubscriberQualityDashboard = async (navigation) => {
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    loading: null,
+    error: null
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getSubscriberQualityDashboard`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  }).then((res) => {
+    if (res.status == 200) {
+      if (res.data.V_ERROR) {
+        data = {
+          message: "Chức năng này đang được bảo trì",
+          data: null,
+          isLoading: false,
+          status: "v_error",
+          length: 0,
+          error: null
+        }
+      } else if (Object.values(res.data.data).length > 0) {
+        data = {
+          data: res.data.data,
+          isLoading: false,
+          status: "success",
+          length: Object.values(res.data.data).length,
+          error: null
+        };
+      }
+    }
+  }).catch((error) => {
+    if (error) {
+      if (error.response.data.status == 403) {
+        navigation.navigate("SignIn")
+      } else {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error
+        };
+      }
+    }
+  });
+
   return data;
 };

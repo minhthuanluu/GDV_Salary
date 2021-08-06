@@ -208,5 +208,12 @@ productivitySub: "Năng suất bình quân",
   fixed:"Cố định",
   incentive:"Khoán sp",
   topSeller:"Top GDV",
-  search:"Tìm kiếm"
+  search:"Tìm kiếm",
+
+
+
+  //Admin > Chất lượng thuê bao
+  alert: "Cảnh báo vi phạm",
+  summary: "Thống kê"
+
 };
