@@ -15,11 +15,10 @@ import { images } from "../../../../utils/Images";
 import { BackHandler } from "react-native";
 import { getMonthSalaryGroup } from "../../../../adminapi";
 import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = () => {
-  const [month, setMonth] = useState(
-    moment(new Date()).subtract(1, "months").format("MM/YYYY")
-  );
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const [message, setMessage] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -40,6 +39,18 @@ const index = () => {
         setMessage("Không có dữ liệu");
         setLoading(false);
       }
+
+      if (res.status == "v_error") {
+        Toast.show({
+            text1: "Cảnh báo",
+            text2: res.message,
+            type: "error",
+            visibilityTime: 1000,
+            autoHide: true,
+            onHide: () => navigation.goBack()
+        })
+    }
+
     });
   };
 
@@ -169,7 +180,6 @@ const index = () => {
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading==true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-      <View style={{marginTop: -30}}></View>
         <Table
           style={styles.table}
           data={data}
@@ -225,6 +235,7 @@ const index = () => {
           )}
         />
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };

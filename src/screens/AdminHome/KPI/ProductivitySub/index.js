@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { BackHandler } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { getProductivitySubByMonth } from '../../../../api';
 import { Body, DatePicker, Header, Table } from '../../../../comps';
 import { colors } from '../../../../utils/Colors';
 import { height, width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
 import { images } from '../../../../utils/Images';
+import { ToastNotif } from '../../../../utils/Logistics';
 import { text } from '../../../../utils/Text';
 import { styles } from './style';
 
@@ -34,8 +36,20 @@ const index = (props) => {
         }
       }
       if (res.status == "failed") {
-        setMessage(res.message)
         setLoading(false);
+        ToastNotif("Thông báo", res.message, "error", true, null)
+      }
+
+      if (res.status == "v_error") {
+        setLoading(false)
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     })
   }
@@ -77,7 +91,7 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[fontScale(100), fontScale(50), width/7, width/7, fontScale(60), fontScale(60)]}
+          widthArray={[fontScale(100), fontScale(50), width / 7, width / 7, fontScale(60), fontScale(60)]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
@@ -103,6 +117,7 @@ const index = (props) => {
           rowBg={data.map((item, index) => item.shopType == "BRANCH" ? "#C6FBFB" : "#fff")}
         />
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 }

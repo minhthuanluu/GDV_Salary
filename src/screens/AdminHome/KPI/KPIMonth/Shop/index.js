@@ -19,6 +19,7 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { ScrollView } from "react-native";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -40,15 +41,16 @@ const index = (props) => {
   };
 
   useEffect(() => {
-    const { month, shopCode } = route.params?.branchItem;
+    const { month, branchCode } = route.params?.branchItem;
+    console.log(month,branchCode)
     setMonth(month);
-    getData(month, shopCode, "");
+    getData(month, branchCode, "");
   }, [""]);
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const { shopCode } = route.params?.branchItem;
-    getData(value, shopCode, "");
+    const { branchCode } = route.params?.branchItem;
+    getData(value, branchCode, "");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -86,50 +88,53 @@ const index = (props) => {
                   columns
                   rightIcon={images.store}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.prePaid, item.postPaid, item.vas]}
+                  item={[item.postPaid, item.prePaid, item.vas]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
-                      item: {
-                        "branchCode": route.params?.branchItem?.shopCode,
-                        "shopCode": item.shopCode,
-                        "month": month
-                      }
+                      branchItem: {
+                        branchCode: route.params?.branchItem.branchCode,
+                        shopCode: item.shopCode,
+                        month: month,
+                      },
                     })
                   }
                 />
-                {
-                  index == data.length - 1 ? <GeneralListItem
-                    company
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                    icon={images.branch}
-                    color={"#D19E01"}
-                    titleArray={[
-                      "TBTS",
-                      "TBTT",
-                      "Vas",
-                      "KHTT",
-                      "Bán lẻ",
-                      "% Lên gói",
-                      "TBTT",
-                      " TBTS thoại gói > =99k",
-                    ]}
-                    item={[
-                      generalData.prePaid,
-                      generalData.postPaid,
-                      generalData.vas,
-                      generalData.importantPlan,
-                      generalData.retailRevenue,
-                      "",
-                      generalData.prePaidPck,
-                      generalData.postPaidOverNinetyNine,
-                    ]}
-                    title={generalData.shopName}
-                  /> : null
-                }
+              {
+                index==data.length-1 ? <GeneralListItem
+                company
+                style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
+                icon={images.branch}
+                color={"#D19E01"}
+                titleArray={[
+                  "TBTS", 
+                  "TBTT",
+                  "Vas",
+                  "KHTT",
+                  "Bán lẻ",
+                  "% Lên gói",
+                  "TBTT",
+                  " TBTS thoại gói > =99k",
+                ]}
+                item={[
+                  generalData.postPaid,
+                  generalData.prePaid,
+                  generalData.vas,
+                  generalData.importantPlan,
+                  generalData.retailRevenue,
+                  "",
+                  generalData.prePaidPck,
+                  generalData.postPaidOverNinetyNine,
+                ]}
+
+                title={generalData.shopName}
+              />  : null
+              }
+               
               </View>
             )}
           />
+          
         </View>
       </View>
     </SafeAreaView>
@@ -137,3 +142,6 @@ const index = (props) => {
 };
 
 export default index;
+
+
+

@@ -290,7 +290,7 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
             length: 0,
             error: null,
           };
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (Object.values(res.data).length > 0) {
           data = {
             data: res.data,
             isLoading: false,
@@ -377,7 +377,6 @@ export const getKPIGroup = async (navigation, month) => {
 };
 
 export const getKPIByMonth = async (month, branchCode, shopCode) => {
-  console.log(month, branchCode, shopCode)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -391,13 +390,11 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
     status: "",
     res: null,
     loading: null,
-    length:0,
     error: null,
   };
-  
   await axios({
     method: GET,
-    url: shopCode ? `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}` : `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
+    url: `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -415,7 +412,7 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
             length: 0,
             error: null,
           };
-        } else if (res.data.length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
@@ -423,15 +420,6 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
             length: res.data.data.length,
             error: null,
           };
-        } else {
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: Object.values(res.data.data).length,
-            error: null,
-            message: "Không có dữ liệu"
-          }
         }
       }
     })
@@ -519,7 +507,6 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
       navigation.navigate("SignIn");
     }
   });
-  console.log(token)
   let data = {
     message: "",
     status: "",
@@ -528,6 +515,7 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
     loading: null,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getMonthSalary?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,

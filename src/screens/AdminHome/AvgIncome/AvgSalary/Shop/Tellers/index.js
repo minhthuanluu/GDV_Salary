@@ -27,12 +27,13 @@ const index = (props) => {
     const [loading, setLoading] = useState(false);
 
     const getData = async () => {
-        let { branchItem, shopItem } = route.params;
-        let branchCode = branchItem.shopCode;
-        let shopCode = shopItem.shopCode;
+        const { month, branchCode, shopCode } = route.params?.branchItem;
+        
         setMessage('')
         setLoading(true)
         await getAllAvgIncome(navigation, branchCode, shopCode).then((res) => {
+            console.log(res)
+
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
                     setData(res.data.data);

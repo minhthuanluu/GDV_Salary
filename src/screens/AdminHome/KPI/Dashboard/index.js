@@ -24,10 +24,10 @@ const KPIHome = (props) => {
         navigation.navigate("AdminKPIMonth")
       }
       if (item.userId.userGroupId.code == "MBF_CHINHANH") {
-        navigation.navigate("AdminKPIMonthShop", { branchItem: { shopCode: item?.userId.shopId.shopCode,month:month } })
+        navigation.navigate("AdminKPIMonthShop", { branchItem: { "branchCode": item?.userId.shopId.shopCode,"month":month } })
       }
       if (item.userId.userGroupId.code == "MBF_CUAHANG") {
-        navigation.navigate("AdminKPIMonthGDV", { branchItem: { shopCode: item?.userId.shopId.parentShopId.shopCode }, shopItem: { shopCode: item?.userId.shopId.shopCode }, month:month })
+        navigation.navigate("AdminKPIMonthGDV", { branchItem: { "branchCode": item?.userId.shopId.parentShopId.shopCode,"shopCode" :item?.userId.shopId.shopCode,"month":month}})
       }
     })
   }

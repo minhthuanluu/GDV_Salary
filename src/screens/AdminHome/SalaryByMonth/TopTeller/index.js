@@ -12,15 +12,15 @@ import { width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
 import { images } from '../../../../utils/Images';
 import { checkUserRole, getLoginInfo } from '../../../../utils/Logistics';
-import { _retrieveData } from '../../../../utils/Storage';
+import { _retrieveData, _storeData } from '../../../../utils/Storage';
 import { text } from '../../../../utils/Text';
 import { styles } from './style'
 
 const index = (props) => {
-    const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+    const [month, setMonth] = useState(moment(new Date()).subtract(1,"months").format("MM/YYYY"));
     const [loading, setLoading] = useState(false);
     const [branchList, setBranchList] = useState([]);
-    const [branchCode, setBranchCode] = useState('2MFHCM1')
+    const [branchCode, setBranchCode] = useState('')
     const [shopList, setShopList] = useState([]);
     const [shopCode, setShopCode] = useState('');
     const [empCode, setEmpCode] = useState('');
@@ -59,36 +59,71 @@ const index = (props) => {
         })
     }
 
-    const getData = async (month, branchCode, shopCode, empCode, sort) => {
+    const getData = async (month, branchCode, shopCode, empCode, sort=0) => {
         console.log(month, branchCode, shopCode, empCode, sort)
         setLoading(true)
         setData([])
         setMessage("")
-        await getMonthSalaryTopTeller(month, branchCode, shopCode, empCode, sort).then((res) => {
-            const { data, error, status, isLoading, length, message } = res;
-            if (status == "success") {
-                setLoading(isLoading);
-                if (length == 0) {
-                    setMessage(message);
-                } else {
-                    setData(data);
+        await _storeData("defaultTopTellerMonthSalValue", {
+            "branchCode": branchCode,
+            "shopCode":shopCode,
+            "empCode":empCode,
+            "month": month,
+            "sort": sort
+        }).then(async () => {
+            await getMonthSalaryTopTeller(month, branchCode, shopCode, empCode, sort).then((res) => {
+                const { data, error, status, isLoading, length, message } = res;
+
+                if (status == "success") {
+                    setLoading(isLoading);
+                    if (length == 0) {
+                        setMessage('Không có dữ liệu');
+                    } else {
+                        setData(data);
+                    }
                 }
+                if (status == "failed") {
+                    setLoading(isLoading);
+                    Toast.show({
+                        text1: "Cảnh báo",
+                        text2: res.message,
+                        type: "error",
+                        visibilityTime: 5000,
+                        autoHide: true,
+                        onHide: () => navigation.goBack()
+                    })
+                }
+                if (res.status == "v_error") {
+                    Toast.show({
+                        text1: "Cảnh báo",
+                        text2: res.message,
+                        type: "error",
+                        visibilityTime: 1000,
+                        autoHide: true,
+                        onHide: () => navigation.goBack()
+                    })
+                }
+            })
+        })
+
+    }
+
+    const onChangeBranch = async (branchCode, value) => {
+        setLoading(true)
+        setBranchCode(branchCode);
+        await getAllShop(navigation, branchCode).then((res) => {
+            if (res.status == "success") {
+                setLoading(false);
+                setShopList(res.data);
+
             }
-            if (status == "failed") {
-                setLoading(isLoading);
-                Toast.show({
-                    text1: "Cảnh báo",
-                    text2: message,
-                    type: "error",
-                    visibilityTime: 1000,
-                    autoHide: true,
-                })
+            if (res.status == "failed") {
+                setLoading(false);
             }
             if (res.status == "v_error") {
-                setLoading(isLoading);
                 Toast.show({
                     text1: "Cảnh báo",
-                    text2: message,
+                    text2: res.message,
                     type: "error",
                     visibilityTime: 1000,
                     autoHide: true,
@@ -98,44 +133,40 @@ const index = (props) => {
         })
     }
 
-    const onChangeBranch = async (value) => {
-        setLoading(true)
-        setBranchCode(value);
-        await getAllShop(navigation, branchCode).then((res) => {
-          if (res.status == "success") {
-            setLoading(false);
-            setShopList(res.data);
-    
-          }
-          if (res.status == "failed") {
-            setLoading(false);
-          }
-          if (res.status == "v_error") {
-            Toast.show({
-              text1: "Cảnh báo",
-              text2: res.message,
-              type: "error",
-              visibilityTime: 1000,
-              autoHide: true,
-              onHide: () => navigation.navigate("AdminHome")
-            })
-          }
-        })
-      }
-
-      const checkRole = async () => {
+    const checkRole = async () => {
         await _retrieveData("userInfo").then((user) => {
-          let role = user?.userId.userGroupId.code;
-          setDefaultShopName(user?.userId.shopId.shopName);
-          setDefaultShopCode(user?.userId.shopId.shopCode)
-          setRole(role) 
+            let role = user?.userId.userGroupId.code;
+            setDefaultShopName(user?.userId.shopId.shopName);
+            setDefaultShopCode(user?.userId.shopId.shopCode)
+            setRole(role)
         })
-      }
+    }
 
     useEffect(() => {
         getBranchList();
-        getData(month, branchCode, shopCode, empCode, sort);
+        const init = async () => {
+            await _retrieveData("defaultTopTellerMonthSalValue").then(async(item) => {
+                setMessage("")
+                if (item != undefined) {
+                    setDefaultShopCode(item.shopCode==undefined ? defaultShopCode : item.shopCode);
+                    setPlaceHolder(item.shopName==undefined ? defaultShopName : item.shopName);
+                    // setMonth(item.month==undefined ? month : item.month)
+                    await getData(item.month, item.branchCode, item.shopCode, item.empCode, item.sort);
+                } else {
+                    await getData(month, "", "", "", "");
+                    setPlaceHolder("Chọn chi nhánh");
+                }
+            }).then(() => {
+
+
+            })
+        }
         setPlaceHolder("Chọn chi nhánh");
+
+        init();
+        console.log('Salary by month')
+        getData(month, branchCode, shopCode, empCode, sort);
+
         checkRole();
     }, [""])
 
@@ -150,28 +181,30 @@ const index = (props) => {
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _setMonth(date)} />
             <Search
                 modalTitle="Vui lòng chọn"
+                placeholder={"Vui lòng chọn"}
                 searchSelectModal onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
                 dataOne={branchList}
                 dataTwo={shopList}
                 dataThree={empList}
-                placeholder="Chọn chi nhánh"
                 index={branchList.map((item, index) => index)}
                 fieldOne={branchList.map((item) => item.shopName)}
                 fieldTwo={shopList.map((item) => item.shopName)}
                 fieldThree={empList.map((item, index) => item.maGDV)}
-                onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
+                onChangePickerOne={(value, index) => onChangeBranch(value.shopCode, value)}
                 showPicker={[true, false, false]}
-                onPressOK={() => getData(month, branchCode, shopCode, empCode, sort)}
-                fixed={role!="VMS_CTY" ? true : false}
+                onPressOK={(value) => getData(month, branchCode || defaultShopCode, shopCode, empCode, value.sort)}
+                onShowModalSearch={(value) => console.log(value)}
+                fixed={role != "VMS_CTY" ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
+                
                 {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
                 <Table
                     data={data}
                     table
-                    message={message}
+                    message={message&&message}
                     numColumn={4}
                     headers={["GDV", "Tổng lương", "Lương khoán sp", "KPI"]}
                     headersTextColor={"#D19E01"}

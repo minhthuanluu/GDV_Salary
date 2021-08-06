@@ -27,6 +27,7 @@ const index=(props)=> {
     const getData=async()=>{
         setLoading(true)
         await getAllAvgIncome(navigation,'','').then((res)=>{
+            console.log(res)
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
                     setData(res.data.data);

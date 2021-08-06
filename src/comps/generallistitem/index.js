@@ -118,7 +118,7 @@ const GeneralListItem = (props) => {
                 <Text style={{ fontSize: fontScale(18), color: "#2e2e31", fontWeight: "bold", marginLeft: fontScale(22), marginRight: fontScale(11), marginVertical: fontScale(11) }}>{props.title}</Text>
                 <View style={{ flexDirection: "row" }}>
                   {
-                    props.titleArray.map((item, index) => <View style={{ flex: 1 }} >
+                    props.titleArray.map((item, index) => <View style={{ flex: 1 }} key={index} >
                       <Text style={{ textAlign: "center", fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{item}</Text>
                       <Text key={index} style={{ textAlign: "center", fontWeight: "bold", color: colors.primary, fontSize: fontScale(14) }}>{props.item[index]}</Text>
                     </View>)

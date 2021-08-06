@@ -12,6 +12,7 @@ import Table from "../../../../comps/table";
 import { BackHandler } from "react-native";
 import { getKPIGroup } from "../../../../adminapi";
 import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -36,6 +37,16 @@ const index = () => {
       if (res.status == "failed") {
         setMessage("Không có dữ liệu");
         setLoading(false);
+      }
+      if (res.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     });
   };
@@ -99,7 +110,7 @@ const index = () => {
             fontScale(60),
             fontScale(60),
             fontScale(60),
-            fontScale(60),
+            fontScale(55),
           ]}
           headerMarginLeft={fontScale(35)}
           fields={data.map((item) => [
@@ -128,6 +139,7 @@ const index = () => {
         />
       </View>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };

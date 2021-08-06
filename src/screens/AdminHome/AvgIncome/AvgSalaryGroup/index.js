@@ -15,6 +15,7 @@ import { images } from "../../../../utils/Images";
 import { BackHandler } from "react-native";
 import { getAllAvgIncomeGroup, getKPIGroup } from "../../../../adminapi";
 import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -38,6 +39,16 @@ const index = () => {
           setLoading(false);
         }
       }
+      if (res.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
       if (res.status == "failed") {
         setMessage("Không có dữ liệu");
         setLoading(false);
@@ -50,7 +61,6 @@ const index = () => {
       navigation.goBack();
       return true;
     };
-
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
@@ -179,7 +189,7 @@ const index = () => {
           ]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-          headerMarginLeft = {fontScale(14)}
+          headerMarginLeft = {fontScale(11)}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
@@ -220,6 +230,7 @@ const index = () => {
         />
       </View>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };

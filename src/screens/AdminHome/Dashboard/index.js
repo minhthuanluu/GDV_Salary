@@ -41,10 +41,6 @@ const Dashboard=(route)=> {
         
     }
 
-    const warning=()=>{
-      ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)
-    }
-
     useEffect(() => {
         BackHandler.addEventListener('hardwareBackPress', () => {
           if (!navigation.isFocused()) {
@@ -74,6 +70,17 @@ const Dashboard=(route)=> {
             });
           };
         }, [navigation]);
+
+        const showWarning = ()=>{
+          Toast.show({
+            text1: "Cảnh báo",
+            text2: "Chức năng đang phát triển",
+            type: "error",
+            visibilityTime: 1000,
+            autoHide: true,
+            onHide: () => {}
+        })
+        }
       
     return (
         <SafeAreaView style={styles.container}>
@@ -81,14 +88,14 @@ const Dashboard=(route)=> {
         {
           <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user.displayName} maGDV={user.shopId.shopCode} />
         }
-        <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
+        <Body style={{ marginTop: fontScale(10) }} showInfo={false} />
         <View style={styles.body}>
-          <MenuItem style={{ marginTop: fontScale(30) }} title={text.kpi} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.kpiByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIDashboard")} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryByMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryByMonthDashboard")} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.averageIncome} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.avgIcome} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeDashboard")} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={() => ToastNotif('Thông báo', "Chức năng đang phát triển",'info', true)} />
-          <MenuItem style={{ marginTop: fontScale(60) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => warning()} />
+          <MenuItem style={{ marginTop: fontScale(10) }} title={text.kpi} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.kpiByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIDashboard")} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.salaryByMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryByMonthDashboard")} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.averageIncome} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.avgIcome} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeDashboard")} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => console.log('a')} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={()=>console.log('a')} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => console.log('a')} />
         </View>
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </SafeAreaView>

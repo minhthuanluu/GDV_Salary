@@ -1177,7 +1177,6 @@ export const getAdminKPITopTeller = async (navigation, branchCode, month, sort) 
 };
 
 export const getKPIGroup = async (navigation, month) => {
-  console.log(month)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1240,7 +1239,6 @@ export const getKPIGroup = async (navigation, month) => {
 
 //Home > KPI Tháng hiện tại > Top GDV
 export const getAdminKPIMonthTopTeller = async (navigation, branchCode, month, sort) => {
-  console.log("getKPIMonthTopTeller")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1383,7 +1381,6 @@ export const getProductivitySubByMonth = async (navigation, month) => {
 
 // AdminHome > KPI > Năng suất bình quân > Chi tiết
 export const getDetailProductivitySubByMonth = async (navigation, month, shopCode) => {
-  console.log("getDetailProductivitySubByMonth: " + month + ' - ' + shopCode);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1409,7 +1406,6 @@ export const getDetailProductivitySubByMonth = async (navigation, month, shopCod
     },
   })
     .then((res) => {
-      console.log(res.data)
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
@@ -1456,7 +1452,6 @@ export const getDetailProductivitySubByMonth = async (navigation, month, shopCod
 
 // Home > Lương theo tháng > Quản lý chi phí
 export const getExpenseManagement = async (month) => {
-  console.log("getExpenseManagement: " + month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1527,7 +1522,6 @@ export const getExpenseManagement = async (month) => {
 }
 // AdminHome > Lương theo tháng >Top GDV
 export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCode, sort) => {
-  console.log("getMonthSalaryTopTeller: " + month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1572,15 +1566,6 @@ export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCo
             length: Object.values(res.data.data).length,
             error: null
           };
-        } else {
-          data = {
-            data: res.data.data,
-            isLoading: false,
-            status: "success",
-            length: Object.values(res.data.data).length,
-            error: null,
-            message: "Không có dữ liệu"
-          };
         }
       }
     })
@@ -1600,7 +1585,6 @@ export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCo
 
 // AdminHome > Binh quan thu nhap > Luong binh quan
 export const getAllAvgIncome = async (navigation, branchCode, shopCode) => {
-  console.log('getAllAvgIncome')
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {

@@ -14,35 +14,38 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
+import { ToastNotif } from "../../../../../utils/Logistics";
 
 
 const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
-  const [generalData, setGeneralData] = useState({
-    "icon": "",
-    "importantPlan": "",
-    "postPaid": "",
-    "postPaidOverNinetyNine": "",
-    "prePaid": "",
-    "prePaidPck": "",
-    "retailRevenue": "",
-    "shopCode": "",
-    "shopName": "",
-    "vas": "",
-  });
+  const [generalData, setGeneralData] = useState({});
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const navigation = useNavigation();
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
-      console.log(data.data.general)
       if (data.status == "success") {
         setData(data.data.data);
         setGeneralData(data.data.general);
-        console.log(data.data.general)
         setLoading(false);
+      }
+      if (data.status == "failed") {
+        setLoading(false);
+        ToastNotif("Thông báo", data.message, "error", true, null)
+      }
+      if (data.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     });
   };
@@ -71,46 +74,42 @@ const index = (props) => {
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
-        <View>
+        <View style={{ flex: 1 }}>
           <FlatList
-            style={{ marginTop: fontScale(10) }}
+            style={{ marginTop: fontScale(10)}}
             data={data}
-            showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
                   style={{ marginTop: fontScale(20) }}
                   columns
-                  
                   rightIcon={images.branch}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.prePaid, item.postPaid, item.vas]}
+                  item={[item.postPaid, item.prePaid, item.vas]}
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminKPIMonthShop", {
-                    item: {
-                      "branchCode": item.shopCode,"month": month
+                    branchItem: {
+                      "branchCode": item.shopCode,
+                      "month": month
                     }
                   })}
                 />
-                { index == data.length - 1 ?
-                  <GeneralListItem company
-                  style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                    icon={images.company}
-                    color={"#D19E01"}
-                    titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
-                    item={[generalData.prePaid, generalData.postPaid, generalData.vas, generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
-                    title={generalData.shopName}
-                    styleCol8={{width:400}}
-                  /> : null
-                }
+                {index == data.length - 1 ? <GeneralListItem
+                  company
+                  style={{  marginBottom: fontScale(80),marginTop: -fontScale(30) }}
+                  icon={images.company}
+                  color={"#D19E01"}
+                  titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
+                  item={[generalData.postPaid, generalData.prePaid, generalData.vas, generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
+                  title={generalData.shopName}
+                /> : null}
               </View>
             )}
           />
-
         </View>
-
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };
