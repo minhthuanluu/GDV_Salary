@@ -12,7 +12,7 @@ import { getDimesions, width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import { images } from '../../utils/Images';
 import TableRow from "./tablerow/index";
-
+ 
 const index = (props) => {
     const { data, numColumn, table, headers, headerIcons, headersTextColor, headerStyle, lastIcon, loading, widthArray, lastIconHeader, main, style, hideFirstColHeader, rowBg, onPress,loadingIconStyle,message } = props;
     const navigation = useNavigation();
@@ -42,7 +42,7 @@ const index = (props) => {
                         <View>
                             {
                                 headers ?
-                                    <View style={{ flexDirection: "row",paddingVertical:fontScale(10),marginLeft:-fontScale(30) }}>
+                                    <View style={{ flexDirection: "row",paddingVertical:fontScale(10),marginLeft:props.headerMarginLeft }}>
                                         {
                                             headerIcons
                                                 ?
@@ -79,11 +79,11 @@ const index = (props) => {
                                         keyExtractor={(item, index) => index.toString()}
                                         key={({ item }) => item.numberSub.toString()}
                                         renderItem={({ item, index }) => (
-                                                <View style={{backgroundColor: index == 0 ? props.firstRowBg : rowBg[index],flex:1,justifyContent:"center" }}>
+                                                <View style={{backgroundColor: index == 0 ? props.firstRowBg : rowBg[index],flex:1,justifyContent:"center",paddingBottom:fontScale(5) }}>
                                                     <TableRow
                                                         item={item}
                                                         index={index}
-                                                        textColor={props.textColor[index]}
+                                                        textColor={props.textColor[index] || props.textColor}
                                                         fontWeight={props.fontWeight}
                                                         widthArray={widthArray}
                                                         onPress = {()=>props.onPress(item,index)}
@@ -93,10 +93,11 @@ const index = (props) => {
                                                         rowWidth={widthArray[index]}
                                                         firstColCenter={props.firstColCenter}
                                                         loading={loading}
+                                                        seeDetail={props.seeDetail}
                                                         main={main}
                                                         lastIconStyle={props.lastIconStyle}
                                                         textAlign={props.textAlign || "left"}
-                                                        lastIcon={lastIcon&&lastIcon[index]} />
+                                                        lastIcon={props.lastIcon&&props.lastIcon[index]} />
                                                 </View>
                                         )} />
                                     : null
@@ -107,5 +108,4 @@ const index = (props) => {
         </View>
     );
 }
-
 export default index;

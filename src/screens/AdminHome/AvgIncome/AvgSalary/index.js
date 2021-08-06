@@ -27,6 +27,7 @@ const index=(props)=> {
     const getData=async()=>{
         setLoading(true)
         await getAllAvgIncome(navigation,'','').then((res)=>{
+            console.log(res)
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
                     setData(res.data.data);
@@ -69,15 +70,18 @@ const index=(props)=> {
              <Body />
              <View style={styles.body}>
                  {loading==true ? <ActivityIndicator size="small" color={colors.primary}/> : null}
+           
                 <FlatList 
                     showsVerticalScrollIndicator={false}
                     data={data}
                     keyExtractor={(item,key)=>item.shopCode.toString()}
                     renderItem={({item,index})=>
-                    <View>
-                        <GeneralListItem onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV","Khoán sp/GDV","SL GDV"]} item={[item.avgIcome,item.contractSalary]} rightIcon={images.shop}/>
+                    <View style={{paddingTop:fontScale(25),paddingBottom:index==data.length-1 ? fontScale(70): 0}}>
+                        <GeneralListItem style={{marginTop:-fontScale(5)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV","Khoán sp/GDV","SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
                         {
-                            index==data.length-1 ? <GeneralListItem style={{marginTop:fontScale(30)}} fourColumnCompany title={generalData.shopName} titleArray={["BQ lương 1 tháng/GDV","BQ lương cố định","BQ lương khoán SP","BQ lương KK","BQ chi hỗ trợ"]} item={[generalData.avgIncome,generalData.permanentSalary,generalData.contractSalary,generalData.incentiveSalary,generalData.spenSupport]} icon={images.company}/> : null
+                            index==data.length-1 
+                                ? 
+                                <GeneralListItem styleCol2={{marginLeft:-fontScale(10)}} styleCol4={{marginLeft:-fontScale(10)}} style={{marginTop:-fontScale(20),marginHorizontal:fontScale(10),paddingHorizontal:fontScale(10)}} fourColumnCompany title={generalData.shopName} titleArray={["BQ lương 1 tháng/GDV","BQ lương cố định","BQ lương khoán SP","BQ lương KK","BQ chi hỗ trợ"]} item={[generalData.avgIncome,generalData.permanentSalary,generalData.contractSalary,generalData.incentiveSalary,generalData.spenSupport]} icon={images.company}/> : null
                         }
                     </View>
                     }/>

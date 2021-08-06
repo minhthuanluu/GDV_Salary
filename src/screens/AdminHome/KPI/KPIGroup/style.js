@@ -6,6 +6,6 @@ export const styles = StyleSheet.create({
         flex: 1,backgroundColor:colors.primary 
     },
     table: {
-marginTop: -20
+         marginBottom: -50
     }
 })

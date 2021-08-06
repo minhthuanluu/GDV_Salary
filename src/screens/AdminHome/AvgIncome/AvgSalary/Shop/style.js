@@ -14,6 +14,7 @@ export const styles = StyleSheet.create({
     },
     body:{
         flex:1,
+        marginTop:-fontScale(10),
         backgroundColor:colors.white
     }
 })

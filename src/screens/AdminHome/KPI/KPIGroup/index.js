@@ -12,10 +12,11 @@ import Table from "../../../../comps/table";
 import { BackHandler } from "react-native";
 import { getKPIGroup } from "../../../../adminapi";
 import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = () => {
   const [month, setMonth] = useState(
-    moment(new Date()).subtract(1, "months").format("MM/YYYY")
+    moment(new Date()).format("MM/YYYY")
   );
   const [message, setMessage] = useState("");
   const [data, setData] = useState([]);
@@ -26,7 +27,6 @@ const index = () => {
     setMessage("");
     setLoading(true);
     await getKPIGroup(navigation, month).then((res) => {
-      console.log(res);
       setLoading(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
@@ -37,6 +37,16 @@ const index = () => {
       if (res.status == "failed") {
         setMessage("Không có dữ liệu");
         setLoading(false);
+      }
+      if (res.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     });
   };
@@ -75,6 +85,7 @@ const index = () => {
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white, }}>
         {loading==true ? <ActivityIndicator style={{marginVertical:fontScale(5)}} color={colors.primary} size="small"/>:null}
+      <View style={{marginTop: -30}}>
         <Table
           style={styles.table}
           data={data}
@@ -82,24 +93,26 @@ const index = () => {
           numColumn={6}
           headers={[
             "",
-            "KPI>=100%",
-            "KPI>=90%",
-            "KPI>=70%",
-            "KPI<70%",
+            ">=100%",
+            ">=90%",
+            ">=70%",
+            "<70%",
             "Tổng GDV",
           ]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
+          headerMarginLeft = {fontScale(14)}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(90),
+            fontScale(117),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(55),
           ]}
+          headerMarginLeft={fontScale(35)}
           fields={data.map((item) => [
             item.shopName,
             item.target100,
@@ -115,12 +128,9 @@ const index = () => {
             index == 0 || item.shopType == "BRANCH" ? "bold" : "normal"
           )}
           style={{ marginTop: fontScale(30) }}
+          textAlign = "center"
           textColor={data.map((item, index) =>
-            item.shopType == "BRANCH"
-              ? "#000"
-              : item.shopType == "SHOP"
-                ? "#D19E01"
-                : "#000"
+            item.shopType=="BRANCH" || index==0? "#000" : "#D19E01"
           )}
           rowBg={data.map((item, index) =>
             item.shopType == "BRANCH" ? "#EBFDFD" : "#fff"
@@ -128,6 +138,8 @@ const index = () => {
           textAlign="center"
         />
       </View>
+      </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };
