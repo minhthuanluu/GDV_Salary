@@ -20,7 +20,7 @@ const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
   const route = useRoute();
   const [message, setMessage] = useState('');
@@ -118,7 +118,7 @@ const index = (props) => {
                     fiveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.store} /> : null
                 }
               </View>

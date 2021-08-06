@@ -1,11 +1,12 @@
 import React from 'react';
+import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Image, View, Text } from 'react-native';
 import { colors } from '../../utils/Colors';
 import { width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import { styles } from './styles';
- 
+
 const GeneralListItem = (props) => {
   return (
    props.sixColumnCompany ?
@@ -141,16 +142,16 @@ const GeneralListItem = (props) => {
          </View>
  );
 }
- 
+
 const Item = (props) => {
- return (
-   <View style={[{ justifyContent: "center", flex: 1 }]}>
-     <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.grey }}>{props.title}</Text>
-     <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(10) }}>{props.content}</Text>
-   </View>
- )
+  return (
+    <View>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.grey }}>{props.title}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(10) }}>{props.content}</Text>
+    </View>
+  )
 }
- 
+
 const HItem = (props) => {
  return (
    <View style={[{ width: width / 2, flexDirection: "row",marginLeft:fontScale(20) },props.style]}>

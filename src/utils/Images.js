@@ -73,6 +73,7 @@ export const images = {
     teamwork: require("../../assets/teamwork.png"),
     alert: require("../../assets/ic_alert.png"),
     summary: require("../../assets/ic_summary.png"),
+    shop: require("../assets/shop.png"),
 
     
 }

@@ -1,4 +1,5 @@
 import { Dimensions, StatusBar } from "react-native";
+import { useNavigation } from '@react-navigation/core';
 
 export const width = Dimensions.get("screen").width;
 export const height = Dimensions.get("screen").height;

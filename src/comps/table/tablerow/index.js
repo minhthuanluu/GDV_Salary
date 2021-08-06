@@ -39,7 +39,7 @@ const TableRow = (props) => {
                            {
                                fields.map((item, i) =>
                                    <View key={i} style={{ width: widthArray && widthArray[i], justifyContent: "center" }}>
-                                       <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: i == 0 ? "left" : props.textAlign, marginLeft: i == 0 || index == fields.length ? fontScale(20) : fontScale(0), color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
+                                       <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: i == 0 ? "left" : props.textAlign, marginLeft: i == 0 || index == fields.length ? fontScale(10) : fontScale(0), color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
                                        {i == numColumn ?
                                            <View style={{ width: fontScale(10), height: fontScale(10) }}>
                                                <View style={{ marginTop: -fontScale(10), position: "absolute", left: fontScale(0) }}>

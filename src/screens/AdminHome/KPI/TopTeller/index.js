@@ -22,7 +22,8 @@ import { BackHandler } from "react-native";
 import moment from "moment";
 import Toast from 'react-native-toast-message';
 import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop } from "../../../../adminapi";
-import { _retrieveData } from "../../../../utils/Storage";
+import { getProfile } from "../../../../api";
+import { _retrieveData, _storeData } from "../../../../utils/Storage";
 
 const AdminTopTeller = () => {
   const [data, setData] = useState([]);
@@ -37,13 +38,13 @@ const AdminTopTeller = () => {
   const [empCode, setEmpCode] = useState('');
 
   const [empList, setEmpList] = useState([])
-    
+
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
-  const [placeHolder,setPlaceHolder] = useState('')
-  const [role,setRole] = useState();
-  const [defaultShopCode,setDefaultShopCode] = useState('')
-  const [defaultShopName,setDefaultShopName] = useState('')
+  const [placeHolder, setPlaceHolder] = useState('')
+  const [role, setRole] = useState();
+  const [defaultShopCode, setDefaultShopCode] = useState('')
+  const [defaultShopName, setDefaultShopName] = useState('')
 
   const getBranchList = async () => {
     setLoading(true)
@@ -70,9 +71,10 @@ const AdminTopTeller = () => {
     })
   }
 
-  const onChangeBranch = async (value) => {
+  const onChangeBranch = async (value, shopName) => {
     setLoading(true)
     setBranchCode(value);
+    setDefaultShopName(shopName)
     await getAllShop(navigation, branchCode).then((res) => {
       if (res.status == "success") {
         setLoading(false);
@@ -95,65 +97,56 @@ const AdminTopTeller = () => {
     })
   }
 
-  // const getData = async (branchCode, month, sort) => {
-  //   console.log(branchCode, month, sort)
+  const onChangeShop = async (value) => {
+    getAllEmp()
+  }
 
-  //   setMessage("");
-  //   setLoadingData(true);
-  //   await getAdminKPIMonthTopTeller(navigation, branchCode, month, sort).then((res) => {
-  //     setLoadingData(false);
-  //     if (res.status == "success") {
-  //       if (res.data.length > 0 || res.data.data.length > 0) {
-  //         setData(res.data.data);
-  //         setLoadingData(false);
-  //       } else {
-  //         setData([])
-  //         setMessage(res.message)
-  //         setLoadingData(false);
-  //       }
-  //     }
-  //     if (res.status == "failed") {
-  //       setMessage("Không có dữ liệu")
-  //       setLoadingData(false);
-  //     }
-  //     if (res.status == "v_error") {
-  //       Toast.show({
-  //         text1: "Cảnh báo",
-  //         text2: res.message,
-  //         type: "error",
-  //         visibilityTime: 1000,
-  //         autoHide: true,
-  //         onHide: () => navigation.navigate("AdminHome")
-  //       })
-  //     }
-  //   })
-  // }
-
-  const getData = async (branchCode, month, sort) => {
+  const getData = async (branchCode1, month1, sort1, branchName1) => {
     setMessage("");
     setLoadingData(true);
-    setData([])
-    await getAdminKPIMonthTopTeller(navigation, branchCode, month, sort).then((res) => {
-      setLoadingData(false);
-        if (res.status == "success") {
-          console.log(res.data)
-          if (res.data.length > 0 || res.data.data.length > 0) {
-            setData(res.data.data);
-            setLoadingData(false);
-          } else {
-            setData([])
-            setMessage(res.message)
+    console.log(branchCode1, month1, sort1, branchName1)
+    await _storeData("KPITOPTELLER", { "radio": sort1 == undefined ? 1 : sort1, "shopCode": branchCode1 == undefined ? branchCode : branchCode1, "shopName": branchName1 == undefined ? defaultShopName : branchName1, "month": month1 == undefined ? month : month1 })
+      .then(async () => {
+        await getAdminKPIMonthTopTeller(navigation, branchCode1, month1, sort1).then((res) => {
+          setLoadingData(false);
+          if (res.status == "success") {
+            if (res.data.length > 0 || res.data.data.length > 0) {
+              setData(res.data.data);
+              setLoadingData(false);
+            } else {
+              setData([])
+              setMessage(res.message)
+              setLoadingData(false);
+            }
+          }
+          if (res.status == "failed") {
+            setMessage("Không có dữ liệu")
             setLoadingData(false);
           }
-        }
-        if (res.status == "failed") {
-          setMessage("Không có dữ liệu")
-          setLoadingData(false);
-        }
-    });
+        });
+      })
+
   };
 
+  const init = async () => {
+    await _retrieveData("KPITOPTELLER").then(async (item) => {
+      if (item) {
+        console.log("KPITOPTELLER")
+        setDefaultShopName(item.shopName)
+        setSort(item.sort);
+        setMonth(item.month);
+        setDefaultShopCode(item.shopCode);
+        await getData(item.shopCode, item.month, item.radio, item.shopName)
+      } else {
+        // await getData("",month,1,"")
+        setSort(1);
+        setDefaultShopName(branchList[0].shopName);
+        setDefaultShopCode(branchList[0].shopCode)
+        await getProfile()
+      }
+    })
 
+  }
 
   useEffect(() => {
     const backAction = () => {
@@ -165,8 +158,8 @@ const AdminTopTeller = () => {
       "hardwareBackPress",
       backAction
     );
+    init();
     getBranchList();
-    getData(branchCode, month, sort);
     setPlaceHolder("Chọn chi nhánh");
     checkRole();
     return () => {
@@ -176,7 +169,14 @@ const AdminTopTeller = () => {
 
   const _onChangeMonth = async (value) => {
     setMonth(value);
-    await getData(branchCode, value, sort)
+    await getData(branchCode, shopCode, sort, defaultShopName)
+  }
+
+  const checkRole = async () => {
+    await _retrieveData("userInfo").then((user) => {
+      let role = user?.userId.userGroupId.code;
+      setRole(role)
+    })
   }
 
   const checkRole = async () => {
@@ -196,11 +196,11 @@ const AdminTopTeller = () => {
       <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
       <Search
         loading={loading}
-        modalTitle="Vui lòng chọn" 
-        placeholder={placeHolder}
-        searchSelectModal 
-        width={width - fontScale(60)} 
-        style={{ marginTop: fontScale(20) }} 
+        modalTitle="Vui lòng chọn"
+        placeholder={defaultShopName}
+        searchSelectModal
+        width={width - fontScale(60)}
+        style={{ marginTop: fontScale(20) }}
         leftIcon={images.teamwork}
         dataOne={branchList}
         dataTwo={shopList}
@@ -209,10 +209,10 @@ const AdminTopTeller = () => {
         fieldOne={branchList.map((item) => item.shopName)}
         fieldTwo={shopList.map((item) => item.shopName)}
         fieldThree={empList.map((item, index) => item.maGDV)}
-        onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
-        showPicker={[true, true, false]}
-        onPressOK={(value)=>getData(branchCode||defaultShopCode,month,value.sort)}
-        fixed={role!="VMS_CTY" ? true : false}
+        onChangePickerOne={(value, index) => onChangeBranch(value.shopCode, value.shopName)}
+        showPicker={[true, false, false]}
+        onPressOK={(value) => getData(value.shopCode, month, value.radio, value.shopName)}
+        fixed={role != "VMS_CTY" ? true : false}
         fixedData={defaultShopName}
       />
 

@@ -520,6 +520,7 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
     loading: null,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getMonthSalary?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,

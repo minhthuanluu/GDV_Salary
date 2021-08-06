@@ -217,12 +217,12 @@ export const checkUserRole = async () => {
 
 export const checkLogin = async (navigation) => {
   await _retrieveData("userInfo").then((item) => {
+    console.log(item)
     if (item != null) {
       console.log('token not null')
-      console.log(item.userId.userGroupId.code)
       if (item.userId.userGroupId.code == "MBF_GDV") {
         setTimeout(() => {
-          // navigation.navigate("GDVHome")
+          navigation.navigate("GDVHome")
         }, 3000);
       }
       else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {

@@ -15,6 +15,7 @@ import { images } from "../../../../utils/Images";
 import { BackHandler } from "react-native";
 import { getAllAvgIncomeGroup, getKPIGroup } from "../../../../adminapi";
 import { ActivityIndicator } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = () => {
   const [month, setMonth] = useState(
@@ -30,7 +31,6 @@ const index = () => {
     setMessage("");
     setLoading(true);
     await getAllAvgIncomeGroup(navigation).then((res) => {
-        console.log(res);
       setLoading(false);
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
@@ -38,6 +38,16 @@ const index = () => {
           setNotification(res.data.notification);
           setLoading(false);
         }
+      }
+      if (res.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
       if (res.status == "failed") {
         setMessage("Không có dữ liệu");
@@ -51,7 +61,6 @@ const index = () => {
       navigation.goBack();
       return true;
     };
-
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
       backAction
@@ -172,24 +181,24 @@ const index = () => {
           numColumn={6}
           headers={[
             "",
-            "CF>20tr",
-            "CF>=17tr",
-            "CF>=12tr",
-            "CF<12tr",
+            ">20tr",
+            ">=17tr",
+            ">=12tr",
+            "<12tr",
             "Tổng GDV",
           ]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-          headerMarginLeft = {fontScale(14)}
+          headerMarginLeft = {fontScale(11)}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(140),
             fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(100),
-            fontScale(90)
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(60),
+            fontScale(70)
           ]}
           fields={data.map((item) => [
             item.shopName,
@@ -221,6 +230,7 @@ const index = () => {
         />
       </View>
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };
