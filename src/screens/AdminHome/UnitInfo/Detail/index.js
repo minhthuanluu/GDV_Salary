@@ -80,7 +80,7 @@ const UnitInfoDetail = (props) => {
                     <ActivityIndicator
                         size="small"
                         color={colors.primary}
-                        style={{ marginVertical: fontScale(10) }}
+                        style={{ marginVertical: fontScale(10), marginTop: -20 }}
                     />
                 ) : null}
                 <FlatList
@@ -88,6 +88,7 @@ const UnitInfoDetail = (props) => {
                     keyExtractor={(item, index) => index.toString()}
                     showsVerticalScrollIndicator={false}
                     renderItem={({ item, index }) => <GeneralListItem
+                        style={{marginTop: fontScale(29)}}
                         columns
                         onPress={() => navigation.navigate("AdminImageDetailUnitInfo", {"avatar":item.avatar})}
                         rightIcon={{uri: imgUrl + item.avatar}}
