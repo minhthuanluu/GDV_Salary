@@ -1654,3 +1654,4 @@ export const getAllAvgIncome = async (navigation, branchCode, shopCode) => {
     });
   return data;
 };
+

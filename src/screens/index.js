@@ -37,7 +37,7 @@ import AdminKPIDashboard from "./AdminHome/KPI/Dashboard"; // AdminHome > KPI
         import AdminDetailProductivitySub from "./AdminHome/KPI/ProductivitySub/Detail"; // AdminHome > KPI > Năng suất bình quân > Chi tiết năng suất bình quân
 import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  // AdminHome > Lương theo tháng
     import AdminExpenseManagement from "./AdminHome/SalaryByMonth/ExpenseManagement"; // AdminHome > Lương theo tháng > Quản lý chi phí
-    // import AdminTopTellers from "./AdminHome/SalaryByMonth/TopSellers"; // AdminHome > Lương theo tháng >Top GDV
+    import AdminTopTellers from "./AdminHome/SalaryByMonth/TopTeller"; // AdminHome > Lương theo tháng >Top GDV
     import AdminSalaryGroup from "./AdminHome/SalaryByMonth/SalaryGroup"; // AdminHome > Lương theo tháng > Nhóm lương
     import AdminMonthSalary from "./AdminHome/SalaryByMonth/MonthSalary/Company"; // AdminHome > Lương theo tháng > Lương tháng
 import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminHome > Bình quân thu nhập
@@ -46,13 +46,12 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
          import AdminMonthSalaryGDV from "./AdminHome/SalaryByMonth/MonthSalary/GDV"; 
     import AdminAvgIncomeSalaryGroup from "./AdminHome/AvgIncome/AvgSalaryGroup"; // Admin > Bình quân thu nhập > Nhóm lương BQ
     import AdminAvgIncome from "./AdminHome/AvgIncome/AvgSalary"; // Admin > Bình quân thu nhập > Lương BQ
-    import AdminSubscriberQualityDasboard from "./AdminHome/SubscriberQuality/Dashboard"; 
-    import AdminSubscriberQualityFCard1TB from "./AdminHome/SubscriberQuality/Summary/FCard1TB";
-    import AdminSubscriberQualityFCard3TB from "./AdminHome/SubscriberQuality/Summary/FCard3TB";// Admin > Bình quân thu nhập > Lương BQ
         import AdminAvgIncomeShop from "./AdminHome/AvgIncome/AvgSalary/Shop"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng
         import AdminAvgIncomeTellers from "./AdminHome/AvgIncome/AvgSalary/Shop/Tellers"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng > Giao dịch viên
-import AdminTopTeller from './AdminHome/KPI/TopTeller';
-
+    import AdminUnitInfo from "./AdminHome/UnitInfo"; // AdminHome > Thông tin đơn vị
+        import AdminDetailUnitInfo from "./AdminHome/UnitInfo/Detail"; // AdminHome > Thông tin đơn vị
+        import AdminImageDetailUnitInfo from "./AdminHome/UnitInfo/Detail/ImageDetail"; // AdminHome > Thông tin đơn vị
+        
 
 // GDV's screen
 export const HomeScreen = (route) => {return <Home route={route}/>}
@@ -84,7 +83,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
             export const AdminDetailProductivitySubScreen = () => {return <AdminDetailProductivitySub />}
     export const AdminSalaryByMonthDashboardScreen = () => {return <AdminSalaryByMonthDashboard />}
         export const AdminExpenseManagementScreen = () => {return <AdminExpenseManagement />}
-        export const AdminTopTellersScreen = () => {return <AdminTopTeller />}
+        export const AdminTopTellersScreen = () => {return <AdminTopTellers />}
         export const AdminSalaryGroupScreen = () => {return <AdminSalaryGroup />}
         export const AdminMonthSalaryScreen = () => {return <AdminMonthSalary />}
             export const AdminMonthSalaryShopScreen = () => {return <AdminMonthSalaryShop />}
@@ -93,12 +92,11 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminAvgIncomeTopSellersScreen = () => {return <AdminAvgIncomeTopTellers />}
         export const AdminAvgIncomeSalaryGroupScreen = () => {return <AdminAvgIncomeSalaryGroup />}
         export const AdminAvgIncomeScreen = () => {return <AdminAvgIncome />}
-    export const AdminSubscriberQualityDasboardScreen = () => {return <AdminSubscriberQualityDasboard/>}   
-        export const AdminSubscriberQualityFCard1TBScreen = () => {return <AdminSubscriberQualityFCard1TB />}
-        export const AdminSubscriberQualityFCard3TBScreen = () => {return <AdminSubscriberQualityFCard3TB />}  
-        
             export const AdminAvgIncomeShopScreen = () => {return <AdminAvgIncomeShop />}
                 export const AdminAvgIncomeTellersScreen = () => {return <AdminAvgIncomeTellers />}
+    export const AdminUnitInfoScreen = () => {return <AdminUnitInfo />}
+    export const AdminDetailUnitInfoScreen = () => {return <AdminDetailUnitInfo />}
+    export const AdminImageDetailUnitInfoScreen = () => {return <AdminImageDetailUnitInfo />}
 
             // AdminAvgIncomeTellers
         
