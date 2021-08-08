@@ -229,7 +229,6 @@ const AdminTopTellerAvgIncome = () => {
           <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
           <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.salaryAverage} />
           <TableHeader style={{ width: (width * 3.0) / 10 }} title={text.sumSalary} />
-
         </View>
         {loadingData == true ? (
           <ActivityIndicator
@@ -262,7 +261,6 @@ const AdminTopTellerAvgIncome = () => {
                 [styles.dateCol, { width: (width * 3.9) / 10 }],
                 [styles.dateCol, { width: (width * 2.6) / 10 }],
                 [styles.dateCol, { width: (width * 3.2) / 10 }],
-
               ]}
             //   lastIcon={item.pckSub == 1 ? images.check : images.cancle}
             //   lastIconViewStyle={{ alignItems: "center", flex: 0.5 }}

@@ -7,7 +7,7 @@ import { height, width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import { images } from '../../utils/Images';
 import { styles } from './styles';
-
+ 
 const index = (props) => {
     const [selectedItem, setSelectedItem] = useState(props.placeholder);
     const [showDialog, setShowDialog] = useState(false);
@@ -71,5 +71,5 @@ const index = (props) => {
         </View>
     );
 }
-
+ 
 export default index;

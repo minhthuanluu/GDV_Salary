@@ -66,6 +66,7 @@ const index = (props) => {
                                         }
                                     </View> : null
                             }
+                            {/* <View style={{flex:1}}> */}
                             {
                                 message&&message.length>0 ? <Text  style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}>{message}</Text> : null
                             }

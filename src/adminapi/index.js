@@ -194,6 +194,7 @@ export const getAdminKPIMonthTopTeller = async (
   month,
   sort
 ) => {
+  console.log(branchCode, month, sort);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -255,6 +256,7 @@ export const getAdminKPIMonthTopTeller = async (
 };
 
 export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
+  console.log(branchCode, sort);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -290,7 +292,7 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
             length: 0,
             error: null,
           };
-        } else if (Object.values(res.data).length > 0) {
+        } else if (Object.values(res.data.data).length > 0) {
           data = {
             data: res.data,
             isLoading: false,
@@ -316,6 +318,7 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
 };
 
 export const getKPIGroup = async (navigation, month) => {
+  console.log(month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
