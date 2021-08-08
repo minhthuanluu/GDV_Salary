@@ -48,6 +48,17 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
     import AdminAvgIncome from "./AdminHome/AvgIncome/AvgSalary"; // Admin > Bình quân thu nhập > Lương BQ
         import AdminAvgIncomeShop from "./AdminHome/AvgIncome/AvgSalary/Shop"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng
         import AdminAvgIncomeTellers from "./AdminHome/AvgIncome/AvgSalary/Shop/Tellers"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng > Giao dịch viên
+    import TransInfoDashdoard from "./AdminHome/TransInfo"; //Admin > Thông tin giao dịch
+        import StatisticalBranch from "./AdminHome/TransInfo/Statistical/Branch" // Admin > Thông tin giao dịch > Thống kê > Chi nhánh
+            import StatisticalShop from "./AdminHome/TransInfo/Statistical/Shop" // Admin > Thông tin giao dịch > Thống kê > Cửa hàng
+                import StatisticalEmp from "./AdminHome/TransInfo/Statistical/Emp" // Admin > Thông tin giao dịch > Thống kê > Nhân viên
+        import ViolateWarningDashBoard from "./AdminHome/TransInfo/ViolationWarning"; // Admin > Thông tin giao dịch > Cảnh báo vi phạm
+            import EmpRegInfo from "./AdminHome/TransInfo/ViolationWarning/EmpRegInfo"; //Admin > Thông tin giao dịch > Cảnh báo vi phạm > GDV DKTT
+                import EmpRegInfoDetail from "./AdminHome/TransInfo/ViolationWarning/EmpRegInfo/Detail"
+    import AdminUnitInfo from "./AdminHome/UnitInfo"; // AdminHome > Thông tin đơn vị
+        import AdminDetailUnitInfo from "./AdminHome/UnitInfo/Detail"; // AdminHome > Thông tin đơn vị
+        import AdminImageDetailUnitInfo from "./AdminHome/UnitInfo/Detail/ImageDetail"; // AdminHome > Thông tin đơn vị
+    
 
 
 // GDV's screen
@@ -92,7 +103,17 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
             export const AdminAvgIncomeShopScreen = () => {return <AdminAvgIncomeShop />}
                 export const AdminAvgIncomeTellersScreen = () => {return <AdminAvgIncomeTellers />}
 
+        export const AdminTransInfoDashdoardScreen = () => {return<TransInfoDashdoard/>}
+            export const AdminStatisticalBranchScreen = () => {return<StatisticalBranch/>}
+                export const AdminStatisticalShopScreen = () => {return<StatisticalShop/>}
+                        export const AdminStatisticalEmpScreen = () => {return<StatisticalEmp/>}
+                export const AdminViolateWarningDashboardScreen = ()=> {return <ViolateWarningDashBoard />}
+                    export const AdminEmpRegInfoScreen = ()=> {return <EmpRegInfo />}
+                        export const AdminEmpRegInfoDetailScreen = ()=> {return <EmpRegInfoDetail />}
             // AdminAvgIncomeTellers
+        export const AdminUnitInfoScreen = () => {return <AdminUnitInfo />}
+            export const AdminDetailUnitInfoScreen = () => {return <AdminDetailUnitInfo />}
+            export const AdminImageDetailUnitInfoScreen = () => {return <AdminImageDetailUnitInfo />}
         
         
 // Auth's screen

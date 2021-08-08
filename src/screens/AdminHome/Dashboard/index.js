@@ -94,8 +94,8 @@ const Dashboard=(route)=> {
           <MenuItem style={{ marginTop: fontScale(45) }} title={text.salaryByMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryByMonthDashboard")} />
           <MenuItem style={{ marginTop: fontScale(45) }} title={text.averageIncome} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.avgIcome} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeDashboard")} />
           <MenuItem style={{ marginTop: fontScale(45) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => console.log('a')} />
-          <MenuItem style={{ marginTop: fontScale(45) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={()=>console.log('a')} />
-          <MenuItem style={{ marginTop: fontScale(45) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => console.log('a')} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={()=>navigation.navigate('AdminTransInfoDashdoard')} />
+          <MenuItem style={{ marginTop: fontScale(45) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => navigation.navigate('AdminUnitInfo')} />
         </View>
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </SafeAreaView>

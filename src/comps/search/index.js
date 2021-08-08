@@ -145,7 +145,7 @@ const Search = (props) => {
                             <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(30), marginTop: fontScale(20) }}>
                                 <RadioForm
                                     radio_props={radio_props}
-                                    initial={radioValue || 1}
+                                    initial={props.initialRadio}
                                     formHorizontal
                                     labelStyle={{ marginRight: fontScale(90) }}
                                     onPress={(value) => onRadioPress(value)}

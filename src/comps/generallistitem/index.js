@@ -98,7 +98,7 @@ const GeneralListItem = (props) => {
             props.columns ? props.onPress ?
               <TouchableOpacity style={[styles.container, props.style]} onPress={props.onPress}>
                 {
-                  props.rightIcon ? <Image source={props.rightIcon} resizeMode="contain" style={{ width: fontScale(40), height: fontScale(40), position: "absolute", right: fontScale(20), top: -fontScale(20) }} /> : null
+                  props.rightIcon ? <Image source={props.rightIcon} resizeMode="cover" style={{ width: props.size?props.size: fontScale(40), height: props.size?props.size: fontScale(40), position: "absolute", right: fontScale(20), top: -fontScale(29), borderRadius: props.circleImage? props.size?props.size/2: 20 : 0 }} /> : null
                 }
                 <Text key={props.index} style={{ fontSize: fontScale(18), color: props.titleColor || "#2e2e31", fontWeight: "bold", marginLeft: fontScale(22), marginRight: fontScale(11), marginBottom: fontScale(5) }}>{props.title}</Text>
                 <View style={{ flexDirection: "row" }}>
@@ -144,8 +144,8 @@ const GeneralListItem = (props) => {
 const Item = (props) => {
   return (
     <View>
-      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.grey }}>{props.title}</Text>
-      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(10) }}>{props.content}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(12), fontWeight: "bold", color: colors.grey }}>{props.title}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(12), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(10) }}>{props.content}</Text>
     </View>
   )
 }

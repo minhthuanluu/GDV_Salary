@@ -28,12 +28,8 @@ const index = (props) => {
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     setMessage('')
+    setData([])
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
-      // if (data.status == "success") {
-      //   setData(data.data.data);
-      //   setGeneralData(data.data.general);
-      //   setLoading(false);
-      // }
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -87,18 +83,18 @@ const index = (props) => {
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: fontScale(10) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View style={{ flex: 1 }}>
           <FlatList
-            style={{ marginTop: -fontScale(20) }}
+            style={{ marginTop: -fontScale(30) }}
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View>
+              <View style={{marginTop:index==0 ? -fontScale(50) : 0}}>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(5) }}
+                  style={{ marginTop: fontScale(5)}}
                   sixColumnCompany
                   rightIcon={images.store}
                   titleArray={["KPI", "Tổng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}

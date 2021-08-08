@@ -86,7 +86,7 @@ const index = (props) => {
                                                         textColor={props.textColor[index] || props.textColor}
                                                         fontWeight={props.fontWeight}
                                                         widthArray={widthArray}
-                                                        onPress = {()=>props.onPress(item,index)}
+                                                        onPress = {()=>props.onPress ? props.onPress(item,index) : null}
                                                         fields={props.fields}
                                                         numColumn={numColumn}
                                                         boldFirstColumn={props.boldFirstColumn}

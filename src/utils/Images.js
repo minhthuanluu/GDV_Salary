@@ -72,6 +72,6 @@ export const images = {
     groupkpi: require("../../assets/ic_groupkpi.png"),
     teamwork: require("../../assets/teamwork.png"),
     shop: require("../assets/shop.png"),
-
-    
+    growthday: require("../../assets/growthday.png"),
+    warning: require("../../assets/warning.png")
 }

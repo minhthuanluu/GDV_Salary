@@ -82,7 +82,7 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: index==0 ? fontScale(30) :fontScale(20) }}
                   columns
                   rightIcon={images.branch}
                   titleArray={["TBTS", "TBTT", "VAS"]}

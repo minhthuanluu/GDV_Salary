@@ -14,7 +14,7 @@ const TableRow = (props) => {
        <View
            style={[styles.container, props.style]}>
            {
-               props.item.detail == "true" ?
+               props.item.detail == "true" || props.onPress ?
                    <TouchableOpacity key={index} style={{ flexDirection: "row", paddingVertical: fontScale(1) }} onPress={props.onPress}>
                        <View style={{ flexDirection: "row" }}>
                            {

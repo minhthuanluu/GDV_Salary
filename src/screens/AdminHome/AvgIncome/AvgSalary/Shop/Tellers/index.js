@@ -27,13 +27,11 @@ const index = (props) => {
     const [loading, setLoading] = useState(false);
 
     const getData = async () => {
-        const { month, branchCode, shopCode } = route.params?.branchItem;
-        
         setMessage('')
         setLoading(true)
+        let branchCode = route.params?.branchItem.shopCode;
+        let shopCode = route.params?.shopItem.shopCode;
         await getAllAvgIncome(navigation, branchCode, shopCode).then((res) => {
-            console.log(res)
-
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
                     setData(res.data.data);
@@ -84,7 +82,7 @@ const index = (props) => {
                     data={data}
                     keyExtractor={(item, key) => item.shopCode.toString()}
                     renderItem={({ item, index }) =>
-                        <View style={{marginTop:index==0 ? 15:5,paddingBottom:index==data.length-1 ? fontScale(70): 0}}> 
+                        <View style={{paddingBottom:index==data.length-1 ? fontScale(20): 0}}> 
                             <GeneralListItem key={index} columns title={item.shopName} titleArray={["Lương BQ", "Khoán sp"]} item={[item.avgIncome, item.contractSalary]} />
                             {
                                 index == data.length - 1 ? <GeneralListItem styleCol2={{marginLeft:fontScale(0)}} styleCol4={{marginLeft:fontScale(0)}} style={{ marginBottom: fontScale(70),marginTop:-fontScale(20) }} fourColumnCompany title={generalData.shopName} titleArray={["Bình quân chi 1 tháng", "BQ lương cố định", "BQ lương khoán SP", "BQ lương KK", "BQ chi hỗ trợ"]} item={[generalData.avgIncome, generalData.permanentSalary, generalData.contractSalary, generalData.incentiveSalary, generalData.spenSupport]} icon={images.store} /> : null

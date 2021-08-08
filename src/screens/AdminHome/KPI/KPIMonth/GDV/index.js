@@ -26,12 +26,20 @@ const index = (props) => {
 
 
   const getData = async (month, branchcode, shopCode) => {
+    console.log(month + ' - ' + branchcode + ' - ' + shopCode)
     setLoading(true);
+    setData([])
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
-        setData(data.data.data);
-        setGeneralData(data.data.general);
-        setLoading(false);
+        if (data.length == 0) {
+          setData([])
+          setMessage(data.message);
+        }
+        if (data.length > 0) {
+          setData(data.data.data);
+          setGeneralData(data.data.general);
+          setLoading(false);
+        }
       }
     });
   };
@@ -73,14 +81,14 @@ const index = (props) => {
 
         <View style={{ flex: 1 }}>
           <FlatList
-            style={{ marginTop: -fontScale(20) }}
+            style={{ marginTop: -fontScale(10) }}
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem company
-                  style={{ marginTop: fontScale(5) }}
+                  style={{ marginTop: index==0 ? -fontScale(40):fontScale(20) }}
                   columns
                   backgroundColor={colors.white}
                   color={colors.black}
