@@ -65,16 +65,14 @@ const Search = (props) => {
                         setMultiChoice(false);
                     }
                 }
-            })
+            });
+            // await _retrieveData("searchData").then((item)=>setRadioValue(item.data.sort))
         }
 
         getUserRole();
     })
 
-    var radio_props = [
-        { label: 'Top cao nhất', value: 1 },
-        { label: 'Top thấp nhất', value: 0 }
-    ];
+    
 
     const onChangePickerOne = (value) => {
         props.onChangePickerOne(value);
@@ -85,8 +83,7 @@ const Search = (props) => {
         let radio = radioValue;
         let shopName = valueOne.shopName;
         let shopCode = valueOne.shopCode;
-        // props.onPressOK({valueOne, radioValue })
-        props.onPressOK({"radio":radio,"shopCode":shopCode,"shopName":shopName})
+        props.onPressOK({"radio":radioValue,"shopCode":shopCode,"shopName":shopName})
         setSelectModal(!selectModal);
     }
 
@@ -144,8 +141,8 @@ const Search = (props) => {
                             <Text style={styles.modalTitle}>{props.modalTitle}</Text>
                             <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(30), marginTop: fontScale(20) }}>
                                 <RadioForm
-                                    radio_props={radio_props}
-                                    initial={radioValue || 1}
+                                    radio_props={props.data}
+                                    initial={radioValue}
                                     formHorizontal
                                     labelStyle={{ marginRight: fontScale(90) }}
                                     onPress={(value) => onRadioPress(value)}
@@ -163,6 +160,7 @@ const Search = (props) => {
                                         placeholder={props.placeholder}
                                         data={props.dataOne && props.dataOne}
                                         fixed={props.fixed}
+                                        showAll={props.showAll}
                                         width={width - fontScale(65)}
                                         fixedData={props.fixedData}
                                         field={props.fieldOne}

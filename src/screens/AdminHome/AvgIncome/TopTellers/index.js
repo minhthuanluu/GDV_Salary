@@ -153,15 +153,13 @@ const AdminTopTellerAvgIncome = () => {
         console.log("KPIAVGINCOMETELLER")
         console.log(item)
         setDefaultShopName(item.shopName)
-        setSort(item.sort);
+        setSort(item.sort==0?1:0);
         setDefaultShopCode(item.shopCode);
         await getData(item.shopCode, item.sort, item.shopName)
       } else {
-        setSort(1);
-        setDefaultShopName(branchList[0].shopName);
-        setDefaultShopCode(branchList[0].shopCode)
+        
         await getProfile();
-        await getData(branchList[0].shopCode, 1, defaultShopName);
+        await getData(branchList[0].shopCode, sort, defaultShopName);
 
       }
     })
@@ -196,6 +194,11 @@ const AdminTopTellerAvgIncome = () => {
         loading={loading}
         modalTitle="Vui lòng chọn"
         placeholder={defaultShopName}
+        showAll="Tất cả"
+        data={[
+          { label: 'Top cao nhất', value: 1},
+          { label: 'Top thấp nhất', value: 0 }
+      ]}
         searchSelectModal
         width={width - fontScale(60)}
         style={{ marginTop: fontScale(20) }}

@@ -17,7 +17,7 @@ import { text } from '../../../../utils/Text';
 import { styles } from './style'
 
 const index = (props) => {
-    const [month, setMonth] = useState(moment(new Date()).subtract(1,"months").format("MM/YYYY"));
+    const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
     const [loading, setLoading] = useState(false);
     const [branchList, setBranchList] = useState([]);
     const [branchCode, setBranchCode] = useState('')
@@ -59,28 +59,30 @@ const index = (props) => {
         })
     }
 
-    const getData = async (month, branchCode, shopCode, empCode, sort=0) => {
+    const getData = async (month, branchCode, shopCode, empCode, sort = 0) => {
         console.log(month, branchCode, shopCode, empCode, sort)
         setLoading(true)
         setData([])
         setMessage("")
         await _storeData("defaultTopTellerMonthSalValue", {
             "branchCode": branchCode,
-            "shopCode":shopCode,
-            "empCode":empCode,
+            "shopCode": shopCode,
+            "empCode": empCode,
             "month": month,
             "sort": sort
         }).then(async () => {
             await getMonthSalaryTopTeller(month, branchCode, shopCode, empCode, sort).then((res) => {
+                console.log(res)
                 const { data, error, status, isLoading, length, message } = res;
-
+                setMessage("")
                 if (status == "success") {
                     setLoading(isLoading);
-                    if (length == 0) {
-                        setMessage('Không có dữ liệu');
-                    } else {
-                        setData(data);
-                    }
+                    setData(data);
+                }
+                if (length == 0) {
+                    setData([])
+                    setMessage('Không có dữ liệu');
+                    setLoading(false)
                 }
                 if (status == "failed") {
                     setLoading(isLoading);
@@ -145,11 +147,11 @@ const index = (props) => {
     useEffect(() => {
         getBranchList();
         const init = async () => {
-            await _retrieveData("defaultTopTellerMonthSalValue").then(async(item) => {
+            await _retrieveData("defaultTopTellerMonthSalValue").then(async (item) => {
                 setMessage("")
                 if (item != undefined) {
-                    setDefaultShopCode(item.shopCode==undefined ? defaultShopCode : item.shopCode);
-                    setPlaceHolder(item.shopName==undefined ? defaultShopName : item.shopName);
+                    setDefaultShopCode(item.shopCode == undefined ? defaultShopCode : item.shopCode);
+                    setPlaceHolder(item.shopName == undefined ? defaultShopName : item.shopName);
                     // setMonth(item.month==undefined ? month : item.month)
                     await getData(item.month, item.branchCode, item.shopCode, item.empCode, item.sort);
                 } else {
@@ -182,6 +184,10 @@ const index = (props) => {
             <Search
                 modalTitle="Vui lòng chọn"
                 placeholder={"Vui lòng chọn"}
+                data={[
+                    { label: 'Top cao nhất', value: 1 },
+                    { label: 'Top thấp nhất', value: 0 }
+                ]}
                 searchSelectModal onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
                 dataOne={branchList}
                 dataTwo={shopList}
@@ -199,12 +205,12 @@ const index = (props) => {
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-                
+
                 {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
                 <Table
                     data={data}
                     table
-                    message={message&&message}
+                    message={message && message}
                     numColumn={4}
                     headers={["GDV", "Tổng lương", "Lương khoán sp", "KPI"]}
                     headersTextColor={"#D19E01"}
