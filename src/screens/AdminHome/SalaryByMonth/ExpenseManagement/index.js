@@ -65,7 +65,7 @@ const index = (props) => {
 
     useEffect(()=>{
         getData(month)
-    },[navigation])
+    },[month])
 
     return (
         <SafeAreaView style={styles.container}>

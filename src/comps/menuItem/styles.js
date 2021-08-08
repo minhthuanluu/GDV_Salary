@@ -5,7 +5,7 @@ import { fontScale } from "../../utils/Fonts";
 
 export const styles = StyleSheet.create({
   container: {
-    // backgroundColor: colors.white,
+    backgroundColor: colors.white,
   },
   bg: {
     backgroundColor: colors.white,

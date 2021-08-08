@@ -210,7 +210,5 @@ productivitySub: "Năng suất bình quân",
   incentive:"Khoán sp",
   topSeller:"Top GDV",
   totalOutcome:"Tổng chi phí",
-  search:"Tìm kiếm",
-  violateWarning:"Cảnh báo vi phạm", 
-  statistical: "Thống kê"
+  search:"Tìm kiếm"
 };

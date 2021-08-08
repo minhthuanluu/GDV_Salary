@@ -74,22 +74,3 @@ export const User =  {
     "userName": null,
   },
 }
-
-export const ViolateWarning = {
-  "transFc": {
-    "emp": null,
-    "top": null
-  },
-  "isValue": true,
-  "denyTwoC": {
-    "emp": null,
-    "top": null
-  },
-  "wrongNumber": null,
-  "noRecharge": null,
-  "overThree": null,
-  "resident": {
-    "emp": null,
-    "top": null
-  }
-}

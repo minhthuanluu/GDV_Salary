@@ -1,12 +1,10 @@
 // This file to define functions about logistics (Array, Timer, Compare,...)
 
 import moment from "moment";
-import { _retrieveData, _storeData } from "./Storage";
+import { _retrieveData } from "./Storage";
 import Toast from "react-native-toast-message";
 import { BackHandler } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
-import { getProfile } from "../api";
-import { User } from "../models/Data";
 
 export const thoundsandSep = (x) => {
   if (x != null || x != undefined) {
@@ -261,18 +259,4 @@ export const nth = (obj, n) => {
   }
 
   return null;
-}
-
-export const checkSearchHistory = async(key="", screenName="",data={}) => {
-  await getLoginInfo().then(async(item)=>{
-    if(key.length==0 && screenName.length==0 && data.length==0){
-        console.log('no data')
-    }
-    await _storeData("searchData",{
-      key:key,
-      screenName:screenName,
-      data:data
-    }).then((item)=> {return item})
-
-  })
 }
