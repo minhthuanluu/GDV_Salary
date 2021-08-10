@@ -1522,7 +1522,6 @@ export const getExpenseManagement = async (month) => {
 }
 // AdminHome > Lương theo tháng >Top GDV
 export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shopCode, empCode, sort) => {
-  console.log('getMonthSalaryTopTeller')
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1539,6 +1538,7 @@ export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shop
     length: 0,
     error: null,
   };
+  console.log(token)
     await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getMonthSalaryTopTeller?month=01/${month}&branchCode=${branchCode==null ? '':branchCode}&shopCode=${shopCode}&empCode=${empCode}&sort=${sort}`,

@@ -75,7 +75,9 @@ const AdminTopTeller = () => {
   }
 
   const onChangeBranch = (value) => {
-    setBranchCode(value);
+    setBranchCode(value.shopCode);
+    setDefaultBranchCode(value.shopCode)
+    setPlaceHolder(value.shopName)
   }
 
   // const _getData = async (shopCode, shopName, sort) => {
@@ -123,20 +125,19 @@ const AdminTopTeller = () => {
   const getData = async (branchCode, branchName, shopCode, month, sort) => {
     setMessage("");
     setLoadingData(true);
-    setPlaceHolder(branchName)
+
     setDefaultBranchCode(branchCode);
     setDefaultBranchName(branchName)
     setShopCode(shopCode)
     setSort(sort);
     setData([]);
-    console.log(branchCode, branchName, shopCode, month, sort)
     await getAdminKPIMonthTopTeller(navigation, branchCode, shopCode, month, sort).then((res) => {
       setLoadingData(false);
       if (res.status == "success") {
         if (res.data.data.length > 0) {
           setData(res.data.data);
           setLoadingData(false);
-          setPlaceHolder(branchName)
+
         } else {
           setData([])
           setMessage(res.message)
@@ -161,9 +162,15 @@ const AdminTopTeller = () => {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
-        setDefaultBranchCode(data.branchCode);
-        await getData(data.branchCode, data.branchName, shopCode, month, sort);
-        console.log(data.branchCode, data.branchName, shopCode, month, sort)
+        setDefaultBranchCode(data.shopCode);
+        await getData(data.shopCode, data.branchName, "", month, sort);
+      } else if (data.role == "MBF_CUAHANG") {
+        console.log(data)
+        setDefaultShopName(data.label);
+        setPlaceHolder(data.label);
+        setDefaultBranchName(data.shopName);
+        setDefaultBranchCode(data.shopCode);
+        await getData(data.branchCode, data.branchName, data.shopCode, month, sort);
       }
     })
   }
@@ -189,24 +196,50 @@ const AdminTopTeller = () => {
 
   const _onChangeMonth = async (value) => {
     await getRole().then(async (data) => {
-      console.log(data)
       setRole(data.role)
       if (data.role == "VMS_CTY") {
         setMonth(value);
         await getData(data.branchCode, defaultBranchName, shopCode, value, sort);
-      }else if (data.role == "MBF_CHINHANH" || data.role == "MBF_CUAHANG") {
-
+      } else if (data.role == "MBF_CHINHANH") {
+        setMonth(value);
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
-        await getData(data.branchCode,data.label,data.shopCode,month,sort)
+        await getData(data.shopCode, data.label, "", value, sort)
+      } else if (data.role == "MBF_CUAHANG") {
+        setMonth(value);
+        setDefaultShopName(data.label);
+        setPlaceHolder(data.label);
+        setDefaultBranchName(data.shopName);
+        setDefaultBranchCode(data.shopCode);
+        await getData(data.branchCode, data.branchName, data.shopCode, value, sort);
+
       }
     })
   }
 
-  const onSearch=(shopCode, shopName, defaultShopCode, month, radio)=>{
-    console.log(shopCode, shopName, defaultShopCode, month, radio)
+  const onSearch = async (shopCode, shopName, defaultShopCode, month, radio) => {
+    setDefaultShopCode(shopCode);
+    setDefaultShopName(shopName);
+    setSort(radio)
+    await getRole().then(async (data) => {
+      setRole(data.role)
+      if (data.role == "VMS_CTY") {
+        setMonth(month);
+        await getData(shopCode, shopName, '', month, radio);
+      } else if (data.role == "MBF_CHINHANH") {
+        await getData(data.shopCode, data.shopName, "", month, radio).then(() => {
+          setDefaultShopName(defaultShopName)
+        })
+      } else if (data.role == "MBF_CUAHANG") {
+        console.log("Home > KPI > Top Teller")
+        console.log(data)
+        await getData(data.branchCode, data.shopName, data.shopCode, month, radio).then(() => {
+          setDefaultShopName(defaultShopName)
+        })
+      }
+    })
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -225,13 +258,13 @@ const AdminTopTeller = () => {
         width={width - fontScale(60)}
         style={{ marginTop: fontScale(20) }}
         leftIcon={images.teamwork}
-        initialRadio={sort == 0 ? 1 : 0}
+        initialRadio={sort == 1 ? 0 : 1}
         dataOne={branchList}
         index={branchList.map((item, index) => index)}
         fieldOne={branchList.map((item) => item.shopName)}
         fieldTwo={shopList.map((item) => item.shopName)}
         fieldThree={empList.map((item, index) => item.maGDV)}
-        onChangePickerOne={(value, index) => onChangeBranch(value.shopCode)}
+        onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
         onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
         fixed={role != "VMS_CTY" ? true : false}

@@ -148,17 +148,23 @@ const AdminTopTellerAvgIncome = () => {
       setRole(data.role);
       if (data.role == "VMS_CTY") {
         getBranchList();
-        await getData('', '', '', month, sort);
+        await getData('', '', sort,defaultBranchName );
         setPlaceHolder("Chọn chi nhánh")
-      } else if (data.role == "MBF_CHINHANH" || data.role == "MBF_CUAHANG") {
+      } else if (data.role == "MBF_CHINHANH") {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
         setDefaultShopName(data.shopName);
-        await getData(data.branchCode, data.shopCode,"", data.branchName);
-      }
+        await getData(data.shopCode, "","", data.branchName);
+      }else if (data.role == "MBF_CUAHANG") {
+        setDefaultShopName(data.label);
+        setPlaceHolder(data.label);
+        setDefaultBranchCode(data.branchCode);
+        setDefaultShopCode(data.shopCode);
+        await getData(month, data.branchCode, data.shopCode, data.label, '', sort);
+    }
     })
   }
 
@@ -214,7 +220,6 @@ const AdminTopTellerAvgIncome = () => {
         fixed={role != "VMS_CTY" ? true : false}
         fixedData={defaultShopName}
         onPressOK={(value) => getData(value.shopCode || defaultBranchCode,defaultShopCode, value.radio, value.shopName||defaultShopName)}
-        // onPressOK={(value) => console.log(value)} 
       />
 
       <Body

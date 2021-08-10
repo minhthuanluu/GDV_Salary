@@ -196,6 +196,7 @@ export const getAdminKPIMonthTopTeller = async (
   month,
   sort
 ) => {
+  console.log("getAdminKPIMonthTopTeller: "+branchCode+' - '+shopCode+' - '+month+' - '+sort)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -211,6 +212,7 @@ export const getAdminKPIMonthTopTeller = async (
     loading: null,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getKPIMonthTopTeller?branchCode=${branchCode==null ? "" : branchCode}&shopCode=${shopCode}&month=01/${month}&sort=${sort}`,

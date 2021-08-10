@@ -87,7 +87,7 @@ const index = (props) => {
                   columns
                   rightIcon={images.branch}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.postPaid, item.prePaid, item.vas]}
+                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminKPIMonthShop", {
                     branchItem: {

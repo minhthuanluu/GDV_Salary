@@ -61,14 +61,13 @@ const index = (props) => {
         })
     }
 
-    const getData = async (month, _branchCode, _shopCode,_shopName, empCode, sort) => {
+    const getData = async (month, _branchCode, _shopCode, _shopName, empCode, sort) => {
         setLoading(true)
         setData([])
         setMessage("")
         setSort(sort)
-        setPlaceHolder(_shopName)
-        console.log(month, _branchCode, _shopCode, empCode, sort)
-
+        setPlaceHolder(_shopName);
+        console.log(month, _branchCode, _shopCode, _shopName, empCode, sort)
         await getMonthSalaryTopTeller(navigation, month, _branchCode, _shopCode, empCode, sort).then(async (res) => {
             const { data, error, status, isLoading, length, message } = res;
             if (status == "success") {
@@ -110,49 +109,67 @@ const index = (props) => {
     const onChangeBranch = async (value) => {
         console.log(value)
         setBranchCode(value.shopCode);
+        setDefaultBranchCode(value.shopCode);
         setDefaultShopName(value.shopName);
+        setDefaultShopCode('')
         setPlaceHolder(value.shopName)
         await getLoginInfo().then((item) => console.log(item))
     }
 
     const checkRole = async () => {
         getBranchList();
-        await getRole().then(async(data)=>{
+        await getRole().then(async (data) => {
             setRole(data.role);
             if (data.role == "VMS_CTY") {
                 getBranchList();
-                await getData(month, '', '', '', sort);
+                await getData(month, '', '', '', '', '');
                 setPlaceHolder("Chọn chi nhánh")
-              } else if (data.role == "MBF_CHINHANH" || data.role == "MBF_CUAHANG") {
+            } else if (data.role == "MBF_CHINHANH") {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(month,data.branchCode,data.shopCode,data.label,'',sort)
-              }
-            
+                await getData(month, data.branchCode, data.shopCode, data.label, '', sort)
+            } else if (data.role == "MBF_CUAHANG") {
+                setDefaultShopName(data.label);
+                setPlaceHolder(data.label);
+                setDefaultBranchCode(data.branchCode);
+                setDefaultShopCode(data.shopCode);
+                
+                await getData(month, data.branchCode, data.shopCode, data.label, '', sort);
+            }
+
         });
     }
 
     useEffect(() => {
         checkRole();
     }, [navigation])
+
     const _setMonth = async (value) => {
         setMonth(value)
         if (role == "VMS_CTY") {
             getBranchList();
             await getData(month, '', '', '', sort);
             setPlaceHolder("Chọn chi nhánh")
-          } else if (role == "MBF_CHINHANH" || role == "MBF_CUAHANG") {
-            await getRole().then(async(data)=>{
+        } else if (role == "MBF_CHINHANH") {
+            await getRole().then(async (data) => {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(value,data.branchCode,data.shopCode,data.label,'',sort)
+                await getData(value, data.shopCode, '', data.label, '', sort)
+            });
+        } else if (role == "MBF_CUAHANG") {
+            await getRole().then(async (data) => {
+                setDefaultShopName(data.label);
+                setPlaceHolder(data.label);
+                setDefaultBranchCode(data.branchCode);
+                setDefaultShopCode(data.shopCode);
+                // console.log(data)
+                await getData(value, data.branchCode, data.shopCode, data.label, '', sort)
             })
-            
-          }
+        }
     }
     return (
         <SafeAreaView style={styles.container}>
@@ -175,13 +192,28 @@ const index = (props) => {
                 fieldThree={empList.map((item, index) => item.maGDV)}
                 onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
-                onPressOK={(value) => getData(month,defaultBranchCode, "",value.shopName,"", value.radio)}
+                onPressOK={(value) => 
+                    // getData(
+                    // month, 
+                    // role != "VMS_CTY" ? value.shopCode : defaultBranchCode, 
+                    // "", 
+                    // role != "VMS_CTY" ? value.shopName : defaultShopName, 
+                    // "", 
+                    // value.radio)
+                    // role != "VMS_CTY" ? getData(month,value.shopCode,"",defaultShopName,"",value.radio)
+                    // :getData(month,defaultShopCode,value.shopCode,defaultShopName,"",value.radio)
+                    role == "VMS_CTY"  ? getData(month,value.shopCode,'',value.shopName,'',value.radio)
+                    :
+                    role=="MBF_CHINHANH" ? getData(month,defaultShopCode,'',defaultShopName,'',value.radio)
+                    :
+                    getData(month,defaultBranchCode,defaultShopCode,defaultShopName,'',value.radio)
+                }
                 fixed={role != "VMS_CTY" ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-               {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
+                {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
                 <Table
                     data={data}
                     table
