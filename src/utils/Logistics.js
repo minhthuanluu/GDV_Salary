@@ -261,22 +261,22 @@ export const nth = (obj, n) => {
   return null;
 }
 
-export const checkSearchHistory = async(key="", screenName="",data={}) => {
-  await getLoginInfo().then(async(item)=>{
-    if(key.length==0 && screenName.length==0 && data.length==0){
-        console.log('no data')
+export const checkSearchHistory = async (key = "", screenName = "", data = {}) => {
+  await getLoginInfo().then(async (item) => {
+    if (key.length == 0 && screenName.length == 0 && data.length == 0) {
+      console.log('no data')
     }
-    await _storeData("searchData",{
-      key:key,
-      screenName:screenName,
-      data:data
-    }).then((item)=> {return item})
+    await _storeData(key, {
+      key: key,
+      screenName: screenName,
+      data: data
+    }).then((item) => { return item })
 
   })
 }
 
-export const checkn2=(str)=>{
-  if (str == null || str == undefined) {
+export const checkn2 = (str='') => {
+  if (str == null || str == undefined || str.length==0 || !str) {
     return ""
   } else {
     let element;
@@ -292,10 +292,88 @@ export const checkn2=(str)=>{
 
     if (typeof (index) != undefined) {
       strFrs = str.substr(0, index - 1);
-      strSnd = str.substr(index , str.length);
+      strSnd = str.substr(index, str.length);
     }
 
 
     return strFrs + '\n' + strSnd;
   }
+}
+
+export const getRole = async () => {
+  let data = {
+    role: "",
+    level: "",
+    description: "",
+    branchCode: "",
+    branchName: "",
+    shopCode: "",
+    shopName: "",
+    label: ""
+  }
+  await _retrieveData('userInfo').then((item) => {
+
+    let level = item.userId.shopId.shopLevel;
+    if (level == 1) {
+      // role công ty
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Công ty');
+      console.log(item)
+      data = {
+        role: item.userId.userGroupId.code,
+        level: item.userId.shopId.shopLevel,
+        description: item.userId.userGroupId.description,
+        branchCode: "",
+        branchName: item.userId.shopId.shopName,
+        label: "Tất cả"
+      }
+    } else if (level == 2) {
+      // role chi nhánh
+      // console.log(item.userId)
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Chi nhánh');
+      // console.log('role code: ' + item.userId.userGroupId.code)
+      // console.log('role description: ' + item.userId.userGroupId.description)
+      // console.log('branch code: ' + item.userId.shopId.shopCode)
+      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
+      // console.log('shop code: ' + item.userId.shopId.shopCode)
+      // console.log('shop name: ' + item.userId.shopId.shopName)
+      data = {
+        role: item.userId.userGroupId.code,
+        level: item.userId.shopId.shopLevel,
+        description: item.userId.userGroupId.description,
+        branchCode: item.userId.shopId.shopCode,
+        branchName: item.userId.shopId.shopName,
+        shopCode: "",
+        shopName: "",
+        label: item.userId.shopId.shopName
+      }
+
+    } if (level == 3) {
+      // role cửa hàng
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Cửa hàng');
+      console.log('role code: ' + item.userId.userGroupId.code)
+      console.log('role description: ' + item.userId.userGroupId.description)
+      console.log('branch code: ' + item.userId.shopId.parentShopId.shopCode)
+      console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
+      console.log('shop code: ' + item.userId.shopId.shopCode)
+      console.log('shop name: ' + item.userId.shopId.shopName)
+      data = {
+        role: item.userId.userGroupId.code,
+        description: item.userId.userGroupId.description,
+        branchCode: item.userId.shopId.parentShopId.shopCode,
+        branchName: item.userId.shopId.parentShopId.shopName,
+        shopCode: item.userId.shopId.shopCode,
+        shopName: item.userId.shopId.shopName,
+        label: item.userId.shopId.shopName
+      }
+    }
+
+  })
+  return data;
+  // chi nhánh + cửa hàng trưởng ngang nhau
 }

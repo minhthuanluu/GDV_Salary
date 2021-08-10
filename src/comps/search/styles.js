@@ -4,12 +4,13 @@ import { fontScale } from "../../utils/Fonts";
 
 export const styles = StyleSheet.create({
     leftIco: {
-        width: fontScale(38),
+        width: fontScale(28),
         left:fontScale(10),
-        height: fontScale(38),
+        marginVertical:fontScale(6),
+        height: fontScale(28),
     },
     homeSearch: {
-        borderRadius: fontScale(12),
+        borderRadius: fontScale(20),
         alignItems: "center",
         color: "#B7B7B7",
         fontSize: fontScale(13),

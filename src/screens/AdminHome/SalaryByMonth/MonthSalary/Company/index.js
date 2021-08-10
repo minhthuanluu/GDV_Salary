@@ -93,13 +93,14 @@ const index = (props) => {
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
+            style={{marginTop:-fontScale(20)}}
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: index==0 ? fontScale(40):fontScale(20) }}
                   columns
                   rightIcon={images.branch}
                   titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}

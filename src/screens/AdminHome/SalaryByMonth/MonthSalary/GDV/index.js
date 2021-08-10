@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary } from "../../../../../adminapi";
+import {getMonthSalary } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";

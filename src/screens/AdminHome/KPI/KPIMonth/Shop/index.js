@@ -19,7 +19,7 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import { checkn2 } from "../../../../../utils/Logistics";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -42,7 +42,6 @@ const index = (props) => {
 
   useEffect(() => {
     const { month, branchCode } = route.params?.branchItem;
-    console.log(month,branchCode)
     setMonth(month);
     getData(month, branchCode, "");
   }, [""]);
@@ -84,11 +83,11 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: fontScale(40) }}
                   columns
                   rightIcon={images.store}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.postPaid, item.prePaid, item.vas]}
+                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
@@ -117,9 +116,9 @@ const index = (props) => {
                   " TBTS thoại gói > =99k",
                 ]}
                 item={[
-                  generalData.postPaid,
-                  generalData.prePaid,
-                  generalData.vas,
+                  checkn2(generalData.postPaid),
+                  checkn2(generalData.prePaid),
+                  checkn2(generalData.vas),
                   generalData.importantPlan,
                   generalData.retailRevenue,
                   "",

@@ -58,6 +58,9 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
     import AdminUnitInfo from "./AdminHome/UnitInfo"; // AdminHome > Thông tin đơn vị
         import AdminDetailUnitInfo from "./AdminHome/UnitInfo/Detail"; // AdminHome > Thông tin đơn vị
         import AdminImageDetailUnitInfo from "./AdminHome/UnitInfo/Detail/ImageDetail"; // AdminHome > Thông tin đơn vị
+    import AdminBranchTransInfo from "./AdminHome/TransInfo/Statistical/Branch"; // AdminHome > Thông tin giao dịch > Branch
+        import AdminShopTransInfo from "./AdminHome/TransInfo/Statistical/Shop"; // AdminHome > Thông tin giao dịch > Shop
+        import AdminEmpTransInfo from "./AdminHome/TransInfo/Statistical/Emp" // AdminHome > Thông tin giao dịch > Emp
     
 
 
@@ -114,6 +117,10 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminUnitInfoScreen = () => {return <AdminUnitInfo />}
             export const AdminDetailUnitInfoScreen = () => {return <AdminDetailUnitInfo />}
             export const AdminImageDetailUnitInfoScreen = () => {return <AdminImageDetailUnitInfo />}
+
+        export const AdminBranchTransInfoScreen = () => {return <AdminBranchTransInfo/>}
+            export const AdminShopTransInfoScreen = () => {return <AdminShopTransInfo/>}
+            export const AdminEmpTransInfoScreen = () => {return <AdminEmpTransInfo/>}
         
         
 // Auth's screen

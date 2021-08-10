@@ -22,6 +22,7 @@ function index(props) {
     const [data, setData] = useState(ViolateWarning);
 
     const getData=async()=>{
+        
         await getTransInfoWarning(navigation,month).then((res)=>{
             if (res.status == "success") {
                 setLoading(false);

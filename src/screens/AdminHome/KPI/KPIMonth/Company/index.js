@@ -15,7 +15,7 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
-import { ToastNotif } from "../../../../../utils/Logistics";
+import { checkn2, ToastNotif } from "../../../../../utils/Logistics";
 
 
 const index = (props) => {
@@ -78,6 +78,7 @@ const index = (props) => {
           <FlatList
             style={{ marginTop: fontScale(10)}}
             data={data}
+            showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
@@ -101,7 +102,7 @@ const index = (props) => {
                   icon={images.company}
                   color={"#D19E01"}
                   titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
-                  item={[generalData.postPaid, generalData.prePaid, generalData.vas, generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
+                  item={[checkn2(generalData.postPaid), checkn2(generalData.prePaid), checkn2(generalData.vas), generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
                   title={generalData.shopName}
                 /> : null}
               </View>

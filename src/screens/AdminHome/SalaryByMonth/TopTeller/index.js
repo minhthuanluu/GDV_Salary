@@ -2,22 +2,21 @@ import { useNavigation } from '@react-navigation/core';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { Text } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
 import Toast from 'react-native-toast-message';
-import { getAllBranch, getAllShop, getAllEmp, getMonthSalaryTopTeller, getProfile } from '../../../../api';
+import { getAllBranch, getMonthSalaryTopTeller } from '../../../../api';
 import { Body, DatePicker, Header, Search, Table } from '../../../../comps';
 import { colors } from '../../../../utils/Colors';
 import { width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
 import { images } from '../../../../utils/Images';
-import { checkUserRole, getLoginInfo } from '../../../../utils/Logistics';
+import { checkSearchHistory, getLoginInfo, getRole } from '../../../../utils/Logistics';
 import { _retrieveData, _storeData } from '../../../../utils/Storage';
 import { text } from '../../../../utils/Text';
 import { styles } from './style'
 
 const index = (props) => {
-    const [month, setMonth] = useState(moment(new Date()).subtract(1,"months").format("MM/YYYY"));
+    const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
     const [loading, setLoading] = useState(false);
     const [branchList, setBranchList] = useState([]);
     const [branchCode, setBranchCode] = useState('')
@@ -32,7 +31,10 @@ const index = (props) => {
     const [placeHolder, setPlaceHolder] = useState('')
     const [role, setRole] = useState();
     const [defaultShopCode, setDefaultShopCode] = useState('')
-    const [defaultShopName, setDefaultShopName] = useState('')
+    const [defaultShopName, setDefaultShopName] = useState('');
+    const [defaultBranchCode, setDefaultBranchCode] = useState('')
+    const [defaultBranchName, setDefaultBranchName] = useState('');
+    const [shopName, setShopName] = useState('')
 
     const getBranchList = async () => {
         setLoading(true)
@@ -59,66 +61,34 @@ const index = (props) => {
         })
     }
 
-    const getData = async (month, branchCode, shopCode, empCode, sort=0) => {
-        console.log(month, branchCode, shopCode, empCode, sort)
+    const getData = async (month, _branchCode, _shopCode,_shopName, empCode, sort) => {
         setLoading(true)
         setData([])
         setMessage("")
-        await _storeData("defaultTopTellerMonthSalValue", {
-            "branchCode": branchCode,
-            "shopCode":shopCode,
-            "empCode":empCode,
-            "month": month,
-            "sort": sort
-        }).then(async () => {
-            await getMonthSalaryTopTeller(month, branchCode, shopCode, empCode, sort).then((res) => {
-                const { data, error, status, isLoading, length, message } = res;
+        setSort(sort)
+        setPlaceHolder(_shopName)
+        console.log(month, _branchCode, _shopCode, empCode, sort)
 
-                if (status == "success") {
-                    setLoading(isLoading);
-                    if (length == 0) {
-                        setMessage('Không có dữ liệu');
-                    } else {
-                        setData(data);
-                    }
-                }
-                if (status == "failed") {
-                    setLoading(isLoading);
-                    Toast.show({
-                        text1: "Cảnh báo",
-                        text2: res.message,
-                        type: "error",
-                        visibilityTime: 5000,
-                        autoHide: true,
-                        onHide: () => navigation.goBack()
-                    })
-                }
-                if (res.status == "v_error") {
-                    Toast.show({
-                        text1: "Cảnh báo",
-                        text2: res.message,
-                        type: "error",
-                        visibilityTime: 1000,
-                        autoHide: true,
-                        onHide: () => navigation.goBack()
-                    })
-                }
-            })
-        })
-
-    }
-
-    const onChangeBranch = async (branchCode, value) => {
-        setLoading(true)
-        setBranchCode(branchCode);
-        await getAllShop(navigation, branchCode).then((res) => {
-            if (res.status == "success") {
+        await getMonthSalaryTopTeller(navigation, month, _branchCode, _shopCode, empCode, sort).then(async (res) => {
+            const { data, error, status, isLoading, length, message } = res;
+            if (status == "success") {
                 setLoading(false);
-                setShopList(res.data);
-
+                if (length == 0) {
+                    setMessage('Không có dữ liệu');
+                } else {
+                    setData(res.data);
+                }
             }
-            if (res.status == "failed") {
-                setLoading(false);
+            if (status == "failed") {
+                setLoading(isLoading);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 5000,
+                    autoHide: true,
+                    onHide: () => navigation.goBack()
+                })
             }
             if (res.status == "v_error") {
                 Toast.show({
@@ -130,81 +100,92 @@ const index = (props) => {
                     onHide: () => navigation.goBack()
                 })
             }
+
+            await checkSearchHistory("salaryByMonth", "AdminSalaryByMonthTopTeller", { "shopCode": _branchCode || branchCode, "shopName": defaultShopName, "month": month, "sort": sort })
+
         })
+
+    }
+
+    const onChangeBranch = async (value) => {
+        console.log(value)
+        setBranchCode(value.shopCode);
+        setDefaultShopName(value.shopName);
+        setPlaceHolder(value.shopName)
+        await getLoginInfo().then((item) => console.log(item))
     }
 
     const checkRole = async () => {
-        await _retrieveData("userInfo").then((user) => {
-            let role = user?.userId.userGroupId.code;
-            setDefaultShopName(user?.userId.shopId.shopName);
-            setDefaultShopCode(user?.userId.shopId.shopCode)
-            setRole(role)
-        })
+        getBranchList();
+        await getRole().then(async(data)=>{
+            setRole(data.role);
+            if (data.role == "VMS_CTY") {
+                getBranchList();
+                await getData(month, '', '', '', sort);
+                setPlaceHolder("Chọn chi nhánh")
+              } else if (data.role == "MBF_CHINHANH" || data.role == "MBF_CUAHANG") {
+                setDefaultShopName(data.label);
+                setPlaceHolder(data.label);
+                setDefaultBranchCode(data.branchCode);
+                setDefaultShopCode(data.shopCode);
+                await getData(month,data.branchCode,data.shopCode,data.label,'',sort)
+              }
+            
+        });
     }
 
     useEffect(() => {
-        getBranchList();
-        const init = async () => {
-            await _retrieveData("defaultTopTellerMonthSalValue").then(async(item) => {
-                setMessage("")
-                if (item != undefined) {
-                    setDefaultShopCode(item.shopCode==undefined ? defaultShopCode : item.shopCode);
-                    setPlaceHolder(item.shopName==undefined ? defaultShopName : item.shopName);
-                    // setMonth(item.month==undefined ? month : item.month)
-                    await getData(item.month, item.branchCode, item.shopCode, item.empCode, item.sort);
-                } else {
-                    await getData(month, "", "", "", "");
-                    setPlaceHolder("Chọn chi nhánh");
-                }
-            }).then(() => {
-
-
-            })
-        }
-        setPlaceHolder("Chọn chi nhánh");
-
-        init();
-        console.log('Salary by month')
-        getData(month, branchCode, shopCode, empCode, sort);
-
         checkRole();
-    }, [""])
-
+    }, [navigation])
     const _setMonth = async (value) => {
         setMonth(value)
-        await getData(value, branchCode, shopCode, empCode, sort)
+        if (role == "VMS_CTY") {
+            getBranchList();
+            await getData(month, '', '', '', sort);
+            setPlaceHolder("Chọn chi nhánh")
+          } else if (role == "MBF_CHINHANH" || role == "MBF_CUAHANG") {
+            await getRole().then(async(data)=>{
+                setDefaultShopName(data.label);
+                setPlaceHolder(data.label);
+                setDefaultBranchCode(data.branchCode);
+                setDefaultShopCode(data.shopCode);
+                await getData(value,data.branchCode,data.shopCode,data.label,'',sort)
+            })
+            
+          }
     }
-
     return (
         <SafeAreaView style={styles.container}>
             <Header title={text.topSeller} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _setMonth(date)} />
             <Search
                 modalTitle="Vui lòng chọn"
-                placeholder={"Vui lòng chọn"}
-                searchSelectModal onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
+                data={[
+                    { label: 'Top cao nhất', value: 1 },
+                    { label: 'Top thấp nhất', value: 0 }
+                ]}
+                placeholder={placeHolder}
+                searchSelectModal
+                initialRadio={sort == 1 ? 0 : 1}
+                onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
                 dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
                 index={branchList.map((item, index) => index)}
                 fieldOne={branchList.map((item) => item.shopName)}
                 fieldTwo={shopList.map((item) => item.shopName)}
                 fieldThree={empList.map((item, index) => item.maGDV)}
-                onChangePickerOne={(value, index) => onChangeBranch(value.shopCode, value)}
+                onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
-                onPressOK={(value) => getData(month, branchCode || defaultShopCode, shopCode, empCode, value.sort)}
-                onShowModalSearch={(value) => console.log(value)}
+                onPressOK={(value) => getData(month,defaultBranchCode, "",value.shopName,"", value.radio)}
                 fixed={role != "VMS_CTY" ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-                
-                {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
+               {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
                 <Table
                     data={data}
                     table
-                    message={message&&message}
+                    message={message && message}
                     numColumn={4}
                     headers={["GDV", "Tổng lương", "Lương khoán sp", "KPI"]}
                     headersTextColor={"#D19E01"}
@@ -219,7 +200,7 @@ const index = (props) => {
                         ])
                     }
                     fontWeight={["normal"]}
-                    textColor={'#000'}
+                    textColor={['#000']}
                     firstRowBg={colors.lightGrey}
                     textAlign="center"
                     rowBg={data.map((item, index) => index % 2 == 0 ? colors.lightGrey : colors.white)}

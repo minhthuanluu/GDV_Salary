@@ -1,6 +1,6 @@
- 
+
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import {
   Body,
   DatePicker,
@@ -10,7 +10,7 @@ import {
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary } from "../../../../../adminapi";
+import { getMonthSalary } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -20,9 +20,8 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
 import Toast from "react-native-toast-message";
- 
+
 const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
@@ -30,10 +29,10 @@ const index = (props) => {
   const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
   const route = useRoute();
- 
+
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    
+
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
@@ -52,14 +51,14 @@ const index = (props) => {
       }
     });
   };
- 
+
   useEffect(() => {
     const { month, branchCode } = route.params?.item;
-    console.log(month+' - '+branchCode)
+    console.log(month + ' - ' + branchCode)
     setMonth(month);
     getData(month, branchCode, "");
   }, [navigation]);
- 
+
   const _onChangeMonth = (value) => {
     setMonth(value);
     const { branchCode } = route.params?.item;
@@ -87,7 +86,7 @@ const index = (props) => {
             style={{ marginTop: fontScale(20) }}
           />
         ) : null}
- 
+
         <View style={{ flex: 1 }}>
           <FlatList
             style={{ marginTop: fontScale(10) }}
@@ -97,7 +96,7 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: fontScale(30) }}
                   columns
                   rightIcon={images.store}
                   titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
@@ -113,14 +112,16 @@ const index = (props) => {
                     })
                   }
                 />
-               {
-                   index==data.length-1 ?  <GeneralListItem
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                    fiveColumnCompany
-                    title={generalData.shopName}
-                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
-                    icon={images.branch} /> : null
+                {
+                  index == data.length - 1 ?
+                    <GeneralListItem
+                      style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                      fiveColumnCompany
+                      title={generalData.shopName}
+                      titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
+                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                      icon={images.branch} />
+                    : null
                 }
               </View>
             )}
@@ -130,6 +131,6 @@ const index = (props) => {
     </SafeAreaView>
   );
 };
- 
+
 export default index;
- 
+

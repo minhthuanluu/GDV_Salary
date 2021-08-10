@@ -12,7 +12,7 @@ import { colors } from '../../../utils/Colors';
 import { width } from '../../../utils/Dimenssion';
 import { fontScale } from '../../../utils/Fonts';
 import { images } from '../../../utils/Images';
-import { ToastNotif } from '../../../utils/Logistics';
+import { getRole, ToastNotif } from '../../../utils/Logistics';
 import { text } from '../../../utils/Text';
 import { styles } from './style';
 import Toast from "react-native-toast-message";
@@ -59,6 +59,7 @@ const Dashboard=(route)=> {
           }
         });
         getData();
+       
         return () => {
             BackHandler.removeEventListener('hardwareBackPress', () => {
               if (!navigation.isFocused()) {

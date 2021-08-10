@@ -15,6 +15,7 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { ScrollView } from "react-native";
+import { checkn2 } from "../../../../../utils/Logistics";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -88,7 +89,8 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem company
-                  style={{ marginTop: index==0 ? -fontScale(40):fontScale(20) }}
+                  rigthTopContent
+                  style={{ marginTop: index == 0 ? -fontScale(40) : fontScale(20) }}
                   columns
                   backgroundColor={colors.white}
                   color={colors.black}
@@ -100,8 +102,8 @@ const index = (props) => {
                     "Bán lẻ",
                     "% Lên gói",
                     "TBTT",
-                    " TBTS thoại gói > =99k",]}
-                  item={[item.postPaid, item.prePaid, item.vas, item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine]}
+                    " TBTS thoại gói > =99k", 'KPI tổng:']}
+                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas), item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine,item.kpiValue]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
@@ -118,6 +120,7 @@ const index = (props) => {
                     company
                     style={{ marginBottom: fontScale(80), marginTop: fontScale(35) }}
                     icon={images.store}
+
                     color={"#D19E01"}
                     titleArray={[
                       "TBTS",
@@ -130,9 +133,9 @@ const index = (props) => {
                       " TBTS thoại gói > =99k",
                     ]}
                     item={[
-                      generalData.postPaid,
-                      generalData.prePaid,
-                      generalData.vas,
+                      checkn2(generalData.postPaid),
+                      checkn2(generalData.prePaid),
+                      checkn2(generalData.vas),
                       generalData.importantPlan,
                       generalData.retailRevenue,
                       "",

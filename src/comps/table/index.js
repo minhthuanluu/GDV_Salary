@@ -2,15 +2,12 @@ import { useNavigation } from '@react-navigation/core';
 import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Text } from 'react-native';
-import { ActivityIndicator } from 'react-native';
-import { TouchableOpacity } from 'react-native';
 import { ScrollView } from 'react-native';
 import { Image } from 'react-native';
 import { View } from 'react-native';
 import { colors } from '../../utils/Colors';
 import { getDimesions, width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
-import { images } from '../../utils/Images';
 import TableRow from "./tablerow/index";
  
 const index = (props) => {
@@ -76,6 +73,9 @@ const index = (props) => {
                                     <FlatList
                                         showsVerticalScrollIndicator={false}
                                         data={data}
+                                        getItemLayout={(data, index) => (
+                                            {length: 100, offset: 100 * index, index}
+                                          )}
                                         keyExtractor={(item, index) => index.toString()}
                                         key={({ item }) => item.numberSub.toString()}
                                         renderItem={({ item, index }) => (
@@ -86,7 +86,7 @@ const index = (props) => {
                                                         textColor={props.textColor[index] || props.textColor}
                                                         fontWeight={props.fontWeight}
                                                         widthArray={widthArray}
-                                                        onPress = {()=>props.onPress ? props.onPress(item,index) : null}
+                                                        onPress = {props.onPress ? ()=>props.onPress(item,index) : null}
                                                         fields={props.fields}
                                                         numColumn={numColumn}
                                                         boldFirstColumn={props.boldFirstColumn}

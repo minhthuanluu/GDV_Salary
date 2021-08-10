@@ -1521,7 +1521,8 @@ export const getExpenseManagement = async (month) => {
   return data;
 }
 // AdminHome > Lương theo tháng >Top GDV
-export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCode, sort) => {
+export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shopCode, empCode, sort) => {
+  console.log('getMonthSalaryTopTeller')
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1533,14 +1534,14 @@ export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCo
   let data = {
     message: "",
     status: "",
-    res: null,
+    data: null,
     loading: null,
     length: 0,
     error: null,
   };
-  await axios({
+    await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getMonthSalaryTopTeller?month=01/${month}&branchCode=${branchCode}&shopCode=${shopCode}&empCode=${empCode}&sort=${sort}`,
+    url: `${baseUrl}adminScreens/getMonthSalaryTopTeller?month=01/${month}&branchCode=${branchCode==null ? '':branchCode}&shopCode=${shopCode}&empCode=${empCode}&sort=${sort}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1558,13 +1559,22 @@ export const getMonthSalaryTopTeller = async (month, branchCode, shopCode, empCo
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null
+          };
+        } else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
           };
         }
       }
@@ -1658,7 +1668,6 @@ export const getAllAvgIncome = async (navigation, branchCode, shopCode) => {
 // Admin > Thong tin giao dich
 
 export const getTransInfoDashboard = async (navigation, month) => {
-  console.log(month)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {

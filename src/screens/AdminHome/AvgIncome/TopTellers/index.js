@@ -24,6 +24,7 @@ import Toast from 'react-native-toast-message';
 import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop, getTopTellerByAvgIncome } from "../../../../adminapi";
 import { _retrieveData, _storeData } from "../../../../utils/Storage";
 import { getProfile } from "../../../../api";
+import { getRole } from "../../../../utils/Logistics";
 
 const AdminTopTellerAvgIncome = () => {
   const [data, setData] = useState([]);
@@ -38,6 +39,8 @@ const AdminTopTellerAvgIncome = () => {
   const [notification, setNotification] = useState("");
   const [shopCode, setShopCode] = useState('');
   const [empCode, setEmpCode] = useState('');
+  const [defaultBranchCode, setDefaultBranchCode] = useState('')
+  const [defaultBranchName, setDefaultBranchName] = useState('')
   const [defaultShopCode, setDefaultShopCode] = useState('')
   const [defaultShopName, setDefaultShopName] = useState('')
   const [role, setRole] = useState();
@@ -102,12 +105,14 @@ const AdminTopTellerAvgIncome = () => {
 
   }
 
-  const getData = async (branchCode1, sort1, branchName1) => {
+  const getData = async (branchCode,shopCode, sort, branchName) => {
+    console.log('call api: '+branchCode,shopCode, sort, branchName)
+    branchName&&setPlaceHolder(branchName)
     setMessage("");
     setLoadingData(true);
-    setSort(sort1)
-    await _storeData("KPIAVGINCOMETELLER", { "sort": sort1 == 1 ? 1 : 0, "month": month, "shopCode": branchCode1, "shopName": branchName1 == undefined ? defaultShopName : branchName1 }).then(async () => {
-      await getTopTellerByAvgIncome(navigation, branchCode1, sort1).then((res) => {
+    setSort(sort)
+    setData([])
+       await getTopTellerByAvgIncome(navigation, branchCode,shopCode, sort).then((res) => {
         setLoadingData(false);
         if (res.status == "success") {
           if (res.data.length > 0 || res.data.data.length > 0) {
@@ -136,36 +141,25 @@ const AdminTopTellerAvgIncome = () => {
           })
         }
       });
-    })
-
   };
 
   const checkRole = async () => {
-    await _retrieveData("userInfo").then((user) => {
-      let role = user?.userId.userGroupId.code;
-      setRole(role)
-    })
-  }
-
-  const init = async () => {
-    await _retrieveData("KPIAVGINCOMETELLER").then(async (item) => {
-      if (item != undefined) {
-        console.log("KPIAVGINCOMETELLER")
-        console.log(item)
-        setDefaultShopName(item.shopName)
-        setSort(item.sort);
-        setDefaultShopCode(item.shopCode);
-        await getData(item.shopCode, item.sort, item.shopName)
-      } else {
-        setSort(1);
-        setDefaultShopName(branchList[0].shopName);
-        setDefaultShopCode(branchList[0].shopCode)
-        await getProfile();
-        await getData(branchList[0].shopCode, 1, defaultShopName);
-
+    await getRole().then(async (data) => {
+      setRole(data.role);
+      if (data.role == "VMS_CTY") {
+        getBranchList();
+        await getData('', '', '', month, sort);
+        setPlaceHolder("Chọn chi nhánh")
+      } else if (data.role == "MBF_CHINHANH" || data.role == "MBF_CUAHANG") {
+        setDefaultShopName(data.label);
+        setPlaceHolder(data.label);
+        setDefaultBranchName(data.branchName);
+        setDefaultBranchCode(data.branchCode);
+        setDefaultShopCode(data.shopCode);
+        setDefaultShopName(data.shopName);
+        await getData(data.branchCode, data.shopCode,"", data.branchName);
       }
     })
-
   }
 
   useEffect(() => {
@@ -179,7 +173,7 @@ const AdminTopTellerAvgIncome = () => {
       backAction
     );
     getBranchList()
-    init();
+    // init();
     checkRole();
     return () => {
       console.log('AdminHome > AvgIncome > TopTellers')
@@ -195,8 +189,14 @@ const AdminTopTellerAvgIncome = () => {
       <Search
         loading={loading}
         modalTitle="Vui lòng chọn"
-        placeholder={defaultShopName}
+        placeholder={placeHolder}
         searchSelectModal
+        initialRadio={sort == 0 ? 1 : 0}
+        data={[
+          { label: 'Top cao nhất', value: 1 },
+          { label: 'Top thấp nhất', value: 0 }
+        ]}
+        modalTitle="Vui lòng chọn"
         width={width - fontScale(60)}
         style={{ marginTop: fontScale(20) }}
         leftIcon={images.teamwork}
@@ -213,7 +213,8 @@ const AdminTopTellerAvgIncome = () => {
         showPicker={[true, false, false]}
         fixed={role != "VMS_CTY" ? true : false}
         fixedData={defaultShopName}
-        onPressOK={async (value) => await getData(value.shopCode, value.radio, value.shopName)}
+        onPressOK={(value) => getData(value.shopCode || defaultBranchCode,defaultShopCode, value.radio, value.shopName||defaultShopName)}
+        // onPressOK={(value) => console.log(value)} 
       />
 
       <Body
@@ -231,7 +232,7 @@ const AdminTopTellerAvgIncome = () => {
           <ActivityIndicator
             size="small"
             color={colors.primary}
-            style={{ marginTop: fontScale(10) }}
+            style={{ marginTop: fontScale(20) }}
           />
         ) : null}
 

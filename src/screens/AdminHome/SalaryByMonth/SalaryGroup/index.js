@@ -180,19 +180,12 @@ const index = () => {
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading==true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+        <View style={{marginTop:-fontScale(40)}}>
         <Table
-          style={styles.table}
           data={data}
           table
           numColumn={6}
-          headers={[
-            "",
-            ">=20tr",
-            ">=17tr",
-            ">=12tr",
-            "<12tr",
-            "Tổng GDV",
-          ]}
+          headers={["",">=20tr",">=17tr",">=12tr","<12tr","Tổng GDV"]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           headerMarginLeft = {fontScale(5)}
@@ -234,6 +227,7 @@ const index = () => {
             item.shopType == "BRANCH" ? "#EBFDFD" : "#fff"
           )}
         />
+        </View>
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
