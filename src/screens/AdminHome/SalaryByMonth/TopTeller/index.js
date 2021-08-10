@@ -129,7 +129,7 @@ const index = (props) => {
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(month, data.branchCode, data.shopCode, data.label, '', sort)
+                await getData(month, data.shopCode, '', data.label, '', sort)
             } else if (data.role == "MBF_CUAHANG") {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
