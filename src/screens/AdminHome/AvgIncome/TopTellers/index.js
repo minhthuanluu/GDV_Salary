@@ -163,7 +163,7 @@ const AdminTopTellerAvgIncome = () => {
         setPlaceHolder(data.label);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
-        await getData(month, data.branchCode, data.shopCode, data.label, '', sort);
+        await getData(data.branchCode, data.shopCode,"", data.label);
     }
     })
   }
@@ -219,7 +219,10 @@ const AdminTopTellerAvgIncome = () => {
         showPicker={[true, false, false]}
         fixed={role != "VMS_CTY" ? true : false}
         fixedData={defaultShopName}
-        onPressOK={(value) => getData(value.shopCode || defaultBranchCode,defaultShopCode, value.radio, value.shopName||defaultShopName)}
+        onPressOK={(value) => 
+          role == "VMS_CTY"  ? getData(value.shopCode || defaultBranchCode,defaultShopCode, value.radio, value.shopName||defaultShopName) : 
+         role=="MBF_CHINHANH" ? getData(defaultShopCode,"",value.radio) : getData(defaultBranchCode,defaultShopCode,value.radio) 
+        }
       />
 
       <Body
@@ -265,13 +268,6 @@ const AdminTopTellerAvgIncome = () => {
                 [styles.dateCol, { width: (width * 2.6) / 10 }],
                 [styles.dateCol, { width: (width * 3.2) / 10 }],
               ]}
-            //   lastIcon={item.pckSub == 1 ? images.check : images.cancle}
-            //   lastIconViewStyle={{ alignItems: "center", flex: 0.5 }}
-            //   lastIconStyle={{
-            //     flex: 0.5,
-            //     width: fontScale(15),
-            //     height: fontScale(19),
-            //   }}
             />
           )}
         />
