@@ -90,7 +90,7 @@ const UnitInfoDetail = (props) => {
                     renderItem={({ item, index }) => <GeneralListItem
                         style={{marginTop: fontScale(29)}}
                         columns
-                        onPress={() => navigation.navigate("AdminImageDetailUnitInfo", {"avatar":item.avatar})}
+                        onPress={item.avatar!=null?() => navigation.navigate("AdminImageDetailUnitInfo", {"avatar":item.avatar}):console.log("null")}
                         rightIcon={{uri: imgUrl + item.avatar}}
                         circleImage
                         size={55}

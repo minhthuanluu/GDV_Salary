@@ -29,6 +29,8 @@ const index = (props) => {
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     setMessage("")
+    console.log("getTransactionStatistics");
+    setData([])
     await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setLoading(false);
@@ -103,23 +105,17 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                  <GeneralListItem
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(35) }}
                     contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
                     contentStyle3={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}
                     backgroundColor={colors.white}
                     textColor={colors.black}
                     titleStyle2={{color:colors.black, marginLeft: 15, fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(16), fontSize: fontScale(14)}}
                     twelveColumnCompany
-                    title={item.shopName}
+                    title={item.shopCode}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
                     item={["","",item.cusAmount,item.cusTopDay,item.transAmount,item.transTopDay,item.blocking2CAmount,"",item.subRegisterAmount,item.subRegisterTopDay,item.foneCardAmount,item.foneCardTopDay,item.noRechargeAmount,item.noRechargeTopDay,item.violateAmount]}
-                  
-                  onPress={() => navigation.navigate("AdminShopTransInfo", {
-                    item: {
-                      "branchCode": item.shopCode,
-                      "month": month
-                    }
-                  })} />
+                   />
                 { index == data.length - 1 ?
                   <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}

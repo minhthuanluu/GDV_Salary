@@ -127,7 +127,7 @@ export const getAllShop = async (navigation, branchCode) => {
   return data;
 };
 
-export const getAllEmp = async (navigation, branchCode) => {
+export const getAllEmp = async (navigation, branchCode,shopCode) => {
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -136,6 +136,7 @@ export const getAllEmp = async (navigation, branchCode) => {
       navigation.navigate("SignIn");
     }
   });
+  console.log(token)
   let data = {
     message: "",
     status: "",
@@ -145,7 +146,7 @@ export const getAllEmp = async (navigation, branchCode) => {
   };
   await axios({
     method: GET,
-    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}`,
+    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -787,6 +788,7 @@ export const getTransactionStatistics = async (month, branchCode, shopCode) => {
     loading: null,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getTransactionStatistics?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,

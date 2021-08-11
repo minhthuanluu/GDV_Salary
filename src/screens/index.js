@@ -54,7 +54,8 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
                 import StatisticalEmp from "./AdminHome/TransInfo/Statistical/Emp" // Admin > Thông tin giao dịch > Thống kê > Nhân viên
         import ViolateWarningDashBoard from "./AdminHome/TransInfo/ViolationWarning"; // Admin > Thông tin giao dịch > Cảnh báo vi phạm
             import EmpRegInfo from "./AdminHome/TransInfo/ViolationWarning/EmpRegInfo"; //Admin > Thông tin giao dịch > Cảnh báo vi phạm > GDV DKTT
-                import EmpRegInfoDetail from "./AdminHome/TransInfo/ViolationWarning/EmpRegInfo/Detail"
+                import EmpRegInfoDetail from "./AdminHome/TransInfo/ViolationWarning/EmpRegInfo/Detail" //Admin > Thông tin giao dịch > Cảnh báo vi phạm > GDV DKTT > Chi tiết
+                import DenyByWrongInfo from "./AdminHome/TransInfo/ViolationWarning/DenyByWrongInfo"  //Admin > Thông tin giao dịch > Cảnh báo vi phạm > GDV bị chặn user do đấu sai kho số
     import AdminUnitInfo from "./AdminHome/UnitInfo"; // AdminHome > Thông tin đơn vị
         import AdminDetailUnitInfo from "./AdminHome/UnitInfo/Detail"; // AdminHome > Thông tin đơn vị
         import AdminImageDetailUnitInfo from "./AdminHome/UnitInfo/Detail/ImageDetail"; // AdminHome > Thông tin đơn vị
@@ -113,6 +114,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
                 export const AdminViolateWarningDashboardScreen = ()=> {return <ViolateWarningDashBoard />}
                     export const AdminEmpRegInfoScreen = ()=> {return <EmpRegInfo />}
                         export const AdminEmpRegInfoDetailScreen = ()=> {return <EmpRegInfoDetail />}
+                    export const DenyByWrongInfoScreen = () => {return <DenyByWrongInfo />}
             // AdminAvgIncomeTellers
         export const AdminUnitInfoScreen = () => {return <AdminUnitInfo />}
             export const AdminDetailUnitInfoScreen = () => {return <AdminDetailUnitInfo />}

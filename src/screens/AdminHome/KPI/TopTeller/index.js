@@ -2,11 +2,9 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, Text, FlatList, View, ActivityIndicator } from "react-native";
 import {
   Body,
-  DataPicker,
   DatePicker,
   GeneralListItem,
   Header,
-  MetricStatus,
   Search,
   TableHeader,
 } from "../../../../comps";
@@ -15,13 +13,12 @@ import { colors } from "../../../../utils/Colors";
 import { fontScale } from "../../../../utils/Fonts";
 import { images } from "../../../../utils/Images";
 import { text } from "../../../../utils/Text";
-// import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop } from "../../../../adminapi";
 import { useNavigation } from "@react-navigation/native";
 import { width } from "../../../../utils/Dimenssion";
 import { BackHandler } from "react-native";
 import moment from "moment";
 import Toast from 'react-native-toast-message';
-import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop } from "../../../../adminapi";
+import { getAdminKPIMonthTopTeller, getAllBranch } from "../../../../adminapi";
 import { _retrieveData } from "../../../../utils/Storage";
 import { getRole } from "../../../../utils/Logistics";
 
@@ -199,14 +196,14 @@ const AdminTopTeller = () => {
       setRole(data.role)
       if (data.role == "VMS_CTY") {
         setMonth(value);
-        await getData(data.branchCode, defaultBranchName, shopCode, value, sort);
+        await getData(defaultBranchCode, defaultBranchName, shopCode, value, sort);
       } else if (data.role == "MBF_CHINHANH") {
         setMonth(value);
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
-        await getData(data.shopCode, data.label, "", value, sort)
+        await getData(data.branchCode, data.label, data.shopCode, value, sort)
       } else if (data.role == "MBF_CUAHANG") {
         setMonth(value);
         setDefaultShopName(data.label);
@@ -220,6 +217,7 @@ const AdminTopTeller = () => {
   }
 
   const onSearch = async (shopCode, shopName, defaultShopCode, month, radio) => {
+    console.log(shopCode, shopName, defaultShopCode, month, radio)
     setDefaultShopCode(shopCode);
     setDefaultShopName(shopName);
     setSort(radio)
@@ -248,6 +246,7 @@ const AdminTopTeller = () => {
       <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
       <Search
         loading={loading}
+        rightIcon={images.searchlist}
         data={[
           { label: 'Top cao nhất', value: 1 },
           { label: 'Top thấp nhất', value: 0 }
@@ -300,6 +299,7 @@ const AdminTopTeller = () => {
           style={{ marginTop: fontScale(10) }}
           keyExtractor={(item, index) => index.toString()}
           key={({ item }) => item.empName.toString()}
+          maxToRenderPerBatch={20}
           renderItem={({ item, index }) => (
             <GeneralListItem
               item={item}
@@ -313,10 +313,9 @@ const AdminTopTeller = () => {
               ]}
               style={[
                 [styles.dateCol, { width: (width * 3.9) / 10 }],
-                [styles.dateCol, { width: (width * 2.5) / 10 }],
-                [styles.dateCol, { width: (width * 1.5) / 10 }],
-                [styles.dateCol, { width: (width * 2.3) / 10 }],
-                [styles.dateCol, { width: (width * 1) / 10 }],
+                [styles.dateCol, { width: (width * 2.5) / 10,paddingTop:fontScale(7) }],
+                [styles.dateCol, { width: (width * 1.5) / 10,paddingTop:fontScale(7) }],
+                [styles.dateCol, { width: (width * 2.3) / 10 ,paddingTop:fontScale(7)}]
               ]}
             //   lastIcon={item.pckSub == 1 ? images.check : images.cancle}
             //   lastIconViewStyle={{ alignItems: "center", flex: 0.5 }}

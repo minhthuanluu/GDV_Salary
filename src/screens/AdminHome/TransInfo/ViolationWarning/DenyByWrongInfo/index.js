@@ -7,7 +7,7 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { set } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import { getTransInfoWarningByType } from '../../../../../api';
+import { getDenyByWrongInfo, getTransInfoWarningByType } from '../../../../../api';
 import { Body, DatePicker, Header, Search, Table } from '../../../../../comps';
 import { styles } from './style';
 import { colors } from '../../../../../utils/Colors';
@@ -35,11 +35,12 @@ const index = (props) => {
     const { key, title } = route.params;
 
     // navigation.goBack()
-    const getData = async (month, branchCode, shopCode, empCode, type) => {
-        console.log(month, branchCode, shopCode, empCode, type)
+    const getData = async (month, branchCode, shopCode, empCode) => {
         setLoading(true);
-        await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
+        await getDenyByWrongInfo(navigation, month, branchCode,shopCode,empCode).then((res) => {
+            console.log(res.data)
             if (res.status == "success") {
+                console.log(res.data)
                 setData(res.data);
                 setLoading(res.isLoading);
             }
@@ -110,7 +111,7 @@ const index = (props) => {
     }
 
     useEffect(() => {
-        getData(month, "", "", "", key);
+        getData(month, "", "", "");
         getBranchList()
     }, [month])
 
@@ -146,27 +147,24 @@ const index = (props) => {
                         // style={styles.table}
                         data={data}
                         table
-                        numColumn={4}
+                        numColumn={3}
                         headers={[
                             "GDVPTM",
                             "Tên CH",
-                            "SLTB/tháng",
-                            "Top/ngày"
+                            "Số lần chặn"
                         ]}
                         headersTextColor={"#00BECC"}
                         headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
                         headerMarginLeft={-fontScale(5)}
                         widthArray={[
-                            width / 3,
-                            width / 4.5,
-                            width / 1 / 5,
-                            width / 1 / 6
+                            width / 2,
+                            width / 6,
+                            width / 3
                         ]}
                         fields={data.map((item) => [
                             item.empName,
                             item.store,
-                            item.subAmount,
-                            item.topPerDay
+                            item.denyAmount
                         ])}
                         loading={loading}
                         lastIcon={images.check}

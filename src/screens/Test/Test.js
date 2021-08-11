@@ -223,7 +223,7 @@ const TestTwo = (props) => {
                     style={styles.searchBar}
                     leftIcon={images.subscription}
                     selectPicker
-                    placeholder={"Tim kiem nha vien"}
+                    placeholder={"Tìm kiếm nhân viên"}
                     onShowSelect={() => _showAreaPicker()} />
             </View>
             {

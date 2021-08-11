@@ -124,7 +124,9 @@ const GeneralListItem = (props) => {
                 {
                   props.rigthTopContent ?
                     <View style={{ flexDirection: "row" }}>
+                      <View>
                       <Text style={{ fontSize: fontScale(18), marginLeft: fontScale(10), fontWeight: "bold", color: props.color }}>{props.title}</Text>
+                      </View>
                         <Text style={[{ fontSize: fontScale(12),position:"absolute",right:10,fontWeight: "bold", color: colors.black }, props.titleStyle]}>{props.titleArray[8]} <Text style={{color:'#1AC4D1'}}>{props.item[8]}</Text></Text>
                     </View>
                     :

@@ -108,7 +108,7 @@ const index = (props) => {
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
           lastIconStyle={{ tintColor: colors.grey }}
           seeDetail={data.map((item, index) => { return item.detail })}
-          onPress={(item) => navigation.navigate("AdminDetailUnitInfo", { "shopCode": item.shopCode })}
+          onPress={(item) => item.detail == "true" ? navigation.navigate("AdminDetailUnitInfo", { "shopCode": item.shopCode }):null}
           fontWeight={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "bold" : "normal")}
           textColor={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "#000" : "#D19E01")}
           rowBg={data.map((item, index) => item.shopType == "BRANCH" ? "#C6FBFB" : "#fff")}

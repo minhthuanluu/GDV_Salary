@@ -150,7 +150,7 @@ const index = (props) => {
         setMonth(value)
         if (role == "VMS_CTY") {
             getBranchList();
-            await getData(month, '', '', '', sort);
+            await getData(value, defaultBranchCode, defaultShopCode,defaultShopName, '', sort);
             setPlaceHolder("Chọn chi nhánh")
         } else if (role == "MBF_CHINHANH") {
             await getRole().then(async (data) => {
@@ -166,7 +166,6 @@ const index = (props) => {
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                // console.log(data)
                 await getData(value, data.branchCode, data.shopCode, data.label, '', sort)
             })
         }
@@ -182,6 +181,7 @@ const index = (props) => {
                     { label: 'Top thấp nhất', value: 0 }
                 ]}
                 placeholder={placeHolder}
+                rightIcon={images.searchlist}
                 searchSelectModal
                 initialRadio={sort == 1 ? 0 : 1}
                 onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
@@ -193,15 +193,6 @@ const index = (props) => {
                 onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
                 onPressOK={(value) => 
-                    // getData(
-                    // month, 
-                    // role != "VMS_CTY" ? value.shopCode : defaultBranchCode, 
-                    // "", 
-                    // role != "VMS_CTY" ? value.shopName : defaultShopName, 
-                    // "", 
-                    // value.radio)
-                    // role != "VMS_CTY" ? getData(month,value.shopCode,"",defaultShopName,"",value.radio)
-                    // :getData(month,defaultShopCode,value.shopCode,defaultShopName,"",value.radio)
                     role == "VMS_CTY"  ? getData(month,value.shopCode,'',value.shopName,'',value.radio)
                     :
                     role=="MBF_CHINHANH" ? getData(month,defaultShopCode,'',defaultShopName,'',value.radio)
@@ -231,8 +222,8 @@ const index = (props) => {
                             item.kpi
                         ])
                     }
-                    fontWeight={["normal"]}
-                    textColor={['#000']}
+                    fontWeight={"normal"}
+                    textColor={'#000'}
                     firstRowBg={colors.lightGrey}
                     textAlign="center"
                     rowBg={data.map((item, index) => index % 2 == 0 ? colors.lightGrey : colors.white)}

@@ -13,6 +13,7 @@ import moment from 'moment';
 import { useNavigation } from '@react-navigation/core';
 import Toast from 'react-native-toast-message';
 import { ActivityIndicator } from 'react-native';
+import { _retrieveData } from '../../../utils/Storage';
 
 function index(props) {
     const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
@@ -50,7 +51,21 @@ function index(props) {
 
     useEffect(() => {
         getData(month);
-    }, [navigation])
+    }, [navigation]);
+
+    const checkAdminTransInfoRole = async () => {
+        await _retrieveData("userInfo").then((item) => {
+          if (item.userId.userGroupId.code == "VMS_CTY") {
+            navigation.navigate("AdminStatisticalBranch")
+          }
+          if (item.userId.userGroupId.code == "MBF_CHINHANH") {
+            navigation.navigate("AdminShopTransInfo", { item: { "branchCode": item?.userId.shopId.shopCode,"month":month } })
+          }
+          if (item.userId.userGroupId.code == "MBF_CUAHANG") {
+            navigation.navigate("AdminEmpTransInfo", { item: { "branchCode": item?.userId.shopId.parentShopId.shopCode,"shopCode" :item?.userId.shopId.shopCode,"month":month}})
+          }
+        })
+      }
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
@@ -61,8 +76,8 @@ function index(props) {
             <View style={styles.body}>
                 {loading==true ? <ActivityIndicator size="small" color={colors.primary}/> : null}
                 <MenuItem style={{ marginTop: fontScale(30) }} title={text.violateWarning} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.warning} width={width - fontScale(60)} value={data.emAmount} onPress={() => navigation.navigate("AdminViolateWarningDashboard",{"month":month})} />
-                <MenuItem style={{ marginTop: fontScale(60) }} title={text.statistical} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.growthday} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminStatisticalBranch")} />
-            </View>
+                <MenuItem style={{ marginTop: fontScale(60) }} title={text.statistical} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.growthday} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => checkAdminTransInfoRole()} />
+             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );

@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
     rightIco: {
         width: fontScale(25),
         height: fontScale(25),
-        right:fontScale(-5)
+        right:fontScale(10)
     },
     placeholder:{
         textAlign:"center"

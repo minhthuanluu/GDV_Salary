@@ -4,6 +4,7 @@ import { TouchableOpacity } from 'react-native';
 import { Image } from 'react-native';
 import { View } from 'react-native';
 import { colors } from '../../../utils/Colors';
+import { width } from '../../../utils/Dimenssion';
 import { fontScale } from '../../../utils/Fonts';
 import { styles } from "./styles";
 
@@ -39,7 +40,20 @@ const TableRow = (props) => {
                            {
                                fields.map((item, i) =>
                                    <View key={i} style={{ width: widthArray && widthArray[i], justifyContent: "center" }}>
-                                       <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: i == 0 ? "left" : props.textAlign, marginLeft: i == 0 || index == fields.length ? fontScale(10) : fontScale(0), color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
+                                       {
+                                           props.firstColCenter ? 
+                                           fields.length==1 ?
+                                           <View style={{flexDirection:"row",justifyContent:"space-around"}}>
+                                                <Text style={{ width:width,marginLeft:width/4,fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: "center", color: i == 0 ? colors.black : props.textColor }}>{fields[0][index]}</Text>
+                                                <Text style={{ width:width/2,marginLeft:width/1.3,fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: "center", color: i == 0 ? colors.black : props.textColor }}>{fields[0][1]}</Text>
+                                           
+                                           </View>
+                                           :
+                                           <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: "center", color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
+                                           :
+                                           <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: i == 0 ? "left" : props.firstColCenter ? "center" : props.textAlign, marginLeft: i == 0 || index == fields.length ? fontScale(10) : fontScale(0), color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
+                                           
+                                        }
                                        {i == numColumn ?
                                            <View style={{ width: fontScale(10), height: fontScale(10) }}>
                                                <View style={{ marginTop: -fontScale(10), position: "absolute", left: fontScale(0) }}>

@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, Text, FlatList, View, ActivityIndicator } from "react-native";
 import {
   Body,
-  DataPicker,
-  DatePicker,
   GeneralListItem,
   Header,
-  MetricStatus,
   Search,
   TableHeader,
 } from "../../../../comps";
@@ -15,15 +12,13 @@ import { colors } from "../../../../utils/Colors";
 import { fontScale } from "../../../../utils/Fonts";
 import { images } from "../../../../utils/Images";
 import { text } from "../../../../utils/Text";
-// import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop } from "../../../../adminapi";
 import { useNavigation } from "@react-navigation/native";
 import { width } from "../../../../utils/Dimenssion";
 import { BackHandler } from "react-native";
 import moment from "moment";
 import Toast from 'react-native-toast-message';
-import { getAdminKPIMonthTopTeller, getAllBranch, getAllShop, getTopTellerByAvgIncome } from "../../../../adminapi";
+import { getAllBranch, getAllShop, getTopTellerByAvgIncome } from "../../../../adminapi";
 import { _retrieveData, _storeData } from "../../../../utils/Storage";
-import { getProfile } from "../../../../api";
 import { getRole } from "../../../../utils/Logistics";
 
 const AdminTopTellerAvgIncome = () => {
@@ -194,10 +189,11 @@ const AdminTopTellerAvgIncome = () => {
       {notification ? <Text style={styles.notification}>{notification}</Text> : null}
       <Search
         loading={loading}
+        rightIcon={images.searchlist}
         modalTitle="Vui lòng chọn"
         placeholder={placeHolder}
         searchSelectModal
-        initialRadio={sort == 0 ? 1 : 0}
+        initialRadio={sort == 1 ? 0 : 1}
         data={[
           { label: 'Top cao nhất', value: 1 },
           { label: 'Top thấp nhất', value: 0 }
@@ -268,6 +264,7 @@ const AdminTopTellerAvgIncome = () => {
                 [styles.dateCol, { width: (width * 2.6) / 10 }],
                 [styles.dateCol, { width: (width * 3.2) / 10 }],
               ]}
+         
             />
           )}
         />

@@ -228,9 +228,6 @@ export const checkLogin = async (navigation) => {
       else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
         navigation.navigate("AdminHome")
       }
-      // else if (item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
-      //     navigation.navigate("AdminHome")
-      //   }
       else {
         return "Bạn không có quyền sử dụng app"
       }

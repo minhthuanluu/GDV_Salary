@@ -848,6 +848,8 @@ export const signoutUser = async (navigation) => {
         await _removeData("userInfo").then((data) => {
           if (data == undefined) {
             navigation.navigate("SignIn");
+          }else{
+            
           }
         });
       }
@@ -1072,7 +1074,7 @@ export const getAllEmp = async (navigation, branchCode) => {
   };
   await axios({
     method: GET,
-    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}`,
+    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}&fromMonth=01/01/2019&toMonth=01/12/2021`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1794,6 +1796,7 @@ export const getTransInfoWarning = async (navigation, month) => {
 
 // Admin > Thong tin giao dich > Canh bao vi pham > Chi tiet
 export const getTransInfoWarningByType = async (navigation, month, branchCode, shopCode, empCode, type) => {
+  console.log("getTransInfoWarningByType")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1806,7 +1809,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     message: "",
     status: "",
     data: null,
-    loading: null,
+    isLoading: null,
     length: 0,
     error: null,
   };
@@ -1848,9 +1851,144 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
           isLoading: false,
           status: "failed",
           length: 0,
+          data:null,
           error: error.response.data
         };
       }
     });
   return data;
 }
+
+// Admin > Thong tin giao dich > Canh bao vi pham > Chi tiet > Chi tiết
+export const getDetailTransInfoWarningByType = async (navigation, month, empCode, type) => {
+  console.log("getTransInfoWarningByType")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getDetailTransInfoWarningByType?empCode=${empCode}&month=01/${month}&type=${type}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        console.log(token)
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+
+// Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
+export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,empCode) => {
+  console.log("getDenyByWrongInfo")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getDenyByWrongInfo?branchCode=${branchCode}&empCode=${empCode}&month=01/${month}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
