@@ -4,7 +4,7 @@ import { Image, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen, AdminTransInfoDashdoardScreen, AdminStatisticalBranchScreen, AdminStatisticalShopScreen, AdminStatisticalEmpScreen, AdminViolateWarningDashboardScreen, AdminEmpRegInfoScreen, AdminEmpRegInfoDetailScreen, AdminBranchTransInfoScreen, AdminShopTransInfoScreen, AdminEmpTransInfoScreen, DenyByWrongInfoScreen } from './src/screens';
+import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen, AdminTransInfoDashdoardScreen, AdminStatisticalBranchScreen, AdminStatisticalShopScreen, AdminStatisticalEmpScreen, AdminViolateWarningDashboardScreen, AdminEmpRegInfoScreen, AdminEmpRegInfoDetailScreen, AdminBranchTransInfoScreen, AdminShopTransInfoScreen, AdminEmpTransInfoScreen, DenyByWrongInfoScreen, AdminSubscriberQualityDashboardScreen, AdminBranchSubscriberQualityScreen, AdminShopSubscriberQualityScreen, AdminEmpSubscriberQualityScreen, AdminEmpThreeTimeScreen, AdminViolateSubscriberScreen, AdminSubscriberQualitySumBranchScreen,AdminSubscriberQualitySumShopScreen, AdminSubscriberQualitySumEmpScreen, AdminViolateSubscriberFastScreen, AdminViolateSubscriberFCardScreen, AdminViolateSubscriberOverThreeScreen } from './src/screens';
 import { colors } from './src/utils/Colors';
 import { images } from './src/utils/Images';
 import { _retrieveData } from './src/utils/Storage';
@@ -143,6 +143,24 @@ const AdminStack = () => {
       <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} />
       <Stack.Screen name="AdminExpenseManagement" component={AdminExpenseManagementScreen} />
       <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
+
+      <Stack.Screen name="SubscriberQualityDashboard" component={AdminSubscriberQualityDashboardScreen}/>
+      <Stack.Screen name="BranchSubscriberQuality" component={AdminBranchSubscriberQualityScreen}/>
+      <Stack.Screen name="ShopSubscriberQuality" component={AdminShopSubscriberQualityScreen}/>
+      <Stack.Screen name="EmpSubscriberQuality" component={AdminEmpSubscriberQualityScreen}/>
+      {/* Chất lượng thuê bao > Cảnh báo vi phạm */}
+      <Stack.Screen name="AdminViolateSubscriber" component={AdminViolateSubscriberScreen}/>
+        {/* Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT>=1TB*/}
+        <Stack.Screen name="AdminViolateSubscriberFast" component={AdminViolateSubscriberFastScreen}/>
+      {/* Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển FCard >= 3TB*/}
+        <Stack.Screen name="AdminViolateSubscriberFCard" component={AdminViolateSubscriberFCardScreen}/>
+      {/* Chất lượng thuê bao > Cảnh báo vi phạm > GDV xuất hiện  >= 3 lần trong 6 tháng*/}
+        <Stack.Screen name="AdminViolateSubscriberOverThree" component={AdminViolateSubscriberOverThreeScreen}/>
+
+
+        <Stack.Screen name="AdminSubscriberQualitySummaryBranch" component={AdminSubscriberQualitySumBranchScreen}/>
+          <Stack.Screen name="AdminSubscriberQualitySummaryShop" component={AdminSubscriberQualitySumShopScreen}/>
+            <Stack.Screen name="AdminSubscriberQualitySummaryEmp" component={AdminSubscriberQualitySumEmpScreen}/>
       
       <Stack.Screen name="AdminTransInfoDashdoard" component={AdminTransInfoDashdoardScreen} />
         <Stack.Screen name="AdminStatisticalBranch" component={AdminStatisticalBranchScreen} />
@@ -151,8 +169,10 @@ const AdminStack = () => {
         <Stack.Screen name="AdminViolateWarningDashboard" component={AdminViolateWarningDashboardScreen} />
           <Stack.Screen name="AdminEmpRegInfo" component={AdminEmpRegInfoScreen} />
             <Stack.Screen name="AdminEmpRegInfoDetail" component={AdminEmpRegInfoDetailScreen} />
-          <Stack.Screen name="DenyByWrongInfo" component={DenyByWrongInfoScreen} />
-            
+          <Stack.Screen name="AdminDenyByWrongInfo" component={DenyByWrongInfoScreen} />
+          <Stack.Screen name="AdminEmpThreeTime" component={AdminEmpThreeTimeScreen} />
+          
+        
       <Stack.Screen name="AdminUnitInfo" component={AdminUnitInfoScreen} />
       <Stack.Screen name="AdminDetailUnitInfo" component={AdminDetailUnitInfoScreen} />
       <Stack.Screen name="AdminImageDetailUnitInfo" component={AdminImageDetailUnitInfoScreen} />

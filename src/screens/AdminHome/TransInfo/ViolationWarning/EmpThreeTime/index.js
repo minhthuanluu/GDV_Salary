@@ -1,15 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/core';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
-import { set } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import { getTransInfoWarningByType } from '../../../../../api';
-import { Body, DatePicker, Header, Search, Table } from '../../../../../comps';
-import { styles } from './style';
+import { getEmpThreeTime } from '../../../../../api';
+import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -17,6 +14,7 @@ import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
 import { getAllBranch, getAllEmp } from '../../../../../api';
 import { getShopList } from '../../../../Test/api';
+import { FlatList } from 'react-native';
 
 const index = (props) => {
     const route = useRoute();
@@ -30,18 +28,16 @@ const index = (props) => {
     const [empCode, setEmpCode] = useState("");
     const [branchList, setBranchList] = useState([]);
     const [shopList, setShopList] = useState([])
-    const [empList, setEmpList] = useState([])
-    const [loadingBranch, setLoadingBranch] = useState(false)
-    const [loadingShop, setLoadingShop] = useState(false)
-    const [message, setMessage] = useState('')
+    const [empList, setEmpList] = useState([]);
+    const [message,setMessage] = useState('');
+    const [notification,setNotification] = useState("")
     const { key, title } = route.params;
 
-    // navigation.goBack()
-    const getData = async (month, branchCode, shopCode, empCode, type) => {
-        setLoading(true);
-        setData([]);
+    const getData = async (month, branchCode, shopCode, empCode) => {
         setMessage("")
-        await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
+        setData([])
+        setLoading(true)
+        await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
             if (res.status == "success") {
                 if (res.length == 0) {
                     setLoading(false);
@@ -51,6 +47,9 @@ const index = (props) => {
                     setLoading(res.isLoading);
                 }
             }
+            if(res.message){
+                setMessage(res.message);
+            }
             if (res.status == "failed") {
                 setLoading(res.isLoading);
             }
@@ -58,7 +57,7 @@ const index = (props) => {
                 setLoading(res.isLoading);
                 Toast.show({
                     text1: "Cảnh báo",
-                    text2: data.message,
+                    text2: res.message,
                     type: "error",
                     visibilityTime: 1000,
                     autoHide: true,
@@ -74,30 +73,20 @@ const index = (props) => {
     }
 
     const getBranchList = async () => {
-        setLoadingBranch(true)
         await getAllBranch(navigation).then((res) => {
-            if (res.status == "success") {
-                setBranchList(res.data);
-                setLoadingBranch(false)
-            }
-            if (res.status == 'failed') {
-                setLoadingBranch(false)
-            }
-
+            setBranchList(res.data);
         })
     }
 
     const _onChangeBranch = async (branchCode) => {
         setBranchCode(branchCode);
         setShopList([]);
-        setLoadingShop(true)
         await getShopList(branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
-                setLoadingShop(false)
             }
             if (res.status == 'failed') {
-                setLoadingShop(false)
+
             }
         });
     }
@@ -121,15 +110,16 @@ const index = (props) => {
 
     const _onSearch = async (value) => {
         setBranchCode(value.branchCode);
+        
         setShopCode(value.shopCode);
         setEmpCode(value.empId);
+        console.log(value)
         await getData(month, value.branchCode, value.shopCode, value.empId, key);
 
     }
 
     useEffect(() => {
-        console.log('Home > Thong tin giao dich > Canh bao vi pham > GDV DKTT')
-        getData(month, "", "", "", key);
+        getData(month, "", "", "");
         getBranchList()
     }, [month])
 
@@ -139,8 +129,6 @@ const index = (props) => {
             <Header title={title} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <Search
-                loadingBranch={loadingBranch}
-                loadingShop={loadingShop}
                 searchSelectModalFourCondition
                 leftIcon={images.teamwork}
                 rightIcon={images.arrowdown}
@@ -160,52 +148,38 @@ const index = (props) => {
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+                {loading == true ? 
+                <ActivityIndicator size="small" color={colors.primary} /> 
+                : null}
+                <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}/>
                 <View style={{ marginTop: -fontScale(30) }}>
-                    <Table
+                    <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
+                        <TableHeader style={{ width: width /2 }} title={'GDVPTM'} />
+                        <TableHeader style={{ width: width /2 }} title={'Tên CH'} />
+                    </View>
+                    {message?<Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}>{message}</Text>:null}
+
+                    <FlatList
+                        showsVerticalScrollIndicator={false}
                         data={data}
-                        table
-                        numColumn={4}
-                        message={message && message}
-                        headers={[
-                            "GDVPTM",
-                            "Tên CH",
-                            "SLTB/tháng",
-                            "Top/ngày"
-                        ]}
-                        headersTextColor={"#00BECC"}
-                        headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-                        headerMarginLeft={-fontScale(5)}
-                        widthArray={[
-                            width / 3,
-                            width / 4.5,
-                            width / 1 / 5,
-                            width / 1 / 6
-                        ]}
-                        fields={data.map((item) => [
-                            item.empName,
-                            item.store,
-                            item.subAmount,
-                            item.topPerDay
-                        ])}
-                        loading={loading}
-                        lastIcon={images.check}
-                        fontWeight={["normal"]}
-                        style={{ marginTop: fontScale(30) }}
-                        textAlign="center"
-                        textColor={data.map((item, index) =>
-                            item.shopType == "BRANCH"
-                                ? "#000"
-                                : item.shopType == "SHOP"
-                                    ? "#D19E01"
-                                    : "#000"
+                        style={{ marginTop: fontScale(10) }}
+                        keyExtractor={(item, index) => index.toString()}
+                        key={({ item }) => item.empName.toString()}
+                        renderItem={({ item, index }) => (
+                            <GeneralListItem
+                                item={item}
+                                index={index}
+                                fields={[
+                                    item.empName,
+                                    item.store
+                                ]}
+                                style={[
+                                    [{ textAlign: "left",marginLeft:width/8, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width/2}],
+                                    [{ textAlign: "left",marginLeft:width/21, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width/2 }],
+                                ]}
+
+                            />
                         )}
-                        rowBg={data.map((item, index) =>
-                            index % 2 == 0 ? colors.white : colors.lightGrey
-                        )}
-                        lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
-                        lastIconStyle={{ tintColor: colors.grey }}
-                        onPress={(item) => item.detail == "true" ? navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title, "month": month }) : null}
                     />
                 </View>
             </View>

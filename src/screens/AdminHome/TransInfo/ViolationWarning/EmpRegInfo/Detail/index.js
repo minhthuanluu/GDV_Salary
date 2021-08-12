@@ -62,14 +62,13 @@ const index = (props) => {
     }
 
     const searchSub = (text) => {
-        const newData = data.filter((item) => {
-            const itemData = `${item.phoneNumber.toString()}`;
-            return itemData.indexOf(text.toString()) > -1;
+        tempData.concat(tempData)
+        let newData = data.filter((item) => {
+            const itemData = `${item.phoneNumber}`;
+            return itemData.indexOf(text) > -1;
         });
-        console.log(newData)
-
+        setTempData(newData);
         if (text.length > 0) {
-            setLoading(true);
             if (newData.length == 0) {
                 setLoading(false);
                 setMessage("Không tìm thấy số thuê bao");
@@ -91,7 +90,7 @@ const index = (props) => {
             <Search
                 style={{ alignSelf: "center", marginTop: fontScale(10) }}
                 leftIcon={images.simlist}
-                data={data}
+                data={tempData}
                 rightIcon={images.searchlist}
                 dataNotFoundText="Không tìm thấy dữ liệu"
                 onChangeText={(value) => searchSub(value)}
@@ -108,9 +107,8 @@ const index = (props) => {
                     <Text>GDV PTM: </Text>
                     <Text>{empName}</Text>
                 </View>
-                <View style={{ marginTop: -fontScale(30) }}>
+                <View style={{ marginBottom:fontScale(20),marginTop: -fontScale(30) }}>
                     <Table
-                        // style={styles.table}
                         data={tempData}
                         message={message}
                         table

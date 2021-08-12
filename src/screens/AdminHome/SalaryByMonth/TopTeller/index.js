@@ -67,7 +67,6 @@ const index = (props) => {
         setMessage("")
         setSort(sort)
         setPlaceHolder(_shopName);
-        console.log(month, _branchCode, _shopCode, _shopName, empCode, sort)
         await getMonthSalaryTopTeller(navigation, month, _branchCode, _shopCode, empCode, sort).then(async (res) => {
             const { data, error, status, isLoading, length, message } = res;
             if (status == "success") {
@@ -107,13 +106,11 @@ const index = (props) => {
     }
 
     const onChangeBranch = async (value) => {
-        console.log(value)
         setBranchCode(value.shopCode);
         setDefaultBranchCode(value.shopCode);
         setDefaultShopName(value.shopName);
-        setDefaultShopCode('')
-        setPlaceHolder(value.shopName)
-        await getLoginInfo().then((item) => console.log(item))
+        setDefaultShopCode('');
+        setPlaceHolder(value.shopName);
     }
 
     const checkRole = async () => {

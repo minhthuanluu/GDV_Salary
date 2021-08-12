@@ -14,11 +14,10 @@ import { styles } from './styles';
 import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button';
 import DataPicker from '../datapicker/index';
 import Button from '../button';
-import { checkUserRole } from '../../utils/Logistics';
 import { _retrieveData } from '../../utils/Storage';
 
 const Search = (props) => {
-    const { withDropdown, data, dataNotFoundText, keyboardType, style, main } = props;
+    const { withDropdown, data, dataNotFoundText, keyboardType, style, main,loadingBranch,loadingShop } = props;
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [searchData, setSearchData] = useState(data || props.dataFour);
@@ -145,8 +144,8 @@ const Search = (props) => {
                     </TouchableOpacity>
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
-                        <SelectDataWithRightText leftText="Chọn chi nhánh" title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
-                        <SelectDataWithRightText leftText="Chọn cửa hàng" title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
+                        <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne||"Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
+                        <SelectDataWithRightText loading={loadingShop} leftText="Chọn cửa hàng" title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
                         <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />
@@ -281,8 +280,7 @@ const Search = (props) => {
                     <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), marginHorizontal: width - (width - props.width / 12), backgroundColor: "white" }, props.style, styles.homeSearch]}>
                         <Image resizeMode="contain" source={props.leftIcon} style={styles.leftIco} />
                         <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-                            {/* <Text style={[styles.placeholder]}>{text.search}</Text> */}
-                            <TextInput placeholder={props.placeHolder} textAlign="center" onChangeText={props.onChangeText}/>
+                             <TextInput placeholder={props.placeHolder} textAlign="center" onChangeText={props.onChangeText}/>
                         </View>
                         <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
                     </View>
@@ -294,7 +292,7 @@ const SelectDataWithRightText = (props) => {
     const [selectModalAdvanced, setSelectModalAdvanced] = useState(false)
     const [rightText, setRightText] = useState('Tất cả');
     const [tempData, setTempData] = useState(props.data);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(props.loading);
     const [message, setMessage] = useState('')
 
     const onChangeSearch = (text = '') => {
@@ -303,7 +301,6 @@ const SelectDataWithRightText = (props) => {
             const itemData = `${Object.values(item).toString().toLowerCase()}`;
             return itemData.indexOf(text.toString().toLowerCase()) > -1;
         });
-        console.log(newData)
 
         if (text.length > 0) {
             setLoading(true);

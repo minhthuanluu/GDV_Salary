@@ -27,12 +27,10 @@ const index = (props) => {
 
 
   const getData = async (month, branchcode, shopCode) => {
-    console.log(month + ' - ' + branchcode + ' - ' + shopCode)
     setLoading(true);
     setData([])
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
-        console.log(data)
         if (data.length == 0) {
           setData([])
           setMessage(data.message);
@@ -48,7 +46,6 @@ const index = (props) => {
 
   useEffect(() => {
     const { month, branchCode, shopCode } = route.params?.branchItem;
-    console.log(month, branchCode)
     setMonth(month);
     getData(month, branchCode, shopCode);
   }, [""]);

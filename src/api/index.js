@@ -1777,6 +1777,15 @@ export const getTransInfoWarning = async (navigation, month) => {
             length: Object.values(res.data).length,
             error: null
           };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
         }
       }
     })
@@ -1796,7 +1805,7 @@ export const getTransInfoWarning = async (navigation, month) => {
 
 // Admin > Thong tin giao dich > Canh bao vi pham > Chi tiet
 export const getTransInfoWarningByType = async (navigation, month, branchCode, shopCode, empCode, type) => {
-  console.log("getTransInfoWarningByType")
+  console.log("api name: getTransInfoWarningByType")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1833,13 +1842,22 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null
+          };
+        }else if (res.data.data.length == 0){
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: 0,
+            error: null,
+            message: "Không có dữ liệu"
           };
         }
       }
@@ -1878,6 +1896,7 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
     length: 0,
     error: null,
   };
+  console.log("getTransInfoWarningByType")
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getDetailTransInfoWarningByType?empCode=${empCode}&month=01/${month}&type=${type}`,
@@ -1974,6 +1993,15 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
             length: Object.values(res.data.data).length,
             error: null
           };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
         }
       }
     })
@@ -1992,3 +2020,210 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
   return data;
 }
 
+// Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
+export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,empCode) => {
+  console.log("getEmpThreeTime")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getEmpThreeTime?branchCode=${branchCode}&empCode=${empCode}&month=01/${month}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// Admin > Chat luong thue bao > Canh bao vi pham
+export const getViolate = async (navigation) => {
+  console.log("Admin > Chat luong thue bao > Canh bao vi pham => getEmpThreeTime")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getViolate`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB
+export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > getEmpThreeTime")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getFastTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        console.log(res.data)
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}

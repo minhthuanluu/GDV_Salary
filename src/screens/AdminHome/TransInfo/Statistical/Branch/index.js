@@ -22,7 +22,7 @@ const index = (props) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const navigation = useNavigation();
 
   const getData = async (month, branchcode, shopCode) => {

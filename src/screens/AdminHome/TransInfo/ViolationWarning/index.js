@@ -47,9 +47,9 @@ function index(props) {
             }
         })
     }
-    const _onChangeMonth = (value) => {
+    const _onChangeMonth = async(value) => {
         setMonth(value)
-        getData(value)
+        await getData(value)
     }
 
     useEffect(() => {
@@ -60,16 +60,15 @@ function index(props) {
             <Header title={text.violateWarning} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <Body />
-            <ScrollView style={{ flex: 1, backgroundColor: colors.white, }}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{ flex: 1, backgroundColor: colors.white, }}>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
-
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10), marginTop: fontScale(10) }} noneIcon title="GDV DKTT" titleArray={["GDV", "Top"]} data={[data.resident.emp, data.resident.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "resident", title: "GDV DKTT", month: month })} />
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chặn 2c" titleArray={["GDV", "Top"]} data={[data.denyTwoC.emp, data.denyTwoC.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "denyTwoC", title: "GDV chặn 2c", month: month })} />
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chuyển F-C" titleArray={["GDV", "Top"]} data={[data.transFc.emp, data.transFc.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "transFc", title: "GDV chuyển F-C", month: month })} />
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chuyển F-C ko nạp tiền" titleArray={["", "       "]} data={["", data.noRecharge]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "noRecharge", title: "GDV chuyển F-C ko nạp tiền", month: month })} />
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV bị chặn user do đấu sai kho số" titleArray={["", "       "]} data={["", data.wrongNumber]} onPress={() => navigation.navigate("DenyByWrongInfo", { title: "GDV bị chặn user do đấu sai kho số",month: month })} />
-                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV xuất hiện >= 3 lần trong 06 tháng" titleArray={["", "       "]} data={["", data.overThree]} />
-            </ScrollView>
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10), marginTop: fontScale(10) }} noneIcon title="GDV DKTT" titleArray={["GDV:", "Top:"]} data={[data.resident.emp, data.resident.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "resident", title: "GDV DKTT", month: month })} />
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chặn 2c" titleArray={["GDV:", "Top:"]} data={[data.denyTwoC.emp, data.denyTwoC.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "denyTwoC", title: "GDV chặn 2c", month: month })} />
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chuyển F-C" titleArray={["GDV:", "Top:"]} data={[data.transFc.emp, data.transFc.top]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "transFc", title: "GDV chuyển F-C", month: month })} />
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV chuyển F-C ko nạp tiền" titleArray={["", "         "]} data={["", data.noRecharge]} onPress={() => navigation.navigate("AdminEmpRegInfo", { "key": "noRecharge", title: "GDV chuyển F-C ko nạp tiền", month: month })} />
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV bị chặn user do đấu sai kho số" titleArray={["", "         "]} data={["", data.wrongNumber]} onPress={() => navigation.navigate("AdminDenyByWrongInfo", { title: "GDV bị chặn user do đấu sai kho số",month: month })} />
+                <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV xuất hiện >= 3 lần trong 06 tháng" titleArray={["", "         "]} data={["", data.overThree]} onPress={() => navigation.navigate("AdminEmpThreeTime", { title: "GDV xuất hiện >= 3 lần trong 06 tháng",month: month })} />
+            </ScrollView> 
         </SafeAreaView>
     );
 }

@@ -22,7 +22,7 @@ const index = (props) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -107,10 +107,10 @@ const index = (props) => {
                  <GeneralListItem
                     style={{ marginBottom: fontScale(70), marginTop: -fontScale(35) }}
                     contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
-                    contentStyle3={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}
+                    contentStyle3={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}
                     backgroundColor={colors.white}
                     textColor={colors.black}
-                    titleStyle2={{color:colors.black, marginLeft: 15, fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(16), fontSize: fontScale(14)}}
+                    titleStyle2={{color:colors.black, marginLeft: fontScale(15), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(10), fontSize: fontScale(14)}}
                     twelveColumnCompany
                     title={item.shopCode}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
@@ -121,7 +121,7 @@ const index = (props) => {
                     style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
                     contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
                     contentStyle3={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}
-                    titleStyle2={{color:colors.black, marginLeft: 15, fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(16), fontSize: fontScale(14)}}
+                    titleStyle2={{color:colors.black, marginLeft: fontScale(25), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(10), fontSize: fontScale(14)}}
                     twelveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}

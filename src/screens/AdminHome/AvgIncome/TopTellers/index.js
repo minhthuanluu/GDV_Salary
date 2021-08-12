@@ -101,7 +101,6 @@ const AdminTopTellerAvgIncome = () => {
   }
 
   const getData = async (branchCode,shopCode, sort, branchName) => {
-    console.log('call api: '+branchCode,shopCode, sort, branchName)
     branchName&&setPlaceHolder(branchName)
     setMessage("");
     setLoadingData(true);
@@ -193,7 +192,7 @@ const AdminTopTellerAvgIncome = () => {
         modalTitle="Vui lòng chọn"
         placeholder={placeHolder}
         searchSelectModal
-        initialRadio={sort == 1 ? 0 : 1}
+        initialRadio={sort == 0?0:1}
         data={[
           { label: 'Top cao nhất', value: 1 },
           { label: 'Top thấp nhất', value: 0 }

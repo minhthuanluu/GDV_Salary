@@ -36,7 +36,7 @@ const MenuItem = (props) => {
                             <Text style={[styles.title, props.titleMenuStyle]}>{title}</Text>
                             <Image source={icon} style={[styles.icon,props.iconStyle]} />
                             {
-                                value ? <Text style={styles.value}>{value}</Text> : null
+                                value ? <Text style={[styles.value,props.rightStyle]}>{value}</Text> : null
                             }
                         </View>
                     </TouchableOpacity>

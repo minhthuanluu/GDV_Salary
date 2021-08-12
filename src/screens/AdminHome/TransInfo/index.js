@@ -76,7 +76,7 @@ function index(props) {
             <View style={styles.body}>
                 {loading==true ? <ActivityIndicator size="small" color={colors.primary}/> : null}
                 <MenuItem style={{ marginTop: fontScale(30) }} title={text.violateWarning} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.warning} width={width - fontScale(60)} value={data.emAmount} onPress={() => navigation.navigate("AdminViolateWarningDashboard",{"month":month})} />
-                <MenuItem style={{ marginTop: fontScale(60) }} title={text.statistical} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.growthday} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => checkAdminTransInfoRole()} />
+                <MenuItem style={{ marginTop: fontScale(60) }} title={text.statistical} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.growthday} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} value=" " width={width - fontScale(60)} onPress={() => checkAdminTransInfoRole()} />
              </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>

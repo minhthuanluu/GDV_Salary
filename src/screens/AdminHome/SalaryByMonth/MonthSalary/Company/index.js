@@ -27,8 +27,7 @@ const index = (props) => {
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    setMessage("")
-    console.log(month+branchcode+shopCode)
+    setMessage("");
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setLoading(false);

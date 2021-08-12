@@ -76,5 +76,5 @@ export const images = {
     warning: require("../../assets/warning.png"),
     closeline: require("../../assets/closeline.png"),
     sendline: require("../../assets/sendline.png"),
-  
+    warning:require("../../assets/warning.png")
 }

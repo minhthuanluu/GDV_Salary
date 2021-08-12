@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getTransactionStatistics } from "../../../../../adminapi";
+import { getKPIByMonth, getMonthSalary, getSummarySubQuality, getTransactionStatistics } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -13,30 +13,31 @@ import { colors } from "../../../../../utils/Colors";
 import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
-import { useNavigation, useRoute  } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+
 
 const index = (props) => {
   const [data, setData] = useState({});
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [notification, setNotification] = useState('')
   const navigation = useNavigation();
   const route = useRoute();
 
-  const getData = async (month, branchcode, shopCode) => {
+  const getData = async (branchcode, shopCode) => {
     setLoading(true);
     setMessage("")
-    console.log(month+branchcode+shopCode)
-    await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
+
+    await getSummarySubQuality(branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
           setData([])
           setMessage(data.message);
         } else {
-          
+          setNotification(data.data.notification)
           setData(data.data.data);
           setGeneralData(data.data.general);
         }
@@ -67,27 +68,26 @@ const index = (props) => {
   };
 
   useEffect(() => {
-    const{month, branchCode} = route.params?.item;
-    console.log(month+'-'+branchCode)
-    setMonth(month);
-    getData(month,branchCode,"")
+    const { branchCode } = route.params?.item;
+    console.log(route.params?.item)
+    getData(branchCode, "");
   }, [navigation])
 
-  const _onChangeMonth = (value) => {
-    setMonth(value);
-    const {branchCode} = route.params?.item
-    getData(value,branchCode, "");
-  };
+  // const _onChangeMonth = (value) => {
+  //   setMonth(value);
+  //   getData(value, "", "");
+  // };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Header title={text.transactionsInfo} />
-      <DatePicker
+      <Header title={text.subscriberQuality} />
+      <Text style={styles.text}>{notification}</Text>
+      {/* <DatePicker
         month={month}
         width={width - fontScale(120)}
         style={{ alignSelf: "center" }}
         onChangeDate={(date) => _onChangeMonth(date)}
-      />
+      /> */}
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
@@ -106,26 +106,33 @@ const index = (props) => {
                   style={{ marginTop: fontScale(29) }}
                   columns
                   rightIcon={images.store}
-                  titleArray={["Chặn 2c", "DKTT", "SLGDV", "GD", "KH"]}
-                  item={[item.blocking2CAmount, item.subRegisterAmount, item.totalEmp, item.transAmount, item.cusAmount]}
+                  titleArray={["Hủy", "Nợ 90", "Chặn 2c", "Fast/MDT/MD1", "FCard"]}
+                  item={[item.cancelPercent, item.debitPercent, item.blocking2CAmount, item.fastAmount, item.fcardAmount]}
                   title={item.shopName}
-                  onPress={() => navigation.navigate("AdminEmpTransInfo", {
+                  onPress={() => 
+                    navigation.navigate("AdminSubscriberQualitySummaryEmp", {
                     item: {
                       "branchCode": route.params?.item.branchCode,
-                      "shopCode": item.shopCode,
-                      "month": month
+                      "shopCode": item.shopCode
                     }
-                  })} />
+                  })
+                  } />
                 { index == data.length - 1 ?
                   <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
-                    contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
-                    contentStyle3={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}
-                    titleStyle2={{color:colors.black, marginLeft: fontScale(15), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(16), fontSize: fontScale(14)}}
-                    twelveColumnCompany
+                    contentStyle={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                    contentStyle2={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                    titleStyle={{ fontSize: 12, marginVertical: fontScale(8) }}
+                    eightteenColumnCompany
                     title={generalData.shopName}
-                    titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,"",generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
+                    titleArr={["TB/tháng", "TB/tập", "Tỉ lệ"]}
+                    titleArray={["+ Cắt hủy:", "+ F-> Card:", "+ Chặn 2c:", "+ Chuyển Fast:", "+  Chuyển MDT, MD1:", "+  Nợ hợp đồng:"]}
+                    titleArrayOne={["Tỉ lệ nợ/ Doanh thu:", "Tổng nợ 90:", "Tổng DThu 90:", "Tổng TBTS PTM:"]}
+                    itemAmountOne={[generalData.cancelAmount, generalData.fcardAmount, generalData.blocking2CAmount, generalData.fastAmount, generalData.mdtamount, generalData.debitContactAmount]}
+                    itemAmountTwo={[generalData.cancelAmount, generalData.fcardAmount, generalData.blocking2CAmount, generalData.fastAmount, generalData.mdtamount, generalData.debitContactAmount]}
+                    itemPercent={[generalData.cancelPercent, generalData.fcardPercent, generalData.blocking2CPercent, generalData.fastAmount, generalData.mdtpercent, generalData.debitContactPercent]}
+                    item={[generalData.debitPercent, generalData.debit90Amount, generalData.revenue90Amount]}
                     icon={images.branch} /> : null
                 }
               </View>

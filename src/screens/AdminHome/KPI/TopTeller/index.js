@@ -28,7 +28,7 @@ const AdminTopTeller = () => {
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
   const navigation = useNavigation();
-  const [branchCode, setBranchCode] = useState("2MFHCM1");
+  const [branchCode, setBranchCode] = useState("");
   const [branchList, setBranchList] = useState([]);
   const [shopList, setShopList] = useState([]);
   const [shopCode, setShopCode] = useState('');
@@ -38,13 +38,12 @@ const AdminTopTeller = () => {
 
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
-  const [placeHolder, setPlaceHolder] = useState('')
+  const [placeHolder, setPlaceHolder] = useState('');
   const [role, setRole] = useState();
-  const [defaultBranchCode, setDefaultBranchCode] = useState('')
-  const [defaultBranchName, setDefaultBranchName] = useState('')
-  const [defaultShopCode, setDefaultShopCode] = useState('')
-  const [defaultShopName, setDefaultShopName] = useState('')
-  const [fixed, setFixed] = useState(false)
+  const [defaultBranchCode, setDefaultBranchCode] = useState('');
+  const [defaultBranchName, setDefaultBranchName] = useState('');
+  const [defaultShopCode, setDefaultShopCode] = useState('');
+  const [defaultShopName, setDefaultShopName] = useState('');
 
   const getBranchList = async () => {
     setLoading(true)
@@ -76,48 +75,6 @@ const AdminTopTeller = () => {
     setDefaultBranchCode(value.shopCode)
     setPlaceHolder(value.shopName)
   }
-
-  // const _getData = async (shopCode, shopName, sort) => {
-  //   console.log(shopCode, shopName, sort)
-  //   setDefaultShopCode(shopCode);
-
-
-  //   setSort(sort);
-
-
-  //   if (fixed == true) {
-  //     await _retrieveData("userInfo").then(async (user) => {
-  //       let role = user?.userId.userGroupId.code;
-  //       console.log(role)
-  //       setRole(role)
-  //       if (role == "VMS_CTY") {
-  //         await getData(shopCode, shopName, '', month, sort)
-  //       } else if (role == "MBF_CHINHANH") {
-  //         let shopName = user?.userId.shopId.shopName;
-  //         let shopCode = user?.userId.shopId.shopCode;
-  //         setDefaultShopName(shopName)
-  //         setPlaceHolder(shopName)
-  //         await getData(shopCode, shopName, '', month, sort)
-  //       }else if (role == "MBF_CUAHANG") {
-  //         setFixed(true)
-  //         let branchCode = user?.userId.shopId.parentShopId.shopCode;
-  //         let branchName = user?.userId.shopId.shopName;
-  //         let shopCode = user?.userId.shopId.shopCode;
-  //         // console.log(branchCode)
-  //         // console.log(branchName)
-  //         setDefaultBranchCode(branchCode)
-  //         setDefaultShopName(branchName)
-  //         setPlaceHolder(branchName)
-  //         await getData(branchCode, shopName, shopCode, month, sort)
-
-  //       }
-
-  //     })
-  //   } else {
-  //     setPlaceHolder(shopName == undefined ? "Chọn chi nhánh" : shopName);
-  //     setDefaultShopName(shopName == undefined ? "Chọn chi nhánh" : shopName);
-  //   }
-  // }
 
   const getData = async (branchCode, branchName, shopCode, month, sort) => {
     setMessage("");
@@ -162,7 +119,6 @@ const AdminTopTeller = () => {
         setDefaultBranchCode(data.shopCode);
         await getData(data.shopCode, data.branchName, "", month, sort);
       } else if (data.role == "MBF_CUAHANG") {
-        console.log(data)
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
@@ -182,12 +138,10 @@ const AdminTopTeller = () => {
       "hardwareBackPress",
       backAction
     );
-    // getBranchList();
-    // getData('', "Chọn chi nhánh", defaultShopCode, month, sort);
-    // setPlaceHolder("Chọn chi nhánh");
     checkRole();
     return () => {
       backHandler.remove();
+      console.log("AdminHome > KPI > Top GDV")
     };
   }, [""]);
 
@@ -201,9 +155,9 @@ const AdminTopTeller = () => {
         setMonth(value);
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
-        setDefaultBranchCode(data.branchCode);
+        setDefaultBranchName(data.branchName);
         setDefaultShopCode(data.shopCode);
-        await getData(data.branchCode, data.label, data.shopCode, value, sort)
+        await getData(data.shopCode, data.label, "", value, sort);
       } else if (data.role == "MBF_CUAHANG") {
         setMonth(value);
         setDefaultShopName(data.label);
@@ -217,7 +171,6 @@ const AdminTopTeller = () => {
   }
 
   const onSearch = async (shopCode, shopName, defaultShopCode, month, radio) => {
-    console.log(shopCode, shopName, defaultShopCode, month, radio)
     setDefaultShopCode(shopCode);
     setDefaultShopName(shopName);
     setSort(radio)
@@ -231,8 +184,6 @@ const AdminTopTeller = () => {
           setDefaultShopName(defaultShopName)
         })
       } else if (data.role == "MBF_CUAHANG") {
-        console.log("Home > KPI > Top Teller")
-        console.log(data)
         await getData(data.branchCode, data.shopName, data.shopCode, month, radio).then(() => {
           setDefaultShopName(defaultShopName)
         })
@@ -304,6 +255,7 @@ const AdminTopTeller = () => {
             <GeneralListItem
               item={item}
               index={index}
+              isZeroPlan={item.isZeroPlan}
               fields={[
                 `${item.empName}\n(${item.workPlace})`,
                 item.sumKpi,
@@ -317,13 +269,6 @@ const AdminTopTeller = () => {
                 [styles.dateCol, { width: (width * 1.5) / 10,paddingTop:fontScale(7) }],
                 [styles.dateCol, { width: (width * 2.3) / 10 ,paddingTop:fontScale(7)}]
               ]}
-            //   lastIcon={item.pckSub == 1 ? images.check : images.cancle}
-            //   lastIconViewStyle={{ alignItems: "center", flex: 0.5 }}
-            //   lastIconStyle={{
-            //     flex: 0.5,
-            //     width: fontScale(15),
-            //     height: fontScale(19),
-            //   }}
             />
           )}
         />
