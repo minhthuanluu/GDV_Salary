@@ -12,7 +12,6 @@ import { Button } from "../../comps";
 
 const SignOut = () => {
     const navigation = useNavigation();
-
     const logoutUser = async () => {
         await signoutUser(navigation).then(async () => {
             await _removeData("userInfo");

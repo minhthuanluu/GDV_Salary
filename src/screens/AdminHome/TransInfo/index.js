@@ -21,7 +21,6 @@ function index(props) {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
 
-
     const getData = async (month) => {
         setLoading(true)
         await getTransInfoDashboard(navigation, month).then((res) => {
@@ -46,6 +45,7 @@ function index(props) {
     }
 
     const _onChangeMonth = async(value) => {
+        setMonth(value)
         await getData(value);
     }
 

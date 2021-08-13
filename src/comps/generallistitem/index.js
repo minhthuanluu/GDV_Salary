@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { Image, View, Text } from 'react-native';
 import { colors } from '../../utils/Colors';
@@ -26,8 +25,8 @@ const GeneralListItem = (props) => {
           <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne[3]}</Text>
           {/* <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item[0]}</Text> */}
         </View>
-        <View style={{marginLeft:fontScale(50),marginRight:fontScale(10)}}>
-          <View style={{ flexDirection: "row", marginVertical: fontScale(15)}}>
+        <View style={{ marginLeft: fontScale(50), marginRight: fontScale(10) }}>
+          <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
             <View style={{ flex: 1 }}>
 
             </View>
@@ -40,15 +39,15 @@ const GeneralListItem = (props) => {
 
             </View>
             <View style={{ flex: 1 }}>
-              <Text style={{ textAlign: "right", fontSize: fontScale(15), fontWeight: "bold", color: colors.black}}>{props.titleArr[2]}</Text>
+              <Text style={{ textAlign: "right", fontSize: fontScale(15), fontWeight: "bold", color: colors.black }}>{props.titleArr[2]}</Text>
 
             </View>
           </View>
         </View>
         <Image source={props.icon} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(20), top: -fontScale(23) }} resizeMode="contain" />
 
-        <View style={{ flexDirection: "row",flex:1,marginRight:fontScale(10) }}>
-          <View style={{ justifyContent: "space-between",flex:1 }}>
+        <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(10) }}>
+          <View style={{ justifyContent: "space-between", flex: 1 }}>
             <HItem title={props.titleArray[0]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[1]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[2]} titleStyle={props.titleStyle} />
@@ -56,7 +55,7 @@ const GeneralListItem = (props) => {
             <HItem title={props.titleArray[4]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[5]} titleStyle={props.titleStyle} />
           </View>
-          <View style={{ flex:1,justifyContent: "space-between", marginLeft: -fontScale(225), textAlign: "right" }}>
+          <View style={{ flex: 1, justifyContent: "space-between", marginLeft: -fontScale(225), textAlign: "right" }}>
             <HItem content={props.itemAmountOne[0]} contentStyle={props.contentStyle} />
             <HItem content={props.itemAmountOne[1]} contentStyle={props.contentStyle} />
             <HItem content={props.itemAmountOne[2]} contentStyle={props.contentStyle} />
@@ -64,7 +63,7 @@ const GeneralListItem = (props) => {
             <HItem content={props.itemAmountOne[4]} contentStyle={props.contentStyle} />
             <HItem content={props.itemAmountOne[5]} contentStyle={props.contentStyle} />
           </View>
-          <View style={{ flex:1,justifyContent: "space-between", marginLeft: -fontScale(120), textAlign: "right" }}>
+          <View style={{ flex: 1, justifyContent: "space-between", marginLeft: -fontScale(120), textAlign: "right" }}>
             <HItem content={props.itemAmountTwo[0]} contentStyle={props.contentStyle1} />
             <HItem content={props.itemAmountTwo[1]} contentStyle={props.contentStyle1} />
             <HItem content={props.itemAmountTwo[2]} contentStyle={props.contentStyle1} />
@@ -124,16 +123,14 @@ const GeneralListItem = (props) => {
             </View>
           </View>
         </View> :
-
         props.sixColumnCompany ?
-
           <View style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#FFFFFF" }]}>
             <View style={{ flexDirection: "row" }}>
-              <Text style={{ fontSize: fontScale(18), marginLeft: fontScale(10), fontWeight: "bold", color: colors.black }}>{props.title}</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginTop: fontScale(3), marginLeft: fontScale(30) }}>{props.titleArray[0]}: </Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(3) }}>{props.item[0]}</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginTop: fontScale(3), marginLeft: fontScale(20) }}>{props.titleArray[1]}: </Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: '#1AC4D1', marginTop: fontScale(3) }}>{props.item[1]}</Text>
+              <Text style={{ fontSize: fontScale(16), marginLeft: fontScale(5), fontWeight: "bold", color: colors.black }}>{props.title}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(25) }}>{props.titleArray[0]}: </Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: '#1AC4D1' }}>{props.item[0]}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(10) }}>{props.titleArray[1]}: </Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: '#1AC4D1' }}>{props.item[1]}</Text>
             </View>
             <View>
               <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
@@ -194,7 +191,6 @@ const GeneralListItem = (props) => {
               </View> :
               props.company ?
                 <View style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#EFFEFF" }]}>
-
                   {
                     props.rigthTopContent ?
                       <View style={{ flexDirection: "row" }}>
@@ -217,7 +213,6 @@ const GeneralListItem = (props) => {
                     <Item title={props.titleArray[4]} content={props.item[4]} style={props.styleCol5} />
                   </View>
                   <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(5), marginTop: fontScale(20) }}>
-
                     <Item title={props.titleArray[5]} content={props.item[5]} style={props.styleCol6} />
                     <Item title={props.titleArray[6]} content={props.item[6]} style={props.styleCol7} />
                     <Item title={props.titleArray[7]} content={props.item[7]} style={props.styleCol8} />

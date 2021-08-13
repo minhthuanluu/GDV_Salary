@@ -13,8 +13,8 @@ import { fontScale } from '../../../../../utils/Fonts';
 import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
 import { getAllBranch, getAllEmp } from '../../../../../api';
-import { getShopList } from '../../../../Test/api';
 import { FlatList } from 'react-native';
+import { getAllShop } from '../../../../../adminapi';
 
 const index = (props) => {
     const route = useRoute();
@@ -81,7 +81,7 @@ const index = (props) => {
     const _onChangeBranch = async (branchCode) => {
         setBranchCode(branchCode);
         setShopList([]);
-        await getShopList(branchCode).then((res) => {
+        await getAllShop(navigation,branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
             }

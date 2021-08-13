@@ -1909,7 +1909,6 @@ console.log(token)
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",

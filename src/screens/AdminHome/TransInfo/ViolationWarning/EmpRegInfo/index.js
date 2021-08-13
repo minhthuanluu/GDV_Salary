@@ -11,8 +11,7 @@ import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
-import { getAllBranch, getAllEmp } from '../../../../../api';
-import { getShopList } from '../../../../Test/api';
+import { getAllBranch, getAllEmp,getAllShop } from '../../../../../api';
 
 const index = (props) => {
     const route = useRoute();
@@ -38,7 +37,6 @@ const index = (props) => {
         setData([]);
         setMessage("")
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
-            console.log(month, branchCode, shopCode, empCode, type)
             if (res.status == "success") {
                 if (res.length == 0) {
                     setLoading(res.isLoading);
@@ -88,7 +86,7 @@ const index = (props) => {
         setBranchCode(branchCode);
         setShopList([]);
         setLoadingShop(true)
-        await getShopList(branchCode).then((res) => {
+        await getAllShop(navigation,branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
                 setLoadingShop(false)
@@ -117,7 +115,6 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
-        console.log(value)
         setBranchCode(value.branchCode);
         setShopCode(value.shopCode);
         setEmpCode(value.empId);

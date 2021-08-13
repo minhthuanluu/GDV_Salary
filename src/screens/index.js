@@ -23,7 +23,6 @@ import UpdateProfile from "./Profile/UpdateProfile";
 import SignIn from "./Auth/SignIn";
 import SignOut from "./SignOut";
 import Splash from "./Auth/Splash";
-import TestThree from './Test/Test';
 
 // Admin screen's path
 import AdminHome from "./AdminHome/Dashboard" //AdminHome

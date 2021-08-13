@@ -64,7 +64,7 @@ const index=(props)=> {
 
     return (
         <SafeAreaView style={styles.container}>
-             <Header title={text.averageIncome}/>
+             <Header title={text.salAverage}/>
              <Text style={styles.notif}>{notification}</Text>
              <Body/>
              <View style={styles.body}>

@@ -338,11 +338,10 @@ const SelectDataWithRightText = (props) => {
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalTitle}>{props.title}</Text>
                     {props.showLiveSearch ? <View style={{ flexDirection: "row" }}>
-                        
                         <TextInput
                             style={{ marginTop: fontScale(30), marginHorizontal: fontScale(15) }}
                             placeholder="Tìm kiếm mã nhân viên"
-                            defaultValue={props.data}
+                            value={props.data}
                             placeholderTextColor={colors.black}
                             onChangeText={(text) => onChangeSearch(text)}
                         />

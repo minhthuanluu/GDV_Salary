@@ -22,10 +22,9 @@ const index = (props) => {
     const [loading, setLoading] = useState(false);
     const [empName, setEmpName] = useState("");
     const [message, setMessage] = useState("")
-    const { key, empCode, title,store } = route.params;
-    
+    const { key, empCode, title, store } = route.params;
+
     const getData = async (month, empCode, type) => {
-        console.log(month, empCode, type)
         setLoading(true)
         setMessage("")
         await getDetailTransInfoWarningByType(navigation, month, empCode, type).then((res) => {
@@ -36,10 +35,10 @@ const index = (props) => {
                     setEmpName(res.data.empName)
                     setLoading(res.isLoading);
 
-                }else{
+                } else {
                     setData([]),
-                    setMessage(res.message),
-                    setLoading(res.isLoading)
+                        setMessage(res.message),
+                        setLoading(res.isLoading)
                 }
             }
             if (res.status == "failed") {
@@ -55,7 +54,7 @@ const index = (props) => {
 
     useEffect(() => {
         getData(month, empCode, key);
-        console.log( key, empCode, title )
+        console.log(key, empCode, title)
     }, [month]);
 
     const _onChangeMonth = async (value) => {
@@ -64,7 +63,7 @@ const index = (props) => {
 
     }
 
-    const searchSub = (text) => {
+    const searchSub = (text = "") => {
         setMessage("")
         tempData.concat(tempData)
         const newData = tempData.filter((item) => {
@@ -107,10 +106,10 @@ const index = (props) => {
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-                {loading == false ?<View style={{ justifyContent: "center", flexDirection: "row" }}>
+                {loading == false ? <View style={{ justifyContent: "center", flexDirection: "row" }}>
                     <Text>GDV: </Text>
-                    <Text>{empName} ({store})</Text>
-                </View>:null}
+                    <Text>{empName}</Text>
+                </View> : null}
                 <View style={{ marginBottom: fontScale(20), marginTop: -fontScale(30) }}>
                     <Table
                         data={tempData}
