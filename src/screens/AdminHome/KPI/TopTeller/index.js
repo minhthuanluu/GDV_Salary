@@ -123,7 +123,7 @@ const AdminTopTeller = () => {
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode, data.branchName, data.shopCode, month, sort);
+        await getData(data.branchCode, data.branchName, "", month, sort);
       }
     })
   }
@@ -164,7 +164,7 @@ const AdminTopTeller = () => {
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode, data.branchName, data.shopCode, value, sort);
+        await getData(data.branchCode, data.branchName, "", value, sort);
 
       }
     })

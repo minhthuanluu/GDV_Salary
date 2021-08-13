@@ -1822,6 +1822,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     length: 0,
     error: null,
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode}&shopCode=${shopCode}&empCode=${empCode}&month=01/${month}&type=${type}`,
@@ -1879,7 +1880,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
 
 // Admin > Thong tin giao dich > Canh bao vi pham > Chi tiet > Chi tiết
 export const getDetailTransInfoWarningByType = async (navigation, month, empCode, type) => {
-  console.log("getTransInfoWarningByType")
+  console.log("getDetailTransInfoWarningByType")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1896,7 +1897,7 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
     length: 0,
     error: null,
   };
-  console.log("getTransInfoWarningByType")
+console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getDetailTransInfoWarningByType?empCode=${empCode}&month=01/${month}&type=${type}`,
@@ -1908,7 +1909,7 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(token)
+        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -1918,13 +1919,22 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null,
+            message: "Không có dữ liệu"
           };
         }
       }
@@ -1995,7 +2005,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
           };
         }else {
           data = {
-            data: res.data,
+            data: res.data.data,
             isLoading: false,
             status: "success",
             length: Object.values(res.data.data).length,

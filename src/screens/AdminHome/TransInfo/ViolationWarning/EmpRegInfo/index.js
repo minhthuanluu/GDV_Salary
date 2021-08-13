@@ -1,15 +1,11 @@
 import { useRoute, useNavigation } from '@react-navigation/core';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
-import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
-import { set } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
 import { getTransInfoWarningByType } from '../../../../../api';
 import { Body, DatePicker, Header, Search, Table } from '../../../../../comps';
-import { styles } from './style';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -42,9 +38,10 @@ const index = (props) => {
         setData([]);
         setMessage("")
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
+            console.log(month, branchCode, shopCode, empCode, type)
             if (res.status == "success") {
                 if (res.length == 0) {
-                    setLoading(false);
+                    setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
                 } else {
                     setData(res.data);
@@ -120,6 +117,7 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
+        console.log(value)
         setBranchCode(value.branchCode);
         setShopCode(value.shopCode);
         setEmpCode(value.empId);
@@ -205,7 +203,7 @@ const index = (props) => {
                         )}
                         lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
                         lastIconStyle={{ tintColor: colors.grey }}
-                        onPress={(item) => item.detail == "true" ? navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title, "month": month }) : null}
+                        onPress={(item) => item.detail == "true" ? navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title,"store": item.store, "month": month }) : null}
                     />
                 </View>
             </View>

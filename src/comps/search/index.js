@@ -338,6 +338,7 @@ const SelectDataWithRightText = (props) => {
                 <View style={styles.modalContainer}>
                     <Text style={styles.modalTitle}>{props.title}</Text>
                     {props.showLiveSearch ? <View style={{ flexDirection: "row" }}>
+                        
                         <TextInput
                             style={{ marginTop: fontScale(30), marginHorizontal: fontScale(15) }}
                             placeholder="Tìm kiếm mã nhân viên"
@@ -348,8 +349,9 @@ const SelectDataWithRightText = (props) => {
                         <Image source={images.searchlist} resizeMode="cover" style={{ width: fontScale(20), height: fontScale(20), position: "absolute", bottom: fontScale(2), right: fontScale(30) }} />
                     </View> : null}
                     {
-                        loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
+                        props.loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
                     }
+                    {message.length>0 ? <Text style={{textAlign:"center",color:colors.primary,marginTop:fontScale(10)}}>{message}</Text>: null} 
                     {
                         props.showLiveSearch ?
                             <FlatList

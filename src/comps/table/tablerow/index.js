@@ -47,7 +47,7 @@ const TableRow = (props) => {
                                         <View key={i} style={{ width: widthArray && widthArray[i], justifyContent: "center" }}>
                                             {
                                                 props.firstColCenter ?
-                                                    <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: "center", color: i == 0 ? colors.black : props.textColor }}>{fields[index][i]}</Text>
+                                                    <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: "center", color: i == 0 ? colors.black : props.textColor }}>{fields&&fields[index][i]}</Text>
                                                     :
                                                     <Text style={{ fontWeight: props.fontWeight[index], fontSize: fontScale(14), textAlignVertical: "center", textAlign: i == 0 ? "left" : props.firstColCenter ? "center" : props.textAlign, marginLeft: i == 0 || index == fields.length ? fontScale(0) : fontScale(0), color: i == 0 ? colors.black : props.textColor }}>{1}</Text>
 

@@ -68,7 +68,6 @@ const index = (props) => {
 
   useEffect(() => {
     const{month, branchCode} = route.params?.item;
-    console.log(month+'-'+branchCode)
     setMonth(month);
     getData(month,branchCode,"")
   }, [navigation])
@@ -88,10 +87,7 @@ const index = (props) => {
         style={{ alignSelf: "center" }}
         onChangeDate={(date) => _onChangeMonth(date)}
       />
-      <Body
-        showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}
-      />
+      <Body showInfo={false} style={{ marginTop: fontScale(15), zIndex: -10 }}/>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(20) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
@@ -125,16 +121,13 @@ const index = (props) => {
                     twelveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,"",generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
+                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,generalData.blocking2CTopDay,generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
                     icon={images.branch} /> : null
                 }
               </View>
             )}
           />
-
-
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

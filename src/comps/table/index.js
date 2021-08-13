@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native';
 import { Image } from 'react-native';
 import { View } from 'react-native';
 import { colors } from '../../utils/Colors';
-import { getDimesions, width } from '../../utils/Dimenssion';
+import { width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import TableRow from "./tablerow/index";
  
@@ -44,7 +44,7 @@ const index = (props) => {
                                             headerIcons
                                                 ?
                                                 headers.map((item, index) => hideFirstColHeader && index == 0 ? <View style={{paddingLeft: fontScale(6), width: widthArray[0] }}/> :
-                                                    <View  onLayout={(event) => {getDimesions(event.nativeEvent.layout)}} key={index} style={{ width: widthArray && widthArray[index], flexDirection: "row", alignItems: "center", paddingHorizontal: fontScale(4) }}>
+                                                    <View  key={index} style={{ width: widthArray && widthArray[index], flexDirection: "row", alignItems: "center", paddingHorizontal: fontScale(4) }}>
                                                         <Image source={headerIcons[index]} resizeMode="contain" style={{ width: headerStyle.icon.size, height: headerStyle.icon.size }} />
                                                         <Text style={{ marginLeft: fontScale(5), color: headersTextColor, fontWeight: "bold", fontSize: headerStyle.text.size }}>{item}</Text>
                                                     </View>) :

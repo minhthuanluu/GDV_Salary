@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary, getTransactionStatistics } from "../../../../../adminapi";
+import { getTransactionStatistics } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -27,10 +27,10 @@ const index = (props) => {
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    setMessage("")
-    console.log(month+branchcode+shopCode)
+    setMessage("");
     await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
+        console.log(data)
         setLoading(false);
         if (data.length == 0) {
           setData([])
@@ -82,12 +82,10 @@ const index = (props) => {
         month={month}
         width={width - fontScale(120)}
         style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      />
+        onChangeDate={(date) => _onChangeMonth(date)}/>
       <Body
         showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}
-      />
+        style={{ marginTop: fontScale(15), zIndex: -10 }}/>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(20) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
@@ -120,7 +118,7 @@ const index = (props) => {
                     twelveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,"",generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
+                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,generalData.blocking2CTopDay,generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
                     icon={images.company} /> : null
                 }
               </View>

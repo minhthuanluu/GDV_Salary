@@ -263,7 +263,7 @@ const GeneralListItem = (props) => {
                           return props.lastIcon && index == props.fields.length - 1
                             ? <View style={props.lastIconViewStyle}><Image key={index} resizeMode="contain" style={props.lastIconStyle} source={props.lastIcon} /></View>
                             :
-                            <View>
+                            <View key={index}>
                               {
                                 props.isZeroPlan == "#f00" ?
                                   <View style={{ flexDirection: "row" }}>

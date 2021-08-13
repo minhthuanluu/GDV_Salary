@@ -62,10 +62,10 @@ const index = (props) => {
     }
 
     const getData = async (month, _branchCode, _shopCode, _shopName, empCode, sort) => {
-        setLoading(true)
-        setData([])
-        setMessage("")
-        setSort(sort)
+        setLoading(true);
+        setData([]);
+        setMessage("");
+        setSort(sort);
         setPlaceHolder(_shopName);
         await getMonthSalaryTopTeller(navigation, month, _branchCode, _shopCode, empCode, sort).then(async (res) => {
             const { data, error, status, isLoading, length, message } = res;
@@ -132,8 +132,8 @@ const index = (props) => {
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                
-                await getData(month, data.branchCode, data.shopCode, data.label, '', sort);
+
+                await getData(month, data.branchCode, "", data.label, '', sort);
             }
 
         });
@@ -147,7 +147,7 @@ const index = (props) => {
         setMonth(value)
         if (role == "VMS_CTY") {
             getBranchList();
-            await getData(value, defaultBranchCode, defaultShopCode,defaultShopName, '', sort);
+            await getData(value, defaultBranchCode, defaultShopCode, defaultShopName, '', sort);
             setPlaceHolder("Chọn chi nhánh")
         } else if (role == "MBF_CHINHANH") {
             await getRole().then(async (data) => {
@@ -189,12 +189,12 @@ const index = (props) => {
                 fieldThree={empList.map((item, index) => item.maGDV)}
                 onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
-                onPressOK={(value) => 
-                    role == "VMS_CTY"  ? getData(month,value.shopCode,'',value.shopName,'',value.radio)
-                    :
-                    role=="MBF_CHINHANH" ? getData(month,defaultShopCode,'',defaultShopName,'',value.radio)
-                    :
-                    getData(month,defaultBranchCode,defaultShopCode,defaultShopName,'',value.radio)
+                onPressOK={(value) =>
+                    role == "VMS_CTY" ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
+                        :
+                        role == "MBF_CHINHANH" ? getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
+                            :
+                            getData(month, defaultBranchCode, defaultShopCode, defaultShopName, '', value.radio)
                 }
                 fixed={role != "VMS_CTY" ? true : false}
                 fixedData={defaultShopName}

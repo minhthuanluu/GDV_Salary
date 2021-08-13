@@ -114,7 +114,7 @@ const index = (props) => {
                     twelveColumnCompany
                     title={item.shopCode}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",item.cusAmount,item.cusTopDay,item.transAmount,item.transTopDay,item.blocking2CAmount,"",item.subRegisterAmount,item.subRegisterTopDay,item.foneCardAmount,item.foneCardTopDay,item.noRechargeAmount,item.noRechargeTopDay,item.violateAmount]}
+                    item={["","",item.cusAmount,item.cusTopDay,item.transAmount,item.transTopDay,item.blocking2CAmount,generalData.blocking2CTopDay,item.subRegisterAmount,item.subRegisterTopDay,item.foneCardAmount,item.foneCardTopDay,item.noRechargeAmount,item.noRechargeTopDay,item.violateAmount]}
                    />
                 { index == data.length - 1 ?
                   <GeneralListItem
@@ -125,7 +125,7 @@ const index = (props) => {
                     twelveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,"",generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
+                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,generalData.blocking2CTopDay,generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
                     icon={images.store} /> : null
                 }
               </View>

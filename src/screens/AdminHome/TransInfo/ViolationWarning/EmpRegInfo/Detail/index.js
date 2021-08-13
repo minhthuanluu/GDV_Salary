@@ -1,15 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/core';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
-import { set } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import { getDetailTransInfoWarningByType, getTransInfoWarningByType } from '../../../../../../api';
+import { getDetailTransInfoWarningByType } from '../../../../../../api';
 import { Body, DatePicker, Header, Search, Table } from '../../../../../../comps';
-import { styles } from './style';
 import { colors } from '../../../../../../utils/Colors';
 import { width } from '../../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../../utils/Fonts';
@@ -19,33 +16,37 @@ import { text } from '../../../../../../utils/Text';
 const index = (props) => {
     const route = useRoute();
     const [month, setMonth] = useState(route.params?.month);
-    const [type, setType] = useState(); // type = 1 => menu1 - menu 4
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [tempData, setTempData] = useState([]);
     const [loading, setLoading] = useState(false);
-    // const [branchCode, setBranchCode] = useState("");
-    // const [shopCode, setShopCode] = useState("");
     const [empName, setEmpName] = useState("");
     const [message, setMessage] = useState("")
-    const { key, empCode, title } = route.params;
-
-    // navigation.goBack()
+    const { key, empCode, title,store } = route.params;
+    
     const getData = async (month, empCode, type) => {
         console.log(month, empCode, type)
+        setLoading(true)
+        setMessage("")
         await getDetailTransInfoWarningByType(navigation, month, empCode, type).then((res) => {
             if (res.status == "success") {
-                console.log(res)
-                setData(res.data.data);
-                setTempData(res.data.data)
-                setEmpName(res.data.empName)
-                setLoading(res.loading);
+                if (res.length > 0) {
+                    setData(res.data.data);
+                    setTempData(res.data.data)
+                    setEmpName(res.data.empName)
+                    setLoading(res.isLoading);
+
+                }else{
+                    setData([]),
+                    setMessage(res.message),
+                    setLoading(res.isLoading)
+                }
             }
             if (res.status == "failed") {
-                setLoading(res.loading);
+                setLoading(res.isLoading);
             }
             if (res.status == "v_error") {
-                setLoading(res.loading);
+                setLoading(res.isLoading);
 
             }
 
@@ -54,16 +55,19 @@ const index = (props) => {
 
     useEffect(() => {
         getData(month, empCode, key);
+        console.log( key, empCode, title )
     }, [month]);
 
     const _onChangeMonth = async (value) => {
+        setMonth(value)
         await getData(value, empCode, key);
 
     }
 
     const searchSub = (text) => {
+        setMessage("")
         tempData.concat(tempData)
-        let newData = data.filter((item) => {
+        const newData = tempData.filter((item) => {
             const itemData = `${item.phoneNumber}`;
             return itemData.indexOf(text) > -1;
         });
@@ -103,11 +107,11 @@ const index = (props) => {
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-                <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                    <Text>GDV PTM: </Text>
-                    <Text>{empName}</Text>
-                </View>
-                <View style={{ marginBottom:fontScale(20),marginTop: -fontScale(30) }}>
+                {loading == false ?<View style={{ justifyContent: "center", flexDirection: "row" }}>
+                    <Text>GDV: </Text>
+                    <Text>{empName} ({store})</Text>
+                </View>:null}
+                <View style={{ marginBottom: fontScale(20), marginTop: -fontScale(30) }}>
                     <Table
                         data={tempData}
                         message={message}

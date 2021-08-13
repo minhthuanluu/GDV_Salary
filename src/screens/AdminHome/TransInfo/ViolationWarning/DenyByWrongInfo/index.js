@@ -1,15 +1,12 @@
 import { useRoute, useNavigation } from '@react-navigation/core';
-import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { View } from 'react-native';
 import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
-import { set } from 'react-native-reanimated';
 import Toast from 'react-native-toast-message';
-import { getDenyByWrongInfo, getTransInfoWarningByType } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, Table, TableHeader } from '../../../../../comps';
-import { styles } from './style';
+import { getDenyByWrongInfo } from '../../../../../api';
+import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -17,7 +14,6 @@ import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
 import { getAllBranch, getAllEmp } from '../../../../../api';
 import { getShopList } from '../../../../Test/api';
-import TableRow from '../../../../../comps/table/tablerow';
 import { FlatList } from 'react-native';
 
 const index = (props) => {
@@ -43,15 +39,14 @@ const index = (props) => {
     // navigation.goBack()
     const getData = async (month, branchCode, shopCode, empCode) => {
         console.log(month, branchCode, shopCode, empCode)
-        setMessage("")
+        
         setLoading(true);
         await getDenyByWrongInfo(navigation, month, branchCode, shopCode, empCode).then((res) => {
+            setMessage("");
             if (res.status == "success") {
                 setData(res.data);
                 setLoading(res.isLoading);
-                if(res.message){
-                    setMessage(res.message)
-                }
+                setMessage(res.message)
             }
      
             if (res.status == "failed") {
@@ -154,18 +149,18 @@ const index = (props) => {
             <ActivityIndicator size="small" color={colors.primary} />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-                <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}/>
-                <View style={{ marginTop: -fontScale(30) }}>
+                {loading == true ? <ActivityIndicator size="small" color={colors.primary} style/> : null}
+                <View style={{ marginTop: -fontScale(20) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
                         <TableHeader style={{ width: (width * 3.9) / 10 }} title={'GDVPTM'} />
                         <TableHeader style={{ width: (width * 2.6) / 10 }} title={'Tên CH'} />
                         <TableHeader style={{ width: (width * 3.2) / 10 }} title={'Số lần chặn'} />
                     </View>
+                <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20),width:width }}>{message}</Text>
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={data}
-                        style={{ marginTop: fontScale(10) }}
+                        style={{ marginTop: -fontScale(30) }}
                         keyExtractor={(item, index) => index.toString()}
                         key={({ item }) => item.empName.toString()}
                         renderItem={({ item, index }) => (
