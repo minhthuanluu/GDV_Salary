@@ -104,14 +104,13 @@ const index = (props) => {
                     titleArray={["+ Cắt hủy:", "+ F-> Card:", "+ Chặn 2c:","+ Chuyển Fast:","+  Chuyển MDT, MD1:","+  Nợ hợp đồng:"]}
                     titleArrayOne={["Tỉ lệ nợ/ Doanh thu:","Tổng nợ 90:","Tổng DThu 90:","Tổng TBTS PTM:"]}
                     itemAmountOne={[item.cancelAmount,item.fcardAmount,item.blocking2CAmount,item.fastAmount,item.mdtamount,item.debitContactAmount]}
-                    itemAmountTwo={[item.cancelAmount,item.fcardAmount,item.blocking2CAmount,item.fastAmount,item.mdtamount,item.debitContactAmount]}
+                    itemAmountTwo={[item.rallyCancelAmount,item.rallyFCardAmount,item.rallyBlocking2CAmount,item.rallyFastAmount,item.rallyMDTAmount,item.rallyDebitContactAmount]}
                     itemPercent={[item.cancelPercent,item.fcardPercent,item.blocking2CPercent,item.fastAmount,item.mdtpercent,item.debitContactPercent]}
                     item={[item.debitPercent,item.debit90Amount,item.revenue90Amount]}
                     onPress={() => navigation.navigate("AdminShopTransInfo", {
                     item: {
                       "branchCode": route.params?.item.branchCode,
-                      "shopCode": item.shopCode,
-                      // "month": month
+                      "shopCode": item.shopCode
                     }
                   })} />
                 { index == data.length - 1 ?
@@ -127,7 +126,7 @@ const index = (props) => {
                     titleArray={["+ Cắt hủy:", "+ F-> Card:", "+ Chặn 2c:","+ Chuyển Fast:","+  Chuyển MDT, MD1:","+  Nợ hợp đồng:"]}
                     titleArrayOne={["Tỉ lệ nợ/ Doanh thu:","Tổng nợ 90:","Tổng DThu 90:","Tổng TBTS PTM:"]}
                     itemAmountOne={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
-                    itemAmountTwo={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
+                    itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
                     itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastAmount,generalData.mdtpercent,generalData.debitContactPercent]}
                     item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount]}
                     icon={images.store} /> : null

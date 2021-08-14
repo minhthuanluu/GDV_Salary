@@ -1056,7 +1056,7 @@ export const getAllShop = async (navigation, branchCode) => {
   return data;
 };
 
-export const getAllEmp = async (navigation, branchCode) => {
+export const getAllEmp = async (navigation, branchCode,shopCode) => {
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1074,7 +1074,7 @@ export const getAllEmp = async (navigation, branchCode) => {
   };
   await axios({
     method: GET,
-    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}&fromMonth=01/01/2019&toMonth=01/12/2021`,
+    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

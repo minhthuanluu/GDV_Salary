@@ -20,8 +20,8 @@ const TableRow = (props) => {
                         <View style={{ flexDirection: "row" }}>
                             {
                                 fields.length == 1 ?
-                                    <View key={fields.length} style={{ width: widthArray && widthArray[fields.length], justifyContent: "center" }}>
-                                        <Text></Text>
+                                    <View key={fields.length} style={{ width: widthArray && widthArray[fields.length], justifyContent: "center",flexDirection:"row" }}>
+                                        <Text>{Object.values(fields)[0]}</Text>
                                     </View>
                                     : fields.map((item, i) =>
                                         <View key={i} style={{ width: widthArray && widthArray[i], justifyContent: "center" }}>

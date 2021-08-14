@@ -106,11 +106,18 @@ const Search = (props) => {
 
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
         setSelectModalAdvanced(!selectModalAdvanced)
+        console.log("advanced search")
+        console.log('dataOne:')
+        console.log(dataOne)
+        console.log('\ndataTwo:\n')
+        console.log(dataTwo)
+        console.log('\ndataThree:')
+        console.log(dataThree)
         let data = {
             "branchCode": dataOne.shopCode == undefined ? "" : dataOne.shopCode,
             "branchName": dataOne.shopName == undefined ? "" : dataOne.shopName,
-            "shopCode": dataTwo.shop_code == undefined ? "" : dataTwo.shop_code,
-            "shopName": dataTwo.shop_name == undefined ? "" : dataTwo.shop_name,
+            "shopCode": dataTwo.shopCode == undefined ? "" : dataTwo.shopCode,
+            "shopName": dataTwo.shopName == undefined ? "" : dataTwo.shopName,
             "empId": dataThree.id == undefined ? "" : dataThree.id,
             "empCode": dataThree.maGDV == undefined ? "" : dataThree.maGDV,
             "empName": dataThree.fullName == undefined ? "" : dataThree.fullName
@@ -145,7 +152,7 @@ const Search = (props) => {
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
                         <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne||"Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
-                        <SelectDataWithRightText loading={loadingShop} leftText="Chọn cửa hàng" title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
+                        <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo||"Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
                         <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />
@@ -280,7 +287,7 @@ const Search = (props) => {
                     <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), marginHorizontal: width - (width - props.width / 12), backgroundColor: "white" }, props.style, styles.homeSearch]}>
                         <Image resizeMode="contain" source={props.leftIcon} style={styles.leftIco} />
                         <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-                             <TextInput placeholder={props.placeHolder} textAlign="center" onChangeText={props.onChangeText}/>
+                             <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText}/>
                         </View>
                         <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
                     </View>
@@ -291,12 +298,11 @@ const SelectDataWithRightText = (props) => {
     const [selectedData, setSelectedData] = useState(props.leftText);
     const [selectModalAdvanced, setSelectModalAdvanced] = useState(false)
     const [rightText, setRightText] = useState('Tất cả');
-    const [tempData, setTempData] = useState(props.data);
+    const [tempData, setTempData] = useState([]);
     const [loading, setLoading] = useState(props.loading);
     const [message, setMessage] = useState('')
 
     const onChangeSearch = (text = '') => {
-        // setSearchAlert2(true)
         let newData = props.data.filter((item) => {
             const itemData = `${Object.values(item).toString().toLowerCase()}`;
             return itemData.indexOf(text.toString().toLowerCase()) > -1;
@@ -347,6 +353,9 @@ const SelectDataWithRightText = (props) => {
                         />
                         <Image source={images.searchlist} resizeMode="cover" style={{ width: fontScale(20), height: fontScale(20), position: "absolute", bottom: fontScale(2), right: fontScale(30) }} />
                     </View> : null}
+                    {
+                        console.log(props.loading)
+                    }
                     {
                         props.loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
                     }

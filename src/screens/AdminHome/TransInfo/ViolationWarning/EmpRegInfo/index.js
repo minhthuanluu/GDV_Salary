@@ -5,13 +5,17 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getTransInfoWarningByType } from '../../../../../api';
-import { Body, DatePicker, Header, Search, Table } from '../../../../../comps';
+import { Body, DatePicker, Header, Search, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
-import { getAllBranch, getAllEmp,getAllShop } from '../../../../../api';
+import { getAllBranch, getAllEmp, getAllShop } from '../../../../../api';
+import { FlatList } from 'react-native';
+import { TouchableOpacity } from 'react-native';
+import { Text } from 'react-native';
+import { Image } from 'react-native';
 
 const index = (props) => {
     const route = useRoute();
@@ -28,16 +32,21 @@ const index = (props) => {
     const [empList, setEmpList] = useState([])
     const [loadingBranch, setLoadingBranch] = useState(false)
     const [loadingShop, setLoadingShop] = useState(false)
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState("");
+    const [defaultBranchName,setDefaultBranchName] = useState("Chọn chi nhánh")
+    const [defaultShopName,setDefaultShopName] = useState("Chọn cửa hàng")
     const { key, title } = route.params;
 
     // navigation.goBack()
     const getData = async (month, branchCode, shopCode, empCode, type) => {
         setLoading(true);
         setData([]);
-        setMessage("")
+        setMessage("");
+        console.log(month, branchCode, shopCode, empCode, type)
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
+
             if (res.status == "success") {
+                setMessage("");
                 if (res.length == 0) {
                     setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
@@ -65,7 +74,8 @@ const index = (props) => {
     }
 
     const _onChangeMonth = async (month) => {
-        await getData(month, "", "", "", key);
+        setMonth(month)
+        await _onSearch(month, branchCode, shopCode, empCode,"");
     }
 
     const getBranchList = async () => {
@@ -86,7 +96,7 @@ const index = (props) => {
         setBranchCode(branchCode);
         setShopList([]);
         setLoadingShop(true)
-        await getAllShop(navigation,branchCode).then((res) => {
+        await getAllShop(navigation, branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
                 setLoadingShop(false)
@@ -102,7 +112,6 @@ const index = (props) => {
         await getAllEmp(navigation, branchCode, shopCode).then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
-
             }
             if (res.status == 'failed') {
             }
@@ -114,18 +123,26 @@ const index = (props) => {
         setEmpCode(empId)
     }
 
-    const _onSearch = async (value) => {
-        setBranchCode(value.branchCode);
-        setShopCode(value.shopCode);
-        setEmpCode(value.empId);
-        await getData(month, value.branchCode, value.shopCode, value.empId, key);
+    const _onSearch = async (month, branchCode, shopCode, empCode,value) => {
+        console.log(value)
+
+        setBranchCode(branchCode);
+        setDefaultBranchName(value.branchName)
+        setShopCode(shopCode);
+        setDefaultShopName(value.shopName)
+        setEmpCode(empCode);
+        setMonth(month)
+        await getData(month, branchCode, shopCode, empCode, key);
 
     }
 
     useEffect(() => {
         console.log('Home > Thong tin giao dich > Canh bao vi pham > GDV DKTT')
         getData(month, "", "", "", key);
-        getBranchList()
+        getBranchList();
+        if (branchList.length == 0 && shopList.length == 0) {
+            getAllEmp(navigation, "")
+        }
     }, [month])
 
 
@@ -135,6 +152,7 @@ const index = (props) => {
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <Search
                 loadingBranch={loadingBranch}
+                keyboardType="number-pad"
                 loadingShop={loadingShop}
                 searchSelectModalFourCondition
                 leftIcon={images.teamwork}
@@ -144,63 +162,55 @@ const index = (props) => {
                 dataOne={branchList}
                 dataTwo={shopList}
                 dataThree={empList}
+                defaultLabelOne={defaultBranchName}
+                defaultLabelTwo={defaultShopName}
                 message={text.dataIsNull}
                 searchIndex={1}
                 onChangeText={(text) => console.log(text)}
                 dataFour={empList}
                 onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shop_code)}
+                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(value)}
+                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empCode,value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
                 <View style={{ marginTop: -fontScale(30) }}>
-                    <Table
+                    <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
+                        <TableHeader style={{ flex: 1.5, marginLeft: -fontScale(10) }} title={'GDVPTM'} />
+                        <TableHeader style={{ flex: 1 }} title={'Tên CH'} />
+                        <TableHeader style={{ flex: 1 }} title={'SLTB/tháng'} />
+                        <TableHeader style={{ flex: 1 }} title={'Top/ngày'} />
+                    </View>
+                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
+                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+                    <FlatList
+                        style={{ marginTop: fontScale(20) }}
+                        keyExtractor={(item, index) => item.empCode.toString()}
                         data={data}
-                        table
-                        numColumn={4}
-                        message={message && message}
-                        headers={[
-                            "GDVPTM",
-                            "Tên CH",
-                            "SLTB/tháng",
-                            "Top/ngày"
-                        ]}
-                        headersTextColor={"#00BECC"}
-                        headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-                        headerMarginLeft={-fontScale(5)}
-                        widthArray={[
-                            width / 3,
-                            width / 4.5,
-                            width / 1 / 5,
-                            width / 1 / 6
-                        ]}
-                        fields={data.map((item) => [
-                            item.empName,
-                            item.store,
-                            item.subAmount,
-                            item.topPerDay
-                        ])}
-                        loading={loading}
-                        lastIcon={images.check}
-                        fontWeight={["normal"]}
-                        style={{ marginTop: fontScale(30) }}
-                        textAlign="center"
-                        textColor={data.map((item, index) =>
-                            item.shopType == "BRANCH"
-                                ? "#000"
-                                : item.shopType == "SHOP"
-                                    ? "#D19E01"
-                                    : "#000"
-                        )}
-                        rowBg={data.map((item, index) =>
-                            index % 2 == 0 ? colors.white : colors.lightGrey
-                        )}
-                        lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
-                        lastIconStyle={{ tintColor: colors.grey }}
-                        onPress={(item) => item.detail == "true" ? navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title,"store": item.store, "month": month }) : null}
+                        renderItem={({ item, index }) => {
+                            return <View>
+                                {
+                                    item.detail == "true" ?
+                                        <TouchableOpacity style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white, paddingVertical: fontScale(8) }}
+                                            onPress={() =>
+                                                navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title, "store": item.store, "month": month })
+                                            }>
+                                            <Text style={{ flex: 1.5, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(20) }}>{item.empName}</Text>
+                                            <Text style={{ flex: 1, textAlign: "left", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.store}</Text>
+                                            <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
+                                            <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.topPerDay}</Text>
+                                            <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(10), top: fontScale(5) }} resizeMode="cover" />
+                                        </TouchableOpacity>
+                                        :
+                                        <View style={{ flexDirection: "row" }}>
+
+                                        </View>
+
+                                }
+
+                            </View>
+                        }}
                     />
                 </View>
             </View>

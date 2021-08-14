@@ -69,6 +69,7 @@ function index(props) {
                 <MenuItem topNotif="(Từ 2 lần/tháng)" width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV bị chặn user do đấu sai kho số" titleArray={["", "         "]} data={["", data.wrongNumber]} onPress={() => navigation.navigate("AdminDenyByWrongInfo", { title: "GDV bị chặn user do đấu sai kho số",month: month })} />
                 <MenuItem width={width - fontScale(20)} style={{ marginBottom: fontScale(10) }} noneIcon title="GDV xuất hiện >= 3 lần trong 06 tháng" titleArray={["", "         "]} data={["", data.overThree]} onPress={() => navigation.navigate("AdminEmpThreeTime", { title: "GDV xuất hiện >= 3 lần trong 06 tháng",month: month })} />
             </ScrollView> 
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
 }

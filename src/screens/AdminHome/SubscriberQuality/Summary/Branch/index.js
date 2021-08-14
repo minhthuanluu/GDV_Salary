@@ -125,7 +125,7 @@ const index = (props) => {
                     titleArray={["+ Cắt hủy:", "+ F-> Card:", "+ Chặn 2c:","+ Chuyển Fast:","+  Chuyển MDT, MD1:","+  Nợ hợp đồng:"]}
                     titleArrayOne={["Tỉ lệ nợ/ Doanh thu:","Tổng nợ 90:","Tổng DThu 90:","Tổng TBTS PTM:"]}
                     itemAmountOne={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
-                    itemAmountTwo={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
+                    itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
                     itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastAmount,generalData.mdtpercent,generalData.debitContactPercent]}
                     item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount]}
                     icon={images.company} /> : null

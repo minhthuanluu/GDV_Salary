@@ -53,8 +53,8 @@ const index = (props) => {
     }
 
     useEffect(() => {
+        const { key, empCode, title, store } = route.params;
         getData(month, empCode, key);
-        console.log(key, empCode, title)
     }, [month]);
 
     const _onChangeMonth = async (value) => {
@@ -104,50 +104,61 @@ const index = (props) => {
             />
             <ActivityIndicator size="small" color={colors.primary} />
             <Body />
-            <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-                {loading == false ? <View style={{ justifyContent: "center", flexDirection: "row" }}>
+            <View style={{ flex: 1, backgroundColor: colors.white }}>
+                {
+                    loading == true
+                        ?
+                        <ActivityIndicator size="small" color={colors.primary} />
+                        :
+                        <View>
+                            <View style={{ justifyContent: "center", flexDirection: "row" }}>
+                                <Text>GDV: </Text>
+                                <Text>{empName}</Text>
+                            </View>
+                            <View style={{ marginBottom: fontScale(20), marginTop: -fontScale(30) }}>
+                                <Table
+                                    data={tempData}
+                                    message={message}
+                                    table
+                                    numColumn={2}
+                                    headers={[
+                                        "Ngày TH",
+                                        "Số đt"
+                                    ]}
+                                    headersTextColor={"#00BECC"}
+                                    headerStyle={{ text: { size: fontScale(14) } }}
+                                    widthArray={[
+                                        width / 2,
+                                        width / 2
+                                    ]}
+                                    firstColCenter
+                                    fields={data.map((item) => [
+                                        item.date,
+                                        item.phoneNumber
+                                    ])}
+                                    loading={loading}
+                                    fontWeight={["normal"]}
+                                    style={{ marginTop: fontScale(50),marginBottom:fontScale(30) }}
+                                    textAlign="center"
+
+                                    textColor={data.map((item, index) =>
+                                        item.shopType == "BRANCH"
+                                            ? "#000"
+                                            : item.shopType == "SHOP"
+                                                ? "#D19E01"
+                                                : "#000"
+                                    )}
+                                    rowBg={data.map((item, index) =>
+                                        index % 2 == 0 ? colors.white : colors.lightGrey
+                                    )}
+                                />
+                            </View>
+                        </View>}
+                {/* {loading == false ? <View style={{ justifyContent: "center", flexDirection: "row" }}>
                     <Text>GDV: </Text>
                     <Text>{empName}</Text>
-                </View> : null}
-                <View style={{ marginBottom: fontScale(20), marginTop: -fontScale(30) }}>
-                    <Table
-                        data={tempData}
-                        message={message}
-                        table
-                        numColumn={2}
-                        headers={[
-                            "Ngày TH",
-                            "Số đt"
-                        ]}
-                        headersTextColor={"#00BECC"}
-                        headerStyle={{ text: { size: fontScale(14) } }}
-                        widthArray={[
-                            width / 2,
-                            width / 2
-                        ]}
-                        firstColCenter
-                        fields={data.map((item) => [
-                            item.date,
-                            item.phoneNumber
-                        ])}
-                        loading={loading}
-                        fontWeight={["normal"]}
-                        style={{ marginTop: fontScale(50) }}
-                        textAlign="center"
+                </View> : null} */}
 
-                        textColor={data.map((item, index) =>
-                            item.shopType == "BRANCH"
-                                ? "#000"
-                                : item.shopType == "SHOP"
-                                    ? "#D19E01"
-                                    : "#000"
-                        )}
-                        rowBg={data.map((item, index) =>
-                            index % 2 == 0 ? colors.white : colors.lightGrey
-                        )}
-                    />
-                </View>
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
 

@@ -34,10 +34,12 @@ const index = (props) => {
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
+        console.log(branchCode, shopCode, empCode)
         setMessage("")
         setData([])
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
+            
             if (res.status == "success") {
                 if (res.length == 0) {
                     setLoading(false);
@@ -92,6 +94,7 @@ const index = (props) => {
     }
 
     const _onChangeShop = async (shopCode) => {
+        console.log(shopCode)
         setShopCode(shopCode)
         await getAllEmp(navigation, branchCode, shopCode).then((res) => {
             if (res.status == "success") {
@@ -113,7 +116,6 @@ const index = (props) => {
         
         setShopCode(value.shopCode);
         setEmpCode(value.empId);
-        console.log(value)
         await getData(month, value.branchCode, value.shopCode, value.empId, key);
 
     }
@@ -142,7 +144,7 @@ const index = (props) => {
                 onChangeText={(text) => console.log(text)}
                 dataFour={empList}
                 onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shop_code)}
+                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
                 onPress={(value) => _onSearch(value)}
             />
@@ -158,7 +160,6 @@ const index = (props) => {
                         <TableHeader style={{ width: width /2 }} title={'Tên CH'} />
                     </View>
                     {message?<Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}>{message}</Text>:null}
-
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={data}
