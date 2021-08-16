@@ -56,7 +56,7 @@ const DashBoard = () => {
             <StatusBar barStyle="dark-content" translucent backgroundColor={colors.primary} />
             <View style={{ backgroundColor: colors.white, flex: 1 }}>
                 <Header title={text.profile} />
-                <Image source={images.profileHeader} resizeMode="cover" style={styles.headerShape} />
+                <Image source={images.profileHeader} resizeMode="stretch" style={styles.headerShape} />
                 <View style={styles.personInfo}>
                     <Text style={styles.staffCode}>{userData.displayName}</Text>
                     <Text style={styles.staffName}>({userData&&userData.userGroupId.code})</Text>
@@ -79,7 +79,6 @@ const DashBoard = () => {
                 <TouchableOpacity onPress={() => setShowModal(true)} style={{ backgroundColor: colors.primary, width: fontScale(50), height: fontScale(50), padding: fontScale(13), position: "absolute", bottom: fontScale(22), right: fontScale(22), borderRadius: fontScale(25) }}>
                     <Image source={images.pencil} resizeMode="cover" style={{ width: fontScale(25), height: fontScale(25) }} />
                 </TouchableOpacity>
-
                 <Modal
                     animationType={'fade'}
                     visible={showModal}

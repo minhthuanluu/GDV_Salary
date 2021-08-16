@@ -22,12 +22,12 @@ const index = (props) => {
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    setMessage("")
+    setMessage("");
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setLoading(false);
@@ -35,6 +35,7 @@ const index = (props) => {
           setData([])
           setMessage(data.message);
         } else {
+          
           setData(data.data.data);
           setGeneralData(data.data.general);
         }
@@ -42,6 +43,14 @@ const index = (props) => {
 
       if (data.status == "failed") {
         setLoading(false);
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
       if (data.status == "v_error") {
         Toast.show({
@@ -83,13 +92,14 @@ const index = (props) => {
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
+            style={{marginTop:-fontScale(20)}}
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: index==0 ? fontScale(40):fontScale(20) }}
                   columns
                   rightIcon={images.branch}
                   titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
@@ -107,7 +117,7 @@ const index = (props) => {
                     fiveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.company} /> : null
                 }
               </View>

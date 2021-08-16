@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
         position: 'absolute',
         marginTop: fontScale(112)
     },
-    avatar: { position: 'absolute', marginTop: fontScale(60), width: fontScale(110), height: fontScale(110), borderRadius: fontScale(110) / 2, marginLeft: width - fontScale(154) },
+    avatar: { position: 'absolute', marginTop: height/18, width: fontScale(110), height: fontScale(110), borderRadius: fontScale(110) / 2, marginLeft: width - fontScale(154) },
     avatarImg: { position: 'absolute', width: fontScale(104), height: fontScale(104), borderRadius: fontScale(104), marginLeft: width - (0.1896551724137931 * height) },
     closeIcon: { marginLeft: '87%', marginTop: fontScale(5), marginBottom: -fontScale(10) },
     changePasswordOption: { borderBottomWidth: 0.5, borderBottomColor: '#EFEFEF', marginTop: -fontScale(20) },

@@ -127,7 +127,7 @@ export const getAllShop = async (navigation, branchCode) => {
   return data;
 };
 
-export const getAllEmp = async (navigation, branchCode) => {
+export const getAllEmp = async (navigation, branchCode,shopCode) => {
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -145,7 +145,7 @@ export const getAllEmp = async (navigation, branchCode) => {
   };
   await axios({
     method: GET,
-    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}`,
+    url: `${baseUrl}listData/getAllGDV?branchCode=${branchCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -188,9 +188,11 @@ export const getAllEmp = async (navigation, branchCode) => {
   return data;
 };
 
+
 export const getAdminKPIMonthTopTeller = async (
   navigation,
   branchCode,
+  shopCode,
   month,
   sort
 ) => {
@@ -202,7 +204,6 @@ export const getAdminKPIMonthTopTeller = async (
       navigation.navigate("SignIn");
     }
   });
-  console.log(branchCode, month, sort,token);
   let data = {
     message: "",
     status: "",
@@ -212,7 +213,7 @@ export const getAdminKPIMonthTopTeller = async (
   };
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getKPIMonthTopTeller?branchCode=${branchCode}&month=01/${month}&sort=${sort}`,
+    url: `${baseUrl}adminScreens/getKPIMonthTopTeller?branchCode=${branchCode==null ? "" : branchCode}&shopCode=${shopCode}&month=01/${month}&sort=${sort}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -255,8 +256,7 @@ export const getAdminKPIMonthTopTeller = async (
   return data;
 };
 
-export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
-  console.log(branchCode, sort);
+export const getTopTellerByAvgIncome = async (navigation, branchCode,shopCode, sort) => {
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -274,7 +274,7 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
   };
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getTopTellerByAvgIncome?branchCode=${branchCode}&sort=${sort}`,
+    url: `${baseUrl}adminScreens/getTopTellerByAvgIncome?branchCode=${branchCode}&shopCode=${shopCode==null ? "":shopCode}&sort=${sort}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -318,7 +318,6 @@ export const getTopTellerByAvgIncome = async (navigation, branchCode, sort) => {
 };
 
 export const getKPIGroup = async (navigation, month) => {
-  console.log(month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -391,11 +390,11 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
   let data = {
     message: "",
     status: "",
-    res: null,
+    data: null,
+    length:0,
     loading: null,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getKPIByMonth?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
@@ -407,7 +406,6 @@ export const getKPIByMonth = async (month, branchCode, shopCode) => {
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -548,15 +546,6 @@ export const getMonthSalary = async (month, branchCode, shopCode) => {
             length: Object.values(res.data.data).length,
             error: null,
           };
-        }else {
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: Object.values(res.data.data).length,
-            error: null,
-            message: "Không có dữ liệu"
-          };
         }
       }
     })
@@ -635,3 +624,360 @@ export const getAllAvgIncomeGroup = async (navigation) => {
     });
   return data;
 };
+
+// AdminHome > Thông tin đơn vị
+export const getUnitInfo = async (navigation) => {
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    loading: null,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getUnitInfo`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        } else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+};
+
+// AdminHome > Thông tin đơn vị > Chi tiết
+export const getEmpInfoByShopCode = async (navigation, shopCode) => {
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    loading: null,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getEmpInfoByShopCode?shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        } else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+};
+
+// AdminHome > Thông tin giao dịch > Thống kê
+export const getTransactionStatistics = async (month, branchCode, shopCode) => {
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken;
+    } else {
+      navigation.navigate("SignIn");
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    length:0,
+    loading: null,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getTransactionStatistics?branchCode=${branchCode}&month=01/${month}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null,
+          };
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error.response.data,
+        };
+      }
+    });
+  return data;
+};
+
+// AdminHome > Chất lượng thuê bao > Thống kê
+export const getSummarySubQuality = async (branchCode, shopCode) => {
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken;
+    } else {
+      navigation.navigate("SignIn");
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    length:0,
+    loading: null,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getSummarySubQuality?branchCode=${branchCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null,
+          };
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error.response.data,
+        };
+      }
+    });
+  return data;
+};
+
+export const getAdminSubscriberQualityDashboard=async()=>{
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken;
+    } else {
+      navigation.navigate("SignIn");
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    res: null,
+    length:0,
+    loading: null,
+    error: null,
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getSubscriberQualityDashboard`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null,
+          };
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+          };
+        }else {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null,
+            message: "Không có dữ liệu"
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          error: error.response.data,
+        };
+      }
+    });
+  return data;
+}

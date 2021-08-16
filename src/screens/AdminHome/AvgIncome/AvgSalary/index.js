@@ -64,18 +64,19 @@ const index=(props)=> {
 
     return (
         <SafeAreaView style={styles.container}>
-             <Header title={text.averageIncome}/>
+             <Header title={text.salAverage}/>
              <Text style={styles.notif}>{notification}</Text>
-             <Body />
+             <Body/>
              <View style={styles.body}>
                  {loading==true ? <ActivityIndicator size="small" color={colors.primary}/> : null}
+           
                 <FlatList 
                     showsVerticalScrollIndicator={false}
                     data={data}
                     keyExtractor={(item,key)=>item.shopCode.toString()}
                     renderItem={({item,index})=>
-                    <View style={{paddingTop:fontScale(25)}}>
-                        <GeneralListItem style={{marginTop:-fontScale(5)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV","Khoán sp/GDV","SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
+                    <View style={{marginTop:fontScale(40),paddingBottom:index==data.length-1 ? fontScale(70): 0}}>
+                        <GeneralListItem style={{marginTop:-fontScale(10)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV","Khoán sp/GDV","SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
                         {
                             index==data.length-1 
                                 ? 

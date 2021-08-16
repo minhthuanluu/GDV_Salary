@@ -1,7 +1,7 @@
 // This file to define functions about logistics (Array, Timer, Compare,...)
 
 import moment from "moment";
-import { _retrieveData } from "./Storage";
+import { _retrieveData, _storeData } from "./Storage";
 import Toast from "react-native-toast-message";
 import { BackHandler } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
@@ -228,9 +228,6 @@ export const checkLogin = async (navigation) => {
       else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
         navigation.navigate("AdminHome")
       }
-      // else if (item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
-      //     navigation.navigate("AdminHome")
-      //   }
       else {
         return "Bạn không có quyền sử dụng app"
       }
@@ -259,4 +256,122 @@ export const nth = (obj, n) => {
   }
 
   return null;
+}
+
+export const checkSearchHistory = async (key = "", screenName = "", data = {}) => {
+  await getLoginInfo().then(async (item) => {
+    if (key.length == 0 && screenName.length == 0 && data.length == 0) {
+      console.log('no data')
+    }
+    await _storeData(key, {
+      key: key,
+      screenName: screenName,
+      data: data
+    }).then((item) => { return item })
+
+  })
+}
+
+export const checkn2 = (str='') => {
+  if (str == null || str == undefined || str.length==0 || !str) {
+    return ""
+  } else {
+    let element;
+    let index = 0;
+    let strFrs = '';
+    let strSnd = '';
+    for (let i = 0; i < str.length; i++) {
+      element = str[i];
+      if (element == '(') {
+        index = i;
+      }
+    }
+
+    if (typeof (index) != undefined) {
+      strFrs = str.substr(0, index - 1);
+      strSnd = str.substr(index, str.length);
+    }
+
+
+    return strFrs + '\n' + strSnd;
+  }
+}
+
+export const getRole = async () => {
+  let data = {
+    role: "",
+    level: "",
+    description: "",
+    branchCode: "",
+    branchName: "",
+    shopCode: "",
+    shopName: "",
+    label: ""
+  }
+  await _retrieveData('userInfo').then((item) => {
+
+    let level = item.userId.shopId.shopLevel;
+    if (level == 1) {
+      // role công ty
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Công ty');
+      console.log(item)
+      data = {
+        role: item.userId.userGroupId.code,
+        level: item.userId.shopId.shopLevel,
+        description: item.userId.userGroupId.description,
+        branchCode: "",
+        branchName: item.userId.shopId.shopName,
+        label: "Tất cả"
+      }
+    } else if (level == 2) {
+      // role chi nhánh
+      // console.log(item.userId)
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Chi nhánh');
+      // console.log('role code: ' + item.userId.userGroupId.code)
+      // console.log('role description: ' + item.userId.userGroupId.description)
+      // console.log('branch code: ' + item.userId.shopId.shopCode)
+      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
+      // console.log('shop code: ' + item.userId.shopId.shopCode)
+      // console.log('shop name: ' + item.userId.shopId.shopName)
+      data = {
+        role: item.userId.userGroupId.code,
+        level: item.userId.shopId.shopLevel,
+        description: item.userId.userGroupId.description,
+        branchCode: item.userId.shopId.parentShopId.shopCode,
+        branchName: item.userId.shopId.parentShopId.shopName,
+        shopCode: item.userId.shopId.shopCode,
+        shopName: item.userId.shopId.shopName,
+        label: item.userId.shopId.shopName
+      }
+
+    } if (level == 3) {
+      // role cửa hàng
+      console.log('-------')
+      console.log('shop level: ' + item.userId.shopId.shopLevel)
+      console.log('role Cửa hàng');
+      // console.log('role code: ' + item.userId.userGroupId.code)
+      // console.log('role description: ' + item.userId.userGroupId.description)
+      // console.log('branch code: ' + item.userId.shopId.parentShopId.shopCode)
+      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
+      // console.log('shop code: ' + item.userId.shopId.shopCode)
+      // console.log('shop name: ' + item.userId.shopId.shopName)
+      data = {
+        role: item.userId.userGroupId.code,
+        level: item.userId.shopId.shopLevel,
+        description: item.userId.userGroupId.description,
+        branchCode: item.userId.shopId.parentShopId.shopCode,
+        branchName: item.userId.shopId.parentShopId.shopName,
+        shopCode: item.userId.shopId.shopCode,
+        shopName: item.userId.shopId.shopName,
+        label: item.userId.shopId.shopName
+      }
+    }
+
+  })
+  return data;
+  // chi nhánh + cửa hàng trưởng ngang nhau
 }

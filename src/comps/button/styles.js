@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
 
     },
     button: {
-        width: fontScale(120),
+        minWidth: fontScale(120),
         borderRadius: fontScale(10),
         alignContent: 'center',
         justifyContent: 'center',

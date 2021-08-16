@@ -19,7 +19,7 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import { checkn2 } from "../../../../../utils/Logistics";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -29,24 +29,27 @@ const index = (props) => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const getData = async () => {
-    const {item,month} = route.params;
-    let shopCode = item.shopCode;
+  const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    console.log(month+' - '+shopCode)
-    
+    await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+      if (data.status == "success") {
+        setData(data.data.data);
+        setGeneralData(data.data.general);
+        setLoading(false);
+      }
+    });
   };
 
   useEffect(() => {
-    const {item,month} = route.params;
+    const { month, branchCode } = route.params?.branchItem;
     setMonth(month);
-    getData();
-  }, [month]);
+    getData(month, branchCode, "");
+  }, [""]);
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const {item,month} = route.params;
-    getData(value, item.shopCode);
+    const { branchCode } = route.params?.branchItem;
+    getData(value, branchCode, "");
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -80,53 +83,57 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: fontScale(40) }}
                   columns
                   rightIcon={images.store}
                   titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.prePaid, item.postPaid, item.vas]}
+                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
-                      item: {
-                        branchCode: route.params?.item.branchCode,
+                      branchItem: {
+                        branchCode: route.params?.branchItem.branchCode,
                         shopCode: item.shopCode,
                         month: month,
                       },
                     })
                   }
                 />
-               {
-                   index==data.length-1 ?  <GeneralListItem
-                  company
-                  style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
-                  icon={images.branch}
-                  titleArray={[
-                    "TBTS", 
-                    "TBTT",
-                    "Vas",
-                    "KHTT",
-                    "Bán lẻ",
-                    "% Lên gói",
-                    "TBTT",
-                    " TBTS thoại gói > =99k",
-                  ]}
-                  item={[
-                    generalData.prePaid,
-                    generalData.postPaid,
-                    generalData.vas,
-                    generalData.importantPlan,
-                    generalData.retailRevenue,
-                    "",
-                    generalData.prePaidPck,
-                    generalData.postPaidOverNinetyNine,
-                  ]}
-                  title={generalData.shopName}
-                /> : null
-               }
+              {
+                index==data.length-1 ? <GeneralListItem
+                company
+                style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
+                icon={images.branch}
+                color={"#D19E01"}
+                titleArray={[
+                  "TBTS", 
+                  "TBTT",
+                  "Vas",
+                  "KHTT",
+                  "Bán lẻ",
+                  "% Lên gói",
+                  "TBTT",
+                  " TBTS thoại gói > =99k",
+                ]}
+                item={[
+                  checkn2(generalData.postPaid),
+                  checkn2(generalData.prePaid),
+                  checkn2(generalData.vas),
+                  generalData.importantPlan,
+                  generalData.retailRevenue,
+                  "",
+                  generalData.prePaidPck,
+                  generalData.postPaidOverNinetyNine,
+                ]}
+
+                title={generalData.shopName}
+              />  : null
+              }
+               
               </View>
             )}
           />
+          
         </View>
       </View>
     </SafeAreaView>
@@ -134,3 +141,6 @@ const index = (props) => {
 };
 
 export default index;
+
+
+

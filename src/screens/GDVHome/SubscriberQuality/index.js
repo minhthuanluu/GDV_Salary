@@ -235,7 +235,6 @@ const SubscriberQuality = () => {
                     }
                 </ScrollView>
             </View>
-
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView >
     );

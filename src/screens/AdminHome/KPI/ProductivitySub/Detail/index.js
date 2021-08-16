@@ -69,9 +69,6 @@ const ProductivitySubDetail = (props) => {
             <Header title={text.productivitySub} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <Body style={{ marginTop: fontScale(20) }} />
-            {/* <GeneralListItem company icon={images.company} titleArray={["TBTS","TBTT","VAS","KHTT","Bán lẻ","% Lên gói","TBTT","TBTS thoại gói >= 99k"]} item={["95% (100/100)","85% (100/100)","75%","190,000 / 200,000","10,234tr","0%","50TB - 45%","50TB - 45%"]} title={"2MFHCM1"} onPress={()=>console.log("abc")}/>
-            <GeneralListItem columns rightIcon={images.customer} titleArray={["TBTS","TBTT","Lượt KH","Lượt GD"]} item={["9tr","1tr",15,150]} title={"2MFHCM1"} onPress={()=>console.log("abc")}/> */}
-
             <View style={{ backgroundColor: colors.white,flex:1 }}>
             <Text style={{ color: colors.primary, textAlign: "center" }}>{message ? message : null}</Text>
                 {loading == true ? (

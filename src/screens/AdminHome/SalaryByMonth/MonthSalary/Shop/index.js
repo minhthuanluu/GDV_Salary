@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { SafeAreaView } from "react-native";
 import {
   Body,
   DatePicker,
@@ -9,7 +10,7 @@ import {
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth } from "../../../../../adminapi";
+import { getMonthSalary } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -19,30 +20,40 @@ import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import Toast from "react-native-toast-message";
 
 const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
   const route = useRoute();
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+
+    await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
         setGeneralData(data.data.general);
         setLoading(false);
+      }
+      if (data.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     });
   };
 
   useEffect(() => {
     const { month, branchCode } = route.params?.item;
-    console.log(month+' - '+branchCode)
     setMonth(month);
     getData(month, branchCode, "");
   }, [navigation]);
@@ -84,11 +95,11 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: fontScale(30) }}
                   columns
                   rightIcon={images.store}
-                  titleArray={["TBTS", "TBTT", "VAS"]}
-                  item={[item.prePaid, item.postPaid, item.vas]}
+                  titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
+                  item={[item.totalSalary, item.incentiveSalary, item.totalEmp]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminMonthSalaryGDV", {
@@ -100,34 +111,17 @@ const index = (props) => {
                     })
                   }
                 />
-               {
-                   index==data.length-1 ?  <GeneralListItem
-                  company
-                  style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
-                  icon={images.branch}
-                  titleArray={[
-                    "TBTS", 
-                    "TBTT",
-                    "Vas",
-                    "KHTT",
-                    "Bán lẻ",
-                    "% Lên gói",
-                    "TBTT",
-                    " TBTS thoại gói > =99k",
-                  ]}
-                  item={[
-                    generalData.prePaid,
-                    generalData.postPaid,
-                    generalData.vas,
-                    generalData.importantPlan,
-                    generalData.retailRevenue,
-                    "",
-                    generalData.prePaidPck,
-                    generalData.postPaidOverNinetyNine,
-                  ]}
-                  title={generalData.shopName}
-                /> : null
-               }
+                {
+                  index == data.length - 1 ?
+                    <GeneralListItem
+                      style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                      fiveColumnCompany
+                      title={generalData.shopName}
+                      titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
+                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                      icon={images.branch} />
+                    : null
+                }
               </View>
             )}
           />
@@ -138,3 +132,4 @@ const index = (props) => {
 };
 
 export default index;
+

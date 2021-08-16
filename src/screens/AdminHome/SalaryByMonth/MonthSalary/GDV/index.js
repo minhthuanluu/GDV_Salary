@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary } from "../../../../../adminapi";
+import {getMonthSalary } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -20,7 +20,7 @@ const index = (props) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
   const route = useRoute();
   const [message, setMessage] = useState('');
@@ -28,12 +28,8 @@ const index = (props) => {
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     setMessage('')
+    setData([])
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
-      // if (data.status == "success") {
-      //   setData(data.data.data);
-      //   setGeneralData(data.data.general);
-      //   setLoading(false);
-      // }
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -87,18 +83,18 @@ const index = (props) => {
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: fontScale(10) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View style={{ flex: 1 }}>
           <FlatList
-            style={{ marginTop: -fontScale(20) }}
+            style={{ marginTop: -fontScale(30) }}
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View>
+              <View style={{marginTop:index==0 ? -fontScale(50) : 0}}>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(5) }}
+                  style={{ marginTop: fontScale(5)}}
                   sixColumnCompany
                   rightIcon={images.store}
                   titleArray={["KPI", "Tổng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
@@ -118,7 +114,7 @@ const index = (props) => {
                     fiveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.store} /> : null
                 }
               </View>

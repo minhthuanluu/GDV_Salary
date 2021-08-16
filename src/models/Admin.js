@@ -13,10 +13,10 @@ export const expenseManagement = {
   "isValue": null,
 }
 
-export const AvgSalary={
+export const AvgSalary = {
   "data": [],
   "general": {
-    "avgIncome":'',
+    "avgIncome": '',
     "contractSalary": '',
     "empAmount": '',
     "icon": '',
@@ -29,7 +29,7 @@ export const AvgSalary={
   "notification": '',
 }
 
-export const User =  {
+export const User = {
   "accessToken": null,
   "expiredAt": null,
   "id": null,
@@ -74,3 +74,29 @@ export const User =  {
     "userName": null,
   },
 }
+
+export const ViolateWarning = {
+  "transFc": {
+    "emp": null,
+    "top": null
+  },
+  "isValue": true,
+  "denyTwoC": {
+    "emp": null,
+    "top": null
+  },
+  "wrongNumber": null,
+  "noRecharge": null,
+  "overThree": null,
+  "resident": {
+    "emp": null,
+    "top": null
+  }
+}
+
+export const Violate = [{
+  "notification": "",
+  "fast": "",
+  "overThreeTime": "",
+  "fcard": ""
+}]

@@ -16,7 +16,7 @@ import TableHeader from "./tableheader";
 import GeneralListItem from "./generallistitem";
 import DataPicker from "./datapicker";
 import ListMenu from "./listmenu";
-import Table from "./table"
+import Table from "./table";
 
 export {
     Button,

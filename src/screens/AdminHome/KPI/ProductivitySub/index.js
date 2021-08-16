@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { BackHandler } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 import { getProductivitySubByMonth } from '../../../../api';
 import { Body, DatePicker, Header, Table } from '../../../../comps';
 import { colors } from '../../../../utils/Colors';
 import { height, width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
 import { images } from '../../../../utils/Images';
+import { ToastNotif } from '../../../../utils/Logistics';
 import { text } from '../../../../utils/Text';
 import { styles } from './style';
 
@@ -34,8 +36,20 @@ const index = (props) => {
         }
       }
       if (res.status == "failed") {
-        setMessage(res.message)
         setLoading(false);
+        ToastNotif("Thông báo", res.message, "error", true, null)
+      }
+
+      if (res.status == "v_error") {
+        setLoading(false)
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
       }
     })
   }
@@ -77,7 +91,14 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[fontScale(100), fontScale(100), fontScale(100), fontScale(100), fontScale(100), fontScale(90)]}
+          widthArray={[
+            2.4/10*width,
+            1.5/10*width,
+            1.3/10*width,
+            1.4/10*width,
+            1.8/10*width,
+            1/10*width,
+          ]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
@@ -91,18 +112,19 @@ const index = (props) => {
           }
           loading={loading}
           hideFirstColHeader
-          headerMarginLeft={-fontScale(27)}
+          headerMarginLeft={fontScale(22)}
           textAlign="center"
           firstRowBg={"#FBFDC3"}
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
-          lastIconStyle={{ tintColor: colors.grey }}
+          lastIconStyle={{ tintColor: colors.grey,position:"absolute" }}
           seeDetail={data.map((item, index) => { return item.detail })}
-          onPress={(item) => navigation.navigate("AdminDetailProductivitySub", { "shopCode": item.shopCode, "querymonth": month })}
+          onPress={(item) => item.detail=="true" ? navigation.navigate("AdminDetailProductivitySub", { "shopCode": item.shopCode, "querymonth": month }):null}
           fontWeight={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "bold" : "normal")}
           textColor={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "#000" : "#D19E01")}
           rowBg={data.map((item, index) => item.shopType == "BRANCH" ? "#C6FBFB" : "#fff")}
         />
       </View>
+      <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 }

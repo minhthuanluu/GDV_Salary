@@ -7,7 +7,7 @@ import { height, width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import { images } from '../../utils/Images';
 import { styles } from './styles';
-
+ 
 const index = (props) => {
     const [selectedItem, setSelectedItem] = useState(props.placeholder);
     const [showDialog, setShowDialog] = useState(false);
@@ -31,7 +31,6 @@ const index = (props) => {
                     :
                     <TouchableOpacity style={[styles.advancedPicker, { width: props.width }]} onPress={() => setShowDialog(!showDialog)}>
                         <Text style={{ flex: 1, paddingHorizontal: fontScale(15) }}>{selectedIndex == null ? props.placeholder : Object.values(selectedItem)[1]}</Text>
-
                         <Image source={images.arrowdown} resizeMode="contain" style={{
                             width: fontScale(20),
                             height: fontScale(20),
@@ -72,5 +71,5 @@ const index = (props) => {
         </View>
     );
 }
-
+ 
 export default index;
