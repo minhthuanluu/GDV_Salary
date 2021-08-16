@@ -52,7 +52,8 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
         import BranchSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Branch"; // Admin > Chất lượng thuê bao > Thống kê > Chi nhánh
         import ShopSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Shop"; // Admin > Chất lượng thuê bao > Thống kê >Cửa hàng
         import EmpSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Emp"; // Admin > Chất lượng thuê bao > Thống kê >Nhân viên
-        
+        import AdminViolateFastSubDetail from "./AdminHome/SubscriberQuality/ViolationWarning/Fast/Detail" // Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT>=1TB
+        // SubscriberQuality/ViolationWarning/Fast/Detail
     import AdminViolateSubscriber from './AdminHome/SubscriberQuality/ViolationWarning'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm
         import AdminViolateSubscriberFast from './AdminHome/SubscriberQuality/ViolationWarning/Fast'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >= 1TB
         import AdminViolateSubscriberFCard from './AdminHome/SubscriberQuality/ViolationWarning/FCard'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển FCard >= 3TB
@@ -133,6 +134,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminSubscriberQualitySumBranchScreen=()=>{return <AdminSubscriberQualitySumBranch />}
             export const AdminSubscriberQualitySumShopScreen=()=> {return <AdminSubscriberQualitySumShop/>}
                 export const AdminSubscriberQualitySumEmpScreen=()=> {return <AdminSubscriberQualitySumEmp />}
+            export const AdminViolateFastSubDetailScreen=()=>{return <AdminViolateFastSubDetail />}
         export const AdminTransInfoDashdoardScreen = () => {return<TransInfoDashdoard/>}
             export const AdminStatisticalBranchScreen = () => {return<StatisticalBranch/>}
                 export const AdminStatisticalShopScreen = () => {return<StatisticalShop/>}

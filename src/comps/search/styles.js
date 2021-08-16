@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
         right:fontScale(10)
     },
     placeholder:{
-        textAlign:"center"
+        textAlign:"center",fontSize:fontScale(14)
     },
     modalTitle:{textAlign:"center",fontSize:fontScale(16),marginTop:fontScale(20),fontWeight:"bold"},
     modalContainer:{flex:1,backgroundColor:colors.white,borderWidth:1,borderColor:'#c9c9c9',borderTopLeftRadius:fontScale(50),borderTopRightRadius:fontScale(50)},

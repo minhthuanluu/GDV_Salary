@@ -25,28 +25,37 @@ function index(props) {
     const [notification, setNotification] = useState('')
 
     const getData = async () => {
-        setLoading(true);
-        await getViolate(navigation).then((res) => {
-            if (res.status == "success") {
-                setLoading(false);
-                if (res.length > 0) {
-                    setData(res.data[0])
-                    setNotification(res.data[0].notification)
-                }
-            }
-            if (res.status == "failed") {
-                setLoading(false);
-            }
-            if (res.status == "v_error") {
-                Toast.show({
-                    text1: "Cảnh báo",
-                    text2: res.message,
-                    type: "error",
-                    visibilityTime: 1000,
-                    autoHide: true,
-                    onHide: () => navigation.navigate("AdminHome")
-                })
-            }
+        // setLoading(true);
+        // await getViolate(navigation).then((res) => {
+        //     console.log(res)
+        //     if (res.status == "success") {
+        //         setLoading(false);
+        //         if (res.length > 0) {
+        //             setData(res.data[0])
+        //             setNotification(res.data[0].notification)
+        //         }
+        //     }
+        //     if (res.status == "failed") {
+        //         setLoading(false);
+        //     }
+        //     if (res.status == "v_error") {
+        //         Toast.show({
+        //             text1: "Cảnh báo",
+        //             text2: res.message,
+        //             type: "error",
+        //             visibilityTime: 1000,
+        //             autoHide: true,
+        //             onHide: () => navigation.navigate("AdminHome")
+        //         })
+        //     }
+        // })
+        Toast.show({
+            text1: "Cảnh báo",
+            text2: res.message,
+            type: "error",
+            visibilityTime: 1000,
+            autoHide: true,
+            onHide: () => navigation.goBack()
         })
     }
 
@@ -64,6 +73,7 @@ function index(props) {
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="Chuyển FCard>=3TB" value={data.fcard} onPress={() => navigation.navigate("AdminViolateSubscriberFCard", {title: "Chuyển FCard>=3TB" })} />
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(13)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="GDV xuất hiện >=3 lần trong 06 tháng" value={data.overThreeTime} onPress={() => navigation.navigate("AdminViolateSubscriberOverThree", {title: "GDV xuất hiện >= 3 lần trong 6 tháng" })} />
             </ScrollView>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
 }

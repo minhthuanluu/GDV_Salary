@@ -28,17 +28,17 @@ const index = (props) => {
     const [branchName, setBranchName] = useState("");
     const [shopName, setShopName] = useState("");
     const [empName, setEmpName] = useState("");
-    
+
     const [branchList, setBranchList] = useState([]);
     const [shopList, setShopList] = useState([])
     const [empList, setEmpList] = useState([])
-    const [message,setMessage] = useState('')
+    const [message, setMessage] = useState('')
     const { key, title } = route.params;
 
     // navigation.goBack()
     const getData = async (month, branchCode, shopCode, empCode) => {
         console.log(month, branchCode, shopCode, empCode)
-        
+        setData([])
         setLoading(true);
         await getDenyByWrongInfo(navigation, month, branchCode, shopCode, empCode).then((res) => {
             setMessage("");
@@ -47,11 +47,17 @@ const index = (props) => {
                 setLoading(res.isLoading);
                 setMessage(res.message)
             }
-     
+
             if (res.status == "failed") {
                 setLoading(res.isLoading);
-                setMessage(res.message)
-
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => { }
+                })
             }
             if (res.status == "v_error") {
                 setLoading(res.isLoading);
@@ -69,6 +75,7 @@ const index = (props) => {
     }
 
     const _onChangeMonth = async (month) => {
+        setMonth(month)
         await getData(month, "", "", "", key);
     }
 
@@ -81,7 +88,7 @@ const index = (props) => {
     const _onChangeBranch = async (branchCode) => {
         setBranchCode(branchCode);
         setShopList([])
-        await getAllShop(navigation,branchCode).then((res) => {
+        await getAllShop(navigation, branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
             }
@@ -110,7 +117,7 @@ const index = (props) => {
 
     const _onSearch = async (value) => {
         setBranchCode(value.branchCode);
-        
+
         setShopCode(value.shopCode);
         setEmpCode(value.empId);
         await getData(month, value.branchCode, value.shopCode, value.empId, key);
@@ -148,18 +155,18 @@ const index = (props) => {
             <ActivityIndicator size="small" color={colors.primary} />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} style/> : null}
                 <View>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
                         <TableHeader style={{ width: (width * 3.9) / 10 }} title={'GDVPTM'} />
                         <TableHeader style={{ width: (width * 2.6) / 10 }} title={'Tên CH'} />
                         <TableHeader style={{ width: (width * 3.2) / 10 }} title={'Số lần chặn'} />
                     </View>
-                <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20),width:width }}>{message}</Text>
+                {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginTop: fontScale(20)}} /> : null}
+                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={data}
-                        style={{ marginTop: -fontScale(30) }}
+                        style={{ marginTop: message ? 0 : fontScale(10) }}
                         keyExtractor={(item, index) => index.toString()}
                         key={({ item }) => item.empName.toString()}
                         renderItem={({ item, index }) => (
@@ -172,7 +179,7 @@ const index = (props) => {
                                     item.denyAmount
                                 ]}
                                 style={[
-                                    [{ textAlign: "left",marginLeft:fontScale(5), fontSize: fontScale(14), textAlignVertical: "center" }, { width: (width * 3.9) / 10 }],
+                                    [{ textAlign: "left", marginLeft: fontScale(5), fontSize: fontScale(14), textAlignVertical: "center" }, { width: (width * 3.9) / 10 }],
                                     [{ textAlign: "center", fontSize: fontScale(14), textAlignVertical: "center" }, { width: (width * 2.6) / 10 }],
                                     [{ textAlign: "center", fontSize: fontScale(14), textAlignVertical: "center" }, { width: (width * 3.2) / 10 }],
                                 ]}

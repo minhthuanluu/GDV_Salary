@@ -163,7 +163,7 @@ const index = (props) => {
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(value, data.branchCode, data.shopCode, data.label, '', sort)
+                await getData(value, data.branchCode, "", data.label, '', sort)
             })
         }
     }
@@ -220,7 +220,7 @@ const index = (props) => {
                         ])
                     }
                     fontWeight={"normal"}
-                    textColor={'#000'}
+                    textColor={['#000']}
                     firstRowBg={colors.lightGrey}
                     textAlign="center"
                     rowBg={data.map((item, index) => index % 2 == 0 ? colors.lightGrey : colors.white)}

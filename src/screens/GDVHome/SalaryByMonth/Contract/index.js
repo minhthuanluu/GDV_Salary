@@ -24,7 +24,6 @@ const Contract = (props) => {
     const [user, setUserData] = useState(UserObj);
     const navigation = useNavigation();
 
-
     const getData = async (month) => {
         setLoading(true)
         await getContractSalaryByMonth(month, navigation).then((res) => {
@@ -75,7 +74,6 @@ const Contract = (props) => {
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <MetricStatus title={text.numberStatus} status={data.status} style={{ alignSelf: "center", marginTop: fontScale(20) }} />
             <Body style={{ marginTop: fontScale(15) }} displayName={user.displayName} maGDV={user.gdvId.maGDV} />
-
             <View style={{ flex: 1, backgroundColor: colors.white }}>
                 {
                     loading == true ? <ActivityIndicator color={colors.primary} size="small" /> :

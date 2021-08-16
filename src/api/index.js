@@ -1851,15 +1851,6 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
             length: res.data.data.length,
             error: null
           };
-        }else if (res.data.data.length == 0){
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: 0,
-            error: null,
-            message: "Không có dữ liệu"
-          };
         }
       }
     })
@@ -2172,7 +2163,7 @@ export const getViolate = async (navigation) => {
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB
 export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
-  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > getEmpThreeTime")
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2193,6 +2184,76 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getFastTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        console.log(res.data)
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (Object.values(res.data.data).length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+
+// getDetailFastTrans
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết
+export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getDetailFastTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

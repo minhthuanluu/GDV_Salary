@@ -83,7 +83,7 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: index==0 ? fontScale(30) :fontScale(20) }}
+                  style={{ marginTop:fontScale(30)}}
                   columns
                   rightIcon={images.branch}
                   titleArray={["TBTS", "TBTT", "VAS"]}
@@ -98,7 +98,7 @@ const index = (props) => {
                 />
                 {index == data.length - 1 ? <GeneralListItem
                   company
-                  style={{  marginBottom: fontScale(80),marginTop: -fontScale(30) }}
+                  style={{  marginBottom: fontScale(80),marginTop: -fontScale(10) }}
                   icon={images.company}
                   color={"#D19E01"}
                   titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}

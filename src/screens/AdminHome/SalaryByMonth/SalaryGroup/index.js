@@ -188,16 +188,16 @@ const index = () => {
           headers={["",">=20tr",">=17tr",">=12tr","<12tr","Tổng GDV"]}
           headersTextColor={"#00BECC"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-          headerMarginLeft = {fontScale(5)}
+          headerMarginLeft = {0.5/10*width}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            fontScale(100),
-            fontScale(60),
-            fontScale(60),
-            fontScale(60),
-            fontScale(60),
-            fontScale(70),
+            2.5/10*width,
+            1.5/10*width,
+            1.5/10*width,
+            1.5/10*width,
+            1.5/10*width,
+            1.5/10*width,
           ]}
           fields={data.map((item) => [
             item.shopName,

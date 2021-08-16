@@ -30,13 +30,11 @@ const index = (props) => {
     setMessage("");
     await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
-        console.log(data)
         setLoading(false);
         if (data.length == 0) {
           setData([])
           setMessage(data.message);
         } else {
-          
           setData(data.data.data);
           setGeneralData(data.data.general);
         }

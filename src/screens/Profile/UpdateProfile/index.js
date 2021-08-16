@@ -6,8 +6,7 @@ import {
   Text,
   StatusBar,
   TouchableOpacity,
-  Alert,
-  BackHandler,
+  Alert
 } from "react-native";
 import { getProfile, updateAvatar, updateProfile } from "../../../api";
 import { Button, Header, ProfileItem } from "../../../comps";
@@ -149,7 +148,7 @@ const UpdateProfile = (props) => {
       <Header title={text.updateProfile} />
       <Image
         source={images.profileHeader}
-        resizeMode="cover"
+        resizeMode="stretch"
         style={styles.headerShape}
       />
       <View style={styles.personInfo}>

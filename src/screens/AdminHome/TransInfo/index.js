@@ -30,6 +30,14 @@ function index(props) {
             }
             if (res.status == "failed") {
                 setLoading(false);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => navigation.goBack()
+                })
             }
             if (res.status == "v_error") {
                 Toast.show({
@@ -38,7 +46,7 @@ function index(props) {
                     type: "error",
                     visibilityTime: 1000,
                     autoHide: true,
-                    onHide: () => navigation.navigate("AdminHome")
+                    onHide: () => navigation.goBack()
                 })
             }
         })

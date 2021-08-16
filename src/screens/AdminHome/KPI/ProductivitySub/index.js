@@ -91,7 +91,14 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[fontScale(100), fontScale(50), width / 7, width / 7, fontScale(60), fontScale(60)]}
+          widthArray={[
+            2.4/10*width,
+            1.5/10*width,
+            1.3/10*width,
+            1.4/10*width,
+            1.8/10*width,
+            1/10*width,
+          ]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
@@ -109,7 +116,7 @@ const index = (props) => {
           textAlign="center"
           firstRowBg={"#FBFDC3"}
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
-          lastIconStyle={{ tintColor: colors.grey }}
+          lastIconStyle={{ tintColor: colors.grey,position:"absolute" }}
           seeDetail={data.map((item, index) => { return item.detail })}
           onPress={(item) => item.detail=="true" ? navigation.navigate("AdminDetailProductivitySub", { "shopCode": item.shopCode, "querymonth": month }):null}
           fontWeight={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "bold" : "normal")}

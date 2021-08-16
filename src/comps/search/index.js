@@ -107,12 +107,12 @@ const Search = (props) => {
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
         setSelectModalAdvanced(!selectModalAdvanced)
         console.log("advanced search")
-        console.log('dataOne:')
-        console.log(dataOne)
-        console.log('\ndataTwo:\n')
-        console.log(dataTwo)
-        console.log('\ndataThree:')
-        console.log(dataThree)
+        // console.log('dataOne:')
+        // console.log(dataOne)
+        // console.log('\ndataTwo:')
+        // console.log(dataTwo)
+        // console.log('\ndataThree:')
+        // console.log(dataThree)
         let data = {
             "branchCode": dataOne.shopCode == undefined ? "" : dataOne.shopCode,
             "branchName": dataOne.shopName == undefined ? "" : dataOne.shopName,
@@ -195,7 +195,7 @@ const Search = (props) => {
                             <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
                                 <Text style={[styles.placeholder]}>{text.search}</Text>
                             </View>
-                            <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
+                            <Image resizeMode="cover" source={props.rightIcon} style={styles.rightIco} />
                         </TouchableOpacity>
 
                         <Modal
@@ -214,7 +214,7 @@ const Search = (props) => {
                                         radio_props={props.data || radio_props}
                                         initial={props.initialRadio}
                                         formHorizontal
-                                        labelStyle={{ marginRight: fontScale(90) }}
+                                        labelStyle={{ marginRight: fontScale(90),fontSize:fontScale(14) }}
                                         onPress={(value) => onRadioPress(value)}
                                     />
                                 </View>
@@ -353,9 +353,6 @@ const SelectDataWithRightText = (props) => {
                         />
                         <Image source={images.searchlist} resizeMode="cover" style={{ width: fontScale(20), height: fontScale(20), position: "absolute", bottom: fontScale(2), right: fontScale(30) }} />
                     </View> : null}
-                    {
-                        console.log(props.loading)
-                    }
                     {
                         props.loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
                     }

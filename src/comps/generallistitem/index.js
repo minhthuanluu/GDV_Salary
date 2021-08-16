@@ -16,10 +16,14 @@ const GeneralListItem = (props) => {
           <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item[0]}</Text>
         </View>
         <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
-          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(18) }}>{props.titleArrayOne[1]}</Text>
-          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[1]}</Text>
-          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(28) }}>{props.titleArrayOne[2]}</Text>
-          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[2]}</Text>
+          <View style={{ flexDirection: "row",flex:1 }}>
+            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(18) }}>{props.titleArrayOne[1]}</Text>
+            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[1]}</Text>
+          </View>
+          <View style={{ flexDirection: "row",flex:1,marginLeft:-fontScale(15) }}>
+            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(28) }}>{props.titleArrayOne[2]}</Text>
+            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[2]}</Text>
+          </View>
         </View>
         <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
           <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne[3]}</Text>

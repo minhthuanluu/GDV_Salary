@@ -44,7 +44,6 @@ const index = (props) => {
         setMessage("");
         console.log(month, branchCode, shopCode, empCode, type)
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
-
             if (res.status == "success") {
                 setMessage("");
                 if (res.length == 0) {
@@ -62,14 +61,13 @@ const index = (props) => {
                 setLoading(res.isLoading);
                 Toast.show({
                     text1: "Cảnh báo",
-                    text2: data.message,
+                    text2: res.message,
                     type: "error",
                     visibilityTime: 1000,
                     autoHide: true,
                     onHide: () => navigation.goBack()
                 })
             }
-
         })
     }
 
@@ -141,7 +139,7 @@ const index = (props) => {
         getData(month, "", "", "", key);
         getBranchList();
         if (branchList.length == 0 && shopList.length == 0) {
-            getAllEmp(navigation, "")
+            getAllEmp(navigation, "","")
         }
     }, [month])
 
@@ -177,10 +175,10 @@ const index = (props) => {
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View style={{ marginTop: -fontScale(30) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
-                        <TableHeader style={{ flex: 1.5, marginLeft: -fontScale(10) }} title={'GDVPTM'} />
-                        <TableHeader style={{ flex: 1 }} title={'Tên CH'} />
-                        <TableHeader style={{ flex: 1 }} title={'SLTB/tháng'} />
-                        <TableHeader style={{ flex: 1 }} title={'Top/ngày'} />
+                        <TableHeader style={{ flex: 2.1, marginLeft: -fontScale(5) }} title={'GDVPTM'} />
+                        <TableHeader style={{ flex: 1.3,marginLeft:fontScale(20)}} title={'Tên CH'} />
+                        <TableHeader style={{ flex: 1.5,marginLeft:fontScale(10) }} title={'SLTB/tháng'} />
+                        <TableHeader style={{ flex: 1.5 }} title={'Top/ngày'} />
                     </View>
                     {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
@@ -196,11 +194,11 @@ const index = (props) => {
                                             onPress={() =>
                                                 navigation.navigate("AdminEmpRegInfoDetail", { "key": key, "empCode": item.empCode, "title": title, "store": item.store, "month": month })
                                             }>
-                                            <Text style={{ flex: 1.5, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(20) }}>{item.empName}</Text>
+                                            <Text style={{ flex: 1.5, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
                                             <Text style={{ flex: 1, textAlign: "left", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.store}</Text>
                                             <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
                                             <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.topPerDay}</Text>
-                                            <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(10), top: fontScale(5) }} resizeMode="cover" />
+                                            <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(2), top: fontScale(8) }} resizeMode="cover" />
                                         </TouchableOpacity>
                                         :
                                         <View style={{ flexDirection: "row" }}>
@@ -215,7 +213,6 @@ const index = (props) => {
                 </View>
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
-
         </SafeAreaView>
     );
 }

@@ -91,7 +91,7 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[fontScale(120), fontScale(120),fontScale(150)]}
+          widthArray={[1/4*width, 1/4*width,2/4*width-fontScale(35)]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
