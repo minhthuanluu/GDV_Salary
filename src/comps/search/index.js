@@ -15,6 +15,7 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import DataPicker from '../datapicker/index';
 import Button from '../button';
 import { _retrieveData } from '../../utils/Storage';
+import { useFocusEffect } from '@react-navigation/core';
 
 const Search = (props) => {
     const { withDropdown, data, dataNotFoundText, keyboardType, style, main,loadingBranch,loadingShop } = props;
@@ -107,12 +108,12 @@ const Search = (props) => {
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
         setSelectModalAdvanced(!selectModalAdvanced)
         console.log("advanced search")
-        // console.log('dataOne:')
-        // console.log(dataOne)
-        // console.log('\ndataTwo:')
-        // console.log(dataTwo)
-        // console.log('\ndataThree:')
-        // console.log(dataThree)
+        console.log('dataOne:')
+        console.log(dataOne)
+        console.log('\ndataTwo:\n')
+        console.log(dataTwo)
+        console.log('\ndataThree:')
+        console.log(dataThree)
         let data = {
             "branchCode": dataOne.shopCode == undefined ? "" : dataOne.shopCode,
             "branchName": dataOne.shopName == undefined ? "" : dataOne.shopName,
@@ -153,7 +154,8 @@ const Search = (props) => {
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
                         <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne||"Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
                         <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo||"Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
-                        <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
+                        <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
+                        {/* showLiveSearch */}
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />
                             <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => _onPressAdminOK(dataOne, dataTwo, dataThree)} />
@@ -299,32 +301,31 @@ const SelectDataWithRightText = (props) => {
     const [selectModalAdvanced, setSelectModalAdvanced] = useState(false)
     const [rightText, setRightText] = useState('Tất cả');
     const [tempData, setTempData] = useState([]);
-    const [loading, setLoading] = useState(props.loading);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+    const [onSearch,setOnSearch] = useState(false)
 
     const onChangeSearch = (text = '') => {
+        setOnSearch(true);
+        setMessage("");
         let newData = props.data.filter((item) => {
-            const itemData = `${Object.values(item).toString().toLowerCase()}`;
-            return itemData.indexOf(text.toString().toLowerCase()) > -1;
+            const itemData = `${Object.values(item).toString().normalize('NFD').toLowerCase()}`;
+            return itemData.indexOf(text.toString().normalize('NFD').toLowerCase()) > -1;
         });
-
-        if (text.length > 0) {
-            setLoading(true);
-            if (newData.length == 0) {
-                setLoading(false);
-                setMessage("Không tìm thấy dữ liệu");
-                setTempData([]);
-            } else {
-                setLoading(false);
-                setMessage("");
-                setTempData(newData);
-            }
-        } else {
-            setTempData(props.data);
-            setLoading(false);
-            setMessage("");
+        setTempData(newData);
+        if(newData.length<=0){
+            setMessage("Không tìm thấy dữ liệu");
         }
     }
+
+    useFocusEffect(()=>{
+        console.log("list emp")
+        onSearch==false ? setTempData(props.data) : null
+        console.log("list emp")
+    })
+
+    useEffect(()=>{
+       
+    })
 
     return (
         <View style={{ backgroundColor: colors.lightGrey, marginHorizontal: fontScale(30), padding: fontScale(5), borderRadius: fontScale(15), marginTop: fontScale(20) }}>

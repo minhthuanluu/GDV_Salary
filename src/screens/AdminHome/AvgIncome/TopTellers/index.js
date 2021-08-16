@@ -15,16 +15,15 @@ import { text } from "../../../../utils/Text";
 import { useNavigation } from "@react-navigation/native";
 import { width } from "../../../../utils/Dimenssion";
 import { BackHandler } from "react-native";
-import moment from "moment";
 import Toast from 'react-native-toast-message';
 import { getAllBranch, getAllShop, getTopTellerByAvgIncome } from "../../../../adminapi";
 import { _retrieveData, _storeData } from "../../../../utils/Storage";
 import { getRole } from "../../../../utils/Logistics";
+import { ROLE } from "../../../../utils/Roles";
 
 const AdminTopTellerAvgIncome = () => {
   const [data, setData] = useState([]);
   const [message, setMessage] = useState("");
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
   const navigation = useNavigation();
@@ -32,18 +31,12 @@ const AdminTopTellerAvgIncome = () => {
   const [branchList, setBranchList] = useState([]);
   const [shopList, setShopList] = useState([]);
   const [notification, setNotification] = useState("");
-  const [shopCode, setShopCode] = useState('');
-  const [empCode, setEmpCode] = useState('');
   const [defaultBranchCode, setDefaultBranchCode] = useState('')
   const [defaultBranchName, setDefaultBranchName] = useState('')
   const [defaultShopCode, setDefaultShopCode] = useState('')
   const [defaultShopName, setDefaultShopName] = useState('')
   const [role, setRole] = useState();
-
-
   const [empList, setEmpList] = useState([])
-
-  //   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState('');
   const [placeHolder, setPlaceHolder] = useState('')
 
@@ -85,6 +78,14 @@ const AdminTopTellerAvgIncome = () => {
       }
       if (res.status == "failed") {
         setLoading(false);
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 5000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+      })
       }
       if (res.status == "v_error") {
         Toast.show({
@@ -97,68 +98,74 @@ const AdminTopTellerAvgIncome = () => {
         })
       }
     })
-
   }
 
-  const getData = async (branchCode,shopCode, sort, branchName) => {
-    branchName&&setPlaceHolder(branchName)
+  const getData = async (branchCode, shopCode, sort, branchName) => {
+    branchName && setPlaceHolder(branchName)
     setMessage("");
     setLoadingData(true);
     setSort(sort)
     setData([])
-       await getTopTellerByAvgIncome(navigation, branchCode,shopCode, sort).then((res) => {
-        setLoadingData(false);
-        if (res.status == "success") {
-          if (res.data.length > 0 || res.data.data.length > 0) {
-            setNotification(res.data.notification)
-            setData(res.data.data);
-            setLoadingData(false);
-          } else {
-            setData([])
-            setMessage("Không có dữ liệu")
-            setLoadingData(false);
-          }
-        }
-        if (res.status == "failed") {
-          setMessage("Không có dữ liệu")
+    await getTopTellerByAvgIncome(navigation, branchCode, shopCode, sort).then((res) => {
+      setLoadingData(false);
+      if (res.status == "success") {
+        if (res.data.length > 0 || res.data.data.length > 0) {
+          setNotification(res.data.notification)
+          setData(res.data.data);
+          setLoadingData(false);
+        } else {
+          setData([])
+          setMessage(text.dataIsNull)
           setLoadingData(false);
         }
+      }
+      if (res.status == "failed") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => { }
+        })
+        setLoadingData(false);
+      }
 
-        if (res.status == "v_error") {
-          Toast.show({
-            text1: "Cảnh báo",
-            text2: res.message,
-            type: "error",
-            visibilityTime: 1000,
-            autoHide: true,
-            onHide: () => navigation.goBack()
-          })
-        }
-      });
+      if (res.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
+    });
   };
 
   const checkRole = async () => {
     await getRole().then(async (data) => {
       setRole(data.role);
-      if (data.role == "VMS_CTY") {
+      if (data.role == ROLE.VMS_CTY) {
         getBranchList();
-        await getData('', '', sort,defaultBranchName );
-        setPlaceHolder("Chọn chi nhánh")
-      } else if (data.role == "MBF_CHINHANH") {
+        await getData('', '', sort, defaultBranchName);
+        setPlaceHolder(text.chooseBranch)
+      } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
         setDefaultShopName(data.shopName);
-        await getData(data.shopCode, "","", data.branchName);
-      }else if (data.role == "MBF_CUAHANG") {
+        await getData(data.shopCode, "", "", data.branchName);
+      } else if (data.role == ROLE.MBF_CUAHANG) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
-        await getData(data.branchCode, data.shopCode,"", data.label);
-    }
+        await getData(data.branchCode, "", "", data.label);
+      }
     })
   }
 
@@ -189,15 +196,15 @@ const AdminTopTellerAvgIncome = () => {
       <Search
         loading={loading}
         rightIcon={images.searchlist}
-        modalTitle="Vui lòng chọn"
+        modalTitle={text.select}
         placeholder={placeHolder}
         searchSelectModal
-        initialRadio={sort == 0?0:1}
+        initialRadio={sort == 0 ? 0 : 1}
         data={[
-          { label: 'Top cao nhất', value: 1 },
-          { label: 'Top thấp nhất', value: 0 }
+          { label: text.highestTop, value: 1 },
+          { label: text.lowestTop, value: 0 }
         ]}
-        modalTitle="Vui lòng chọn"
+        modalTitle={text.select}
         width={width - fontScale(60)}
         style={{ marginTop: fontScale(20) }}
         leftIcon={images.teamwork}
@@ -209,22 +216,17 @@ const AdminTopTellerAvgIncome = () => {
         fieldTwo={shopList.map((item) => item.shopName)}
         fieldThree={empList.map((item, index) => item.maGDV)}
         onChangePickerOne={(value) => onChangeBranch(value)}
-        // onChangePickerTwo={(value) => onChangeShop(value.shopCode)}
-        // onChangePickerThree={(value) => onChangeEmp(value.maGDV)}
         showPicker={[true, false, false]}
-        fixed={role != "VMS_CTY" ? true : false}
+        fixed={role != ROLE.VMS_CTY ? true : false}
         fixedData={defaultShopName}
-        onPressOK={(value) => 
-          role == "VMS_CTY"  ? getData(value.shopCode || defaultBranchCode,defaultShopCode, value.radio, value.shopName||defaultShopName) : 
-         role=="MBF_CHINHANH" ? getData(defaultShopCode,"",value.radio) : getData(defaultBranchCode,defaultShopCode,value.radio) 
+        onPressOK={(value) =>
+          role == ROLE.VMS_CTY ? getData(value.shopCode || defaultBranchCode, defaultShopCode, value.radio, value.shopName || defaultShopName) :
+            role == ROLE.MBF_CHINHANH ? getData(defaultShopCode, "", value.radio) : getData(defaultBranchCode, defaultShopCode, value.radio)
         }
       />
-
       <Body
         showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}
-      />
-
+        style={{ marginTop: fontScale(15), zIndex: -10 }} />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
           <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
@@ -255,15 +257,14 @@ const AdminTopTellerAvgIncome = () => {
                 `${item.empName}\n(${item.shopName})`,
                 item.avgIncome,
                 item.totalSalary,
-                item.prePaid,
-
+                item.prePaid
               ]}
               style={[
                 [styles.dateCol, { width: (width * 3.9) / 10 }],
                 [styles.dateCol, { width: (width * 2.6) / 10 }],
-                [styles.dateCol, { width: (width * 3.2) / 10 }],
+                [styles.dateCol, { width: (width * 3.2) / 10 }]
               ]}
-         
+
             />
           )}
         />

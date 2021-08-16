@@ -130,6 +130,9 @@ const index = (props) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
+            {
+                console.log(empList)
+            }
             <Search
                 searchSelectModalFourCondition
                 leftIcon={images.teamwork}

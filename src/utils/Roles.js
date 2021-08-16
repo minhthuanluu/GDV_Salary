@@ -1,0 +1,5 @@
+export const ROLE = {
+    VMS_CTY:"VMS_CTY",
+    MBF_CHINHANH:"MBF_CHINHANH",
+    MBF_CUAHANG:"MBF_CUAHANG"
+}

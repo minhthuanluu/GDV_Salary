@@ -79,7 +79,7 @@ const Contract = (props) => {
                     loading == true ? <ActivityIndicator color={colors.primary} size="small" /> :
                         <ScrollView showsVerticalScrollIndicator={false}>
                             <View style={styles.sumKpiContainer}>
-                                <Text style={styles.sumKpiTitle}>{text.upSalary}: </Text>
+                                <Text style={styles.sumKpiTitle}>{text.contractSalary}: </Text>
                                 <Text style={styles.sumKpi}>{thoundsandSep(data.contractSalary)}</Text>
                             </View>
 

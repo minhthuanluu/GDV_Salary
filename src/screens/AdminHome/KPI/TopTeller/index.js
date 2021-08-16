@@ -21,6 +21,7 @@ import Toast from 'react-native-toast-message';
 import { getAdminKPIMonthTopTeller, getAllBranch } from "../../../../adminapi";
 import { _retrieveData } from "../../../../utils/Storage";
 import { getRole } from "../../../../utils/Logistics";
+import { ROLE } from "../../../../utils/Roles";
 
 const AdminTopTeller = () => {
   const [data, setData] = useState([]);
@@ -32,8 +33,6 @@ const AdminTopTeller = () => {
   const [branchList, setBranchList] = useState([]);
   const [shopList, setShopList] = useState([]);
   const [shopCode, setShopCode] = useState('');
-  const [empCode, setEmpCode] = useState('');
-
   const [empList, setEmpList] = useState([])
 
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
@@ -52,7 +51,6 @@ const AdminTopTeller = () => {
         setLoading(false);
         setBranchList(res.data);
         setBranchCode(res.data[0].shopCode);
-
       }
       if (res.status == "failed") {
         setLoading(false);
@@ -72,8 +70,8 @@ const AdminTopTeller = () => {
 
   const onChangeBranch = (value) => {
     setBranchCode(value.shopCode);
-    setDefaultBranchCode(value.shopCode)
-    setPlaceHolder(value.shopName)
+    setDefaultBranchCode(value.shopCode);
+    setPlaceHolder(value.shopName);
   }
 
   const getData = async (branchCode, branchName, shopCode, month, sort) => {
@@ -81,8 +79,8 @@ const AdminTopTeller = () => {
     setLoadingData(true);
 
     setDefaultBranchCode(branchCode);
-    setDefaultBranchName(branchName)
-    setShopCode(shopCode)
+    setDefaultBranchName(branchName);
+    setShopCode(shopCode);
     setSort(sort);
     setData([]);
     await getAdminKPIMonthTopTeller(navigation, branchCode, shopCode, month, sort).then((res) => {
@@ -93,13 +91,13 @@ const AdminTopTeller = () => {
           setLoadingData(false);
 
         } else {
-          setData([])
-          setMessage(res.message)
+          setData([]);
+          setMessage(res.message);
           setLoadingData(false);
         }
       }
       if (res.status == "failed") {
-        setMessage("Không có dữ liệu")
+        setMessage(text.dataIsNull);
         setLoadingData(false);
       }
     });
@@ -108,17 +106,17 @@ const AdminTopTeller = () => {
   const checkRole = async () => {
     await getRole().then(async (data) => {
       setRole(data.role)
-      if (data.role == "VMS_CTY") {
+      if (data.role == ROLE.VMS_CTY) {
         getBranchList();
         await getData('', '', '', month, sort);
-        setPlaceHolder("Chọn chi nhánh")
-      } else if (data.role == "MBF_CHINHANH") {
+        setPlaceHolder(text.chooseBranch)
+      } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
         setDefaultBranchCode(data.shopCode);
         await getData(data.shopCode, data.branchName, "", month, sort);
-      } else if (data.role == "MBF_CUAHANG") {
+      } else if (data.role == ROLE.MBF_CUAHANG) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
@@ -148,17 +146,17 @@ const AdminTopTeller = () => {
   const _onChangeMonth = async (value) => {
     await getRole().then(async (data) => {
       setRole(data.role)
-      if (data.role == "VMS_CTY") {
+      if (data.role == ROLE.VMS_CTY) {
         setMonth(value);
         await getData(defaultBranchCode, defaultBranchName, shopCode, value, sort);
-      } else if (data.role == "MBF_CHINHANH") {
+      } else if (data.role == ROLE.MBF_CHINHANH) {
         setMonth(value);
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
         setDefaultShopCode(data.shopCode);
         await getData(data.shopCode, data.label, "", value, sort);
-      } else if (data.role == "MBF_CUAHANG") {
+      } else if (data.role == ROLE.MBF_CUAHANG) {
         setMonth(value);
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
@@ -176,15 +174,15 @@ const AdminTopTeller = () => {
     setSort(radio)
     await getRole().then(async (data) => {
       setRole(data.role)
-      if (data.role == "VMS_CTY") {
+      if (data.role == ROLE.VMS_CTY) {
         setMonth(month);
         await getData(shopCode, shopName, '', month, radio);
-      } else if (data.role == "MBF_CHINHANH") {
+      } else if (data.role == ROLE.MBF_CHINHANH) {
         await getData(data.shopCode, data.shopName, "", month, radio).then(() => {
           setDefaultShopName(defaultShopName)
         })
-      } else if (data.role == "MBF_CUAHANG") {
-        await getData(data.branchCode, data.shopName, data.shopCode, month, radio).then(() => {
+      } else if (data.role == ROLE.MBF_CUAHANG) {
+        await getData(data.branchCode, data.shopName, "", month, radio).then(() => {
           setDefaultShopName(defaultShopName)
         })
       }
@@ -199,14 +197,14 @@ const AdminTopTeller = () => {
         loading={loading}
         rightIcon={images.searchlist}
         data={[
-          { label: 'Top cao nhất', value: 1 },
-          { label: 'Top thấp nhất', value: 0 }
+          { label: text.highestTop, value: 1 },
+          { label: text.lowestTop, value: 0 }
         ]}
-        modalTitle="Vui lòng chọn"
+        modalTitle={text.select}
         placeholder={placeHolder}
         searchSelectModal
         width={width - fontScale(60)}
-        style={{ marginTop: fontScale(20) }}
+        style={{ marginTop: fontScale(20),alignSelf:"center" }}
         leftIcon={images.teamwork}
         initialRadio={sort == 1 ? 0 : 1}
         dataOne={branchList}
@@ -217,22 +215,17 @@ const AdminTopTeller = () => {
         onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
         onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
-        fixed={role != "VMS_CTY" ? true : false}
-        fixedData={defaultShopName}
-      />
-
+        fixed={role != ROLE.VMS_CTY ? true : false}
+        fixedData={defaultShopName}/>
       <Body
         showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}
-      />
-
+        style={{ marginTop: fontScale(15), zIndex: -10 }}/>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
           <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
           <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.sumKPI} />
           <TableHeader style={{ width: (width * 1.21) / 10 }} title={text.TBTS} />
           <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.TBTT} />
-
         </View>
         {loadingData == true ? (
           <ActivityIndicator

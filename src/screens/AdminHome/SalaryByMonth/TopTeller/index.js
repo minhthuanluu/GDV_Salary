@@ -10,10 +10,11 @@ import { colors } from '../../../../utils/Colors';
 import { width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
 import { images } from '../../../../utils/Images';
-import { checkSearchHistory, getLoginInfo, getRole } from '../../../../utils/Logistics';
+import { checkSearchHistory, getRole } from '../../../../utils/Logistics';
 import { _retrieveData, _storeData } from '../../../../utils/Storage';
 import { text } from '../../../../utils/Text';
 import { styles } from './style'
+import { ROLE } from "../../../../utils/Roles"
 
 const index = (props) => {
     const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
@@ -21,20 +22,16 @@ const index = (props) => {
     const [branchList, setBranchList] = useState([]);
     const [branchCode, setBranchCode] = useState('')
     const [shopList, setShopList] = useState([]);
-    const [shopCode, setShopCode] = useState('');
-    const [empCode, setEmpCode] = useState('');
     const [sort, setSort] = useState(1);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
     const [data, setData] = useState([]);
-    const [empList, setEmpList] = useState([])
+    const [empList, setEmpList] = useState([]);
     const navigation = useNavigation();
-    const [placeHolder, setPlaceHolder] = useState('')
+    const [placeHolder, setPlaceHolder] = useState('');
     const [role, setRole] = useState();
-    const [defaultShopCode, setDefaultShopCode] = useState('')
+    const [defaultShopCode, setDefaultShopCode] = useState('');
     const [defaultShopName, setDefaultShopName] = useState('');
-    const [defaultBranchCode, setDefaultBranchCode] = useState('')
-    const [defaultBranchName, setDefaultBranchName] = useState('');
-    const [shopName, setShopName] = useState('')
+    const [defaultBranchCode, setDefaultBranchCode] = useState('');
 
     const getBranchList = async () => {
         setLoading(true)
@@ -42,7 +39,7 @@ const index = (props) => {
             if (res.status == "success") {
                 setLoading(false);
                 if (res.length > 0) {
-                    setBranchList(res.data)
+                    setBranchList(res.data);
                 }
             }
             if (res.status == "failed") {
@@ -98,9 +95,7 @@ const index = (props) => {
                     onHide: () => navigation.goBack()
                 })
             }
-
             await checkSearchHistory("salaryByMonth", "AdminSalaryByMonthTopTeller", { "shopCode": _branchCode || branchCode, "shopName": defaultShopName, "month": month, "sort": sort })
-
         })
 
     }
@@ -117,25 +112,23 @@ const index = (props) => {
         getBranchList();
         await getRole().then(async (data) => {
             setRole(data.role);
-            if (data.role == "VMS_CTY") {
+            if (data.role == ROLE.VMS_CTY) {
                 getBranchList();
                 await getData(month, '', '', '', '', '');
-                setPlaceHolder("Chọn chi nhánh")
-            } else if (data.role == "MBF_CHINHANH") {
+                setPlaceHolder(text.chooseBranch)
+            } else if (data.role == ROLE.MBF_CHINHANH) {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(month, data.shopCode, '', data.label, '', sort)
-            } else if (data.role == "MBF_CUAHANG") {
+                await getData(month, data.shopCode, "", data.label, '', sort)
+            } else if (data.role == ROLE.MBF_CUAHANG) {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-
                 await getData(month, data.branchCode, "", data.label, '', sort);
             }
-
         });
     }
 
@@ -145,11 +138,11 @@ const index = (props) => {
 
     const _setMonth = async (value) => {
         setMonth(value)
-        if (role == "VMS_CTY") {
+        if (role == ROLE.VMS_CTY) {
             getBranchList();
             await getData(value, defaultBranchCode, defaultShopCode, defaultShopName, '', sort);
-            setPlaceHolder("Chọn chi nhánh")
-        } else if (role == "MBF_CHINHANH") {
+            setPlaceHolder(text.chooseBranch)
+        } else if (role == ROLE.MBF_CHINHANH) {
             await getRole().then(async (data) => {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
@@ -157,7 +150,7 @@ const index = (props) => {
                 setDefaultShopCode(data.shopCode);
                 await getData(value, data.shopCode, '', data.label, '', sort)
             });
-        } else if (role == "MBF_CUAHANG") {
+        } else if (role == ROLE.MBF_CUAHANG) {
             await getRole().then(async (data) => {
                 setDefaultShopName(data.label);
                 setPlaceHolder(data.label);
@@ -172,16 +165,15 @@ const index = (props) => {
             <Header title={text.topSeller} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _setMonth(date)} />
             <Search
-                modalTitle="Vui lòng chọn"
-                data={[
-                    { label: 'Top cao nhất', value: 1 },
-                    { label: 'Top thấp nhất', value: 0 }
-                ]}
+                modalTitle={text.select}
+                data={[{ label: text.highestTop, value: 1 }, { label: text.lowestTop, value: 0 }]}
                 placeholder={placeHolder}
                 rightIcon={images.searchlist}
                 searchSelectModal
                 initialRadio={sort == 1 ? 0 : 1}
-                onPress={(value) => console.log("radio button value: " + value)} width={width - fontScale(60)} style={{ marginTop: fontScale(20) }} leftIcon={images.teamwork}
+                width={width - fontScale(60)}
+                style={{ marginTop: fontScale(20), marginHorizontal: fontScale(30) }}
+                leftIcon={images.teamwork}
                 dataOne={branchList}
                 index={branchList.map((item, index) => index)}
                 fieldOne={branchList.map((item) => item.shopName)}
@@ -190,13 +182,11 @@ const index = (props) => {
                 onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
                 onPressOK={(value) =>
-                    role == "VMS_CTY" ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
+                    role == ROLE.VMS_CTY ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
                         :
-                        role == "MBF_CHINHANH" ? getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
-                            :
-                            getData(month, defaultBranchCode, defaultShopCode, defaultShopName, '', value.radio)
+                        getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
                 }
-                fixed={role != "VMS_CTY" ? true : false}
+                fixed={role != ROLE.VMS_CTY ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />
@@ -207,10 +197,10 @@ const index = (props) => {
                     table
                     message={message && message}
                     numColumn={4}
-                    headers={["GDV", "Tổng lương", "Lương khoán sp", "KPI"]}
+                    headers={[text.teller, text.sumSalary, text.contractSalary, text.kpi]}
                     headersTextColor={"#D19E01"}
                     headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-                    widthArray={[2/5*width, 1/5*width, 1/5*width, 1/5*width]}
+                    widthArray={[2 / 5 * width, 1 / 5 * width, 1 / 5 * width, 1 / 5 * width]}
                     fields={
                         data.map((item, index) => [
                             `${item.empName}\n(${item.shopName})`,
@@ -219,8 +209,8 @@ const index = (props) => {
                             item.kpi
                         ])
                     }
-                    fontWeight={"normal"}
-                    textColor={['#000']}
+                    fontWeight={["normal"]}
+                    textColor={[colors.black]}
                     firstRowBg={colors.lightGrey}
                     textAlign="center"
                     rowBg={data.map((item, index) => index % 2 == 0 ? colors.lightGrey : colors.white)}

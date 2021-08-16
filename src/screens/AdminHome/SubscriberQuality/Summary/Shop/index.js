@@ -69,7 +69,6 @@ const index = (props) => {
 
   useEffect(() => {
     const { branchCode } = route.params?.item;
-    console.log(route.params?.item)
     getData(branchCode, "");
   }, [navigation])
 
@@ -82,19 +81,16 @@ const index = (props) => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
       <Text style={styles.text}>{notification}</Text>
-      {/* <DatePicker
-        month={month}
-        width={width - fontScale(120)}
-        style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      /> */}
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(20) }} /> : null}
-        <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
+        
+        <Text style={{ color:colors.white,
+        textAlign:"center",
+        fontSize:fontScale(13)}}>{message && message}</Text>
         <View>
           <FlatList
             data={data}

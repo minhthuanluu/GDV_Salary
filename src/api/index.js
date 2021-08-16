@@ -13,9 +13,10 @@ export const login = async (userName, password) => {
     loading: null,
     error: null
   };
+  console.log(`userName: ${userName}\npassword: ${password}`)
   await axios({
     method: POST,
-    url: `${baseUrl}login?password=${password}&userName=${userName}`,
+    url: `${baseUrl}login?password=${encodeURIComponent(password)}&userName=${userName}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -507,7 +508,7 @@ export const getAvgIncomeByMonth = async (beginMonth, endMonth, navigation) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `${token}`,
+      Authorization: `${token}`
     },
   }).then((res) => {
     if (res.status == 200) {
@@ -1818,7 +1819,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     message: "",
     status: "",
     data: null,
-    isLoading: null,
+    isLoading: false,
     length: 0,
     error: null,
   };
@@ -2227,9 +2228,6 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
     });
   return data;
 }
-
-
-// getDetailFastTrans
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết
 export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{

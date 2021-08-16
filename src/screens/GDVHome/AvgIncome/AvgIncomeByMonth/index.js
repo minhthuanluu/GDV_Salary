@@ -110,7 +110,7 @@ function AvgIncomeByMonth(props) {
                         </View>
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.fixedAverageSalary} price={thoundsandSep(data.avgPermanentSalary)} />
-                            <ListItem icon={images.upSalary} title={text.upAverageSalary} price={thoundsandSep(data.avgContractSalary)} />
+                            <ListItem icon={images.contractSalary} title={text.upAverageSalary} price={thoundsandSep(data.avgContractSalary)} />
                             <ListItem icon={images.incentive} title={text.averageIncentiveSpending} price={thoundsandSep(data.avgExpenIncentive)} />
                             <ListItem icon={images.otheroutcome} title={text.averageOtherCosts} price={thoundsandSep(data.avgOtherExpen)} />
                         </View>
@@ -120,7 +120,7 @@ function AvgIncomeByMonth(props) {
                         </View>
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.totalAverageSalary} price={thoundsandSep(data.totalPermanentSalary)} />
-                            <ListItem icon={images.upSalary} title={text.totalupAverageSalary} price={thoundsandSep(data.totalContractSalary)} />
+                            <ListItem icon={images.contractSalary} title={text.totalupAverageSalary} price={thoundsandSep(data.totalContractSalary)} />
                             <ListItem icon={images.incentive} title={text.totalIncentiveSpending} price={thoundsandSep(data.totalExpenIncentive)} />
                             <ListItem icon={images.otheroutcome} title={text.totalOtherCosts} price={thoundsandSep(data.totalOtherExpen)} />
                         </View>

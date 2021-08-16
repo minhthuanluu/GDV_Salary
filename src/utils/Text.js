@@ -61,7 +61,7 @@ export const text = {
   // Lương tạm tính, Lương khoán, Lương theo tháng
   numberStatus: "Trạng thái số liệu:",
   fixedSalary: "Lương cố định",
-  upSalary: "Lương khoán sp",
+  contractSalary: "Lương khoán sp",
   total: "Tổng lương: ",
   prepaidSubscriptionFee: "Phí TBTT",
   prepaidSubscription: " TBTT",
@@ -86,12 +86,12 @@ export const text = {
 // Admin Lương theo tháng Dasboard
 costManagement: "Quản lý chi phí",
 topTellers: "Top GDV",
-groupSalary: "Nhóm lương",
+grocontractSalary: "Nhóm lương",
 salaryMonth: "Lương tháng",
 
 
 // Admin Bình quân thu nhập
-groupSalaryAverage: "Nhóm lương BQ",
+grocontractSalaryAverage: "Nhóm lương BQ",
 salaryAverage: "Lương BQ",
 salAverage: "Lương bình quân",
 
@@ -117,7 +117,6 @@ productivitySub: "Năng suất bình quân",
   totalOtherCosts: "Tổng chi khác", 
   averageMonth:"BQ tháng" ,
   averageAndAmount:"Bình quân thu nhập",
-  upSalaryProduct:"Lương khoán sp",
   totalIncome:"Tổng thu nhập",
 
   // Chất lượng thuê bao
@@ -212,5 +211,11 @@ productivitySub: "Năng suất bình quân",
   totalOutcome:"Tổng chi phí",
   search:"Tìm kiếm",
   violateWarning:"Cảnh báo vi phạm", 
-  statistical: "Thống kê"
+  statistical: "Thống kê",
+  select:"Vui lòng chọn",
+  highestTop:"Top cao nhất",
+  lowestTop:"Top thấp nhất",
+  chooseBranch:"Chọn chi nhánh",
+  teller:"GDV",
+
 };

@@ -132,7 +132,7 @@ const index = () => {
                                     fontWeight={["normal"]}
                                     style={styles.dataList}
                                     textAlign="center"
-                                    textColor={['#000']}
+                                    textColor={'#000'}
                                     rowBg={data.map((item, index) =>index % 2 == 0 ? colors.white : colors.lightGrey)}
                                 />
                             </View>

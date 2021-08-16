@@ -33,8 +33,8 @@ const index = (props) => {
     const [loadingBranch, setLoadingBranch] = useState(false)
     const [loadingShop, setLoadingShop] = useState(false)
     const [message, setMessage] = useState("");
-    const [defaultBranchName,setDefaultBranchName] = useState("Chọn chi nhánh")
-    const [defaultShopName,setDefaultShopName] = useState("Chọn cửa hàng")
+    const [defaultBranchName, setDefaultBranchName] = useState("Chọn chi nhánh")
+    const [defaultShopName, setDefaultShopName] = useState("Chọn cửa hàng")
     const { key, title } = route.params;
 
     // navigation.goBack()
@@ -44,15 +44,21 @@ const index = (props) => {
         setMessage("");
         console.log(month, branchCode, shopCode, empCode, type)
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
+            console.log(res)
+
             if (res.status == "success") {
                 setMessage("");
-                if (res.length == 0) {
+                if (res.length == 0 || res.data == null) {
                     setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
                 } else {
                     setData(res.data);
                     setLoading(res.isLoading);
                 }
+            }
+            if (res.status == "") {
+                setLoading(false);
+                setMessage(text.dataIsNull)
             }
             if (res.status == "failed") {
                 setLoading(res.isLoading);
@@ -73,7 +79,7 @@ const index = (props) => {
 
     const _onChangeMonth = async (month) => {
         setMonth(month)
-        await _onSearch(month, branchCode, shopCode, empCode,"");
+        await _onSearch(month, branchCode, shopCode, empCode, "");
     }
 
     const getBranchList = async () => {
@@ -121,7 +127,7 @@ const index = (props) => {
         setEmpCode(empId)
     }
 
-    const _onSearch = async (month, branchCode, shopCode, empCode,value) => {
+    const _onSearch = async (month, branchCode, shopCode, empCode, value) => {
         console.log(value)
 
         setBranchCode(branchCode);
@@ -139,7 +145,7 @@ const index = (props) => {
         getData(month, "", "", "", key);
         getBranchList();
         if (branchList.length == 0 && shopList.length == 0) {
-            getAllEmp(navigation, "","")
+            getAllEmp(navigation, "", "")
         }
     }, [month])
 
@@ -169,15 +175,15 @@ const index = (props) => {
                 onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
                 onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empCode,value)}
+                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empCode, value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View style={{ marginTop: -fontScale(30) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
                         <TableHeader style={{ flex: 2.1, marginLeft: -fontScale(5) }} title={'GDVPTM'} />
-                        <TableHeader style={{ flex: 1.3,marginLeft:fontScale(20)}} title={'Tên CH'} />
-                        <TableHeader style={{ flex: 1.5,marginLeft:fontScale(10) }} title={'SLTB/tháng'} />
+                        <TableHeader style={{ flex: 1.3, marginLeft: fontScale(20) }} title={'Tên CH'} />
+                        <TableHeader style={{ flex: 1.5, marginLeft: fontScale(10) }} title={'SLTB/tháng'} />
                         <TableHeader style={{ flex: 1.5 }} title={'Top/ngày'} />
                     </View>
                     {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}

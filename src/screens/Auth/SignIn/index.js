@@ -28,6 +28,7 @@ const SignIn = (props) => {
         } else {
             setMessage("")
             setLoading(true);
+            
             await login(userName, password, navigation).then(async (res) => {
                 if (res.status == "success") {
                     setLoading(false);

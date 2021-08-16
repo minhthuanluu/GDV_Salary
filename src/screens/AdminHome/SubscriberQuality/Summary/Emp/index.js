@@ -35,6 +35,7 @@ const index = (props) => {
           setData([])
           setMessage(data.message);
         } else {
+          console.log(data.data.notification)
           setNotification(data.data.notification)
           setData(data.data.data);
           setGeneralData(data.data.general);
@@ -67,7 +68,7 @@ const index = (props) => {
 
   useEffect(() => {
       const{branchCode,shopCode} = route.params?.item;
-      // console.log(route.params?.item)
+      console.log(route.params?.item)
       getData(branchCode, shopCode);
   }, [navigation])
 
@@ -75,7 +76,9 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
-      <Text style={styles.text}>{notification}</Text>
+      <Text style={{ color:colors.white,
+        textAlign:"center",
+        fontSize:fontScale(13)}}>{notification && notification}</Text>
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
