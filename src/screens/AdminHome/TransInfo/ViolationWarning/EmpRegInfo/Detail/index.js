@@ -7,13 +7,14 @@ import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getDetailTransInfoWarningByType } from '../../../../../../api';
 import { Body, DatePicker, Header, Search, Table } from '../../../../../../comps';
+import { styles } from './style';
 import { colors } from '../../../../../../utils/Colors';
 import { width } from '../../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../../utils/Fonts';
 import { images } from '../../../../../../utils/Images';
 import { text } from '../../../../../../utils/Text';
 
-const index = (props) => {
+const index = () => {
     const route = useRoute();
     const [month, setMonth] = useState(route.params?.month);
     const navigation = useNavigation();
@@ -53,7 +54,7 @@ const index = (props) => {
     }
 
     useEffect(() => {
-        const { key, empCode, title, store } = route.params;
+        const { key, empCode } = route.params;
         getData(month, empCode, key);
     }, [month]);
 
@@ -67,10 +68,11 @@ const index = (props) => {
         setMessage("")
         tempData.concat(tempData)
         const newData = tempData.filter((item) => {
-            const itemData = `${item.phoneNumber}`;
+            const itemData = item.phoneNumber;
             return itemData.indexOf(text) > -1;
         });
         setTempData(newData);
+        console.log(newData)
         if (text.length > 0) {
             if (newData.length == 0) {
                 setLoading(false);
@@ -102,7 +104,6 @@ const index = (props) => {
                 width={width - fontScale(120)}
                 placeHolder="Nhập số thuê bao"
             />
-            <ActivityIndicator size="small" color={colors.primary} />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
                 {
@@ -112,8 +113,8 @@ const index = (props) => {
                         :
                         <View>
                             <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                                <Text>GDV: </Text>
-                                <Text>{empName}</Text>
+                                <Text style={{ color: colors.black, fontSize: fontScale(15) }}>GDV: </Text>
+                                <Text style={{ color: colors.darkYellow, fontSize: fontScale(15) }}>{empName}</Text>
                             </View>
                             <View style={{ marginBottom: fontScale(20), marginTop: -fontScale(30) }}>
                                 <Table
@@ -121,43 +122,21 @@ const index = (props) => {
                                     message={message}
                                     table
                                     numColumn={2}
-                                    headers={[
-                                        "Ngày TH",
-                                        "Số đt"
-                                    ]}
+                                    headers={["Ngày TH","Số đt"]}
                                     headersTextColor={"#00BECC"}
                                     headerStyle={{ text: { size: fontScale(14) } }}
-                                    widthArray={[
-                                        width / 2,
-                                        width / 2
-                                    ]}
+                                    widthArray={[width / 2,width / 2]}
                                     firstColCenter
-                                    fields={data.map((item) => [
-                                        item.date,
-                                        item.phoneNumber
-                                    ])}
+                                    fields={tempData.map((item) => [item.date,item.phoneNumber])}
                                     loading={loading}
                                     fontWeight={["normal"]}
-                                    style={{ marginTop: fontScale(50),marginBottom:fontScale(30) }}
+                                    style={styles.dataList}
                                     textAlign="center"
-
-                                    textColor={data.map((item, index) =>
-                                        item.shopType == "BRANCH"
-                                            ? "#000"
-                                            : item.shopType == "SHOP"
-                                                ? "#D19E01"
-                                                : "#000"
-                                    )}
-                                    rowBg={data.map((item, index) =>
-                                        index % 2 == 0 ? colors.white : colors.lightGrey
-                                    )}
+                                    textColor={['#000']}
+                                    rowBg={data.map((item, index) =>index % 2 == 0 ? colors.white : colors.lightGrey)}
                                 />
                             </View>
                         </View>}
-                {/* {loading == false ? <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                    <Text>GDV: </Text>
-                    <Text>{empName}</Text>
-                </View> : null} */}
 
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
