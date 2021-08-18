@@ -22,40 +22,35 @@ function index(props) {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
     const [data, setData] = useState(Violate);
-    const [notification, setNotification] = useState('')
+    const [notification, setNotification] = useState('');
+    const [message,setMessage] = useState("")
 
     const getData = async () => {
-        // setLoading(true);
-        // await getViolate(navigation).then((res) => {
-        //     console.log(res)
-        //     if (res.status == "success") {
-        //         setLoading(false);
-        //         if (res.length > 0) {
-        //             setData(res.data[0])
-        //             setNotification(res.data[0].notification)
-        //         }
-        //     }
-        //     if (res.status == "failed") {
-        //         setLoading(false);
-        //     }
-        //     if (res.status == "v_error") {
-        //         Toast.show({
-        //             text1: "Cảnh báo",
-        //             text2: res.message,
-        //             type: "error",
-        //             visibilityTime: 1000,
-        //             autoHide: true,
-        //             onHide: () => navigation.navigate("AdminHome")
-        //         })
-        //     }
-        // })
-        Toast.show({
-            text1: "Cảnh báo",
-            text2: res.message,
-            type: "error",
-            visibilityTime: 1000,
-            autoHide: true,
-            onHide: () => navigation.goBack()
+        setLoading(true);
+        await getViolate(navigation).then((res) => {
+            if (res.status == "success") {
+                setLoading(false);
+                if (res.length > 0) {
+                    setData(res.data[0])
+                    setNotification(res.data[0].notification)
+                }
+                if(res.length==0){
+                    setMessage(text.dataIsNull)
+                }
+            }
+            if (res.status == "failed") {
+                setLoading(false);
+            }
+            if (res.status == "v_error") {
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => navigation.navigate("AdminHome")
+                })
+            }
         })
     }
 
@@ -65,13 +60,15 @@ function index(props) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={text.violateWarning} />
-            <Text style={styles.text}>{data.notification}</Text>
+            <Text style={styles.text}>{notification}</Text>
             <Body />
             <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="Chuyển Fast/MD1/MDT>=1TB" value={data.fast} onPress={() => navigation.navigate("AdminViolateSubscriberFast",{title:"Chuyển Fast/MD1/MDT>=1TB"})} />
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="Chuyển FCard>=3TB" value={data.fcard} onPress={() => navigation.navigate("AdminViolateSubscriberFCard", {title: "Chuyển FCard>=3TB" })} />
-                <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(13)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="GDV xuất hiện >=3 lần trong 06 tháng" value={data.overThreeTime} onPress={() => navigation.navigate("AdminViolateSubscriberOverThree", {title: "GDV xuất hiện >= 3 lần trong 6 tháng" })} />
+                <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="GDV vi phạm cả 2 nhóm trên" value={data.overThreeTime} onPress={() => console.log('abc')}
+                    // navigation.navigate("AdminViolateSubscriberOverThree", {title: "GDV xuất hiện >= 3 lần trong 6 tháng" })} 
+                    />
             </ScrollView>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>

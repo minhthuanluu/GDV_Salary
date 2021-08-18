@@ -88,8 +88,8 @@ function AvgIncomeByMonth(props) {
             <StatusBar translucent backgroundColor={colors.primary} />
             <Header title={text.averageAndAmount} />
             <View style={styles.dateContainer}>
-                <DatePicker month={beginMonth} width={width / 2 - fontScale(40)} style={{ marginLeft: fontScale(30) }} onChangeDate={(date) => onChangeMonth(date)} />
-                <DatePicker month={sMonth} width={width / 2 - fontScale(40)} style={{ marginLeft: fontScale(20) }} onChangeDate={(date) => onChangeSMonth(date)} />
+                <DatePicker month={beginMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(10) }} onChangeDate={(date) => onChangeMonth(date)} />
+                <DatePicker month={sMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(20) }} onChangeDate={(date) => onChangeSMonth(date)} />
             </View>
             <View style={styles.body}>
                 <Text style={styles.notification}>{data.notification}</Text>

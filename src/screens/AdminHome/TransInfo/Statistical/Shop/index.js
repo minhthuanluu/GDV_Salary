@@ -27,8 +27,7 @@ const index = (props) => {
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-    setMessage("")
-    console.log(month+branchcode+shopCode)
+    setMessage("");
     await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setLoading(false);
@@ -114,15 +113,20 @@ const index = (props) => {
                   })} />
                 { index == data.length - 1 ?
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
-                    contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
-                    contentStyle3={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.5,textAlign:"right", fontSize: fontScale(14)}}
-                    titleStyle2={{color:colors.black, marginLeft: fontScale(15), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(16), fontSize: fontScale(14)}}
-                    twelveColumnCompany
-                    title={generalData.shopName}
-                    titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,generalData.blocking2CTopDay,generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
-                    icon={images.branch} /> : null
+                  style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
+                  contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
+                  contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
+                  titleStyle={{fontSize: 12, marginVertical: fontScale(8)}}
+                  titleStyle1={{fontSize: 12, marginVertical: fontScale(8), color: "#000000"}}
+                  twelveColumnCompany
+                  title={generalData.shopName}
+                  titleArr={["Tổng","Top/ngày"]}
+                  titleArray={["Lượng KH:", "Lượt giao dịch:", "+  Chặn 2c TBTS:  ","+  ĐKTT:","+  Fone -> Card:","     +   Ko nạp tiền: "]}
+                  titleArrayOne={["Vi phạm kho số:"]}
+                  itemAmountOne={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount,generalData.subRegisterAmount,generalData.foneCardAmount,generalData.noRechargeAmount]}
+                  itemAmountTwo={[generalData.cusTopDay,generalData.transTopDay,generalData.blocking2CTopDay,generalData.subRegisterTopDay,generalData.foneCardTopDay,generalData.noRechargeTopDay]}
+                  item={[generalData.violateAmount]}
+                  icon={images.branch} />: null
                 }
               </View>
             )}

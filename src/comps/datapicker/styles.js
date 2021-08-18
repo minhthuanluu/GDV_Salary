@@ -70,5 +70,11 @@ export const styles = StyleSheet.create({
         paddingVertical:fontScale(15),
         borderRadius:fontScale(10),
         flexDirection:"row"
+    },
+    modalContainer:{
+        backgroundColor:colors.white,
+        paddingTop:fontScale(10),
+        borderTopLeftRadius:fontScale(20),
+        borderTopRightRadius:fontScale(20)
     }
 })

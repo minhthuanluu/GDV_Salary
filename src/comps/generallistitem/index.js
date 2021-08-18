@@ -21,12 +21,13 @@ const GeneralListItem = (props) => {
             <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[1]}</Text>
           </View>
           <View style={{ flexDirection: "row", flex: 1, marginLeft: -fontScale(15) }}>
-            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(28) }}>{props.titleArrayOne[2]}</Text>
+            <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(12) }}>{props.titleArrayOne[2]}</Text>
             <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(11) }}>{props.item[2]}</Text>
           </View>
         </View>
         <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
           <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne[3]}</Text>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item[3]}</Text>
         </View>
         <View style={{ marginLeft: fontScale(50), marginRight: fontScale(10) }}>
           <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
@@ -90,42 +91,46 @@ const GeneralListItem = (props) => {
           <Text style={{ fontSize: fontScale(18), marginLeft: fontScale(10), fontWeight: "bold", color: props.textColor || "#D19E01" }}>{props.title}</Text>
           <View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(180) }}>{props.titleArray[0]}</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(61) }}>{props.titleArray[1]}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(185) }}>{props.titleArr[0]}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(61) }}>{props.titleArr[1]}</Text>
             </View>
           </View>
           <Image source={props.icon} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(20), top: -fontScale(23) }} resizeMode="contain" />
           <View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[2]} titleStyle={props.titleStyle2} content={props.item[2]} contentStyle={props.contentStyle2} />
-              <HItem title={props.titleArray[3]} content={props.item[3]} contentStyle={props.contentStyle3} />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[4]} titleStyle={props.titleStyle2} content={props.item[4]} contentStyle={props.contentStyle4} />
-              <HItem title={props.titleArray[5]} content={props.item[5]} contentStyle={props.contentStyle5} />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[6]} titleStyle={props.titleStyle3} content={props.item[6]} contentStyle={props.contentStyle6} />
-              <HItem title={props.titleArray[7]} content={props.item[7]} contentStyle={props.contentStyle7} />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[8]} titleStyle={props.titleStyle3} content={props.item[8]} contentStyle={props.contentStyle8} />
-              <HItem title={props.titleArray[9]} content={props.item[9]} contentStyle={props.contentStyle9} />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[10]} titleStyle={props.titleStyle3} content={props.item[10]} contentStyle={props.contentStyle10} />
-              <HItem title={props.titleArray[11]} content={props.item[11]} contentStyle={props.contentStyle11} />
-            </View>
-            <View style={{ flexDirection: "row", justifyContent: "space-between", marginVertical: fontScale(10), marginLeft: -fontScale(20) }}>
-              <HItem title={props.titleArray[12]} titleStyle={props.titleStyle3} content={props.item[12]} contentStyle={props.contentStyle12} />
-              <HItem title={props.titleArray[13]} content={props.item[13]} contentStyle={props.contentStyle13} />
+            <View style={{ flexDirection: "row" }}>
+              <View style={{ justifyContent: "space-between" }}>
+                <HItem title={props.titleArray[0]} titleStyle={props.titleStyle1} />
+                <HItem title={props.titleArray[1]} titleStyle={props.titleStyle1} />
+                <HItem title={props.titleArray[2]} titleStyle={props.titleStyle} />
+                <HItem title={props.titleArray[3]} titleStyle={props.titleStyle} />
+                <HItem title={props.titleArray[4]} titleStyle={props.titleStyle} />
+                <HItem title={props.titleArray[5]} titleStyle={props.titleStyle} />
+              </View>
+              <View style={{ justifyContent: "space-between", marginLeft: -fontScale(249), textAlign: "right" }}>
+                <HItem content={props.itemAmountOne[0]} contentStyle={props.contentStyle} />
+                <HItem content={props.itemAmountOne[1]} contentStyle={props.contentStyle} />
+                <HItem content={props.itemAmountOne[2]} contentStyle={props.contentStyle} />
+                <HItem content={props.itemAmountOne[3]} contentStyle={props.contentStyle} />
+                <HItem content={props.itemAmountOne[4]} contentStyle={props.contentStyle} />
+                <HItem content={props.itemAmountOne[5]} contentStyle={props.contentStyle} />
+              </View>
+              <View style={{ justifyContent: "space-between", marginLeft: -fontScale(120), textAlign: "right" }}>
+                <HItem content={props.itemAmountTwo[0]} contentStyle={props.contentStyle1} />
+                <HItem content={props.itemAmountTwo[1]} contentStyle={props.contentStyle1} />
+                <HItem content={props.itemAmountTwo[2]} contentStyle={props.contentStyle1} />
+                <HItem content={props.itemAmountTwo[3]} contentStyle={props.contentStyle1} />
+                <HItem content={props.itemAmountTwo[4]} contentStyle={props.contentStyle1} />
+                <HItem content={props.itemAmountTwo[5]} contentStyle={props.contentStyle1} />
+              </View>
+
             </View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(15) }}>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArray[14]}</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#FC2200", marginLeft: fontScale(61) }}>{props.item[14]}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne[0]}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#FC2200", marginLeft: fontScale(21) }}>{props.item[0]}</Text>
             </View>
           </View>
-        </View> :
+        </View>
+        :
         props.sixColumnCompany ?
           <View style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#FFFFFF" }]}>
             <View style={{ flexDirection: "row" }}>

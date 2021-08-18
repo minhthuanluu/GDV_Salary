@@ -162,7 +162,7 @@ const SubscriberList = () => {
         rightIcon={images.searchlist}
         dataNotFoundText="Không tìm thấy dữ liệu"
         onChangeText={(value) => searchSub(value)}
-        placeholder={text.searchSub}
+        placeHolder={text.searchSub}
         keyboardType="number-pad"
         width={width - fontScale(65)}
       />
@@ -170,6 +170,7 @@ const SubscriberList = () => {
       <DataPicker
         dialogTitle="Chọn dữ liệu"
         icon={images.sim}
+        placeholder="Tất cả"
         data={pickerData}
         field={[pickerData[0].value,pickerData[1].value,pickerData[2].value
         ]}

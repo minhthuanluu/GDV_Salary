@@ -109,7 +109,7 @@ const index = (props) => {
                     itemAmountOne={[item.cancelAmount,item.fcardAmount,item.blocking2CAmount,item.fastAmount,item.mdtamount,item.debitContactAmount]}
                     itemAmountTwo={[item.rallyCancelAmount,item.rallyFCardAmount,item.rallyBlocking2CAmount,item.rallyFastAmount,item.rallyMDTAmount,item.rallyDebitContactAmount]}
                     itemPercent={[item.cancelPercent,item.fcardPercent,item.blocking2CPercent,item.fastAmount,item.mdtpercent,item.debitContactPercent]}
-                    item={[item.debitPercent,item.debit90Amount,item.revenue90Amount]}
+                    item={[item.debitPercent,item.debit90Amount,item.revenue90Amount,item.postpaidAmount]}
                     onPress={() => navigation.navigate("AdminShopTransInfo", {
                     item: {
                       "branchCode": route.params?.item.branchCode,
@@ -131,7 +131,7 @@ const index = (props) => {
                     itemAmountOne={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
                     itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
                     itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastAmount,generalData.mdtpercent,generalData.debitContactPercent]}
-                    item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount]}
+                    item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount,generalData.postpaidAmount]}
                     icon={images.store} /> : null
                 }
               </View>

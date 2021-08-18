@@ -128,7 +128,7 @@ const index = (props) => {
                     itemAmountOne={[generalData.cancelAmount, generalData.fcardAmount, generalData.blocking2CAmount, generalData.fastAmount, generalData.mdtamount, generalData.debitContactAmount]}
                     itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
                     itemPercent={[generalData.cancelPercent, generalData.fcardPercent, generalData.blocking2CPercent, generalData.fastAmount, generalData.mdtpercent, generalData.debitContactPercent]}
-                    item={[generalData.debitPercent, generalData.debit90Amount, generalData.revenue90Amount]}
+                    item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount,generalData.postpaidAmount]}
                     icon={images.branch} /> : null
                 }
               </View>

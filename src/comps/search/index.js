@@ -135,7 +135,7 @@ const Search = (props) => {
     return (
         props.searchSelectModalFourCondition ?
             <View >
-                <TouchableOpacity style={{ backgroundColor: colors.white, width: props.width || width - fontScale(120), alignSelf: "center", padding: fontScale(5), borderRadius: fontScale(10), marginVertical: fontScale(15), flexDirection: "row" }}
+                <TouchableOpacity style={{ backgroundColor: colors.white, width: props.width || width - fontScale(120), alignSelf: "center", padding: fontScale(5), borderRadius: fontScale(17), marginVertical: fontScale(15), flexDirection: "row" }}
                     onPress={() => _onShowModal()}>
                     <Image source={props.leftIcon} resizeMode="cover" style={{ width: fontScale(25), height: fontScale(25) }} />
                     <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center", paddingTop: fontScale(5) }}>{props.placeholder}</Text>
@@ -154,7 +154,7 @@ const Search = (props) => {
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
                         <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne || "Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
                         <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo || "Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
-                        <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
+                        <SelectDataWithRightText showLiveSearch showName leftText={props.defaultLabelThree||"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
                         {/* showLiveSearch */}
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />

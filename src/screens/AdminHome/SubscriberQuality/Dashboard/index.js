@@ -88,8 +88,7 @@ const DashBoard = () => {
               icon={images.warning}
               value={thoundsandSep(data.violateEmp)}
               width={width - fontScale(60)}
-              // onPress={() => navigation.navigate("AdminViolateSubscriber")}
-              onPress={() => console.log("AdminViolateSubscriber")}
+              onPress={() => navigation.navigate("AdminViolateSubscriber")}
             />
 
             <MenuItem

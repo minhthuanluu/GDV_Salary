@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, Text, FlatList, View, ActivityIndicator } from "react-native";
-import {
-  Body,
-  GeneralListItem,
-  Header,
-  Search,
-  TableHeader,
-} from "../../../../comps";
+import { Body, GeneralListItem, Header, Search, TableHeader } from "../../../../comps";
 import { styles } from "./style";
 import { colors } from "../../../../utils/Colors";
 import { fontScale } from "../../../../utils/Fonts";
@@ -85,7 +79,7 @@ const AdminTopTellerAvgIncome = () => {
           visibilityTime: 5000,
           autoHide: true,
           onHide: () => navigation.goBack()
-      })
+        })
       }
       if (res.status == "v_error") {
         Toast.show({

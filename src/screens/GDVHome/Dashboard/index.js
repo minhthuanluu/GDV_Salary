@@ -15,6 +15,7 @@ import { styles } from './style';
 import { ToastNotif } from '../../../utils/Logistics';
 import Toast from 'react-native-toast-message';
 import { useIsFocused } from '@react-navigation/native';
+import { Text } from 'react-native';
 
 const Dashboard = (route) => {
   const navigation = useNavigation();
@@ -74,8 +75,12 @@ const Dashboard = (route) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
+      <Text>{
+        console.log(user.avatar)
+      }
+      </Text>
       {
-        <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user&&user.displayName} maGDV={user&&user.userGroupId.code} />
+        <Header showBack={false} profile avatar={{ uri: imgUrl + user.avatar } } fullName={user&&user.displayName} maGDV={user&&user.userGroupId.code} />
       }
       <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
       <View style={styles.body}>

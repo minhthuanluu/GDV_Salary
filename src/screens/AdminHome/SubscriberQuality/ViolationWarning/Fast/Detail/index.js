@@ -22,8 +22,8 @@ const index = (props) => {
         setLoading(true);
 
         await getDetailFastTrans(navigation, branchCode, shopCode, empCode).then((data) => {
-            setNotification(data.data.notification);
-            setEmpName(data.data.empName);
+            setNotification(data.notification);
+            // setEmpName(data.data.empName);
             setLoading(false);
             if (data.status == "success") {
 

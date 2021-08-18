@@ -2166,6 +2166,7 @@ export const getViolate = async (navigation) => {
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB
 export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB")
+  console.log("getFastTrans")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2204,12 +2205,20 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
+            error: null
+          };
+        }else{
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
             error: null
           };
         }
