@@ -147,7 +147,7 @@ const AdminTopTellerAvgIncome = () => {
   const checkRole = async () => {
     await getRole().then(async (data) => {
       setRole(data.role);
-      if (data.role == ROLE.VMS_CTY) {
+      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         getBranchList();
         await getData('', '', sort, defaultBranchName);
         setPlaceHolder(text.chooseBranch)
@@ -217,10 +217,10 @@ const AdminTopTellerAvgIncome = () => {
         fieldThree={empList.map((item, index) => item.maGDV)}
         onChangePickerOne={(value) => onChangeBranch(value)}
         showPicker={[true, false, false]}
-        fixed={role != ROLE.VMS_CTY ? true : false}
+        fixed={role != ROLE.VMS_CTY && role != ROLE.ADMIN ? true : false}
         fixedData={defaultShopName}
         onPressOK={(value) =>
-          role == ROLE.VMS_CTY ? getData(value.shopCode || defaultBranchCode, defaultShopCode, value.radio, value.shopName || defaultShopName) :
+          role == ROLE.VMS_CTY && role == ROLE.VMS_CTY ? getData(value.shopCode || defaultBranchCode, defaultShopCode, value.radio, value.shopName || defaultShopName) :
             role == ROLE.MBF_CHINHANH ? getData(defaultShopCode, "", value.radio) : getData(defaultBranchCode, defaultShopCode, value.radio)
         }
       />
@@ -241,7 +241,7 @@ const AdminTopTellerAvgIncome = () => {
           />
         ) : null}
 
-        {message ? <Text style={styles.message}>{message}</Text> : null}
+        {message ? <Text style={styles.notification}>{message}</Text> : null}
 
         <FlatList
           showsVerticalScrollIndicator={false}

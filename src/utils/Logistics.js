@@ -222,13 +222,11 @@ export const checkLogin = async (navigation) => {
       console.log('token not null')
       if (item.userId.userGroupId.code == "MBF_GDV") {
         setTimeout(() => {
-          navigation.navigate("GDVHome")
+          navigation.navigate("GDVHome");
         }, 3000);
-      }
-      else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
-        navigation.navigate("AdminHome")
-      }
-      else {
+      } else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+        navigation.navigate("AdminHome");
+      } else {
         return "Bạn không có quyền sử dụng app"
       }
     } else {
@@ -272,8 +270,8 @@ export const checkSearchHistory = async (key = "", screenName = "", data = {}) =
   })
 }
 
-export const checkn2 = (str='') => {
-  if (str == null || str == undefined || str.length==0 || !str) {
+export const checkn2 = (str = '') => {
+  if (str == null || str == undefined || str.length == 0 || !str) {
     return ""
   } else {
     let element;

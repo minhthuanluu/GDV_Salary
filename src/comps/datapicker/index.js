@@ -25,12 +25,12 @@ const index = (props) => {
                 props.fixed == true ?
                     <View style={[styles.advancedPicker, { width: props.width }]} onPress={() => setShowDialog(!showDialog)}>
                         <Image source={props.icon} resizeMode="contain" style={styles.leftIco} />
-                        <Text style={{flex: 1, paddingHorizontal: fontScale(15)}}>{props.fixedData}</Text>
+                        <Text style={{flex: 1, paddingLeft:fontScale(5),paddingRight: fontScale(15),fontSize:fontScale(14)}}>{props.fixedData}</Text>
                         <Image source={images.arrowdown} resizeMode="contain" style={styles.arrDown} />
                     </View> 
                     :
                     <TouchableOpacity style={[styles.advancedPicker, { width: props.width }]} onPress={() => setShowDialog(!showDialog)}>
-                        <Text style={{ flex: 1, paddingHorizontal: fontScale(15) }}>{selectedIndex == null ? props.placeholder : Object.values(selectedItem)[1]}</Text>
+                        <Text style={{ flex: 1, paddingHorizontal: fontScale(15),fontSize:fontScale(14) }}>{selectedIndex == null ? props.placeholder : Object.values(selectedItem)[1]}</Text>
                         <Image source={images.arrowdown} resizeMode="contain" style={{
                             width: fontScale(20),
                             height: fontScale(20),

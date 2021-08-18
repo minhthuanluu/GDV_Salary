@@ -18,7 +18,7 @@ import { _retrieveData } from '../../utils/Storage';
 import { useFocusEffect } from '@react-navigation/core';
 
 const Search = (props) => {
-    const { withDropdown, data, dataNotFoundText, keyboardType, style, main,loadingBranch,loadingShop } = props;
+    const { withDropdown, data, dataNotFoundText, keyboardType, style, main, loadingBranch, loadingShop } = props;
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [searchData, setSearchData] = useState(data || props.dataFour);
@@ -152,8 +152,8 @@ const Search = (props) => {
                     </TouchableOpacity>
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
-                        <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne||"Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
-                        <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo||"Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
+                        <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne || "Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
+                        <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo || "Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
                         <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
                         {/* showLiveSearch */}
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
@@ -211,12 +211,14 @@ const Search = (props) => {
                             </TouchableOpacity>
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>{props.modalTitle}</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(30), marginTop: fontScale(20) }}>
+                                <View style={{ flexDirection: "row", justifyContent: "center", marginTop: fontScale(20) }}>
                                     <RadioForm
                                         radio_props={props.data || radio_props}
                                         initial={props.initialRadio}
                                         formHorizontal
-                                        labelStyle={{ marginRight: fontScale(90),fontSize:fontScale(14) }}
+                                        animation={true}
+                                        style={styles.radioForm}
+                                        labelStyle={{ fontSize: fontScale(14) }}
                                         onPress={(value) => onRadioPress(value)}
                                     />
                                 </View>
@@ -289,7 +291,7 @@ const Search = (props) => {
                     <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), marginHorizontal: width - (width - props.width / 12), backgroundColor: "white" }, props.style, styles.homeSearch]}>
                         <Image resizeMode="contain" source={props.leftIcon} style={styles.leftIco} />
                         <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-                             <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText}/>
+                            <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText} />
                         </View>
                         <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
                     </View>
@@ -302,7 +304,7 @@ const SelectDataWithRightText = (props) => {
     const [rightText, setRightText] = useState('Tất cả');
     const [tempData, setTempData] = useState([]);
     const [message, setMessage] = useState('');
-    const [onSearch,setOnSearch] = useState(false)
+    const [onSearch, setOnSearch] = useState(false)
 
     const onChangeSearch = (text = '') => {
         setOnSearch(true);
@@ -312,23 +314,22 @@ const SelectDataWithRightText = (props) => {
             return itemData.indexOf(text.toString().normalize('NFD').toLowerCase()) > -1;
         });
         setTempData(newData);
-        if(newData.length<=0){
+        if (newData.length <= 0) {
             setMessage("Không tìm thấy dữ liệu");
         }
     }
 
-    useFocusEffect(()=>{
-        console.log("list emp")
-        onSearch==false ? setTempData(props.data) : null
-        console.log("list emp")
+    useFocusEffect(() => {
+        onSearch == false ? setTempData(props.data) : null
     })
 
-    useEffect(()=>{
-       
+    useEffect(() => {
+
     })
 
+    const {showLiveSearch,title,loading,data} = props;
     return (
-        <View style={{ backgroundColor: colors.lightGrey, marginHorizontal: fontScale(30), padding: fontScale(5), borderRadius: fontScale(15), marginTop: fontScale(20) }}>
+        <View style={styles.container}>
             <TouchableOpacity style={{ flexDirection: "row", paddingVertical: fontScale(5) }} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)}>
                 <Text style={{ textAlignVertical: "center", paddingVertical: fontScale(5), marginLeft: fontScale(10) }}>{(selectedData || item) || props.leftText || props.data[0]}</Text>
                 <Text style={{ textAlign: "right", position: "absolute", right: 0, margin: fontScale(10) }}>{rightText}</Text>
@@ -343,23 +344,23 @@ const SelectDataWithRightText = (props) => {
 
                 </TouchableOpacity>
                 <View style={styles.modalContainer}>
-                    <Text style={styles.modalTitle}>{props.title}</Text>
-                    {props.showLiveSearch ? <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.modalTitle}>{title}</Text>
+                    {showLiveSearch ? <View style={{ flexDirection: "row" }}>
                         <TextInput
-                            style={{ marginTop: fontScale(30), marginHorizontal: fontScale(15) }}
+                            style={styles.searchInput}
                             placeholder="Tìm kiếm mã nhân viên"
-                            value={props.data}
+                            value={data}
                             placeholderTextColor={colors.black}
                             onChangeText={(text) => onChangeSearch(text)}
                         />
                         <Image source={images.searchlist} resizeMode="cover" style={{ width: fontScale(20), height: fontScale(20), position: "absolute", bottom: fontScale(2), right: fontScale(30) }} />
                     </View> : null}
                     {
-                        props.loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
+                        loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
                     }
-                    {message.length>0 ? <Text style={{textAlign:"center",color:colors.primary,marginTop:fontScale(10)}}>{message}</Text>: null} 
+                    {message.length > 0 ? <Text style={{ textAlign: "center", color: colors.primary, marginTop: fontScale(10) }}>{message}</Text> : null}
                     {
-                        props.showLiveSearch ?
+                       showLiveSearch ?
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
                                 data={tempData}
@@ -368,7 +369,7 @@ const SelectDataWithRightText = (props) => {
                             /> :
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
-                                data={props.data}
+                                data={data}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => <TouchableOpacity onPress={() => { props.onPress(item), setRightText(""), setSelectModalAdvanced(!selectModalAdvanced), setSelectedData(Object.values(item)[2] + " - " + Object.values(item)[1] == null ? "" : Object.values(item)[1] || item.fullName) }} style={{ padding: fontScale(15), backgroundColor: index % 2 ? colors.white : colors.lightGrey }}><Text>{props.showName ? Object.values(item)[1] == null ? Object.values(item)[2] : Object.values(item)[1] + ' - ' + Object.values(item)[2] : Object.values(item)[1]}</Text></TouchableOpacity>}
                             />

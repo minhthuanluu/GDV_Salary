@@ -217,5 +217,6 @@ productivitySub: "Năng suất bình quân",
   lowestTop:"Top thấp nhất",
   chooseBranch:"Chọn chi nhánh",
   teller:"GDV",
-
+  avgSalPerEmp:"Lương BQ/GDV",
+  incentivePerEmp:"Khoán sp/GDV"
 };

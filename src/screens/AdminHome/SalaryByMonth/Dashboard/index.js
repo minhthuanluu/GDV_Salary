@@ -15,14 +15,14 @@ import { styles } from './style';
 
 const AdminSalaryByMontHome = (props) => {
   const navigation = useNavigation();
-  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const [user, setUser] = useState(User)
 
   const checkAdminSalaryByMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
       let role = item?.userId.userGroupId.code;
       setUser(item)
-      if (role == "VMS_CTY") {
+      if (role == "VMS_CTY" || role=="ADMIN") {
         navigation.navigate("AdminMonthSalary")
       }
       if (role == "MBF_CHINHANH") {

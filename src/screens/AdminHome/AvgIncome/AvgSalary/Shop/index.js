@@ -12,7 +12,6 @@ import { FlatList } from 'react-native';
 import { images } from '../../../../../utils/Images';
 import { AvgSalary } from '../../../../../models/Admin';
 import { fontScale } from '../../../../../utils/Fonts';
-import moment from 'moment';
 import { ActivityIndicator } from 'react-native';
 import { colors } from '../../../../../utils/Colors';
 
@@ -83,7 +82,7 @@ const index = (props) => {
                     keyExtractor={(item, key) => item.shopCode.toString()}
                     renderItem={({ item, index }) =>
                         <View style={{marginTop:index==0 ? 15:5,paddingBottom:index==data.length-1 ? fontScale(70): fontScale(15)}}>
-                            <GeneralListItem onPress={() => navigation.navigate("AdminAvgIncomeTellers", { branchItem: route.params?.branchItem, shopItem: item })} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV", "Khoán sp/GDV", "SL GDV"]} item={[item.avgIncome, item.contractSalary,item.empAmount]} rightIcon={images.store} />
+                            <GeneralListItem onPress={() => navigation.navigate("AdminAvgIncomeTellers", { branchItem: route.params?.branchItem, shopItem: item })} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp, text.incentivePerEmp, "SL GDV"]} item={[item.avgIncome, item.contractSalary,item.empAmount]} rightIcon={images.store} />
                             {
                                 index == data.length - 1 ? <GeneralListItem style={{ marginTop: -fontScale(10) }} fiveColumnCompany title={generalData.shopName} titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]} item={[generalData.avgIncome, generalData.permanentSalary, generalData.contractSalary, generalData.incentiveSalary, generalData.spenSupport]} icon={images.branch} /> : null
                             }

@@ -12,7 +12,6 @@ import { FlatList } from 'react-native';
 import { images } from '../../../../utils/Images';
 import { AvgSalary } from '../../../../models/Admin';
 import { fontScale } from '../../../../utils/Fonts';
-import moment from 'moment';
 import { ActivityIndicator } from 'react-native';
 import { colors } from '../../../../utils/Colors';
 
@@ -76,7 +75,7 @@ const index=(props)=> {
                     keyExtractor={(item,key)=>item.shopCode.toString()}
                     renderItem={({item,index})=>
                     <View style={{marginTop:fontScale(40),paddingBottom:index==data.length-1 ? fontScale(70): 0}}>
-                        <GeneralListItem style={{marginTop:-fontScale(10)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={["Lương BQ/GDV","Khoán sp/GDV","SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
+                        <GeneralListItem style={{marginTop:-fontScale(10)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp,text.incentivePerEmp,"SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
                         {
                             index==data.length-1 
                                 ? 

@@ -112,7 +112,7 @@ const index = (props) => {
         getBranchList();
         await getRole().then(async (data) => {
             setRole(data.role);
-            if (data.role == ROLE.VMS_CTY) {
+            if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
                 getBranchList();
                 await getData(month, '', '', '', '', '');
                 setPlaceHolder(text.chooseBranch)
@@ -138,7 +138,7 @@ const index = (props) => {
 
     const _setMonth = async (value) => {
         setMonth(value)
-        if (role == ROLE.VMS_CTY) {
+        if (role == ROLE.VMS_CTY || role == ROLE.ADMIN) {
             getBranchList();
             await getData(value, defaultBranchCode, defaultShopCode, defaultShopName, '', sort);
             setPlaceHolder(text.chooseBranch)
@@ -182,11 +182,11 @@ const index = (props) => {
                 onChangePickerOne={(value, index) => onChangeBranch(value)}
                 showPicker={[true, false, false]}
                 onPressOK={(value) =>
-                    role == ROLE.VMS_CTY ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
+                    role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
                         :
                         getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
                 }
-                fixed={role != ROLE.VMS_CTY ? true : false}
+                fixed={role != ROLE.VMS_CTY || role != ROLE.ADMIN ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />

@@ -12,7 +12,6 @@ import { FlatList } from 'react-native';
 import { images } from '../../../../../../utils/Images';
 import { AvgSalary } from '../../../../../../models/Admin';
 import { fontScale } from '../../../../../../utils/Fonts';
-import moment from 'moment';
 import { ActivityIndicator } from 'react-native';
 import { colors } from '../../../../../../utils/Colors';
 

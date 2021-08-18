@@ -20,7 +20,7 @@ const KPIHome = (props) => {
   const navigation = useNavigation();
   const checkAdminKPIMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      if (item.userId.userGroupId.code == ROLE.VMS_CTY) {
+      if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
         navigation.navigate("AdminKPIMonth")
       }
       if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {

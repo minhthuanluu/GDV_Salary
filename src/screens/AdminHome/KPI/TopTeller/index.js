@@ -37,7 +37,7 @@ const AdminTopTeller = () => {
 
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
-  const [placeHolder, setPlaceHolder] = useState('');
+  const [placeHolder, setPlaceHolder] = useState(text.chooseBranch);
   const [role, setRole] = useState();
   const [defaultBranchCode, setDefaultBranchCode] = useState('');
   const [defaultBranchName, setDefaultBranchName] = useState('');
@@ -77,7 +77,7 @@ const AdminTopTeller = () => {
   const getData = async (branchCode, branchName, shopCode, month, sort) => {
     setMessage("");
     setLoadingData(true);
-
+    console.log(branchCode, branchName, shopCode, month, sort)
     setDefaultBranchCode(branchCode);
     setDefaultBranchName(branchName);
     setShopCode(shopCode);
@@ -105,11 +105,13 @@ const AdminTopTeller = () => {
 
   const checkRole = async () => {
     await getRole().then(async (data) => {
+      console.log(data)
+      getBranchList();
       setRole(data.role)
-      if (data.role == ROLE.VMS_CTY) {
-        getBranchList();
-        await getData('', '', '', month, sort);
+      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         setPlaceHolder(text.chooseBranch)
+        await getData("", defaultBranchName, "", month, sort);
+        
       } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
@@ -137,6 +139,7 @@ const AdminTopTeller = () => {
       backAction
     );
     checkRole();
+    getBranchList()
     return () => {
       backHandler.remove();
       console.log("AdminHome > KPI > Top GDV")
@@ -146,7 +149,7 @@ const AdminTopTeller = () => {
   const _onChangeMonth = async (value) => {
     await getRole().then(async (data) => {
       setRole(data.role)
-      if (data.role == ROLE.VMS_CTY) {
+      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         setMonth(value);
         await getData(defaultBranchCode, defaultBranchName, shopCode, value, sort);
       } else if (data.role == ROLE.MBF_CHINHANH) {
@@ -174,7 +177,7 @@ const AdminTopTeller = () => {
     setSort(radio)
     await getRole().then(async (data) => {
       setRole(data.role)
-      if (data.role == ROLE.VMS_CTY) {
+      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         setMonth(month);
         await getData(shopCode, shopName, '', month, radio);
       } else if (data.role == ROLE.MBF_CHINHANH) {
@@ -215,7 +218,7 @@ const AdminTopTeller = () => {
         onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
         onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
-        fixed={role != ROLE.VMS_CTY ? true : false}
+        fixed={role != ROLE.VMS_CTY && role != ROLE.ADMIN ? true : false}
         fixedData={defaultShopName}/>
       <Body
         showInfo={false}

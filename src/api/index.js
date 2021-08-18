@@ -13,10 +13,10 @@ export const login = async (userName, password) => {
     loading: null,
     error: null
   };
-  console.log(`userName: ${userName}\npassword: ${password}`)
+  console.log(`${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`)
   await axios({
     method: POST,
-    url: `${baseUrl}login?password=${encodeURIComponent(password)}&userName=${userName}`,
+    url: `${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -38,6 +38,7 @@ export const login = async (userName, password) => {
       }
     })
     .catch(async (error) => {
+      console.log(error)
       if (error) {
         data = {
           message: error.response.data.message,
