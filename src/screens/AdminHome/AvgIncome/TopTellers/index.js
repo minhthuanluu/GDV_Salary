@@ -31,7 +31,7 @@ const AdminTopTellerAvgIncome = () => {
   const [defaultShopName, setDefaultShopName] = useState('')
   const [role, setRole] = useState();
   const [empList, setEmpList] = useState([])
-  const [sort, setSort] = useState('');
+  const [sort, setSort] = useState(1);
   const [placeHolder, setPlaceHolder] = useState('')
 
   const getBranchList = async () => {
@@ -140,9 +140,10 @@ const AdminTopTellerAvgIncome = () => {
 
   const checkRole = async () => {
     await getRole().then(async (data) => {
+      getBranchList();
       setRole(data.role);
       if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-        getBranchList();
+      
         await getData('', '', sort, defaultBranchName);
         setPlaceHolder(text.chooseBranch)
       } else if (data.role == ROLE.MBF_CHINHANH) {
@@ -152,13 +153,13 @@ const AdminTopTellerAvgIncome = () => {
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
         setDefaultShopName(data.shopName);
-        await getData(data.shopCode, "", "", data.branchName);
+        await getData(data.shopCode, "", sort, data.branchName);
       } else if (data.role == ROLE.MBF_CUAHANG) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchCode(data.branchCode);
         setDefaultShopCode(data.shopCode);
-        await getData(data.branchCode, "", "", data.label);
+        await getData(data.branchCode, "", sort, data.label);
       }
     })
   }
@@ -173,9 +174,10 @@ const AdminTopTellerAvgIncome = () => {
       "hardwareBackPress",
       backAction
     );
-    getBranchList()
+    
     // init();
     checkRole();
+    getBranchList();
     return () => {
       console.log('AdminHome > AvgIncome > TopTellers')
     };
@@ -188,16 +190,16 @@ const AdminTopTellerAvgIncome = () => {
       <Header title={text.topTellers} />
       {notification ? <Text style={styles.notification}>{notification}</Text> : null}
       <Search
-        loading={loading}
         rightIcon={images.searchlist}
+        dialogTitle="Chọn dữ liệu"
         modalTitle={text.select}
         placeholder={placeHolder}
         searchSelectModal
-        initialRadio={sort == 0 ? 0 : 1}
         data={[
           { label: text.highestTop, value: 1 },
           { label: text.lowestTop, value: 0 }
         ]}
+        initialRadio={sort == 1 ? 0 : 1}
         modalTitle={text.select}
         width={width - fontScale(60)}
         style={{ marginTop: fontScale(20) }}

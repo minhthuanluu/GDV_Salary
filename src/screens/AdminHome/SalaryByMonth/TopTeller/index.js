@@ -2,10 +2,10 @@ import { useNavigation } from '@react-navigation/core';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator } from 'react-native';
-import { SafeAreaView, View } from 'react-native';
+import { SafeAreaView, View,Text } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getAllBranch, getMonthSalaryTopTeller } from '../../../../api';
-import { Body, DatePicker, Header, Search, Table } from '../../../../comps';
+import { Body, DatePicker, GeneralListItem, Header, Search, Table, TableHeader } from '../../../../comps';
 import { colors } from '../../../../utils/Colors';
 import { width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
@@ -15,6 +15,7 @@ import { _retrieveData, _storeData } from '../../../../utils/Storage';
 import { text } from '../../../../utils/Text';
 import { styles } from './style'
 import { ROLE } from "../../../../utils/Roles"
+import { FlatList } from 'react-native';
 
 const index = (props) => {
     const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
@@ -63,9 +64,11 @@ const index = (props) => {
         setData([]);
         setMessage("");
         setSort(sort);
+        console.log(month, _branchCode, _shopCode, _shopName, empCode, sort)
         setPlaceHolder(_shopName);
         await getMonthSalaryTopTeller(navigation, month, _branchCode, _shopCode, empCode, sort).then(async (res) => {
             const { data, error, status, isLoading, length, message } = res;
+            // console.log(res.data)
             if (status == "success") {
                 setLoading(false);
                 if (length == 0) {
@@ -109,36 +112,41 @@ const index = (props) => {
     }
 
     const checkRole = async () => {
-        getBranchList();
         await getRole().then(async (data) => {
+            getBranchList();
             setRole(data.role);
             if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-                getBranchList();
-                await getData(month, '', '', '', '', '');
+                await getData(month, '', '', '', '', sort);
                 setPlaceHolder(text.chooseBranch)
             } else if (data.role == ROLE.MBF_CHINHANH) {
+                console.log(data)
                 setDefaultShopName(data.label);
+                setSort(1);
                 setPlaceHolder(data.label);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
                 await getData(month, data.shopCode, "", data.label, '', sort)
             } else if (data.role == ROLE.MBF_CUAHANG) {
+                console.log(data)
                 setDefaultShopName(data.label);
-                setPlaceHolder(data.label);
+                setPlaceHolder(data.branchName);
+                setSort(1);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
-                await getData(month, data.branchCode, "", data.label, '', sort);
+                await getData(month, data.branchCode,"", data.branchName, '', sort);
             }
         });
     }
 
     useEffect(() => {
         checkRole();
-    }, [navigation])
+        getBranchList();
+    }, [""])
 
     const _setMonth = async (value) => {
         setMonth(value)
         if (role == ROLE.VMS_CTY || role == ROLE.ADMIN) {
+            setRole(data.role)
             getBranchList();
             await getData(value, defaultBranchCode, defaultShopCode, defaultShopName, '', sort);
             setPlaceHolder(text.chooseBranch)
@@ -152,8 +160,8 @@ const index = (props) => {
             });
         } else if (role == ROLE.MBF_CUAHANG) {
             await getRole().then(async (data) => {
-                setDefaultShopName(data.label);
-                setPlaceHolder(data.label);
+                setDefaultShopName(data.branchName);
+                setPlaceHolder(data.branchName);
                 setDefaultBranchCode(data.branchCode);
                 setDefaultShopCode(data.shopCode);
                 await getData(value, data.branchCode, "", data.label, '', sort)
@@ -166,11 +174,12 @@ const index = (props) => {
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _setMonth(date)} />
             <Search
                 modalTitle={text.select}
+                dialogTitle="Chọn dữ liệu"
                 data={[{ label: text.highestTop, value: 1 }, { label: text.lowestTop, value: 0 }]}
                 placeholder={placeHolder}
                 rightIcon={images.searchlist}
                 searchSelectModal
-                initialRadio={sort == 1 ? 0 : 1}
+                initialRadio={sort==1?0:1}
                 width={width - fontScale(60)}
                 style={{ marginTop: fontScale(20), marginHorizontal: fontScale(30) }}
                 leftIcon={images.teamwork}
@@ -184,36 +193,56 @@ const index = (props) => {
                 onPressOK={(value) =>
                     role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(month, value.shopCode, '', value.shopName, '', value.radio)
                         :
-                        getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
+                        role == ROLE.MBF_CHINHANH ? getData(month, defaultShopCode, '', placeHolder, '', value.radio)
+                        :getData(month, defaultBranchCode, '', placeHolder, '', value.radio)
                 }
-                fixed={role != "VMS_CTY" || role != "ADMIN" ? true : false}
-                fixedData={defaultShopName}
+                
+                fixed={role == "VMS_CTY" || role == "ADMIN" ? false : true}
+                fixedData={placeHolder}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-                {loading == true ? <ActivityIndicator style={{ marginVertical: fontScale(5) }} color={colors.primary} size="small" /> : null}
-                <Table
+                <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
+                    <TableHeader style={{ width: (width * 3.2) / 10 }} title={text.teller} />
+                    <TableHeader style={{ width: (width * 2.3) / 10, marginLeft: fontScale(15) }} title={text.sumSalary} />
+                    <TableHeader style={{ width: (width * 2.8) / 10 }} title={text.contractSalary} />
+                    <TableHeader style={{ width: (width * 1) / 10, marginLeft: -fontScale(5) }} title={text.kpi} />
+                </View>
+                {loading == true ? (
+                    <ActivityIndicator
+                        size="small"
+                        color={colors.primary}
+                        style={{ marginTop: fontScale(20) }}
+                    />
+                ) : null}
+
+                {message ? <Text style={styles.message}>{message}</Text> : null}
+
+                <FlatList
+                    showsVerticalScrollIndicator={false}
                     data={data}
-                    table
-                    message={message && message}
-                    numColumn={4}
-                    headers={[text.teller, text.sumSalary, text.contractSalary, text.kpi]}
-                    headersTextColor={"#D19E01"}
-                    headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-                    widthArray={[2 / 5 * width, 1 / 5 * width, 1 / 5 * width, 1 / 5 * width]}
-                    fields={
-                        data.map((item, index) => [
-                            `${item.empName}\n(${item.shopName})`,
-                            item.totalSalary,
-                            item.incentiveSalary,
-                            item.kpi
-                        ])
-                    }
-                    fontWeight={["normal"]}
-                    textColor={[colors.black]}
-                    firstRowBg={colors.lightGrey}
-                    textAlign="center"
-                    rowBg={data.map((item, index) => index % 2 == 0 ? colors.lightGrey : colors.white)}
+                    style={{ marginTop: fontScale(10) }}
+                    keyExtractor={(item, index) => index.toString()}
+                    key={({ item }) => item.empName.toString()}
+                    renderItem={({ item, index }) => (
+                        <GeneralListItem
+                            item={item}
+                            index={index}
+                            fields={[
+                                `${item.empName}\n(${item.shopName})`,
+                                item.totalSalary,
+                                item.incentiveSalary,
+                                item.kpi
+                            ]}
+                            style={[
+                                [{ width: (width * 3.4) / 10, marginLeft: fontScale(5),fontSize:fontScale(14)}],
+                                [{ width: (width * 2.3) / 10, textAlign: "center",fontSize:fontScale(13) }],
+                                [{ width: (width * 2.7) / 10, textAlign: "center",fontSize:fontScale(13) }],
+                                [{ width: (width * 3) / 10, marginLeft: fontScale(5),fontSize:fontScale(13) }]
+                            ]}
+
+                        />
+                    )}
                 />
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />

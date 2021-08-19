@@ -60,7 +60,9 @@ function index(props) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={text.violateWarning} />
-            <Text style={styles.text}>{notification}</Text>
+            {/* <Text style={styles.text}>{notification}</Text> */}
+            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
+
             <Body />
             <ScrollView style={{ flex: 1, backgroundColor: colors.white }}>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}

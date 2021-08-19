@@ -1527,6 +1527,7 @@ export const getExpenseManagement = async (month) => {
 }
 // AdminHome > Lương theo tháng >Top GDV
 export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shopCode, empCode, sort) => {
+  console.log('getMonthSalaryTopTeller: '+month+'-'+ branchCode+'-'+ shopCode+'-'+ empCode+'-'+ sort)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1828,7 +1829,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
   console.log(token)
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode}&shopCode=${shopCode}&empCode=${empCode}&month=01/${month}&type=${type}`,
+    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode==undefined?"":branchCode}&shopCode=${shopCode==undefined?"":shopCode}&empCode=${empCode==undefined?"":empCode}&month=01/${month}&type=${type}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1859,14 +1860,15 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     })
     .catch((error) => {
       if (error) {
-        data = {
-          message: error.response.data.message,
-          isLoading: false,
-          status: "failed",
-          length: 0,
-          data:null,
-          error: error.response.data
-        };
+        // data = {
+        //   message: error.response.data.message,
+        //   isLoading: false,
+        //   status: "failed",
+        //   length: 0,
+        //   data:null,
+        //   error: error.response.data
+        // };
+        console.log(error)
       }
     });
   return data;
@@ -2262,7 +2264,7 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   console.log(token)
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getDetailFastTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    url: `${baseUrl}adminScreens/getDetailFCardTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",

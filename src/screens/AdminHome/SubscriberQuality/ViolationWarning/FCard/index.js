@@ -134,21 +134,47 @@ function index(props) {
     }
 
     const _onSearch = async (branchCode, shopCode, empCode, value) => {
+        console.log(value)
         setDefaultBranchName(value.branchName);
         setDefaultShopName(value.shopName)
         await getData(branchCode, shopCode, empCode);
     }
 
+    const _getAllShop=async()=>{
+        await getAllShop(navigation, "").then((res) => {
+            if (res.status == "success") {
+                setShopList(res.data);
+                setLoadingShop(false)
+            }
+            if (res.status == 'failed') {
+                setLoadingShop(false)
+            }
+        });
+    }
+
+    const _getAllEmp=async()=>{
+        await getAllEmp(navigation, "", "").then((res) => {
+            if (res.status == "success") {
+                setEmpList(res.data);
+            }
+            if (res.status == 'failed') {
+            }
+
+        })
+    }
+
     useEffect(() => {
-        getData("", "", "");
         getBranchList();
+        _getAllShop();
+        _getAllEmp();
+        getData("", "", "");
         console.log("Chat luong thue bao > Canh bao vi pham > Chuyen FCard>3TB")
     }, [notification])
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <Text style={styles.text}>{notification}</Text>
+            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
             <Search
                 loadingBranch={loadingBranch}
                 keyboardType="number-pad"
@@ -170,9 +196,9 @@ function index(props) {
                 onPressDataOne={(item) => _onChangeBranch(item.shopCode,item)}
                 onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(value.branchCode, value.shopCode, value.empCode, value)}
+                onPress={(value) => _onSearch(value.branchCode, value.shopCode, value.empId, value)}
             />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white }}>
                 <View style={{ flexDirection: "row" }}>
                     <TableHeader style={{ flex: 1.8, marginLeft: -fontScale(15) }} title={'GDVPTM'} />
@@ -195,7 +221,7 @@ function index(props) {
                                 item.detail == "true" ?
                                     <TouchableOpacity style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white,alignItems:"center", paddingVertical: fontScale(8) }}
                                         onPress={() =>
-                                            navigation.navigate("AdminViolateFastSubDetail", { "empCode": item.empCode, "title": title })
+                                            navigation.navigate("AdminViolateSubscriberFCardDetail", { "branchCode":branchCode,"shopCode":shopCode,"empCode": item.empCode, "title": title })
                                         }>
                                         <Text style={{ flex: 1.3, textAlign: "left",textAlignVertical:"center", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
                                         <Text style={{ flex: 1, textAlign: "left",textAlignVertical:"center", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.shopName}</Text>

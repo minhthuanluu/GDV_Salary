@@ -17,6 +17,7 @@ import GeneralListItem from "./generallistitem";
 import DataPicker from "./datapicker";
 import ListMenu from "./listmenu";
 import Table from "./table";
+import SearchWithPermission from './searchWithPermission';
 
 export {
     Button,
@@ -37,5 +38,6 @@ export {
     GeneralListItem,
     DataPicker,
     ListMenu,
-    Table
+    Table,
+    SearchWithPermission
 }

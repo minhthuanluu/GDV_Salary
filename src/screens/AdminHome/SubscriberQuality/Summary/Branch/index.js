@@ -78,7 +78,9 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
-      <Text style={styles.text}>{notification}</Text>
+{/* ?      <Text style={styles.text}>{notification}</Text */}
+      <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
+
       {/* <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -126,7 +128,7 @@ const index = (props) => {
                     titleArrayOne={["Tỉ lệ nợ/ Doanh thu:","Tổng nợ 90:","Tổng DThu 90:","Tổng TBTS PTM:"]}
                     itemAmountOne={[generalData.cancelAmount,generalData.fcardAmount,generalData.blocking2CAmount,generalData.fastAmount,generalData.mdtamount,generalData.debitContactAmount]}
                     itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
-                    itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastAmount,generalData.mdtpercent,generalData.debitContactPercent]}
+                    itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastPercent,generalData.mdtpercent,generalData.debitContactPercent]}
                     item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount,generalData.postpaidAmount]}
                     icon={images.company} /> : null
                 }

@@ -78,13 +78,15 @@ const index = (props) => {
                 <FlatList
                     showsVerticalScrollIndicator={false}
                     data={data}
-                    style={{marginTop:fontScale(10)}}
+                    style={{ marginTop: fontScale(10) }}
                     keyExtractor={(item, key) => item.shopCode.toString()}
                     renderItem={({ item, index }) =>
-                        <View style={{marginTop:index==0 ? 15:5,paddingBottom:index==data.length-1 ? fontScale(70): fontScale(15)}}>
-                            <GeneralListItem onPress={() => navigation.navigate("AdminAvgIncomeTellers", { branchItem: route.params?.branchItem, shopItem: item })} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp, text.incentivePerEmp, "SL GDV"]} item={[item.avgIncome, item.contractSalary,item.empAmount]} rightIcon={images.store} />
+                        <View style={{ marginTop: index == 0 ? 15 : 5, paddingBottom: index == data.length - 1 ? fontScale(70) : fontScale(15) }}>
+                            <GeneralListItem style={{ marginTop: -fontScale(10) }} onPress={() => navigation.navigate("AdminAvgIncomeTellers", { branchItem: route.params?.branchItem, shopItem: item })} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp, text.incentivePerEmp, "SL GDV"]} item={[item.avgIncome, item.contractSalary, item.empAmount]} rightIcon={images.shop} />
                             {
-                                index == data.length - 1 ? <GeneralListItem style={{ marginTop: -fontScale(10) }} fiveColumnCompany title={generalData.shopName} titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]} item={[generalData.avgIncome, generalData.permanentSalary, generalData.contractSalary, generalData.incentiveSalary, generalData.spenSupport]} icon={images.branch} /> : null
+                                index == data.length - 1
+                                    ?
+                                    <GeneralListItem styleCol2={{ marginLeft: -fontScale(10) }} styleCol4={{ marginLeft: -fontScale(10) }} style={{ marginTop: -fontScale(20), marginHorizontal: fontScale(10), paddingHorizontal: fontScale(10) }} fourColumnCompany title={generalData.shopName} titleArray={["BQ lương 1 tháng/GDV", "BQ lương cố định", "BQ lương khoán SP", "BQ lương KK", "BQ chi hỗ trợ"]} item={[generalData.avgIncome, generalData.permanentSalary, generalData.contractSalary, generalData.incentiveSalary, generalData.spenSupport]} icon={images.company} /> : null
                             }
                         </View>
                     } />

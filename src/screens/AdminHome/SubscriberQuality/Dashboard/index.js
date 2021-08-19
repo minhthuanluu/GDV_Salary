@@ -72,10 +72,11 @@ const DashBoard = () => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
       <Toast ref={(ref) => Toast.setRef(ref)} />
-      <Text style={{color:colors.white,textAlign:"center"}}>{data.notification}</Text>
+      {/* <Text style={{color:colors.white,textAlign:"center"}}>{data.notification}</Text> */}
+      <Text style={{ color: colors.white, fontWeight: "bold", fontSize: fontScale(14), marginBottom: fontScale(10), textAlign: "center" }}>{data.notification}</Text>
 
       <Body
-        style={{ marginTop: fontScale(27) }}
+        style={{ marginTop: fontScale(5) }}
       />
       <View style={styles.body}>
         {loading == true ? (

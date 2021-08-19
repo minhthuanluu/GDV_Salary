@@ -314,7 +314,6 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Công ty');
-      console.log(item)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,

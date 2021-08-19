@@ -107,13 +107,13 @@ const Search = (props) => {
 
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
         setSelectModalAdvanced(!selectModalAdvanced)
-        console.log("advanced search")
-        console.log('dataOne:')
-        console.log(dataOne)
-        console.log('\ndataTwo:\n')
-        console.log(dataTwo)
-        console.log('\ndataThree:')
-        console.log(dataThree)
+        // console.log("advanced search")
+        // console.log('dataOne:')
+        // console.log(dataOne)
+        // console.log('\ndataTwo:\n')
+        // console.log(dataTwo)
+        // console.log('\ndataThree:')
+        // console.log(dataThree)
         let data = {
             "branchCode": dataOne.shopCode == undefined ? "" : dataOne.shopCode,
             "branchName": dataOne.shopName == undefined ? "" : dataOne.shopName,
@@ -155,7 +155,6 @@ const Search = (props) => {
                         <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne || "Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
                         <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo || "Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
                         <SelectDataWithRightText showLiveSearch showName leftText={props.defaultLabelThree||"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
-                        {/* showLiveSearch */}
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />
                             <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => _onPressAdminOK(dataOne, dataTwo, dataThree)} />
@@ -236,6 +235,7 @@ const Search = (props) => {
                                             dialogTitle={props.leftText}
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
+                                            dialogTitle={props.dialogTitle}
                                             fixedData={props.fixedData}
                                             field={props.fieldOne}
                                             fieldKey={props.fieldOne[0]}
@@ -246,6 +246,7 @@ const Search = (props) => {
                                             advancedSearch
                                             fixed={props.fixed}
                                             placeholder={props.placeholder}
+                                            dialogTitle={props.dialogTitle}
                                             data={props.dataOne && props.dataOne}
                                             width={width - fontScale(65)}
                                             fixedData={props.fixedData}
@@ -263,6 +264,7 @@ const Search = (props) => {
                                             data={props.dataTwo && props.dataTwo}
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
+                                            dialogTitle={props.dialogTitle}
                                             field={props.fieldTwo}
                                             fieldKey={props.fieldTwo}
                                             onPress={props.onChangePickerTwo}
@@ -277,6 +279,7 @@ const Search = (props) => {
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
                                             field={props.fieldThree}
+                                            dialogTitle={props.dialogTitle}
                                             fieldKey={props.fieldThree}
                                             onPress={props.onChangePickerThree}
                                             style={{ marginTop: fontScale(20), marginRight: fontScale(5) }}
@@ -302,7 +305,7 @@ const Search = (props) => {
 const SelectDataWithRightText = (props) => {
     const [selectedData, setSelectedData] = useState(props.leftText);
     const [selectModalAdvanced, setSelectModalAdvanced] = useState(false)
-    const [rightText, setRightText] = useState('Tất cả');
+    const [rightText, setRightText] = useState('Tất cả'||props.rightText);
     const [tempData, setTempData] = useState([]);
     const [message, setMessage] = useState('');
     const [onSearch, setOnSearch] = useState(false)
@@ -321,7 +324,7 @@ const SelectDataWithRightText = (props) => {
     }
 
     useFocusEffect(() => {
-        onSearch == false ? setTempData(props.data) : null
+        onSearch == false ? setTempData(props.data) : null;
     })
 
     useEffect(() => {

@@ -31,6 +31,8 @@ const index = (props) => {
     const [empList, setEmpList] = useState([]);
     const [message,setMessage] = useState('');
     const [notification,setNotification] = useState("")
+    const [loadingBranch, setLoadingBranch] = useState(false);
+    const [loadingShop, setLoadingShop] = useState(false)
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
@@ -39,7 +41,6 @@ const index = (props) => {
         setData([])
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
-            
             if (res.status == "success") {
                 if (res.length == 0) {
                     setLoading(false);
@@ -111,9 +112,31 @@ const index = (props) => {
         setEmpCode(empId)
     }
 
+    const _getAllShop=async()=>{
+        await getAllShop(navigation, "").then((res) => {
+            if (res.status == "success") {
+                setShopList(res.data);
+                setLoadingShop(false)
+            }
+            if (res.status == 'failed') {
+                setLoadingShop(false)
+            }
+        });
+    }
+
+    const _getAllEmp=async()=>{
+        await getAllEmp(navigation, "", "").then((res) => {
+            if (res.status == "success") {
+                setEmpList(res.data);
+            }
+            if (res.status == 'failed') {
+            }
+
+        })
+    }
+
     const _onSearch = async (value) => {
         setBranchCode(value.branchCode);
-        
         setShopCode(value.shopCode);
         setEmpCode(value.empId);
         await getData(month, value.branchCode, value.shopCode, value.empId, key);
@@ -122,7 +145,9 @@ const index = (props) => {
 
     useEffect(() => {
         getData(month, "", "", "");
-        getBranchList()
+        getBranchList();
+        _getAllShop();
+        _getAllEmp();
     }, [month])
 
 
@@ -130,11 +155,10 @@ const index = (props) => {
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            {
-                console.log(empList)
-            }
             <Search
                 searchSelectModalFourCondition
+                loadingBranch={loadingBranch}
+                loadingShop={loadingShop}
                 leftIcon={images.teamwork}
                 rightIcon={images.arrowdown}
                 placeholder={text.search}

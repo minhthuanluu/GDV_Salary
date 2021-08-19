@@ -42,10 +42,11 @@ const index = (props) => {
         setLoading(true);
         setData([]);
         setMessage("");
+        setBranchCode(branchCode);
+        setShopCode(shopCode);
+        setEmpCode(empCode);
         console.log(month, branchCode, shopCode, empCode, type)
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
-            console.log(res)
-
             if (res.status == "success") {
                 setMessage("");
                 if (res.length == 0 || res.data == null) {
@@ -79,7 +80,8 @@ const index = (props) => {
 
     const _onChangeMonth = async (month) => {
         setMonth(month)
-        await _onSearch(month, branchCode, shopCode, empCode, "");
+        await getData(month, branchCode, shopCode, empCode, key);
+
     }
 
     const getBranchList = async () => {
@@ -128,22 +130,46 @@ const index = (props) => {
     }
 
     const _onSearch = async (month, branchCode, shopCode, empCode, value) => {
-        console.log(value)
-
         setBranchCode(branchCode);
         setDefaultBranchName(value.branchName)
         setShopCode(shopCode);
         setDefaultShopName(value.shopName)
         setEmpCode(empCode);
-        setMonth(month)
+        setMonth(month);
+        console.log(value)
         await getData(month, branchCode, shopCode, empCode, key);
 
+    }
+
+    const _getAllShop=async()=>{
+        await getAllShop(navigation, "").then((res) => {
+            if (res.status == "success") {
+                setShopList(res.data);
+                setLoadingShop(false)
+            }
+            if (res.status == 'failed') {
+                setLoadingShop(false)
+            }
+        });
+    }
+
+    const _getAllEmp=async()=>{
+        await getAllEmp(navigation, "", "").then((res) => {
+            if (res.status == "success") {
+                setEmpList(res.data);
+            }
+            if (res.status == 'failed') {
+            }
+
+        })
     }
 
     useEffect(() => {
         console.log('Home > Thong tin giao dich > Canh bao vi pham > GDV DKTT')
         getData(month, "", "", "", key);
         getBranchList();
+        _getAllShop();
+        _getAllEmp();
         if (branchList.length == 0 && shopList.length == 0) {
             getAllEmp(navigation, "", "")
         }
@@ -175,7 +201,7 @@ const index = (props) => {
                 onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
                 onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empCode, value)}
+                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empId, value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>

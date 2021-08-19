@@ -49,6 +49,29 @@ function index(props) {
         })
     }
 
+    const _getAllShop=async()=>{
+        await getAllShop(navigation, "").then((res) => {
+            if (res.status == "success") {
+                setShopList(res.data);
+                setLoadingShop(false)
+            }
+            if (res.status == 'failed') {
+                setLoadingShop(false)
+            }
+        });
+    }
+
+    const _getAllEmp=async()=>{
+        await getAllEmp(navigation, "", "").then((res) => {
+            if (res.status == "success") {
+                setEmpList(res.data);
+            }
+            if (res.status == 'failed') {
+            }
+
+        })
+    }
+
     const _onChangeBranch = async (branchCode) => {
         setBranchCode(branchCode);
         setShopList([]);
@@ -56,7 +79,6 @@ function index(props) {
         await getAllShop(navigation, branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
-                console.log(res.data)
                 setLoadingShop(false)
             }
             if (res.status == 'failed') {
@@ -72,7 +94,6 @@ function index(props) {
         await getAllEmp(navigation, branchCode, shopCode).then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
-                console.log(res.data)
             }
             if (res.status == 'failed') {
             }
@@ -94,7 +115,6 @@ function index(props) {
                 setNotification(res.data.notification);
                 setLoading(false)
                 setMessage("");
-                console.log(res.data)
                 if (res.length == 0) {
                     setMessage(text.dataIsNull)
                     setLoading(false)
@@ -132,7 +152,6 @@ function index(props) {
     }
 
     const _onSearch = async (branchCode, shopCode, empCode, value) => {
-        console.log(branchCode, shopCode, empCode,)
         setDefaultBranchName(value.branchName);
         setDefaultShopName(value.shopName);
         setDefaultEmpName(value.empName);
@@ -142,12 +161,14 @@ function index(props) {
     useEffect(() => {
         getData("", "", "");
         getBranchList();
+        _getAllShop();
+        _getAllEmp();
         console.log("Chat luong thue bao > Canh bao vi pham > Chuyen Fast/MD1/MDT>=1TB")
     }, [notification])
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(13), textAlign: "center" }}>{notification}</Text>
+            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
             <Search
                 loadingBranch={loadingBranch}
                 keyboardType="number-pad"
@@ -172,9 +193,9 @@ function index(props) {
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
                 onPress={(value) => _onSearch(value.branchCode, value.shopCode, value.empCode, value)}
             />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-                <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
+                <View style={{ flexDirection: "row"}}>
                     <TableHeader style={{ flex: 1.8, marginLeft: -fontScale(15) }} title={'GDVPTM'} />
                     <TableHeader style={{ flex: 1.7, marginLeft: fontScale(15) }} title={'Tên CH'} />
                     <TableHeader style={{ flex: 1.5, marginLeft: fontScale(5) }} title={'TB/tháng'} />

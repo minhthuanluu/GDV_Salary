@@ -6,6 +6,7 @@ import {
   GeneralListItem,
   Header,
   Search,
+  SearchWithPermission,
   TableHeader,
 } from "../../../../comps";
 import { styles } from "./style";
@@ -105,13 +106,12 @@ const AdminTopTeller = () => {
 
   const checkRole = async () => {
     await getRole().then(async (data) => {
-      console.log(data)
       getBranchList();
       setRole(data.role)
       if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-        setPlaceHolder(text.chooseBranch)
         await getData("", defaultBranchName, "", month, sort);
-        
+        setPlaceHolder(text.chooseBranch);
+
       } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
@@ -129,24 +129,14 @@ const AdminTopTeller = () => {
   }
 
   useEffect(() => {
-    const backAction = () => {
-      navigation.goBack();
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      backAction
-    );
     checkRole();
     getBranchList()
-    return () => {
-      backHandler.remove();
-      console.log("AdminHome > KPI > Top GDV")
-    };
+    setPlaceHolder(text.chooseBranch)
+    console.log("AdminHome > KPI > Top GDV")
   }, [""]);
 
   const _onChangeMonth = async (value) => {
+    setPlaceHolder(text.chooseBranch)
     await getRole().then(async (data) => {
       setRole(data.role)
       if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
@@ -196,9 +186,11 @@ const AdminTopTeller = () => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.topTellers} />
       <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
+     
       <Search
         loading={loading}
         rightIcon={images.searchlist}
+        dialogTitle="Chọn dữ liệu"
         data={[
           { label: text.highestTop, value: 1 },
           { label: text.lowestTop, value: 0 }
@@ -207,7 +199,7 @@ const AdminTopTeller = () => {
         placeholder={placeHolder}
         searchSelectModal
         width={width - fontScale(60)}
-        style={{ marginTop: fontScale(20),alignSelf:"center" }}
+        style={{ marginTop: fontScale(20), alignSelf: "center" }}
         leftIcon={images.teamwork}
         initialRadio={sort == 1 ? 0 : 1}
         dataOne={branchList}
@@ -217,12 +209,17 @@ const AdminTopTeller = () => {
         fieldThree={empList.map((item, index) => item.maGDV)}
         onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
-        onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
+        // onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
+        onPressOK={(value)=>{
+          role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(value.shopCode,value.shopName, defaultShopCode, month,value.radio)
+                        :
+                        getData(defaultBranchCode,defaultBranchName, defaultShopCode, month,value.radio)
+        }}
         fixed={role == "VMS_CTY" || role == "ADMIN" ? false : true}
-        fixedData={defaultShopName}/>
+        fixedData={defaultShopName} />
       <Body
         showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}/>
+        style={{ marginTop: fontScale(15), zIndex: -10 }} />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
           <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
@@ -261,9 +258,9 @@ const AdminTopTeller = () => {
               ]}
               style={[
                 [styles.dateCol, { width: (width * 3.9) / 10 }],
-                [styles.dateCol, { width: (width * 2.5) / 10,paddingTop:fontScale(7) }],
-                [styles.dateCol, { width: (width * 1.5) / 10,paddingTop:fontScale(7) }],
-                [styles.dateCol, { width: (width * 2.3) / 10 ,paddingTop:fontScale(7)}]
+                [styles.dateCol, { width: (width * 2.5) / 10, paddingTop: fontScale(7) }],
+                [styles.dateCol, { width: (width * 1.5) / 10, paddingTop: fontScale(7) }],
+                [styles.dateCol, { width: (width * 2.3) / 10, paddingTop: fontScale(7) }]
               ]}
             />
           )}
