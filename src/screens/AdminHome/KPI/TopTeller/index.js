@@ -218,7 +218,7 @@ const AdminTopTeller = () => {
         onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
         onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
-        fixed={role != ROLE.VMS_CTY && role != ROLE.ADMIN ? true : false}
+        fixed={role == "VMS_CTY" || role == "ADMIN" ? false : true}
         fixedData={defaultShopName}/>
       <Body
         showInfo={false}

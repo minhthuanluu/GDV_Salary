@@ -3,6 +3,7 @@ import { baseUrl } from "./untils";
 import axios from "axios";
 import { _removeData, _retrieveData, _storeData } from "../utils/Storage";
 import { POST, GET, PUT, DELETE } from "./method";
+import { text } from "../utils/Text";
 
 // 1. Login Screen
 export const login = async (userName, password) => {
@@ -2270,6 +2271,72 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   })
     .then((res) => {
       if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (res.data.data.length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB
+export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getFCardTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
         console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
@@ -2286,6 +2353,83 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
             isLoading: false,
             status: "success",
             length: Object.values(res.data.data).length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// getViolationEmployee
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên (xuất hiện >= 3 lần trong 6 tháng)
+export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getViolationEmployee?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (res.data.data.length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null
+          };
+        }else{
+          data = {
+            data: res.data,
+            isLoading: false,
+            message:text.dataIsNull,
+            status: "success",
+            length: res.data.data.length,
             error: null
           };
         }

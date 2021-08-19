@@ -97,7 +97,7 @@ const DashBoard = () => {
               title={text.statistical}
               icon={images.growthday}
               width={width - fontScale(60)}
-              value={data.violateEmp}
+              value={""}
               onPress={() => checkAdminSubscriberQualityRole()}
             />
 

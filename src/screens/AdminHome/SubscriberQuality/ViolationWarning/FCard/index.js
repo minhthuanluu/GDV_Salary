@@ -11,9 +11,10 @@ import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
 import { fontScale } from '../../../../../utils/Fonts';
 import { FlatList } from 'react-native';
-import { getFastTrans } from '../../../../../api';
+import { getFCardTrans } from '../../../../../api';
 import { getAllBranch, getAllEmp, getAllShop } from '../../../../../adminapi';
 import Toast from 'react-native-toast-message';
+import { TouchableOpacity } from 'react-native';
 
 function index(props) {
     const route = useRoute();
@@ -49,10 +50,12 @@ function index(props) {
         })
     }
 
-    const _onChangeBranch = async (branchCode) => {
+    const _onChangeBranch = async (branchCode,value) => {
+        console.log(value)
         setBranchCode(branchCode);
         setShopList([]);
-        setLoadingShop(true)
+        setLoadingShop(true);
+        setDefaultBranchName(value.branchName)
         await getAllShop(navigation, branchCode).then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
@@ -71,7 +74,6 @@ function index(props) {
         await getAllEmp(navigation, branchCode, shopCode).then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
-                console.log(res.data)
             }
             if (res.status == 'failed') {
             }
@@ -87,9 +89,8 @@ function index(props) {
     const getData = async (branchCode, shopCode, empCode) => {
         console.log(branchCode, shopCode, empCode)
         setLoading(true);
-        await getFastTrans(navigation, branchCode, shopCode, empCode).then((res) => {
-            console.log(res)
-            setNotification(res.notification);
+        setData([])
+        await getFCardTrans(navigation, branchCode, shopCode, empCode).then((res) => {              
             setLoading(false)
             if(res.length==0){
                 setMessage(text.dataIsNull)
@@ -99,8 +100,10 @@ function index(props) {
                 if (res.length == 0) {
                     setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
+                    setNotification(res.notification)
                 } else {
-                    setData(res.data);
+                    setNotification(res.data.notification)
+                    setData(res.data.data);
                     setLoading(res.isLoading);
                 }
             }
@@ -131,6 +134,8 @@ function index(props) {
     }
 
     const _onSearch = async (branchCode, shopCode, empCode, value) => {
+        setDefaultBranchName(value.branchName);
+        setDefaultShopName(value.shopName)
         await getData(branchCode, shopCode, empCode);
     }
 
@@ -143,7 +148,7 @@ function index(props) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <Text style={styles.text}>{data.notification}</Text>
+            <Text style={styles.text}>{notification}</Text>
             <Search
                 loadingBranch={loadingBranch}
                 keyboardType="number-pad"
@@ -162,44 +167,48 @@ function index(props) {
                 searchIndex={1}
                 onChangeText={(text) => console.log(text)}
                 dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
+                onPressDataOne={(item) => _onChangeBranch(item.shopCode,item)}
                 onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
                 onPress={(value) => _onSearch(value.branchCode, value.shopCode, value.empCode, value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
-                <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
+                <View style={{ flexDirection: "row" }}>
                     <TableHeader style={{ flex: 1.8, marginLeft: -fontScale(15) }} title={'GDVPTM'} />
                     <TableHeader style={{ flex: 1.7, marginLeft: fontScale(15) }} title={'Tên CH'} />
                     <TableHeader style={{ flex: 1.5, marginLeft: fontScale(5) }} title={'TB/tháng'} />
                     <TableHeader style={{ flex: 1.5 }} title={'TB/tập'} />
                 </View>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(15) }} /> : null}
+                {message ? <Text style={{color:colors.primary,textAlign:"center",marginTop:fontScale(20)}}>{message}</Text> : null}
+                
                 <FlatList
-                    style={{ marginTop: fontScale(20) }}
+                    style={{ marginTop: fontScale(10) }}
                     keyExtractor={(item, index) => item.empCode.toString()}
                     data={data}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
                     renderItem={({ item, index }) => {
                         return <View>
                             {
                                 item.detail == "true" ?
-                                    <TouchableOpacity style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white, paddingVertical: fontScale(8) }}
+                                    <TouchableOpacity style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white,alignItems:"center", paddingVertical: fontScale(8) }}
                                         onPress={() =>
                                             navigation.navigate("AdminViolateFastSubDetail", { "empCode": item.empCode, "title": title })
                                         }>
-                                        <Text style={{ flex: 1.3, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
-                                        <Text style={{ flex: 1, textAlign: "left", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.shopName}</Text>
-                                        <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
-                                        <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subCollect}</Text>
+                                        <Text style={{ flex: 1.3, textAlign: "left",textAlignVertical:"center", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
+                                        <Text style={{ flex: 1, textAlign: "left",textAlignVertical:"center", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.shopName}</Text>
+                                        <Text style={{ flex: 1, textAlign: "center",textAlignVertical:"center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
+                                        <Text style={{ flex: 1, textAlign: "center",textAlignVertical:"center", fontSize: fontScale(14) }}>{item.subCollect}</Text>
                                         <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(2), top: fontScale(8) }} resizeMode="cover" />
                                     </TouchableOpacity>
                                     :
-                                    <View style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white, paddingVertical: fontScale(8) }}>
-                                        <Text style={{ flex: 1.3, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
+                                    <View style={{ flexDirection: "row", backgroundColor: index % 2 ? colors.lightGrey : colors.white, alignItems:"center",paddingVertical: fontScale(8) }}>
+                                        <Text style={{ flex: 1.3, textAlign: "left",textAlignVertical:"center", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
                                         <Text style={{ flex: 1, textAlign: "left", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.shopName}</Text>
-                                        <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
-                                        <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subCollect}</Text>
+                                        <Text style={{ flex: 1, textAlign: "center",textAlignVertical:"center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
+                                        <Text style={{ flex: 1, textAlign: "center",textAlignVertical:"center", fontSize: fontScale(14) }}>{item.subCollect}</Text>
                                     </View>
                             }
 

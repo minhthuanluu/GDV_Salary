@@ -94,7 +94,7 @@ function index(props) {
                 setNotification(res.data.notification);
                 setLoading(false)
                 setMessage("");
-                console.log(res.length)
+                console.log(res.data)
                 if (res.length == 0) {
                     setMessage(text.dataIsNull)
                     setLoading(false)

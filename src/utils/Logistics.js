@@ -321,6 +321,8 @@ export const getRole = async () => {
         description: item.userId.userGroupId.description,
         branchCode: "",
         branchName: item.userId.shopId.shopName,
+        shopCode:"",
+        shopName:"",
         label: "Tất cả"
       }
     } else if (level == 2) {

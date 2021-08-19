@@ -186,7 +186,7 @@ const index = (props) => {
                         :
                         getData(month, defaultShopCode, '', defaultShopName, '', value.radio)
                 }
-                fixed={role != ROLE.VMS_CTY || role != ROLE.ADMIN ? true : false}
+                fixed={role != "VMS_CTY" || role != "ADMIN" ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />

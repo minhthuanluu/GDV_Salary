@@ -66,9 +66,7 @@ function index(props) {
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="Chuyển Fast/MD1/MDT>=1TB" value={data.fast} onPress={() => navigation.navigate("AdminViolateSubscriberFast",{title:"Chuyển Fast/MD1/MDT>=1TB"})} />
                 <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="Chuyển FCard>=3TB" value={data.fcard} onPress={() => navigation.navigate("AdminViolateSubscriberFCard", {title: "Chuyển FCard>=3TB" })} />
-                <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="GDV vi phạm cả 2 nhóm trên" value={data.overThreeTime} onPress={() => console.log('abc')}
-                    // navigation.navigate("AdminViolateSubscriberOverThree", {title: "GDV xuất hiện >= 3 lần trong 6 tháng" })} 
-                    />
+                <MenuItem width={width - fontScale(20)} titleMenuStyle={{fontSize:fontScale(15)}} style={{ marginBottom: fontScale(30),paddingVertical:fontScale(10) }} title="GDV vi phạm cả 2 nhóm trên" value={data.overThreeTime} onPress={() => navigation.navigate("AdminViolateSubscriberOverThree", {title: "GDV vi phạm cả 2 nhóm trên" })}/>
             </ScrollView>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>

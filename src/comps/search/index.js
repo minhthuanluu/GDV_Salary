@@ -233,6 +233,7 @@ const Search = (props) => {
                                             advancedSearch
                                             placeholder={props.placeholder}
                                             data={props.dataOne && props.dataOne}
+                                            dialogTitle={props.leftText}
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
                                             fixedData={props.fixedData}
