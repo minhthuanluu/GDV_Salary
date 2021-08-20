@@ -155,10 +155,10 @@ const AdminTopTellerAvgIncome = () => {
         setDefaultShopName(data.shopName);
         await getData(data.shopCode, "", sort, data.branchName);
       } else if (data.role == ROLE.MBF_CUAHANG) {
-        setDefaultShopName(data.label);
+        setDefaultShopName(data.branchName);
         setPlaceHolder(data.label);
-        setDefaultBranchCode(data.branchCode);
-        setDefaultShopCode(data.shopCode);
+        setDefaultBranchName(data.shopName);
+        setDefaultBranchCode(data.shopCode);
         await getData(data.branchCode, "", sort, data.label);
       }
     })

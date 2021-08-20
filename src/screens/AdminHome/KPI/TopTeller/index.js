@@ -81,6 +81,7 @@ const AdminTopTeller = () => {
     console.log(branchCode, branchName, shopCode, month, sort)
     setDefaultBranchCode(branchCode);
     setDefaultBranchName(branchName);
+    setPlaceHolder(branchName)
     setShopCode(shopCode);
     setSort(sort);
     setData([]);
@@ -119,7 +120,7 @@ const AdminTopTeller = () => {
         setDefaultBranchCode(data.shopCode);
         await getData(data.shopCode, data.branchName, "", month, sort);
       } else if (data.role == ROLE.MBF_CUAHANG) {
-        setDefaultShopName(data.label);
+        setDefaultShopName(data.branchName);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
@@ -151,11 +152,11 @@ const AdminTopTeller = () => {
         await getData(data.shopCode, data.label, "", value, sort);
       } else if (data.role == ROLE.MBF_CUAHANG) {
         setMonth(value);
+        setPlaceHolder(data.branchName);
         setDefaultShopName(data.label);
-        setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode, data.branchName, "", value, sort);
+        await getData(data.branchCode, data.label, "", value, sort);
 
       }
     })
@@ -186,7 +187,7 @@ const AdminTopTeller = () => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.topTellers} />
       <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-     
+
       <Search
         loading={loading}
         rightIcon={images.searchlist}
@@ -210,10 +211,10 @@ const AdminTopTeller = () => {
         onChangePickerOne={(value, index) => onChangeBranch(value)}
         showPicker={[true, false, false]}
         // onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
-        onPressOK={(value)=>{
-          role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(value.shopCode,value.shopName, defaultShopCode, month,value.radio)
-                        :
-                        getData(defaultBranchCode,defaultBranchName, defaultShopCode, month,value.radio)
+        onPressOK={(value) => {
+          role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(value.shopCode, value.shopName, defaultShopCode, month, value.radio)
+            :
+            getData(defaultBranchCode, defaultBranchName, defaultShopCode, month, value.radio)
         }}
         fixed={role == "VMS_CTY" || role == "ADMIN" ? false : true}
         fixedData={defaultShopName} />

@@ -89,7 +89,6 @@ const Dashboard = (route) => {
       {
         <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user.displayName} maGDV={user.shopId.shopCode} />
       }
-      
       <Body style={{ marginTop: fontScale(10) }} showInfo={false} />
       <View style={styles.body}>
 

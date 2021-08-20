@@ -1,38 +1,206 @@
+import { useNavigation } from '@react-navigation/core';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { Text } from 'react-native';
 import { Image } from 'react-native';
 import { FlatList } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import { Modal } from 'react-native';
 import { TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
-import { getAllBranch } from '../../api';
+import Button from '../button'
+import DatePicker from '../datepicker'
+import { getAllBranch, getAllEmp, getAllShop } from '../../api';
 import { colors } from '../../utils/Colors';
+import { width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
+import { images } from '../../utils/Images';
+import { text } from '../../utils/Text';
 
 const index = (props) => {
-    const [showModal, setShowModal] = useState(false)
-    const [showSubModal, setShowSubModal] = useState(false)
-    const [showSelect1Modal, setShowSelect1Modal] = useState(false);
-    const [branchList,setBranchList] = useState([])
+    const [showModal, setShowModal] = useState(false);
+    const [showSubModal, setShowSubModal] = useState(false);
+    const [showShopModal, setShowShopModal] = useState(false);
+    const [showEmpModal, setShowEmpModal] = useState(false);
+    const [branchList, setBranchList] = useState([]);
+    const [shopList, setShopList] = useState([]);
+    const [empList, setEmpList] = useState([]);
+    const [empListTemp, setEmpListTemp] = useState([])
+    const [branchName, setBranchName] = useState('Chọn chi nhánh');
+    const [branchLabel, setBranchLabel] = useState('Tất cả');
+    const [shopName, setShopName] = useState('Chọn cửa hàng');
+    const [shopLabel, setShopLabel] = useState('Tất cả');
+    const [empLabel, setEmpLabel] = useState('Tất cả');
+    const [empName, setEmpName] = useState('Chọn nhân viên');
 
-    const getBranchList=async()=>{
-        await getAllBranch().then((data)=>{
-            console.log(data)
-            setBranchList(data)
-          })
-    
+    const [loading, setLoading] = useState(false);
+    const [branchCode, setBranchCode] = useState('')
+    const [shopCode, setShopCode] = useState('')
+    const [empCode, setEmpCode] = useState('')
+
+    const [defaultBranchCode, setDefaultBranchCode] = useState('')
+    const [defaultShopCode, setDefaultShopCode] = useState('')
+    const [defaultEmpCode, setDefaultEmpCode] = useState('')
+
+    const [message, setMessage] = useState('')
+    const navigation = useNavigation();
+    const [month, setMonth] = useState(props.month)
+
+    const getBranchList = async () => {
+        await getAllBranch().then((data) => {
+            if (data.status == "success") {
+                setBranchList(data.data)
+            }
+        })
     }
-   
-    useEffect(()=>{
+
+    const getShopList = async (branchCode) => {
+        if (branchCode == null) {
+            await getAllShop(navigation, "").then((data) => {
+                if (data.status == "success") {
+                    console.log(data)
+                    setShopList(data.data)
+                }
+            })
+        } else {
+            await getAllShop(navigation, branchCode).then((data) => {
+                if (data.status == "success") {
+                    console.log(data)
+                    setShopList(data.data)
+                }
+            })
+        }
+    }
+
+    const getEmpList = (branchCode, shopCode) => {
+        if (branchCode == null && shopCode == null) {
+            getAllEmp(navigation, "", "").then((data) => {
+                if (data.status == "success") {
+                    setEmpList(data.data);
+                    setEmpListTemp(data.data)
+                }
+            })
+        } else {
+            getAllEmp(navigation, branchCode, shopCode).then((data) => {
+                if (data.status == "success") {
+                    setEmpList(data.data)
+                    setEmpListTemp(data.data)
+                }
+            })
+        }
+    }
+
+
+    const onChangeBranch = async (item) => {
+        if (item.shopCode == null) {
+            setBranchLabel("Tất cả")
+            setBranchName("Chọn chi nhánh")
+            setShopName("Chọn cửa hàng")
+            setBranchCode("");
+            setShopCode("");
+            setEmpCode("");
+            setDefaultBranchCode("")
+            setDefaultShopCode("")
+            setDefaultEmpCode("")
+            setShowSubModal(!showSubModal)
+            await getShopList("")
+        } else {
+            setBranchName(item.shopName);
+            setBranchCode(item.shopCode);
+            setBranchLabel("");
+            setShowSubModal(!showSubModal);
+            await getShopList(item.shopCode);
+        }
+        setShopLabel("Tất cả")
+        setShopName("Chọn cửa hàng")
+        setEmpName("Chọn nhân viên")
+        setEmpLabel("Tất cả")
+    }
+
+    const onChangeShop = async (item) => {
+        if (item.shopCode == null) {
+            setShopName("Chọn cửa hàng")
+            setShopCode("")
+            setShopLabel("Tất cả")
+            setDefaultShopCode("")
+            setShowShopModal(!showShopModal);
+            getEmpList("", "");
+
+        } else {
+            setShopName(item.shopName)
+            setShopLabel("");
+            setShopCode(item.shopCode)
+            setShowShopModal(!showShopModal);
+            getEmpList(branchCode, item.shopCode);
+            setShowShopModal(!showShopModal)
+        }
+        setEmpName("Chọn nhân viên")
+        setEmpLabel("Tất cả")
+    }
+
+    const onChangeEmp = async (item) => {
+        if (item.id == null) {
+            setEmpName("Chọn nhân viên")
+            setEmpCode("");
+            setEmpLabel("Tất cả")
+            setDefaultEmpCode("")
+            setShowEmpModal(!showEmpModal)
+
+        } else {
+            setEmpName(item.fullName);
+            setEmpLabel("")
+            setEmpCode(item.id);
+            setDefaultEmpCode(item.maGDV)
+            setShowEmpModal(!showEmpModal)
+        }
+    }
+    const onChangeEmpSearch = (value) => {
+        let newData = empListTemp.filter((item) => {
+            const itemData = `${item.fullName.normalize("NFD").replace(/[\u0300-\u036f]/g, "")}`;
+            return itemData.indexOf(value.normalize("NFD").replace(/[\u0300-\u036f]/g, "")) > -1;
+        });
+        setMessage("")
+        if (value.length > 0) {
+            setLoading(true);
+            if (newData.length == 0) {
+                setLoading(false);
+                setMessage(text.dataIsNull);
+                setEmpListTemp([]);
+            } else {
+                setLoading(false);
+                setEmpListTemp(newData);
+            }
+        } else {
+            setEmpListTemp(empList);
+            setLoading(false);
+        }
+    }
+
+    const onChangeMonth = (month) => {
+        setMonth(month);
+        console.log({ "month": month, "branchCode": defaultBranchCode, "branchName": branchName, "shopCode": defaultShopCode, "shopName": shopName, "empCode": defaultEmpCode, "empName": empName })
+        props.onDone({ "month": month, "branchCode": defaultBranchCode, "branchName": branchName, "shopCode": defaultShopCode, "shopName": shopName, "empCode": defaultEmpCode, "empName": empName })
+    }
+
+    const onDone = () => {
+        setDefaultBranchCode(branchCode);
+        setDefaultShopCode(shopCode);
+        setDefaultEmpCode(empCode)
+        setShowModal(!showModal)
+        props.onDone({ "month": month, "branchCode": branchCode, "branchName": branchName, "shopCode": shopCode, "shopName": shopName, "empCode": empCode, "empName": empName });
+    }
+    useEffect(() => {
         getBranchList();
-    },[branchList])
+        getShopList("");
+        getEmpList("", "")
+    }, [''])
     return (
         <SafeAreaView>
             {
-                props.full ? <View style={[styles.level1Container, { width: props.width, alignSelf: "center" }]}>
-                    <TouchableOpacity style={styles.level1SubContain} onPress={() => setShowModal(!showModal)}>
+                props.full ? <View style={[styles.level1Container, props.style, { width: props.width, alignSelf: "center" }]}>
+                    {props.hideMonthFilter ? null :<DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10), marginTop: -fontScale(20) }} onChangeDate={(value) => onChangeMonth(value)} />}
+                    <TouchableOpacity style={styles.level1SubContain} onPress={() => {setShowModal(!showModal),getBranchList(),getShopList(""),getEmpList("","")}}>
                         <Image source={props.leftIcon} resizeMode="contain" style={styles.level1LeftIcon} />
                         <Text style={styles.level1Placeholder}>{props.placeholder}</Text>
                         <Image source={props.rightIcon} resizeMode="contain" style={styles.level1LeftIcon} />
@@ -49,9 +217,21 @@ const index = (props) => {
                         <View style={styles.level1ModalContainer}>
                             <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
                             <TouchableOpacity style={[styles.select1Container, { width: props.select1Width }]} onPress={() => setShowSubModal(!showSubModal)}>
-                                <Text>{props.select1LeftContainer}</Text>
-                                <Text>{props.select1RightContainer}</Text>
+                                <Text style={styles.leftText}>{branchName ? branchName : props.select1LeftContainer}</Text>
+                                <Text style={styles.rightText}>{branchLabel != "" ? branchLabel : props.select1RightContainer}</Text>
                             </TouchableOpacity>
+
+                            <TouchableOpacity style={[styles.select1Container, { width: props.select1Width, marginTop: fontScale(20) }]} onPress={() => setShowShopModal(!showShopModal)}>
+                                <Text style={styles.leftText}>{shopName ? shopName : props.select2LeftContainer}</Text>
+                                <Text style={styles.rightText}>{shopLabel != "" ? shopLabel : props.select2RightContainer}</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity style={[styles.select1Container, { width: props.select1Width, marginTop: fontScale(20) }]} onPress={() => setShowEmpModal(!showEmpModal)}>
+                                <Text style={styles.leftText}>{empName ? empName : props.select3LeftContainer}</Text>
+                                <Text style={styles.rightText}>{empLabel != "" ? empLabel : props.select3RightContainer}</Text>
+                            </TouchableOpacity>
+
+                            {/* ------------ */}
                             <Modal
                                 statusBarTranslucent={true}
                                 animationType={'slide'}
@@ -63,15 +243,70 @@ const index = (props) => {
                                 </TouchableOpacity>
                                 <View style={styles.level1ModalContainer}>
                                     <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
+                                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
                                     <FlatList
-                                        data={props.data1&&props.data1}
-                                        keyExtractor={(item,index)=>index.toString()}
-                                        renderItem={({item})=><TouchableOpacity>
-                                            <Text>{JSON.stringify(item)}</Text>
+                                        data={branchList}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeBranch(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
+                                            <Text>{item.shopName}</Text>
                                         </TouchableOpacity>}
                                     />
                                 </View>
                             </Modal>
+                            {/* ---------------- */}
+                            <Modal
+                                statusBarTranslucent={true}
+                                animationType={'slide'}
+                                transparent={true}
+                                visible={showShopModal}
+                                onRequestClose={() => setShowShopModal(!showShopModal)}>
+                                <TouchableOpacity style={{ flex: 3 / 2.2 }} onPress={() => setShowShopModal(!showShopModal)}>
+
+                                </TouchableOpacity>
+                                <View style={styles.level1ModalContainer}>
+                                    <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
+                                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+                                    <FlatList
+                                        data={shopList}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeShop(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
+                                            <Text>{item.shopName}</Text>
+                                        </TouchableOpacity>}
+                                    />
+                                </View>
+                            </Modal>
+                            {/* ---------------- */}
+                            <Modal
+                                statusBarTranslucent={true}
+                                animationType={'slide'}
+                                transparent={true}
+                                visible={showEmpModal}
+                                onRequestClose={() => setShowEmpModal(!showEmpModal)}>
+                                <TouchableOpacity style={{ flex: 3 / 2.2 }} onPress={() => setShowEmpModal(!showEmpModal)}>
+
+                                </TouchableOpacity>
+                                <View style={styles.level1ModalContainer}>
+                                    <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
+                                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+                                    <View style={styles.searchInput}>
+                                        <TextInput placeholder="Tìm kiếm họ và tên nhân viên" style={styles.input} onChangeText={(text) => onChangeEmpSearch(text)} />
+                                        <Image source={props.rightIcon} resizeMode="contain" style={styles.inputRightIcon} />
+
+                                    </View>
+                                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15), width: width }}>{message}</Text> : null}
+                                    <FlatList
+                                        data={empListTemp}
+                                        keyExtractor={(item, index) => index.toString()}
+                                        renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeEmp(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
+                                            <Text>{item.fullName}</Text>
+                                        </TouchableOpacity>}
+                                    />
+                                </View>
+                            </Modal>
+                        </View>
+                        <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
+                            <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setShowModal(!showModal)} />
+                            <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => onDone()} />
                         </View>
                     </Modal>
                 </View> : null
@@ -83,8 +318,10 @@ const index = (props) => {
 const styles = StyleSheet.create({
     level1Container: {
         padding: fontScale(10),
-        backgroundColor: colors.white,
         borderRadius: fontScale(20)
+    },
+    item: {
+        padding: fontScale(10)
     },
     level1Select: {
         backgroundColor: colors.white,
@@ -92,6 +329,9 @@ const styles = StyleSheet.create({
         padding: fontScale(15)
     },
     level1SubContain: {
+        backgroundColor: colors.white,
+        borderRadius: fontScale(20),
+        padding: fontScale(10),
         flexDirection: "row",
         alignItems: "center"
     },
@@ -121,10 +361,11 @@ const styles = StyleSheet.create({
     },
     select1Container: {
         padding: fontScale(15),
+        marginTop: fontScale(15),
         flexDirection: "row",
         alignSelf: "center",
-        backgroundColor: colors.white,
-        borderRadius: fontScale(20),
+        backgroundColor: '#f5f5f5',
+        borderRadius: fontScale(15),
         justifyContent: "space-between",
         shadowColor: "#000",
         shadowOffset: {
@@ -133,7 +374,41 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5
+        elevation: 6
+    },
+    input: {
+        padding: fontScale(13),
+
+    },
+    searchInput: {
+        flexDirection:"row",
+        shadowColor: colors.black,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+        marginBottom: fontScale(10),
+        backgroundColor: colors.white,
+        marginHorizontal: fontScale(5),
+        borderRadius: fontScale(20)
+    },
+    inputRightIcon:{
+        width: fontScale(20),
+        height: fontScale(20),
+        position:"absolute",
+        top:fontScale(11),
+        right:fontScale(15)
+    },
+    rightText:{
+        opacity:0.43,
+        fontSize:fontScale(15),
+        fontWeight:"bold"
+    },
+    leftText:{
+        fontWeight:"bold"
     }
 })
 

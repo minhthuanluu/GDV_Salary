@@ -6,7 +6,7 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getDenyByWrongInfo } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -119,12 +119,13 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
-        setBranchCode(value.branchCode);
-        setDefaultBranchName(value.branchName)
-        setDefaultShopName(value.shopName)
-        setShopCode(value.shopCode);
-        setEmpCode(value.empId);
-        await getData(month, value.branchCode, value.shopCode, value.empId, key);
+        console.log(value)
+        // setBranchCode(value.branchCode);
+        // setDefaultBranchName(value.branchName)
+        // setDefaultShopName(value.shopName)
+        // setShopCode(value.shopCode);
+        // setEmpCode(value.empId);
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
     }
 
     const _getAllShop=async()=>{
@@ -161,8 +162,8 @@ const index = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
+            {/* <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} /> */}
+            {/* <Search
                 searchSelectModalFourCondition
                 leftIcon={images.teamwork}
                 rightIcon={images.arrowdown}
@@ -183,9 +184,22 @@ const index = (props) => {
                 onPressDataTwo={(item) => _onChangeShop(item.shop_code)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
                 onPress={(value) => _onSearch(value)}
+            /> */}
+            <SearchWithPermission
+                full
+                month={month}
+                leftIcon={images.teamwork}
+                rightIcon={images.searchlist}
+                width={width - fontScale(100)}
+                placeholder="Tìm kiếm"
+                modalTitle="Vui lòng chọn"
+                select1LeftContainer="Chọn chi nhánh"
+                select2LeftContainer="Chọn cửa hàng"
+                select3LeftContainer="Chọn nhân viên"
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
-            <ActivityIndicator size="small" color={colors.primary} />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>

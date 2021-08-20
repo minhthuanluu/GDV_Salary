@@ -6,7 +6,7 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getEmpThreeTime } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -36,22 +36,19 @@ const index = (props) => {
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
-        console.log(branchCode, shopCode, empCode)
+        console.log(month,branchCode, shopCode, empCode)
         setMessage("")
         setData([])
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
+            console.log(res.length)
             if (res.status == "success") {
-                if (res.length == 0) {
-                    setLoading(false);
-                    setMessage(text.dataIsNull)
-                } else {
                     setData(res.data);
                     setLoading(res.isLoading);
-                }
             }
-            if(res.message){
-                setMessage(res.message);
+            if (res.length == 0) {
+                setLoading(false);
+                setMessage(text.dataIsNull)
             }
             if (res.status == "failed") {
                 setLoading(res.isLoading);
@@ -72,6 +69,7 @@ const index = (props) => {
     }
 
     const _onChangeMonth = async (month) => {
+        setMonth(month)
         await getData(month, "", "", "", key);
     }
 
@@ -79,37 +77,6 @@ const index = (props) => {
         await getAllBranch(navigation).then((res) => {
             setBranchList(res.data);
         })
-    }
-
-    const _onChangeBranch = async (branchCode) => {
-        setBranchCode(branchCode);
-        setShopList([]);
-        await getAllShop(navigation,branchCode).then((res) => {
-            if (res.status == "success") {
-                setShopList(res.data);
-            }
-            if (res.status == 'failed') {
-
-            }
-        });
-    }
-
-    const _onChangeShop = async (shopCode) => {
-        console.log(shopCode)
-        setShopCode(shopCode)
-        await getAllEmp(navigation, branchCode, shopCode).then((res) => {
-            if (res.status == "success") {
-                setEmpList(res.data);
-
-            }
-            if (res.status == 'failed') {
-            }
-
-        })
-    }
-
-    const _onChangeEmp = (empId) => {
-        setEmpCode(empId)
     }
 
     const _getAllShop=async()=>{
@@ -136,10 +103,13 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
-        setBranchCode(value.branchCode);
-        setShopCode(value.shopCode);
-        setEmpCode(value.empId);
-        await getData(month, value.branchCode, value.shopCode, value.empId, key);
+        console.log(value)
+        setMessage("")
+        // setBranchCode(value.branchCode);
+        // setShopCode(value.shopCode);
+        // setEmpCode(value.empCode);
+        setMonth(value.month)
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode);
 
     }
 
@@ -148,32 +118,26 @@ const index = (props) => {
         getBranchList();
         _getAllShop();
         _getAllEmp();
-    }, [month])
+    }, [navigation])
 
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
-                searchSelectModalFourCondition
-                loadingBranch={loadingBranch}
-                loadingShop={loadingShop}
+            <SearchWithPermission
+                full
                 leftIcon={images.teamwork}
-                rightIcon={images.arrowdown}
-                placeholder={text.search}
-                modalTitle={"Vui lòng chọn"}
-                dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
-                message={text.dataIsNull}
-                searchIndex={1}
-                onChangeText={(text) => console.log(text)}
-                dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
-                onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(value)}
+                rightIcon={images.searchlist}
+                width={width - fontScale(100)}
+                style={{marginTop:fontScale(10)}}
+                month={month}
+                placeholder="Tìm kiếm"
+                modalTitle="Vui lòng chọn"
+                select1LeftContainer="Chọn chi nhánh"
+                select2LeftContainer="Chọn cửa hàng"
+                select3LeftContainer="Chọn nhân viên"
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>

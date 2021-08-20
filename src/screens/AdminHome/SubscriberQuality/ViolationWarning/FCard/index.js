@@ -3,7 +3,7 @@ import { Text } from 'react-native';
 import { SafeAreaView, View, Image } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/core';
 import { colors } from '../../../../../utils/Colors';
-import { Body, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { styles } from './style';
 import { ActivityIndicator } from 'react-native';
 import { useState } from 'react';
@@ -15,6 +15,7 @@ import { getFCardTrans } from '../../../../../api';
 import { getAllBranch, getAllEmp, getAllShop } from '../../../../../adminapi';
 import Toast from 'react-native-toast-message';
 import { TouchableOpacity } from 'react-native';
+import { width } from '../../../../../utils/Dimenssion';
 
 function index(props) {
     const route = useRoute();
@@ -133,11 +134,11 @@ function index(props) {
         })
     }
 
-    const _onSearch = async (branchCode, shopCode, empCode, value) => {
+    const _onSearch = async (value) => {
         console.log(value)
-        setDefaultBranchName(value.branchName);
-        setDefaultShopName(value.shopName)
-        await getData(branchCode, shopCode, empCode);
+        // setDefaultBranchName(value.branchName);
+        // setDefaultShopName(value.shopName)
+        await getData(value.branchCode, value.shopCode, value.empCode);
     }
 
     const _getAllShop=async()=>{
@@ -174,29 +175,20 @@ function index(props) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
-            <Search
-                loadingBranch={loadingBranch}
-                keyboardType="number-pad"
-                loadingShop={loadingShop}
-                searchSelectModalFourCondition
+            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(5),marginTop:-fontScale(5), textAlign: "center" }}>{notification}</Text>
+            <SearchWithPermission
+                full
+                hideMonthFilter
                 leftIcon={images.teamwork}
-                rightIcon={images.arrowdown}
-                placeholder={text.search}
-                modalTitle={"Vui lòng chọn"}
-                dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
-                defaultLabelOne={defaultBranchName}
-                defaultLabelTwo={defaultShopName}
-                message={text.dataIsNull}
-                searchIndex={1}
-                onChangeText={(text) => console.log(text)}
-                dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode,item)}
-                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
-                onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(value.branchCode, value.shopCode, value.empId, value)}
+                rightIcon={images.searchlist}
+                width={width - fontScale(100)}
+                placeholder="Tìm kiếm"
+                modalTitle="Vui lòng chọn"
+                select1LeftContainer="Chọn chi nhánh"
+                select2LeftContainer="Chọn cửa hàng"
+                select3LeftContainer="Chọn nhân viên"
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
             <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white }}>

@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getTransInfoWarningByType } from '../../../../../api';
-import { Body, DatePicker, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -129,19 +129,12 @@ const index = (props) => {
         setEmpCode(empId)
     }
 
-    const _onSearch = async (month, branchCode, shopCode, empCode, value) => {
-        setBranchCode(branchCode);
-        setDefaultBranchName(value.branchName)
-        setShopCode(shopCode);
-        setDefaultShopName(value.shopName)
-        setEmpCode(empCode);
-        setMonth(month);
-        console.log(value)
-        await getData(month, branchCode, shopCode, empCode, key);
+    const _onSearch = async (value) => {
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
 
     }
 
-    const _getAllShop=async()=>{
+    const _getAllShop = async () => {
         await getAllShop(navigation, "").then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
@@ -153,7 +146,7 @@ const index = (props) => {
         });
     }
 
-    const _getAllEmp=async()=>{
+    const _getAllEmp = async () => {
         await getAllEmp(navigation, "", "").then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
@@ -179,29 +172,20 @@ const index = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
-                loadingBranch={loadingBranch}
-                keyboardType="number-pad"
-                loadingShop={loadingShop}
-                searchSelectModalFourCondition
+            <SearchWithPermission
+                full
                 leftIcon={images.teamwork}
-                rightIcon={images.arrowdown}
-                placeholder={text.search}
-                modalTitle={"Vui lòng chọn"}
-                dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
-                defaultLabelOne={defaultBranchName}
-                defaultLabelTwo={defaultShopName}
-                message={text.dataIsNull}
-                searchIndex={1}
-                onChangeText={(text) => console.log(text)}
-                dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
-                onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empId, value)}
+                rightIcon={images.searchlist}
+                width={width - fontScale(100)}
+                style={{marginTop:fontScale(10)}}
+                month={month}
+                placeholder="Tìm kiếm"
+                modalTitle="Vui lòng chọn"
+                select1LeftContainer="Chọn chi nhánh"
+                select2LeftContainer="Chọn cửa hàng"
+                select3LeftContainer="Chọn nhân viên"
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>

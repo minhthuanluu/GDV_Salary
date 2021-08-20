@@ -1007,6 +1007,7 @@ export const getAllShop = async (navigation, branchCode) => {
       navigation.navigate("SignIn")
     }
   });
+  console.log(token)
   let data = {
     message: "",
     status: "",
@@ -2028,6 +2029,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
 // Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
 export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,empCode) => {
   console.log("getEmpThreeTime")
+  console.log(month, branchCode,shopCode,empCode)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2065,22 +2067,13 @@ export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,emp
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null
-          };
-        }else {
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: Object.values(res.data.data).length,
-            error: null,
-            message: "Không có dữ liệu"
           };
         }
       }
