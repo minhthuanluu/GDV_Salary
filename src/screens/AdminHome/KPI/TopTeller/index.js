@@ -103,21 +103,20 @@ const AdminTopTeller = () => {
       getBranchList();
       setRole(data.role)
       if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-        await getData("", defaultBranchName, "", month, sort);
         setPlaceHolder(text.chooseBranch);
-
+        await getData("",month,1)
       } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.branchName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.shopCode, data.branchName, "", month, sort);
+        await getData(data.shopCode, month, sort);
       } else if (data.role == ROLE.MBF_CUAHANG) {
         setDefaultShopName(data.branchName);
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode, data.branchName, "", month, sort);
+        await getData(data.branchCode,month, sort);
       }
     })
   }
@@ -125,7 +124,7 @@ const AdminTopTeller = () => {
   useEffect(() => {
     checkRole();
     getBranchList()
-    getData(branchCode,month,sort);
+    // getData(branchCode,month,1);
     // setPlaceHolder(text.chooseBranch)
     console.log("AdminHome > KPI > Top GDV")
   }, [""]);

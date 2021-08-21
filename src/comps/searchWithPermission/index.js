@@ -375,7 +375,7 @@ const index = (props) => {
                                     <View style={{ alignSelf: "center" }}>
                                         <RadioForm
                                             radio_props={props.data || radio_props}
-                                            initial={radioValue==0?1:0}
+                                            initial={radioValue==1?0:1}
                                             formHorizontal
                                             animation={true}
                                             style={styles.radioForm}
