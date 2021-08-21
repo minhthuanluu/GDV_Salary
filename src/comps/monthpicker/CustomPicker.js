@@ -25,8 +25,7 @@ const MonthYearPicker = (props) => {
                 <View style={styles.yearContainer}>
                     <TouchableOpacity onPress={() => {
                         setYear(year - 1)
-                        props.onChangeYear(year - 1)
-                    }}>
+                        props.onChangeYear(year - 1)}}>
                         <Text style={{fontSize:fontScale(14)}}>Năm trước</Text>
                     </TouchableOpacity>
                     <Text style={styles.yearLabel}>{year}</Text>

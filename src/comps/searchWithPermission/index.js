@@ -10,7 +10,7 @@ import { TextInput } from 'react-native';
 import { TouchableOpacity } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
 import Button from '../button'
-import DatePicker from '../datepicker'
+import DatePicker from '../monthpicker'
 import { getAllBranch, getAllEmp, getAllShop } from '../../api';
 import { colors } from '../../utils/Colors';
 import { width } from '../../utils/Dimenssion';

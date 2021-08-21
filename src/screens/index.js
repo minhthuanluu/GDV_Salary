@@ -29,9 +29,9 @@ import AdminHome from "./AdminHome/Dashboard" //AdminHome
 import AdminKPIDashboard from "./AdminHome/KPI/Dashboard"; // AdminHome > KPI
     import AdminTopTellersKPI from "./AdminHome/KPI/TopTeller"; // AdminHome > KPI > Top GDV
     import AdminKPIGroupKPI from "./AdminHome/KPI/KPIGroup"; // AdminHome > KPI > Nhóm KPI
-    import AdminKPIMonth from "./AdminHome/KPI/KPIMonth/Company"; // AdminHome > KPI > KPI tháng
-        import AdminKPIMonthShop from "./AdminHome/KPI/KPIMonth/Shop"; 
-        import AdminKPIMonthGDV from "./AdminHome/KPI/KPIMonth/GDV"; 
+    import AdminKPIMonth from "./AdminHome/KPI/KPIMonth/Company"; // AdminHome > KPI > KPI tháng > Chi nhánh
+        import AdminKPIMonthShop from "./AdminHome/KPI/KPIMonth/Shop"; // AdminHome > KPI > KPI tháng > Cửa hàng
+        import AdminKPIMonthGDV from "./AdminHome/KPI/KPIMonth/GDV"; // AdminHome > KPI > KPI tháng > GDV
     import AdminProductivitySub from "./AdminHome/KPI/ProductivitySub"; // AdminHome > KPI > Năng suất bình quân
         import AdminDetailProductivitySub from "./AdminHome/KPI/ProductivitySub/Detail"; // AdminHome > KPI > Năng suất bình quân > Chi tiết năng suất bình quân
 import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  // AdminHome > Lương theo tháng
@@ -48,12 +48,11 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
         import AdminAvgIncomeShop from "./AdminHome/AvgIncome/AvgSalary/Shop"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng
         import AdminAvgIncomeTellers from "./AdminHome/AvgIncome/AvgSalary/Shop/Tellers"; // Admin > Bình quân thu nhập > Lương BQ > Cửa hàng > Giao dịch viên
     
-    import SubscriberQualityDashboard from "./AdminHome/SubscriberQuality/Dashboard"; // Admin > Chất lượng thuê bao
+    import AdminSubscriberQualityDashboard from "./AdminHome/SubscriberQuality/Dashboard"; // Admin > Chất lượng thuê bao
         import BranchSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Branch"; // Admin > Chất lượng thuê bao > Thống kê > Chi nhánh
         import ShopSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Shop"; // Admin > Chất lượng thuê bao > Thống kê >Cửa hàng
         import EmpSubscriberQuality from "./AdminHome/SubscriberQuality/Summary/Emp"; // Admin > Chất lượng thuê bao > Thống kê >Nhân viên
         import AdminViolateFastSubDetail from "./AdminHome/SubscriberQuality/ViolationWarning/Fast/Detail" // Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT>=1TB
-        // SubscriberQuality/ViolationWarning/Fast/Detail
     import AdminViolateSubscriber from './AdminHome/SubscriberQuality/ViolationWarning'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm
         import AdminViolateSubscriberFast from './AdminHome/SubscriberQuality/ViolationWarning/Fast'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >= 1TB
         import AdminViolateSubscriberFCard from './AdminHome/SubscriberQuality/ViolationWarning/FCard'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển FCard >= 3TB
@@ -79,8 +78,6 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
         import AdminEmpTransInfo from "./AdminHome/TransInfo/Statistical/Emp" // AdminHome > Thông tin giao dịch > Emp
         import AdminEmpThreeTime from "./AdminHome/TransInfo/ViolationWarning/EmpThreeTime" // AdminHome > Cảnh báo vi phạm > GDV xuất hiện >=3 lần trong 6 tháng
     
-
-
 // GDV's screen
 export const HomeScreen = (route) => {return <Home route={route}/>}
 export const KPIByMonthDashboardScreen = (route) => {return <KPIByMonthDashboard route={route}/>}
@@ -122,11 +119,10 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminAvgIncomeScreen = () => {return <AdminAvgIncome />}
             export const AdminAvgIncomeShopScreen = () => {return <AdminAvgIncomeShop />}
                 export const AdminAvgIncomeTellersScreen = () => {return <AdminAvgIncomeTellers />}
-    export const AdminSubscriberQualityDashboardScreen=()=>{return <SubscriberQualityDashboard />}
+    export const AdminSubscriberQualityDashboardScreen=()=>{return <AdminSubscriberQualityDashboard />}
         export const AdminBranchSubscriberQualityScreen=()=>{return <BranchSubscriberQuality />}
         export const AdminShopSubscriberQualityScreen=()=>{return <ShopSubscriberQuality />}
         export const AdminEmpSubscriberQualityScreen=()=>{return <EmpSubscriberQuality />}
-//   Chất lượng thuê bao > Cảnh báo vi phạm
      export const AdminViolateSubscriberScreen = ()=>{return <AdminViolateSubscriber />}
         export const AdminViolateSubscriberFastScreen = () => {return <AdminViolateSubscriberFast />}
         export const AdminViolateSubscriberFCardScreen = () => {return <AdminViolateSubscriberFCard />}
@@ -146,11 +142,9 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
                         export const AdminEmpRegInfoDetailScreen = ()=> {return <EmpRegInfoDetail />}
                     export const DenyByWrongInfoScreen = () => {return <DenyByWrongInfo />}
                     export const AdminEmpThreeTimeScreen = () => {return <AdminEmpThreeTime />}
-            // AdminAvgIncomeTellers
         export const AdminUnitInfoScreen = () => {return <AdminUnitInfo />}
             export const AdminDetailUnitInfoScreen = () => {return <AdminDetailUnitInfo />}
             export const AdminImageDetailUnitInfoScreen = () => {return <AdminImageDetailUnitInfo />}
-
         export const AdminBranchTransInfoScreen = () => {return <AdminBranchTransInfo/>}
             export const AdminShopTransInfoScreen = () => {return <AdminShopTransInfo/>}
             export const AdminEmpTransInfoScreen = () => {return <AdminEmpTransInfo/>}
@@ -160,6 +154,3 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
 export const SignInScreen = () => {return <SignIn />}
 export const SignOutScreen = () => {return <SignOut />}
 export const SplashScreen = ()=>{return <Splash/>}
-export const TestScreen = () => {return <TestThree />}
-
-// export const TestScreen = () => {return <TestThree />}

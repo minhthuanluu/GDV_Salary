@@ -6,7 +6,7 @@ import { StatusBar } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { getAllBranch, getProfile } from '../../../api';
 import { imgUrl } from '../../../api/untils';
-import { Body, Header, MenuItem, SearchWithPermission } from '../../../comps';
+import { Body, Header, MenuItem, SearchWithPermission, YearPicker } from '../../../comps';
 import { UserObj } from '../../../models';
 import { colors } from '../../../utils/Colors';
 import { width } from '../../../utils/Dimenssion';
@@ -16,6 +16,7 @@ import { getRole, ToastNotif } from '../../../utils/Logistics';
 import { text } from '../../../utils/Text';
 import { styles } from './style';
 import Toast from "react-native-toast-message";
+import moment from 'moment';
 
 const Dashboard = (route) => {
   const navigation = useNavigation();
@@ -82,20 +83,20 @@ const Dashboard = (route) => {
       onHide: () => { }
     })
   }
-
+  const [year,setYear] = useState(moment(new Date()).format('YYYY'))
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       {
         <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user.displayName} maGDV={user.shopId.shopCode} />
       }
+        {/* <YearPicker defaultYear={year} width={width-100} onPress={(value)=>console.log(value)}/> */}
       <Body style={{ marginTop: fontScale(10) }} showInfo={false} />
       <View style={styles.body}>
-
         <MenuItem style={{ marginTop: fontScale(10) }} title={text.kpi} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.kpiByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIDashboard")} />
         <MenuItem style={{ marginTop: fontScale(45) }} title={text.salaryByMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryByMonthDashboard")} />
         <MenuItem style={{ marginTop: fontScale(45) }} title={text.averageIncome} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.avgIcome} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeDashboard")} />
-        <MenuItem style={{ marginTop: fontScale(45) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => navigation.navigate('SubscriberQualityDashboard')} />
+        <MenuItem style={{ marginTop: fontScale(45) }} title={text.subscriberQuality} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.subscriberQuality} width={width - fontScale(60)} onPress={() => navigation.navigate('AdminSubscriberQualityDashboard')} />
         <MenuItem style={{ marginTop: fontScale(45) }} title={text.transactionInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.transactionInformation} width={width - fontScale(60)} onPress={() => navigation.navigate('AdminTransInfoDashdoard')} />
         <MenuItem style={{ marginTop: fontScale(45) }} title={text.unitInformation} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.unitInformation} width={width - fontScale(60)} onPress={() => navigation.navigate('AdminUnitInfo')} />
       </View>

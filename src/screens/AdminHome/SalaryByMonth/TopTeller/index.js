@@ -137,13 +137,7 @@ const index = (props) => {
                     <TableHeader style={{ width: (width * 2.6) / 10 }} title={text.contractSalary} />
                     <TableHeader style={{ width: (width * 1) / 10, marginLeft: -fontScale(5) }} title={text.kpi} />
                 </View>
-                {loading == true ? (
-                    <ActivityIndicator
-                        size="small"
-                        color={colors.primary}
-                        style={{ marginTop: fontScale(20) }}
-                    />
-                ) : null}
+                {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                 {message ? <Text style={styles.message}>{message}</Text> : null}
                 <FlatList
                     showsVerticalScrollIndicator={false}

@@ -1,5 +1,5 @@
 import Button from "./button";
-import DatePicker from "./datepicker";
+import DatePicker from "./monthpicker";
 import Input from "./input";
 import Header from "./header";
 import ListItem from "./listItem";
@@ -18,6 +18,7 @@ import DataPicker from "./datapicker";
 import ListMenu from "./listmenu";
 import Table from "./table";
 import SearchWithPermission from './searchWithPermission';
+import YearPicker from "./yearpicker";
 
 export {
     Button,
@@ -39,5 +40,6 @@ export {
     DataPicker,
     ListMenu,
     Table,
-    SearchWithPermission
+    SearchWithPermission,
+    YearPicker
 }

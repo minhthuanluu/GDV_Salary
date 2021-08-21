@@ -173,13 +173,11 @@ const AdminTopTellerAvgIncome = () => {
       backAction
     );
 
-    // init();
     checkRole();
     getBranchList();
     return () => {
       console.log('AdminHome > AvgIncome > TopTellers')
     };
-
   }, [""]);
 
   return (
@@ -193,12 +191,10 @@ const AdminTopTellerAvgIncome = () => {
         leftIcon={images.teamwork}
         rightIcon={images.searchlist}
         width={width - fontScale(50)}
-        placeholder="Tìm kiếm"
-        modalTitle="Vui lòng chọn"
+        placeholder={text.search}
+        modalTitle={text.select}
         onDone={(value) => getData(value.branchCode, "", value.radio)} />
-      <Body
-        showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }} />
+      <Body showInfo={false} style={{ marginTop: fontScale(15), zIndex: -10 }} />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
           <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
@@ -212,9 +208,7 @@ const AdminTopTellerAvgIncome = () => {
             style={{ marginTop: fontScale(20) }}
           />
         ) : null}
-
         {message ? <Text style={styles.notification}>{message}</Text> : null}
-
         <FlatList
           showsVerticalScrollIndicator={false}
           data={data}
