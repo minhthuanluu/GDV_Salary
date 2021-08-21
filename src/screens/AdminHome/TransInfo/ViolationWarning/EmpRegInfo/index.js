@@ -5,7 +5,7 @@ import { View } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getTransInfoWarningByType } from '../../../../../api';
-import { Body, DatePicker, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -33,8 +33,8 @@ const index = (props) => {
     const [loadingBranch, setLoadingBranch] = useState(false)
     const [loadingShop, setLoadingShop] = useState(false)
     const [message, setMessage] = useState("");
-    const [defaultBranchName,setDefaultBranchName] = useState("Chọn chi nhánh")
-    const [defaultShopName,setDefaultShopName] = useState("Chọn cửa hàng")
+    const [defaultBranchName, setDefaultBranchName] = useState("Chọn chi nhánh")
+    const [defaultShopName, setDefaultShopName] = useState("Chọn cửa hàng")
     const { key, title } = route.params;
 
     // navigation.goBack()
@@ -42,17 +42,24 @@ const index = (props) => {
         setLoading(true);
         setData([]);
         setMessage("");
+        setBranchCode(branchCode);
+        setShopCode(shopCode);
+        setEmpCode(empCode);
         console.log(month, branchCode, shopCode, empCode, type)
         await getTransInfoWarningByType(navigation, month, branchCode, shopCode, empCode, type).then((res) => {
             if (res.status == "success") {
                 setMessage("");
-                if (res.length == 0) {
+                if (res.length == 0 || res.data == null) {
                     setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
                 } else {
                     setData(res.data);
                     setLoading(res.isLoading);
                 }
+            }
+            if (res.status == "") {
+                setLoading(false);
+                setMessage(text.dataIsNull)
             }
             if (res.status == "failed") {
                 setLoading(res.isLoading);
@@ -73,7 +80,8 @@ const index = (props) => {
 
     const _onChangeMonth = async (month) => {
         setMonth(month)
-        await _onSearch(month, branchCode, shopCode, empCode,"");
+        await getData(month, branchCode, shopCode, empCode, key);
+
     }
 
     const getBranchList = async () => {
@@ -90,11 +98,16 @@ const index = (props) => {
         })
     }
 
-    const _onChangeBranch = async (branchCode) => {
-        setBranchCode(branchCode);
-        setShopList([]);
-        setLoadingShop(true)
-        await getAllShop(navigation, branchCode).then((res) => {
+    const _onSearch = async (value) => {
+        setMonth(value.month)
+        setBranchCode(value.branchCode);
+        setShopCode(value.shopCode);
+        setEmpCode(value.empCode);
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
+    }
+
+    const _getAllShop = async () => {
+        await getAllShop(navigation, "").then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
                 setLoadingShop(false)
@@ -105,9 +118,8 @@ const index = (props) => {
         });
     }
 
-    const _onChangeShop = async (shopCode) => {
-        setShopCode(shopCode)
-        await getAllEmp(navigation, branchCode, shopCode).then((res) => {
+    const _getAllEmp = async () => {
+        await getAllEmp(navigation, "", "").then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
             }
@@ -117,29 +129,14 @@ const index = (props) => {
         })
     }
 
-    const _onChangeEmp = (empId) => {
-        setEmpCode(empId)
-    }
-
-    const _onSearch = async (month, branchCode, shopCode, empCode,value) => {
-        console.log(value)
-
-        setBranchCode(branchCode);
-        setDefaultBranchName(value.branchName)
-        setShopCode(shopCode);
-        setDefaultShopName(value.shopName)
-        setEmpCode(empCode);
-        setMonth(month)
-        await getData(month, branchCode, shopCode, empCode, key);
-
-    }
-
     useEffect(() => {
         console.log('Home > Thong tin giao dich > Canh bao vi pham > GDV DKTT')
         getData(month, "", "", "", key);
         getBranchList();
+        _getAllShop();
+        _getAllEmp();
         if (branchList.length == 0 && shopList.length == 0) {
-            getAllEmp(navigation, "","")
+            getAllEmp(navigation, "", "")
         }
     }, [month])
 
@@ -147,37 +144,28 @@ const index = (props) => {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
-                loadingBranch={loadingBranch}
-                keyboardType="number-pad"
-                loadingShop={loadingShop}
-                searchSelectModalFourCondition
+            <SearchWithPermission
+                full
                 leftIcon={images.teamwork}
-                rightIcon={images.arrowdown}
-                placeholder={text.search}
-                modalTitle={"Vui lòng chọn"}
-                dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
-                defaultLabelOne={defaultBranchName}
-                defaultLabelTwo={defaultShopName}
-                message={text.dataIsNull}
-                searchIndex={1}
-                onChangeText={(text) => console.log(text)}
-                dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
-                onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(month, value.branchCode, value.shopCode, value.empCode,value)}
+                rightIcon={images.searchlist}
+                width={width - fontScale(50)}
+                style={{marginTop:fontScale(10)}}
+                month={month}
+                placeholder="Tìm kiếm"
+                modalTitle={text.select}
+                select1LeftContainer={text.chooseBranch}
+                select2LeftContainer={text.chooseShop}
+                select3LeftContainer={text.chooseEmp}
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View style={{ marginTop: -fontScale(30) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>
                         <TableHeader style={{ flex: 2.1, marginLeft: -fontScale(5) }} title={'GDVPTM'} />
-                        <TableHeader style={{ flex: 1.3,marginLeft:fontScale(20)}} title={'Tên CH'} />
-                        <TableHeader style={{ flex: 1.5,marginLeft:fontScale(10) }} title={'SLTB/tháng'} />
+                        <TableHeader style={{ flex: 1.3, marginLeft: fontScale(20) }} title={'Tên CH'} />
+                        <TableHeader style={{ flex: 1.5, marginLeft: fontScale(10) }} title={'SLTB/tháng'} />
                         <TableHeader style={{ flex: 1.5 }} title={'Top/ngày'} />
                     </View>
                     {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}

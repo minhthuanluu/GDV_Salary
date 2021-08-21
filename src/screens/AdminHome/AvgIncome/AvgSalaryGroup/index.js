@@ -72,7 +72,7 @@ const index = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Header title={text.groupSalaryAverage} />
+      <Header title={text.grocontractSalaryAverage} />
       <Text style={styles.notification}>{notification}</Text>
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white, }}>

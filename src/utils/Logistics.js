@@ -222,13 +222,11 @@ export const checkLogin = async (navigation) => {
       console.log('token not null')
       if (item.userId.userGroupId.code == "MBF_GDV") {
         setTimeout(() => {
-          navigation.navigate("GDVHome")
+          navigation.navigate("GDVHome");
         }, 3000);
-      }
-      else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
-        navigation.navigate("AdminHome")
-      }
-      else {
+      } else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+        navigation.navigate("AdminHome");
+      } else {
         return "Bạn không có quyền sử dụng app"
       }
     } else {
@@ -272,8 +270,8 @@ export const checkSearchHistory = async (key = "", screenName = "", data = {}) =
   })
 }
 
-export const checkn2 = (str='') => {
-  if (str == null || str == undefined || str.length==0 || !str) {
+export const checkn2 = (str = '') => {
+  if (str == null || str == undefined || str.length == 0 || !str) {
     return ""
   } else {
     let element;
@@ -316,13 +314,14 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Công ty');
-      console.log(item)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,
         description: item.userId.userGroupId.description,
         branchCode: "",
         branchName: item.userId.shopId.shopName,
+        shopCode:"",
+        shopName:"",
         label: "Tất cả"
       }
     } else if (level == 2) {
@@ -331,12 +330,6 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Chi nhánh');
-      // console.log('role code: ' + item.userId.userGroupId.code)
-      // console.log('role description: ' + item.userId.userGroupId.description)
-      // console.log('branch code: ' + item.userId.shopId.shopCode)
-      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
-      // console.log('shop code: ' + item.userId.shopId.shopCode)
-      // console.log('shop name: ' + item.userId.shopId.shopName)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,
@@ -353,12 +346,6 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Cửa hàng');
-      // console.log('role code: ' + item.userId.userGroupId.code)
-      // console.log('role description: ' + item.userId.userGroupId.description)
-      // console.log('branch code: ' + item.userId.shopId.parentShopId.shopCode)
-      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
-      // console.log('shop code: ' + item.userId.shopId.shopCode)
-      // console.log('shop name: ' + item.userId.shopId.shopName)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,

@@ -6,14 +6,14 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getDenyByWrongInfo } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
 import { FlatList } from 'react-native';
-import { getAllBranch, getAllShop } from '../../../../../adminapi';
+import { getAllBranch, getAllEmp, getAllShop } from '../../../../../adminapi';
 
 const index = (props) => {
     const route = useRoute();
@@ -28,7 +28,10 @@ const index = (props) => {
     const [branchName, setBranchName] = useState("");
     const [shopName, setShopName] = useState("");
     const [empName, setEmpName] = useState("");
-
+    const [defaultBranchName, setDefaultBranchName] = useState("Chọn chi nhánh")
+    const [defaultShopName, setDefaultShopName] = useState("Chọn cửa hàng")
+    const [loadingBranch, setLoadingBranch] = useState(false)
+    const [loadingShop, setLoadingShop] = useState(false)
     const [branchList, setBranchList] = useState([]);
     const [shopList, setShopList] = useState([])
     const [empList, setEmpList] = useState([])
@@ -116,33 +119,58 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
-        setBranchCode(value.branchCode);
+        setMonth(value.month)
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
+    }
 
-        setShopCode(value.shopCode);
-        setEmpCode(value.empId);
-        await getData(month, value.branchCode, value.shopCode, value.empId, key);
+    const _getAllShop=async()=>{
+        await getAllShop(navigation, "").then((res) => {
+            if (res.status == "success") {
+                setShopList(res.data);
+                setLoadingShop(false)
+            }
+            if (res.status == 'failed') {
+                setLoadingShop(false)
+            }
+        });
+    }
+
+    const _getAllEmp=async()=>{
+        await getAllEmp(navigation, "", "").then((res) => {
+            if (res.status == "success") {
+                setEmpList(res.data);
+            }
+            if (res.status == 'failed') {
+            }
+
+        })
     }
 
     useEffect(() => {
         getData(month, "", "", "");
-        getBranchList()
+        getBranchList();
+        _getAllShop();
+        _getAllEmp();
     }, [month])
 
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
+            {/* <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} /> */}
+            {/* <Search
                 searchSelectModalFourCondition
                 leftIcon={images.teamwork}
                 rightIcon={images.arrowdown}
                 placeholder={text.search}
                 modalTitle={"Vui lòng chọn"}
+                loadingBranch={loadingBranch}
+                loadingShop={loadingShop}
                 dataOne={branchList}
                 dataTwo={shopList}
                 dataThree={empList}
-                defaultLabelOne={branchCode}
+                defaultLabelOne={defaultBranchName}
+                defaultLabelTwo={defaultShopName}
                 message={text.dataIsNull}
                 searchIndex={1}
                 onChangeText={(text) => console.log(text)}
@@ -151,9 +179,22 @@ const index = (props) => {
                 onPressDataTwo={(item) => _onChangeShop(item.shop_code)}
                 onPressDataThree={(item) => _onChangeEmp(item.id)}
                 onPress={(value) => _onSearch(value)}
+            /> */}
+            <SearchWithPermission
+                full
+                month={month}
+                leftIcon={images.teamwork}
+                rightIcon={images.searchlist}
+                width={width - fontScale(50)}
+                placeholder="Tìm kiếm"
+                modalTitle={text.select}
+                select1LeftContainer={text.chooseBranch}
+                select2LeftContainer={text.chooseShop}
+                select3LeftContainer={text.chooseEmp}
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
-            <ActivityIndicator size="small" color={colors.primary} />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>

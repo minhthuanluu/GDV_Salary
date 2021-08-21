@@ -31,7 +31,10 @@ export const styles = StyleSheet.create({
     },
     dataPicker:{ marginTop: fontScale(20), marginRight: fontScale(5) },
     notification: {
-        alignSelf: "center",
-        color: "#FFFFFF"
+        color:colors.white,
+        textAlign:"center",
+        fontSize:fontScale(14),
+        fontWeight:"bold",
+        marginBottom:fontScale(20)
     }
 })

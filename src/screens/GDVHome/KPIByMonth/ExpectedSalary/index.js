@@ -90,7 +90,7 @@ const ExpectedSalary = (props) => {
                                 <MenuItem view style={{ marginTop: fontScale(35) }} titleStyle={{ paddingTop: fontScale(27) }} title={text.fixedSalary} icon={images.salaryByMonth} width={width - fontScale(40)} value={thoundsandSep(data.permanentSalary)} />
                             </View>
                             <View style={styles.detailInfo}>
-                                <ListItem main icon={images.sim} title={text.upSalaryProduct} price={thoundsandSep(data.contractSalary)} />
+                                <ListItem main icon={images.sim} title={text.contractSalary} price={thoundsandSep(data.contractSalary)} />
                                 <ListItem icon={images.sim} title={text.prepaidSubscriptionFee} price={thoundsandSep(data.prePaid)} />
                                 <ListItem icon={images.sim} title={text.postpaidSSubscriptionFee} price={thoundsandSep(data.postPaid)} />
                                 <ListItem icon={images.vas} title={text.vasFee} price={thoundsandSep(data.vas)} />

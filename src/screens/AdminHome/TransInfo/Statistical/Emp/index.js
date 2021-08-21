@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary, getTransactionStatistics } from "../../../../../adminapi";
+import {getTransactionStatistics } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -13,9 +13,8 @@ import { colors } from "../../../../../utils/Colors";
 import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
-import { useNavigation, useRoute  } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
-
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -38,7 +37,7 @@ const index = (props) => {
           setData([])
           setMessage(data.message);
         } else {
-          
+
           setData(data.data.data);
           setGeneralData(data.data.general);
         }
@@ -69,16 +68,16 @@ const index = (props) => {
   };
 
   useEffect(() => {
-    const{month, branchCode, shopCode} = route.params?.item;
+    const { month, branchCode, shopCode } = route.params?.item;
     console.log(route.params?.item)
     setMonth(month);
-    getData(month,branchCode,shopCode)
+    getData(month, branchCode, shopCode)
   }, [""])
 
   const _onChangeMonth = (value) => {
     setMonth(value);
-    const {branchCode,shopCode} = route.params?.item
-    getData(value,branchCode, shopCode);
+    const { branchCode, shopCode } = route.params?.item
+    getData(value, branchCode, shopCode);
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -104,37 +103,48 @@ const index = (props) => {
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
               <View>
-                 <GeneralListItem
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(35) }}
-                    contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
-                    contentStyle3={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.45,textAlign:"right", fontSize: fontScale(14)}}
-                    backgroundColor={colors.white}
-                    textColor={colors.black}
-                    titleStyle2={{color:colors.black, marginLeft: fontScale(15), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(10), fontSize: fontScale(14)}}
-                    twelveColumnCompany
-                    title={item.shopCode}
-                    titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",item.cusAmount,item.cusTopDay,item.transAmount,item.transTopDay,item.blocking2CAmount,generalData.blocking2CTopDay,item.subRegisterAmount,item.subRegisterTopDay,item.foneCardAmount,item.foneCardTopDay,item.noRechargeAmount,item.noRechargeTopDay,item.violateAmount]}
-                   />
+                <GeneralListItem
+                  style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                  contentStyle={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                  contentStyle1={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                  titleStyle={{ fontSize: 12, marginVertical: fontScale(8) }}
+                  titleStyle1={{ fontSize: 12, marginVertical: fontScale(8), color: "#000000" }}
+                  textColor={colors.black}
+                  backgroundColor={colors.white}
+                  twelveColumnCompany
+                  title={item.shopCode}
+                  titleArr={["Tổng", "Top/ngày"]}
+                  titleArray={["Lượng KH:", "Lượt giao dịch:", "+  Chặn 2c TBTS:  ", "+  ĐKTT:", "+  Fone -> Card:", "     +   Ko nạp tiền: "]}
+                  titleArrayOne={["Vi phạm kho số:"]}
+                  itemAmountOne={[item.cusAmount, item.transAmount, item.blocking2CAmount, item.subRegisterAmount, item.foneCardAmount, item.noRechargeAmount]}
+                  itemAmountTwo={[item.cusTopDay, item.transTopDay, item.blocking2CTopDay, item.subRegisterTopDay, item.foneCardTopDay, item.noRechargeTopDay]}
+                  item={[item.violateAmount]}
+                  onPress={() => navigation.navigate("AdminShopTransInfo", {
+                    item: {
+                      "branchCode": item.shopCode,
+                      "month": month
+                    }
+                  })} />
                 { index == data.length - 1 ?
                   <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
-                    contentStyle2={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle4={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle6={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle8={{flex:1,textAlign:"right",fontSize: fontScale(14)}} contentStyle10={{flex:1,textAlign:"right", fontSize: fontScale(14)}} contentStyle12={{flex:1,textAlign:"right", fontSize: fontScale(14)}}
-                    contentStyle3={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle5={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle7={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}} contentStyle9={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle11={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}  contentStyle13={{flex:0.41,textAlign:"right", fontSize: fontScale(14)}}
-                    titleStyle2={{color:colors.black, marginLeft: fontScale(25), fontSize: fontScale(15)}} titleStyle3={{marginLeft: fontScale(10), fontSize: fontScale(14)}}
+                    contentStyle={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
+                    titleStyle={{ fontSize: 12, marginVertical: fontScale(8) }}
+                    titleStyle1={{ fontSize: 12, marginVertical: fontScale(8), color: "#000000" }}
                     twelveColumnCompany
                     title={generalData.shopName}
-                    titleArray={["Tổng", "Top/ngày", "Lượng KH", " ", "Lượt giao dịch", "","+  Chặn 2c TBTS","","+  ĐKTT","","+  Fone -> Card","","     +   Ko nạp tiền","","Vi phạm kho số"]}
-                    item={["","",generalData.cusAmount,generalData.cusTopDay,generalData.transAmount,generalData.transTopDay,generalData.blocking2CAmount,generalData.blocking2CTopDay,generalData.subRegisterAmount,generalData.subRegisterTopDay,generalData.foneCardAmount,generalData.foneCardTopDay,generalData.noRechargeAmount,generalData.noRechargeTopDay,generalData.violateAmount]}
+                    titleArr={["Tổng", "Top/ngày"]}
+                    titleArray={["Lượng KH:", "Lượt giao dịch:", "+  Chặn 2c TBTS:  ", "+  ĐKTT:", "+  Fone -> Card:", "     +   Ko nạp tiền: "]}
+                    titleArrayOne={["Vi phạm kho số:"]}
+                    itemAmountOne={[generalData.cusAmount, generalData.transAmount, generalData.blocking2CAmount, generalData.subRegisterAmount, generalData.foneCardAmount, generalData.noRechargeAmount]}
+                    itemAmountTwo={[generalData.cusTopDay, generalData.transTopDay, generalData.blocking2CTopDay, generalData.subRegisterTopDay, generalData.foneCardTopDay, generalData.noRechargeTopDay]}
+                    item={[generalData.violateAmount]}
                     icon={images.store} /> : null
                 }
               </View>
-            )}
-          />
-
-
+            )}/>
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

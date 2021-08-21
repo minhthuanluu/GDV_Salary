@@ -9,6 +9,7 @@ import { fontScale } from '../../../../../../utils/Fonts';
 import { images } from '../../../../../../utils/Images';
 import { text } from '../../../../../../utils/Text';
 import { width } from '../../../../../../utils/Dimenssion';
+import { getRole } from '../../../../../../utils/Logistics';
 
 const index = (props) => {
     const route = useRoute();
@@ -17,23 +18,27 @@ const index = (props) => {
     const [empName, setEmpName] = useState("");
     const [notification, setNotification] = useState('');
     const [loading, setLoading] = useState(false);
+    const [data,setData] = useState([])
 
     const getData = async (branchCode, shopCode, empCode) => {
         setLoading(true);
 
         await getDetailFastTrans(navigation, branchCode, shopCode, empCode).then((data) => {
-            setNotification(data.data.notification);
-            setEmpName(data.data.empName);
+            console.log(data)
+            setNotification(data.notification);
+            setEmpName(data.empName);
             setLoading(false);
             if (data.status == "success") {
-
+                if(data.length>0){
+                    setData(data.data)
+                }
             }
         })
     }
     useEffect(() => {
-        getData("", "", "");
-        // getBranchList();
-        console.log("Chat luong thue bao > Canh bao vi pham > Chuyen Fast/MD1/MDT>=1TB")
+        getData("", "", route.params?.empCode);
+        console.log("Chat luong thue bao > Canh bao vi pham > "+title+" > Chi tiet")
+        console.log(route.params?.empCode)
     }, [navigation]);
 
     const searchSub = (text = "") => {

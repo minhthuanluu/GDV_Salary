@@ -106,7 +106,7 @@ const Dashboard = (props) => {
               <TotalSalary style={{ alignSelf: 'center', marginTop: -fontScale(15), zIndex: 50 }} title={text.total} value={thoundsandSep(data.monthlySalary)} />
               <ScrollView showsVerticalScrollIndicator={false}>
                 <MenuItem style={{ marginTop: fontScale(25) }} title={text.fixedSalary} icon={images.salaryByMonth} value={thoundsandSep(data.permanentSalary)} width={width - fontScale(60)} onPress={() => { }} />
-                <MenuItem style={{ marginTop: fontScale(39) }} title={text.upSalary} icon={images.upSalary} value={thoundsandSep(data.contractSalary)} width={width - fontScale(60)} onPress={() => navigation.navigate("SalaryByMonthContract", { "month": month })} />
+                <MenuItem style={{ marginTop: fontScale(39) }} title={text.contractSalary} icon={images.contractSalary} value={thoundsandSep(data.contractSalary)} width={width - fontScale(60)} onPress={() => navigation.navigate("SalaryByMonthContract", { "month": month })} />
                 <MenuItem style={{ marginTop: fontScale(39) }} title={text.incentiveCost} icon={images.incentiveCost} value={thoundsandSep(data.incentiveCost)} width={width - fontScale(60)} onPress={() => { }} />
                 <MenuItem style={{ marginTop: fontScale(39) }} title={text.punishment} icon={images.punishment} value={thoundsandSep(data.sanctionCost)} width={width - fontScale(60)} onPress={() => { }} />
                 <MenuItem style={{ marginTop: fontScale(39), marginBottom: fontScale(20) }} title={text.otherExpenses} icon={images.otherExpenses} value={thoundsandSep(data.others)} width={width - fontScale(60)} onPress={() => { }} />

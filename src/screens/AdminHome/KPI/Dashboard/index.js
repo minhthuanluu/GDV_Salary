@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import { User } from '../../../../models/Admin';
 import { _retrieveData } from '../../../../utils/Storage';
 import moment from 'moment';
+import { ROLE } from '../../../../utils/Roles';
 
 const KPIHome = (props) => {
   const [user, setUser] = useState(User);
@@ -19,14 +20,13 @@ const KPIHome = (props) => {
   const navigation = useNavigation();
   const checkAdminKPIMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      setUser(item)
-      if (item.userId.userGroupId.code == "VMS_CTY") {
+      if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
         navigation.navigate("AdminKPIMonth")
       }
-      if (item.userId.userGroupId.code == "MBF_CHINHANH") {
+      if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {
         navigation.navigate("AdminKPIMonthShop", { branchItem: { "branchCode": item?.userId.shopId.shopCode,"month":month } })
       }
-      if (item.userId.userGroupId.code == "MBF_CUAHANG") {
+      if (item.userId.userGroupId.code == ROLE.MBF_CUAHANG) {
         navigation.navigate("AdminKPIMonthGDV", { branchItem: { "branchCode": item?.userId.shopId.parentShopId.shopCode,"shopCode" :item?.userId.shopId.shopCode,"month":month}})
       }
     })

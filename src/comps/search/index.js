@@ -15,9 +15,10 @@ import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'reac
 import DataPicker from '../datapicker/index';
 import Button from '../button';
 import { _retrieveData } from '../../utils/Storage';
+import { useFocusEffect } from '@react-navigation/core';
 
 const Search = (props) => {
-    const { withDropdown, data, dataNotFoundText, keyboardType, style, main,loadingBranch,loadingShop } = props;
+    const { withDropdown, data, dataNotFoundText, keyboardType, style, main, loadingBranch, loadingShop } = props;
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const [searchData, setSearchData] = useState(data || props.dataFour);
@@ -106,10 +107,10 @@ const Search = (props) => {
 
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
         setSelectModalAdvanced(!selectModalAdvanced)
-        console.log("advanced search")
+        // console.log("advanced search")
         // console.log('dataOne:')
         // console.log(dataOne)
-        // console.log('\ndataTwo:')
+        // console.log('\ndataTwo:\n')
         // console.log(dataTwo)
         // console.log('\ndataThree:')
         // console.log(dataThree)
@@ -134,7 +135,7 @@ const Search = (props) => {
     return (
         props.searchSelectModalFourCondition ?
             <View >
-                <TouchableOpacity style={{ backgroundColor: colors.white, width: props.width || width - fontScale(120), alignSelf: "center", padding: fontScale(5), borderRadius: fontScale(10), marginVertical: fontScale(15), flexDirection: "row" }}
+                <TouchableOpacity style={{ backgroundColor: colors.white, width: props.width || width - fontScale(120), alignSelf: "center", padding: fontScale(5), borderRadius: fontScale(17), marginVertical: fontScale(15), flexDirection: "row" }}
                     onPress={() => _onShowModal()}>
                     <Image source={props.leftIcon} resizeMode="cover" style={{ width: fontScale(25), height: fontScale(25) }} />
                     <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center", paddingTop: fontScale(5) }}>{props.placeholder}</Text>
@@ -151,9 +152,9 @@ const Search = (props) => {
                     </TouchableOpacity>
                     <View style={styles.modalContainer}>
                         <Text style={styles.modalTitle}>{props.modalTitle}</Text>
-                        <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne||"Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
-                        <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo||"Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
-                        <SelectDataWithRightText showLiveSearch showName leftText={"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
+                        <SelectDataWithRightText loading={loadingBranch} leftText={props.defaultLabelOne || "Chọn chi nhánh"} title="Vui lòng chọn" data={props.dataOne} onPress={(item) => { props.onPressDataOne(item), setDataOne(item) }} />
+                        <SelectDataWithRightText loading={loadingShop} leftText={props.defaultLabelTwo || "Chọn cửa hàng"} title="Vui lòng chọn" data={props.dataTwo} onPress={(item) => { props.onPressDataTwo(item), setDataTwo(item) }} />
+                        <SelectDataWithRightText showLiveSearch showName leftText={props.defaultLabelThree||"Chọn giao dịch viên"} title="Vui lòng chọn" data={props.dataThree} searchData={props.dataFour} onPress={(item) => { props.onPressDataThree(item), setOnSearch(false), setItemData4(onSearch == true ? itemData4 : Object.values(item)[1]), setDataThree(item) }} />
                         <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
                             <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)} />
                             <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => _onPressAdminOK(dataOne, dataTwo, dataThree)} />
@@ -174,6 +175,7 @@ const Search = (props) => {
                     {
                         searchAlert == true ?
                             <FlatList
+                                showsVerticalScrollIndicator={false}
                                 style={{ color: colors.black, backgroundColor: colors.white }}
                                 data={searchData}
                                 keyExtractor={(item, key) => key.toString()}
@@ -209,12 +211,14 @@ const Search = (props) => {
                             </TouchableOpacity>
                             <View style={styles.modalContainer}>
                                 <Text style={styles.modalTitle}>{props.modalTitle}</Text>
-                                <View style={{ flexDirection: "row", justifyContent: "space-between", marginHorizontal: fontScale(30), marginTop: fontScale(20) }}>
+                                <View style={{ flexDirection: "row", justifyContent: "center", marginTop: fontScale(20) }}>
                                     <RadioForm
                                         radio_props={props.data || radio_props}
                                         initial={props.initialRadio}
                                         formHorizontal
-                                        labelStyle={{ marginRight: fontScale(90),fontSize:fontScale(14) }}
+                                        animation={true}
+                                        style={styles.radioForm}
+                                        labelStyle={{ fontSize: fontScale(14) }}
                                         onPress={(value) => onRadioPress(value)}
                                     />
                                 </View>
@@ -229,8 +233,10 @@ const Search = (props) => {
                                             advancedSearch
                                             placeholder={props.placeholder}
                                             data={props.dataOne && props.dataOne}
+                                            dialogTitle={props.leftText}
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
+                                            dialogTitle={props.dialogTitle}
                                             fixedData={props.fixedData}
                                             field={props.fieldOne}
                                             fieldKey={props.fieldOne[0]}
@@ -241,6 +247,7 @@ const Search = (props) => {
                                             advancedSearch
                                             fixed={props.fixed}
                                             placeholder={props.placeholder}
+                                            dialogTitle={props.dialogTitle}
                                             data={props.dataOne && props.dataOne}
                                             width={width - fontScale(65)}
                                             fixedData={props.fixedData}
@@ -258,6 +265,7 @@ const Search = (props) => {
                                             data={props.dataTwo && props.dataTwo}
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
+                                            dialogTitle={props.dialogTitle}
                                             field={props.fieldTwo}
                                             fieldKey={props.fieldTwo}
                                             onPress={props.onChangePickerTwo}
@@ -272,6 +280,7 @@ const Search = (props) => {
                                             fixed={props.fixed}
                                             width={width - fontScale(65)}
                                             field={props.fieldThree}
+                                            dialogTitle={props.dialogTitle}
                                             fieldKey={props.fieldThree}
                                             onPress={props.onChangePickerThree}
                                             style={{ marginTop: fontScale(20), marginRight: fontScale(5) }}
@@ -287,7 +296,7 @@ const Search = (props) => {
                     <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), marginHorizontal: width - (width - props.width / 12), backgroundColor: "white" }, props.style, styles.homeSearch]}>
                         <Image resizeMode="contain" source={props.leftIcon} style={styles.leftIco} />
                         <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-                             <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText}/>
+                            <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText} />
                         </View>
                         <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
                     </View>
@@ -297,37 +306,35 @@ const Search = (props) => {
 const SelectDataWithRightText = (props) => {
     const [selectedData, setSelectedData] = useState(props.leftText);
     const [selectModalAdvanced, setSelectModalAdvanced] = useState(false)
-    const [rightText, setRightText] = useState('Tất cả');
+    const [rightText, setRightText] = useState('Tất cả'||props.rightText);
     const [tempData, setTempData] = useState([]);
-    const [loading, setLoading] = useState(props.loading);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+    const [onSearch, setOnSearch] = useState(false)
 
     const onChangeSearch = (text = '') => {
+        setOnSearch(true);
+        setMessage("");
         let newData = props.data.filter((item) => {
-            const itemData = `${Object.values(item).toString().toLowerCase()}`;
-            return itemData.indexOf(text.toString().toLowerCase()) > -1;
+            const itemData = `${Object.values(item).toString().normalize('NFD').replace(/đ/g, "d").replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "").toLocaleUpperCase()}`;
+            return itemData.indexOf(text.toString().normalize('NFD').replace(/đ/g, "d").replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "").toLocaleUpperCase()) > -1;
         });
-
-        if (text.length > 0) {
-            setLoading(true);
-            if (newData.length == 0) {
-                setLoading(false);
-                setMessage("Không tìm thấy dữ liệu");
-                setTempData([]);
-            } else {
-                setLoading(false);
-                setMessage("");
-                setTempData(newData);
-            }
-        } else {
-            setTempData(props.data);
-            setLoading(false);
-            setMessage("");
+        setTempData(newData);
+        if (newData.length <= 0) {
+            setMessage("Không tìm thấy dữ liệu");
         }
     }
 
+    useFocusEffect(() => {
+        onSearch == false ? setTempData(props.data) : null;
+    })
+
+    useEffect(() => {
+
+    })
+
+    const {showLiveSearch,title,loading,data} = props;
     return (
-        <View style={{ backgroundColor: colors.lightGrey, marginHorizontal: fontScale(30), padding: fontScale(5), borderRadius: fontScale(15), marginTop: fontScale(20) }}>
+        <View style={styles.container}>
             <TouchableOpacity style={{ flexDirection: "row", paddingVertical: fontScale(5) }} onPress={() => setSelectModalAdvanced(!selectModalAdvanced)}>
                 <Text style={{ textAlignVertical: "center", paddingVertical: fontScale(5), marginLeft: fontScale(10) }}>{(selectedData || item) || props.leftText || props.data[0]}</Text>
                 <Text style={{ textAlign: "right", position: "absolute", right: 0, margin: fontScale(10) }}>{rightText}</Text>
@@ -342,32 +349,34 @@ const SelectDataWithRightText = (props) => {
 
                 </TouchableOpacity>
                 <View style={styles.modalContainer}>
-                    <Text style={styles.modalTitle}>{props.title}</Text>
-                    {props.showLiveSearch ? <View style={{ flexDirection: "row" }}>
+                    <Text style={styles.modalTitle}>{title}</Text>
+                    {showLiveSearch ? <View style={{ flexDirection: "row" }}>
                         <TextInput
-                            style={{ marginTop: fontScale(30), marginHorizontal: fontScale(15) }}
+                            style={styles.searchInput}
                             placeholder="Tìm kiếm mã nhân viên"
-                            value={props.data}
+                            value={data}
                             placeholderTextColor={colors.black}
                             onChangeText={(text) => onChangeSearch(text)}
                         />
                         <Image source={images.searchlist} resizeMode="cover" style={{ width: fontScale(20), height: fontScale(20), position: "absolute", bottom: fontScale(2), right: fontScale(30) }} />
                     </View> : null}
                     {
-                        props.loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
+                        loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null
                     }
-                    {message.length>0 ? <Text style={{textAlign:"center",color:colors.primary,marginTop:fontScale(10)}}>{message}</Text>: null} 
+                    {message.length > 0 ? <Text style={{ textAlign: "center", color: colors.primary, marginTop: fontScale(10) }}>{message}</Text> : null}
                     {
-                        props.showLiveSearch ?
+                       showLiveSearch ?
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
                                 data={tempData}
+                                showsVerticalScrollIndicator={false}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => <TouchableOpacity onPress={() => { props.onPress(item), setRightText(""), setSelectModalAdvanced(!selectModalAdvanced), setSelectedData(Object.values(item)[2] + " - " + Object.values(item)[1] == null ? "" : Object.values(item)[1] || item.fullName) }} style={{ padding: fontScale(15), backgroundColor: index % 2 ? colors.white : colors.lightGrey }}><Text>{props.showName ? Object.values(item)[1] == null ? Object.values(item)[2] : Object.values(item)[1] + ' - ' + Object.values(item)[2] : Object.values(item)[1]}</Text></TouchableOpacity>}
                             /> :
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
-                                data={props.data}
+                                showsVerticalScrollIndicator={false}
+                                data={data}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => <TouchableOpacity onPress={() => { props.onPress(item), setRightText(""), setSelectModalAdvanced(!selectModalAdvanced), setSelectedData(Object.values(item)[2] + " - " + Object.values(item)[1] == null ? "" : Object.values(item)[1] || item.fullName) }} style={{ padding: fontScale(15), backgroundColor: index % 2 ? colors.white : colors.lightGrey }}><Text>{props.showName ? Object.values(item)[1] == null ? Object.values(item)[2] : Object.values(item)[1] + ' - ' + Object.values(item)[2] : Object.values(item)[1]}</Text></TouchableOpacity>}
                             />

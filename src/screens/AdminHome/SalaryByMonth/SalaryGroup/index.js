@@ -42,14 +42,14 @@ const index = () => {
 
       if (res.status == "v_error") {
         Toast.show({
-            text1: "Cảnh báo",
-            text2: res.message,
-            type: "error",
-            visibilityTime: 1000,
-            autoHide: true,
-            onHide: () => navigation.goBack()
+          text1: "Cảnh báo",
+          text2: res.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
         })
-    }
+      }
 
     });
   };
@@ -170,7 +170,7 @@ const index = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Header title={text.groupSalary} />
+      <Header title={text.grocontractSalary} />
       <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -179,54 +179,51 @@ const index = () => {
       />
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading==true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
-        <View style={{marginTop:-fontScale(40)}}>
-        <Table
-          data={data}
-          table
-          numColumn={6}
-          headers={["",">=20tr",">=17tr",">=12tr","<12tr","Tổng GDV"]}
-          headersTextColor={"#00BECC"}
-          headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
-          headerMarginLeft = {0.5/10*width}
-          // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
-          // lastIconHeader={images.day}
-          widthArray={[
-            2.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-          ]}
-          fields={data.map((item) => [
-            item.shopName,
-            item.target20,
-            item.target17,
-            item.target12,
-            item.targetLesser12,
-            item.totalEmp,
-          ])}
-          loading={loading}
-          hideFirstColHeader
-          firstRowBg={"#FBFDC3"}
-          // lastIcon={images.check}
-          fontWeight={data.map((item, index) =>
-            index == 0 || item.shopType == "BRANCH" ? "bold" : "normal"
-          )}
-          style={{ marginTop: fontScale(30) }}
-          textAlign = "center"
-          textColor={data.map((item, index) =>
-            item.shopType == "BRANCH"
-              ? "#000"
-              : item.shopType == "SHOP"
-              ? "#D19E01"
-              : "#000"
-          )}
-          rowBg={data.map((item, index) =>
-            item.shopType == "BRANCH" ? "#EBFDFD" : "#fff"
-          )}
-        />
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+        <View style={{ marginTop: -fontScale(40) }}>
+          <Table
+            data={data}
+            table
+            numColumn={6}
+            headers={["", ">=20tr", ">=17tr", ">=12tr", "<12tr", "Tổng GDV"]}
+            headersTextColor={"#00BECC"}
+            headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
+            headerMarginLeft={0.5 / 10 * width}
+            widthArray={[
+              2.5 / 10 * width,
+              1.5 / 10 * width,
+              1.5 / 10 * width,
+              1.5 / 10 * width,
+              1.5 / 10 * width,
+              1.5 / 10 * width,
+            ]}
+            fields={data.map((item) => [
+              item.shopName,
+              item.target20,
+              item.target17,
+              item.target12,
+              item.targetLesser12,
+              item.totalEmp,
+            ])}
+            loading={loading}
+            hideFirstColHeader
+            firstRowBg={"#FBFDC3"}
+            fontWeight={data.map((item, index) =>
+              index == 0 || item.shopType == "BRANCH" ? "bold" : "normal"
+            )}
+            style={{ marginTop: fontScale(30) }}
+            textAlign="center"
+            textColor={data.map((item, index) =>
+              item.shopType == "BRANCH"
+                ? "#000"
+                : item.shopType == "SHOP"
+                  ? "#D19E01"
+                  : "#000"
+            )}
+            rowBg={data.map((item, index) =>
+              item.shopType == "BRANCH" ? "#EBFDFD" : "#fff"
+            )}
+          />
         </View>
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />

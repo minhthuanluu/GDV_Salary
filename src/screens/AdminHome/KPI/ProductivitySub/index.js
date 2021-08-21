@@ -89,17 +89,17 @@ const index = (props) => {
           numColumn={6}
           headers={["", "TBTS", "TBTT", "Lượt KH", "Lượt GD", "SL GDV"]}
           headersTextColor={colors.primary}
-          headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
+          headerStyle={{ icon: { size: 15 }, text: { size: fontScale(13) } }}
           message={message}
           widthArray={[
-            2.4/10*width,
-            1.5/10*width,
-            1.3/10*width,
-            1.4/10*width,
-            1.8/10*width,
+            3.2/13*width,
             1/10*width,
+            1/10*width,
+            1.5/10*width,
+            2/10*width,
+            1.3/10*width,
           ]}
-          loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
+          loadingIconStyle={{ marginLeft: -height / 5 }}
           fields={
             data.map((item) => [
               item.shopName,
@@ -112,7 +112,7 @@ const index = (props) => {
           }
           loading={loading}
           hideFirstColHeader
-          headerMarginLeft={fontScale(22)}
+          headerMarginLeft={fontScale(30)}
           textAlign="center"
           firstRowBg={"#FBFDC3"}
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}

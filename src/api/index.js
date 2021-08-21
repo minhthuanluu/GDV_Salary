@@ -3,6 +3,7 @@ import { baseUrl } from "./untils";
 import axios from "axios";
 import { _removeData, _retrieveData, _storeData } from "../utils/Storage";
 import { POST, GET, PUT, DELETE } from "./method";
+import { text } from "../utils/Text";
 
 // 1. Login Screen
 export const login = async (userName, password) => {
@@ -13,9 +14,10 @@ export const login = async (userName, password) => {
     loading: null,
     error: null
   };
+  console.log(`${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`)
   await axios({
     method: POST,
-    url: `${baseUrl}login?password=${password}&userName=${userName}`,
+    url: `${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -37,6 +39,7 @@ export const login = async (userName, password) => {
       }
     })
     .catch(async (error) => {
+      console.log(error)
       if (error) {
         data = {
           message: error.response.data.message,
@@ -507,7 +510,7 @@ export const getAvgIncomeByMonth = async (beginMonth, endMonth, navigation) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `${token}`,
+      Authorization: `${token}`
     },
   }).then((res) => {
     if (res.status == 200) {
@@ -1004,6 +1007,7 @@ export const getAllShop = async (navigation, branchCode) => {
       navigation.navigate("SignIn")
     }
   });
+  console.log(token)
   let data = {
     message: "",
     status: "",
@@ -1524,6 +1528,7 @@ export const getExpenseManagement = async (month) => {
 }
 // AdminHome > Lương theo tháng >Top GDV
 export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shopCode, empCode, sort) => {
+  console.log('getMonthSalaryTopTeller: '+month+'-'+ branchCode+'-'+ shopCode+'-'+ empCode+'-'+ sort)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1818,14 +1823,14 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     message: "",
     status: "",
     data: null,
-    isLoading: null,
+    isLoading: false,
     length: 0,
     error: null,
   };
   console.log(token)
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode}&shopCode=${shopCode}&empCode=${empCode}&month=01/${month}&type=${type}`,
+    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode==undefined?"":branchCode}&shopCode=${shopCode==undefined?"":shopCode}&empCode=${empCode==undefined?"":empCode}&month=01/${month}&type=${type}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1856,14 +1861,15 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     })
     .catch((error) => {
       if (error) {
-        data = {
-          message: error.response.data.message,
-          isLoading: false,
-          status: "failed",
-          length: 0,
-          data:null,
-          error: error.response.data
-        };
+        // data = {
+        //   message: error.response.data.message,
+        //   isLoading: false,
+        //   status: "failed",
+        //   length: 0,
+        //   data:null,
+        //   error: error.response.data
+        // };
+        console.log(error)
       }
     });
   return data;
@@ -2023,6 +2029,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
 // Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
 export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,empCode) => {
   console.log("getEmpThreeTime")
+  console.log(month, branchCode,shopCode,empCode)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2060,22 +2067,13 @@ export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,emp
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
             error: null
-          };
-        }else {
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: Object.values(res.data.data).length,
-            error: null,
-            message: "Không có dữ liệu"
           };
         }
       }
@@ -2164,6 +2162,7 @@ export const getViolate = async (navigation) => {
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB
 export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB")
+  console.log("getFastTrans")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2192,7 +2191,146 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (res.data.data.length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null
+          };
+        }else{
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết
+export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getDetailFCardTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
+        if (res.data.V_ERROR) {
+          data = {
+            message: "Chức năng này đang được bảo trì",
+            data: null,
+            isLoading: false,
+            status: "v_error",
+            length: 0,
+            error: null
+          }
+        } else if (res.data.data.length > 0) {
+          data = {
+            data: res.data,
+            isLoading: false,
+            status: "success",
+            length: res.data.data.length,
+            error: null
+          };
+        }
+      }
+    })
+    .catch((error) => {
+      if (error) {
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data:null,
+          error: error.response.data
+        };
+      }
+    });
+  return data;
+}
+
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB
+export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB")
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null,
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getFCardTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  })
+    .then((res) => {
+      if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -2228,12 +2366,11 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   return data;
 }
 
+// getViolationEmployee
 
-// getDetailFastTrans
-
-// Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết
-export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
-  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết")
+// Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên (xuất hiện >= 3 lần trong 6 tháng)
+export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=>{
+  console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2253,7 +2390,7 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   console.log(token)
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getDetailFastTrans?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
+    url: `${baseUrl}adminScreens/getViolationEmployee?branchCode=${branchCode}&empCode=${empCode}&shopCode=${shopCode}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -2262,7 +2399,6 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
   })
     .then((res) => {
       if (res.status == 200) {
-        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -2272,12 +2408,21 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (res.data.data.length > 0) {
           data = {
             data: res.data,
             isLoading: false,
             status: "success",
-            length: Object.values(res.data.data).length,
+            length: res.data.data.length,
+            error: null
+          };
+        }else{
+          data = {
+            data: res.data,
+            isLoading: false,
+            message:text.dataIsNull,
+            status: "success",
+            length: res.data.data.length,
             error: null
           };
         }

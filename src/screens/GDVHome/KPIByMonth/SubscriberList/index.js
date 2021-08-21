@@ -162,7 +162,7 @@ const SubscriberList = () => {
         rightIcon={images.searchlist}
         dataNotFoundText="Không tìm thấy dữ liệu"
         onChangeText={(value) => searchSub(value)}
-        placeholder={text.searchSub}
+        placeHolder={text.searchSub}
         keyboardType="number-pad"
         width={width - fontScale(65)}
       />
@@ -170,6 +170,7 @@ const SubscriberList = () => {
       <DataPicker
         dialogTitle="Chọn dữ liệu"
         icon={images.sim}
+        placeholder="Tất cả"
         data={pickerData}
         field={[pickerData[0].value,pickerData[1].value,pickerData[2].value
         ]}
@@ -198,11 +199,11 @@ const SubscriberList = () => {
 
 
         <View style={{ flexDirection: "row", marginTop: fontScale(12) }}>
-          <TableHeader style={{ flex: 1.8 }} title={text.date} />
-          <TableHeader style={{ flex: 1.5 }} title={text.numberSub} />
-          <TableHeader style={{ flex: 1.7 }} title={text.statusPaid} />
-          <TableHeader style={{ flex: 1.7 }} title={text.type} />
-          <TableHeader style={{ flex: 0.9 }} title={text.pckSub} />
+          <TableHeader style={{ width: (width * 1.7) / 10 }} title={text.date} />
+          <TableHeader style={{  width: (width * 2.5) / 10 }} title={text.numberSub} />
+          <TableHeader style={{ width: (width * 1.6) / 10 }} title={text.statusPaid} />
+          <TableHeader style={{ width: (width * 2.7) / 10}} title={text.type} />
+          <TableHeader style={{width: (width * 1) / 10 }} title={text.pckSub} />
         </View>
         {loading == true ? (
           <ActivityIndicator
@@ -235,7 +236,7 @@ const SubscriberList = () => {
                 [styles.dateCol, { width: (width * 1.7) / 10 }],
                 [styles.dateCol, { width: (width * 2.5) / 10 }],
                 [styles.dateCol, { width: (width * 1.7) / 10 }],
-                [styles.dateCol, { width: (width * 2.9) / 10 }],
+                [styles.dateCol, { width: (width * 3) / 10 }],
                 [styles.dateCol, { width: (width * 1) / 10 }],
               ]}
               lastIcon={item.pckSub == 1 ? images.check : images.cancle}

@@ -69,7 +69,6 @@ const index = (props) => {
 
   useEffect(() => {
     const { branchCode } = route.params?.item;
-    console.log(route.params?.item)
     getData(branchCode, "");
   }, [navigation])
 
@@ -81,20 +80,19 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
-      <Text style={styles.text}>{notification}</Text>
-      {/* <DatePicker
-        month={month}
-        width={width - fontScale(120)}
-        style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      /> */}
+      {/* <Text style={styles.text}>{notification}</Text> */}
+      <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
+
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(20) }} /> : null}
-        <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
+        
+        <Text style={{ color:colors.white,
+        textAlign:"center",
+        fontSize:fontScale(13)}}>{message && message}</Text>
         <View>
           <FlatList
             data={data}
@@ -131,8 +129,8 @@ const index = (props) => {
                     titleArrayOne={["Tỉ lệ nợ/ Doanh thu:", "Tổng nợ 90:", "Tổng DThu 90:", "Tổng TBTS PTM:"]}
                     itemAmountOne={[generalData.cancelAmount, generalData.fcardAmount, generalData.blocking2CAmount, generalData.fastAmount, generalData.mdtamount, generalData.debitContactAmount]}
                     itemAmountTwo={[generalData.rallyCancelAmount,generalData.rallyFCardAmount,generalData.rallyBlocking2CAmount,generalData.rallyFastAmount,generalData.rallyMDTAmount,generalData.rallyDebitContactAmount]}
-                    itemPercent={[generalData.cancelPercent, generalData.fcardPercent, generalData.blocking2CPercent, generalData.fastAmount, generalData.mdtpercent, generalData.debitContactPercent]}
-                    item={[generalData.debitPercent, generalData.debit90Amount, generalData.revenue90Amount]}
+                    itemPercent={[generalData.cancelPercent,generalData.fcardPercent,generalData.blocking2CPercent,generalData.fastPercent,generalData.mdtpercent,generalData.debitContactPercent]}
+                    item={[generalData.debitPercent,generalData.debit90Amount,generalData.revenue90Amount,generalData.postpaidAmount]}
                     icon={images.branch} /> : null
                 }
               </View>

@@ -6,7 +6,7 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getEmpThreeTime } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, TableHeader } from '../../../../../comps';
+import { Body, DatePicker, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
@@ -19,41 +19,34 @@ import { getAllShop } from '../../../../../adminapi';
 const index = (props) => {
     const route = useRoute();
     const [month, setMonth] = useState(route.params?.month);
-    const [type, setType] = useState(); // type = 1 => menu1 - menu 4
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [branchCode, setBranchCode] = useState("");
-    const [shopCode, setShopCode] = useState("");
-    const [empCode, setEmpCode] = useState("");
-    const [branchList, setBranchList] = useState([]);
-    const [shopList, setShopList] = useState([])
-    const [empList, setEmpList] = useState([]);
     const [message,setMessage] = useState('');
-    const [notification,setNotification] = useState("")
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
-        console.log(branchCode, shopCode, empCode)
         setMessage("")
         setData([])
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
-            
             if (res.status == "success") {
-                if (res.length == 0) {
-                    setLoading(false);
-                    setMessage(text.dataIsNull)
-                } else {
                     setData(res.data);
                     setLoading(res.isLoading);
-                }
             }
-            if(res.message){
-                setMessage(res.message);
+            if (res.length == 0) {
+                setLoading(false);
+                setMessage(text.dataIsNull)
             }
             if (res.status == "failed") {
                 setLoading(res.isLoading);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true
+                })
             }
             if (res.status == "v_error") {
                 setLoading(res.isLoading);
@@ -66,95 +59,47 @@ const index = (props) => {
                     onHide: () => navigation.goBack()
                 })
             }
+            
 
         })
-    }
-
-    const _onChangeMonth = async (month) => {
-        await getData(month, "", "", "", key);
-    }
-
-    const getBranchList = async () => {
-        await getAllBranch(navigation).then((res) => {
-            setBranchList(res.data);
-        })
-    }
-
-    const _onChangeBranch = async (branchCode) => {
-        setBranchCode(branchCode);
-        setShopList([]);
-        await getAllShop(navigation,branchCode).then((res) => {
-            if (res.status == "success") {
-                setShopList(res.data);
-            }
-            if (res.status == 'failed') {
-
-            }
-        });
-    }
-
-    const _onChangeShop = async (shopCode) => {
-        console.log(shopCode)
-        setShopCode(shopCode)
-        await getAllEmp(navigation, branchCode, shopCode).then((res) => {
-            if (res.status == "success") {
-                setEmpList(res.data);
-
-            }
-            if (res.status == 'failed') {
-            }
-
-        })
-    }
-
-    const _onChangeEmp = (empId) => {
-        setEmpCode(empId)
     }
 
     const _onSearch = async (value) => {
-        setBranchCode(value.branchCode);
-        
-        setShopCode(value.shopCode);
-        setEmpCode(value.empId);
-        await getData(month, value.branchCode, value.shopCode, value.empId, key);
+        setMessage("");
+        setMonth(value.month)
+        await getData(value.month, value.branchCode, value.shopCode, value.empCode);
 
     }
 
     useEffect(() => {
         getData(month, "", "", "");
-        getBranchList()
-    }, [month])
+    }, [navigation])
 
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-            <Search
-                searchSelectModalFourCondition
+            <SearchWithPermission
+                full
                 leftIcon={images.teamwork}
-                rightIcon={images.arrowdown}
+                rightIcon={images.searchlist}
+                width={width - fontScale(50)}
+                style={{marginTop:fontScale(10)}}
+                month={month}
                 placeholder={text.search}
-                modalTitle={"Vui lòng chọn"}
-                dataOne={branchList}
-                dataTwo={shopList}
-                dataThree={empList}
-                message={text.dataIsNull}
-                searchIndex={1}
-                onChangeText={(text) => console.log(text)}
-                dataFour={empList}
-                onPressDataOne={(item) => _onChangeBranch(item.shopCode)}
-                onPressDataTwo={(item) => _onChangeShop(item.shopCode)}
-                onPressDataThree={(item) => _onChangeEmp(item.id)}
-                onPress={(value) => _onSearch(value)}
+                modalTitle={text.select}
+                select1LeftContainer={text.chooseBranch}
+                select2LeftContainer={text.chooseShop}
+                select3LeftContainer={text.chooseEmp}
+                select1Width={width - fontScale(30)}
+                onDone={(value) => _onSearch(value)}
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 {loading == true ? 
                 <ActivityIndicator size="small" color={colors.primary} /> 
                 : null}
-                <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}/>
-                <View style={{ marginTop: -fontScale(30) }}>
+                <View style={{ marginTop: -fontScale(20) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
                         <TableHeader style={{ width: width /2 }} title={'GDVPTM'} />
                         <TableHeader style={{ width: width /2 }} title={'Tên CH'} />

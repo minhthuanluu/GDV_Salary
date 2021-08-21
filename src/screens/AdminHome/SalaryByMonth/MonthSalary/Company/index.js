@@ -113,7 +113,7 @@ const index = (props) => {
                   })} />
                 { index == data.length - 1 ?
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
+                    style={{ marginBottom: fontScale(80), marginTop: -fontScale(15) }}
                     fiveColumnCompany
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}

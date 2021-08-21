@@ -105,14 +105,14 @@ const index = () => {
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}
           // lastIconHeader={images.day}
           widthArray={[
-            2.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
-            1.5/10*width,
+            2.7/10*width,
+            1.4/10*width,
+            1.4/10*width,
+            1.4/10*width,
+            1.4/10*width,
+            1.45/10*width,
           ]}
-          headerMarginLeft={fontScale(25)}
+          headerMarginLeft={fontScale(30)}
           fields={data.map((item) => [
             item.shopName,
             item.target100,

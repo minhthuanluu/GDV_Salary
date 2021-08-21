@@ -20,7 +20,7 @@ export const images = {
     avgIcome: require('../../assets/ic_avgIncome.png'),
     subscriberQuality: require('../../assets/ic_subscriberQuality.png'),
     transactionInformation: require('../../assets/ic_transactionInformation.png'),
-    upSalary: require('../../assets/ic_luongkhoan.png'),
+    contractSalary: require('../../assets/ic_luongkhoan.png'),
     incentive: require('../../assets/incentive.png'),
     incentiveCost: require('../../assets/ic_incentiveCost.png'),
     punishment: require('../../assets/ic_punishment.png'),

@@ -57,6 +57,7 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
     import AdminViolateSubscriber from './AdminHome/SubscriberQuality/ViolationWarning'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm
         import AdminViolateSubscriberFast from './AdminHome/SubscriberQuality/ViolationWarning/Fast'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >= 1TB
         import AdminViolateSubscriberFCard from './AdminHome/SubscriberQuality/ViolationWarning/FCard'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển FCard >= 3TB
+            import AdminViolateSubscriberFCardDetail from './AdminHome/SubscriberQuality/ViolationWarning/FCard/Detail'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển FCard >= 3TB > Detail
         import AdminViolateSubscriberOverThree from './AdminHome/SubscriberQuality/ViolationWarning/OverThree'//Admin > Chất lượng thuê bao > Cảnh báo vi phạm > GDV xuất hiện >= 3 lần trong 06 tháng
     
         import AdminSubscriberQualitySumBranch from "./AdminHome/SubscriberQuality/Summary/Branch" //Admin > Chất lượng thuê bao > Chi nhánh
@@ -129,6 +130,7 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
      export const AdminViolateSubscriberScreen = ()=>{return <AdminViolateSubscriber />}
         export const AdminViolateSubscriberFastScreen = () => {return <AdminViolateSubscriberFast />}
         export const AdminViolateSubscriberFCardScreen = () => {return <AdminViolateSubscriberFCard />}
+            export const AdminViolateSubscriberFCardDetailScreen=()=>{return <AdminViolateSubscriberFCardDetail/>}
         export const AdminViolateSubscriberOverThreeScreen =()=>{return <AdminViolateSubscriberOverThree/>}
 
         export const AdminSubscriberQualitySumBranchScreen=()=>{return <AdminSubscriberQualitySumBranch />}
