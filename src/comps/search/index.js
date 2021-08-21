@@ -175,6 +175,7 @@ const Search = (props) => {
                     {
                         searchAlert == true ?
                             <FlatList
+                                showsVerticalScrollIndicator={false}
                                 style={{ color: colors.black, backgroundColor: colors.white }}
                                 data={searchData}
                                 keyExtractor={(item, key) => key.toString()}
@@ -314,8 +315,8 @@ const SelectDataWithRightText = (props) => {
         setOnSearch(true);
         setMessage("");
         let newData = props.data.filter((item) => {
-            const itemData = `${Object.values(item).toString().normalize('NFD').toLowerCase()}`;
-            return itemData.indexOf(text.toString().normalize('NFD').toLowerCase()) > -1;
+            const itemData = `${Object.values(item).toString().normalize('NFD').replace(/đ/g, "d").replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "").toLocaleUpperCase()}`;
+            return itemData.indexOf(text.toString().normalize('NFD').replace(/đ/g, "d").replace(/\u0300|\u0301|\u0303|\u0309|\u0323/g, "").toLocaleUpperCase()) > -1;
         });
         setTempData(newData);
         if (newData.length <= 0) {
@@ -368,11 +369,13 @@ const SelectDataWithRightText = (props) => {
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
                                 data={tempData}
+                                showsVerticalScrollIndicator={false}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => <TouchableOpacity onPress={() => { props.onPress(item), setRightText(""), setSelectModalAdvanced(!selectModalAdvanced), setSelectedData(Object.values(item)[2] + " - " + Object.values(item)[1] == null ? "" : Object.values(item)[1] || item.fullName) }} style={{ padding: fontScale(15), backgroundColor: index % 2 ? colors.white : colors.lightGrey }}><Text>{props.showName ? Object.values(item)[1] == null ? Object.values(item)[2] : Object.values(item)[1] + ' - ' + Object.values(item)[2] : Object.values(item)[1]}</Text></TouchableOpacity>}
                             /> :
                             <FlatList
                                 style={{ marginTop: fontScale(20) }}
+                                showsVerticalScrollIndicator={false}
                                 data={data}
                                 keyExtractor={(item, index) => index.toString()}
                                 renderItem={({ item, index }) => <TouchableOpacity onPress={() => { props.onPress(item), setRightText(""), setSelectModalAdvanced(!selectModalAdvanced), setSelectedData(Object.values(item)[2] + " - " + Object.values(item)[1] == null ? "" : Object.values(item)[1] || item.fullName) }} style={{ padding: fontScale(15), backgroundColor: index % 2 ? colors.white : colors.lightGrey }}><Text>{props.showName ? Object.values(item)[1] == null ? Object.values(item)[2] : Object.values(item)[1] + ' - ' + Object.values(item)[2] : Object.values(item)[1]}</Text></TouchableOpacity>}

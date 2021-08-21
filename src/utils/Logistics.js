@@ -330,12 +330,6 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Chi nhánh');
-      // console.log('role code: ' + item.userId.userGroupId.code)
-      // console.log('role description: ' + item.userId.userGroupId.description)
-      // console.log('branch code: ' + item.userId.shopId.shopCode)
-      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
-      // console.log('shop code: ' + item.userId.shopId.shopCode)
-      // console.log('shop name: ' + item.userId.shopId.shopName)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,
@@ -352,12 +346,6 @@ export const getRole = async () => {
       console.log('-------')
       console.log('shop level: ' + item.userId.shopId.shopLevel)
       console.log('role Cửa hàng');
-      // console.log('role code: ' + item.userId.userGroupId.code)
-      // console.log('role description: ' + item.userId.userGroupId.description)
-      // console.log('branch code: ' + item.userId.shopId.parentShopId.shopCode)
-      // console.log('branch name: ' + item.userId.shopId.parentShopId.shopName)
-      // console.log('shop code: ' + item.userId.shopId.shopCode)
-      // console.log('shop name: ' + item.userId.shopId.shopName)
       data = {
         role: item.userId.userGroupId.code,
         level: item.userId.shopId.shopLevel,

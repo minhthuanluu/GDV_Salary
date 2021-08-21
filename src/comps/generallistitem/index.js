@@ -260,7 +260,7 @@ const GeneralListItem = (props) => {
                   </View>
                   : <View
                     style={{ backgroundColor: props.index % 2 ? colors.lightGrey : colors.white, paddingVertical: fontScale(8) }}    >
-                    <View style={{ flexDirection: "row" }} key={props.index}>
+                    <View style={{ flexDirection: "row",alignItems:"center" }} key={props.index}>
                       {
                         props.fields.map((item, index) => {
                           return props.lastIcon && index == props.fields.length - 1
@@ -270,7 +270,7 @@ const GeneralListItem = (props) => {
                               {
                                 props.isZeroPlan == "#f00" ?
                                   <View style={{ flexDirection: "row" }}>
-                                    <Text style={props.style[index]} key={index}>{item} <Text style={{ color: "#f00" }}>{index == 0 ? "*" : ""}</Text></Text>
+                                    <Text style={props.style[index]} key={index}>{item} <Text style={{ color: "#f00",textAlignVertical:"center" }}>{index == 0 ? "*" : ""}</Text></Text>
 
                                   </View>
                                   :

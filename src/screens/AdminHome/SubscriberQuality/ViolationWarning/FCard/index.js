@@ -136,8 +136,6 @@ function index(props) {
 
     const _onSearch = async (value) => {
         console.log(value)
-        // setDefaultBranchName(value.branchName);
-        // setDefaultShopName(value.shopName)
         await getData(value.branchCode, value.shopCode, value.empCode);
     }
 
@@ -186,7 +184,7 @@ function index(props) {
                 modalTitle="Vui lòng chọn"
                 select1LeftContainer="Chọn chi nhánh"
                 select2LeftContainer="Chọn cửa hàng"
-                select3LeftContainer="Chọn nhân viên"
+                select3LeftContainer="Chọn giao dịch viên"
                 select1Width={width - fontScale(30)}
                 onDone={(value) => _onSearch(value)}
             />

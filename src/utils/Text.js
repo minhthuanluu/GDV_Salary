@@ -216,6 +216,8 @@ productivitySub: "Năng suất bình quân",
   highestTop:"Top cao nhất",
   lowestTop:"Top thấp nhất",
   chooseBranch:"Chọn chi nhánh",
+  chooseShop:"Chọn cửa hàng",
+  chooseEmp:"Chọn nhân viên",
   teller:"GDV",
   avgSalPerEmp:"Lương BQ/GDV",
   incentivePerEmp:"Khoán sp/GDV"

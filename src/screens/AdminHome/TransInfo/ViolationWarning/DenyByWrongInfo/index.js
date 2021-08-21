@@ -119,12 +119,7 @@ const index = (props) => {
     }
 
     const _onSearch = async (value) => {
-        console.log(value)
-        // setBranchCode(value.branchCode);
-        // setDefaultBranchName(value.branchName)
-        // setDefaultShopName(value.shopName)
-        // setShopCode(value.shopCode);
-        // setEmpCode(value.empId);
+        setMonth(value.month)
         await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
     }
 
@@ -190,12 +185,12 @@ const index = (props) => {
                 month={month}
                 leftIcon={images.teamwork}
                 rightIcon={images.searchlist}
-                width={width - fontScale(100)}
+                width={width - fontScale(50)}
                 placeholder="Tìm kiếm"
-                modalTitle="Vui lòng chọn"
-                select1LeftContainer="Chọn chi nhánh"
-                select2LeftContainer="Chọn cửa hàng"
-                select3LeftContainer="Chọn nhân viên"
+                modalTitle={text.select}
+                select1LeftContainer={text.chooseBranch}
+                select2LeftContainer={text.chooseShop}
+                select3LeftContainer={text.chooseEmp}
                 select1Width={width - fontScale(30)}
                 onDone={(value) => _onSearch(value)}
             />

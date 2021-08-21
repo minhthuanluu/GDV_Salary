@@ -75,23 +75,17 @@ const AdminTopTeller = () => {
     setPlaceHolder(value.shopName);
   }
 
-  const getData = async (branchCode, branchName, shopCode, month, sort) => {
+  const getData = async (branchCode,month,sort) => {
     setMessage("");
     setLoadingData(true);
-    console.log(branchCode, branchName, shopCode, month, sort)
-    setDefaultBranchCode(branchCode);
-    setDefaultBranchName(branchName);
-    setPlaceHolder(branchName)
-    setShopCode(shopCode);
-    setSort(sort);
     setData([]);
-    await getAdminKPIMonthTopTeller(navigation, branchCode, shopCode, month, sort).then((res) => {
+    await getAdminKPIMonthTopTeller(navigation, branchCode, "", month, sort).then((res) => {
       setLoadingData(false);
       if (res.status == "success") {
         if (res.data.data.length > 0) {
           setData(res.data.data);
           setLoadingData(false);
-
+          setMessage('')
         } else {
           setData([]);
           setMessage(res.message);
@@ -99,7 +93,6 @@ const AdminTopTeller = () => {
         }
       }
       if (res.status == "failed") {
-        setMessage(text.dataIsNull);
         setLoadingData(false);
       }
     });
@@ -132,7 +125,8 @@ const AdminTopTeller = () => {
   useEffect(() => {
     checkRole();
     getBranchList()
-    setPlaceHolder(text.chooseBranch)
+    getData(branchCode,month,sort);
+    // setPlaceHolder(text.chooseBranch)
     console.log("AdminHome > KPI > Top GDV")
   }, [""]);
 
@@ -162,62 +156,24 @@ const AdminTopTeller = () => {
     })
   }
 
-  const onSearch = async (shopCode, shopName, defaultShopCode, month, radio) => {
-    setDefaultShopCode(shopCode);
-    setDefaultShopName(shopName);
-    setSort(radio)
-    await getRole().then(async (data) => {
-      setRole(data.role)
-      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-        setMonth(month);
-        await getData(shopCode, shopName, '', month, radio);
-      } else if (data.role == ROLE.MBF_CHINHANH) {
-        await getData(data.shopCode, data.shopName, "", month, radio).then(() => {
-          setDefaultShopName(defaultShopName)
-        })
-      } else if (data.role == ROLE.MBF_CUAHANG) {
-        await getData(data.branchCode, data.shopName, "", month, radio).then(() => {
-          setDefaultShopName(defaultShopName)
-        })
-      }
-    })
+  const onSearch = async (value) => {
+    console.log(value)
+    await getData(value.branchCode, value.month,value.radio)
   }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.topTellers} />
-      <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
-
-      <Search
-        loading={loading}
-        rightIcon={images.searchlist}
-        dialogTitle="Chọn dữ liệu"
-        data={[
-          { label: text.highestTop, value: 1 },
-          { label: text.lowestTop, value: 0 }
-        ]}
-        modalTitle={text.select}
-        placeholder={placeHolder}
-        searchSelectModal
-        width={width - fontScale(60)}
-        style={{ marginTop: fontScale(20), alignSelf: "center" }}
+      <SearchWithPermission  
+        oneSelect
         leftIcon={images.teamwork}
-        initialRadio={sort == 1 ? 0 : 1}
-        dataOne={branchList}
-        index={branchList.map((item, index) => index)}
-        fieldOne={branchList.map((item) => item.shopName)}
-        fieldTwo={shopList.map((item) => item.shopName)}
-        fieldThree={empList.map((item, index) => item.maGDV)}
-        onChangePickerOne={(value, index) => onChangeBranch(value)}
-        showPicker={[true, false, false]}
-        // onPressOK={(value) => onSearch(value.shopCode, value.shopName, defaultShopCode, month, value.radio)}
-        onPressOK={(value) => {
-          role == ROLE.VMS_CTY || data.role == ROLE.ADMIN ? getData(value.shopCode, value.shopName, defaultShopCode, month, value.radio)
-            :
-            getData(defaultBranchCode, defaultBranchName, defaultShopCode, month, value.radio)
-        }}
-        fixed={role == "VMS_CTY" || role == "ADMIN" ? false : true}
-        fixedData={defaultShopName} />
+        rightIcon={images.searchlist}
+        month={month}
+        width={width - fontScale(50)}
+        placeholder="Tìm kiếm"
+        modalTitle="Vui lòng chọn"
+        onDone={(value)=>onSearch(value)}
+      />
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }} />

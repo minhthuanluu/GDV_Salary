@@ -34,6 +34,7 @@ export const styles = StyleSheet.create({
         color:colors.white,
         textAlign:"center",
         fontSize:fontScale(14),
-        fontWeight:"bold"
+        fontWeight:"bold",
+        marginBottom:fontScale(20)
     }
 })

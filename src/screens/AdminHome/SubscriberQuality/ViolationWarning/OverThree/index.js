@@ -32,23 +32,7 @@ function index(props) {
     const [loading, setLoading] = useState(false)
     const navigation = useNavigation();
     const [message, setMessage] = useState("");
-    const [tempData, setTempData] = useState([
-        // {
-        //     "id": 22897163,
-        //     "empName": "932024246",
-        //     "store": "MGMQ",
-        // },
-        // {
-        //     "id": 22912820,
-        //     "empName": "938921178",
-        //     "store": "MGMQ",
-        // },
-        // {
-        //     "id": 22863346,
-        //     "empName": "909499683",
-        //     "store": "MGMQ",
-        // }
-    ]);
+    const [tempData, setTempData] = useState([]);
     const [notification, setNotification] = useState("")
 
     const getBranchList = async () => {

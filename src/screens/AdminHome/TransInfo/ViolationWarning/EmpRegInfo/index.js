@@ -98,40 +98,12 @@ const index = (props) => {
         })
     }
 
-    const _onChangeBranch = async (branchCode) => {
-        setBranchCode(branchCode);
-        setShopList([]);
-        setLoadingShop(true)
-        await getAllShop(navigation, branchCode).then((res) => {
-            if (res.status == "success") {
-                setShopList(res.data);
-                setLoadingShop(false)
-            }
-            if (res.status == 'failed') {
-                setLoadingShop(false)
-            }
-        });
-    }
-
-    const _onChangeShop = async (shopCode) => {
-        setShopCode(shopCode)
-        await getAllEmp(navigation, branchCode, shopCode).then((res) => {
-            if (res.status == "success") {
-                setEmpList(res.data);
-            }
-            if (res.status == 'failed') {
-            }
-
-        })
-    }
-
-    const _onChangeEmp = (empId) => {
-        setEmpCode(empId)
-    }
-
     const _onSearch = async (value) => {
+        setMonth(value.month)
+        setBranchCode(value.branchCode);
+        setShopCode(value.shopCode);
+        setEmpCode(value.empCode);
         await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
-
     }
 
     const _getAllShop = async () => {
@@ -176,18 +148,18 @@ const index = (props) => {
                 full
                 leftIcon={images.teamwork}
                 rightIcon={images.searchlist}
-                width={width - fontScale(100)}
+                width={width - fontScale(50)}
                 style={{marginTop:fontScale(10)}}
                 month={month}
                 placeholder="Tìm kiếm"
-                modalTitle="Vui lòng chọn"
-                select1LeftContainer="Chọn chi nhánh"
-                select2LeftContainer="Chọn cửa hàng"
-                select3LeftContainer="Chọn nhân viên"
+                modalTitle={text.select}
+                select1LeftContainer={text.chooseBranch}
+                select2LeftContainer={text.chooseShop}
+                select3LeftContainer={text.chooseEmp}
                 select1Width={width - fontScale(30)}
                 onDone={(value) => _onSearch(value)}
             />
-            <Body />
+            <Body style={{marginTop:-fontScale(10)}}/>
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View style={{ marginTop: -fontScale(30) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>

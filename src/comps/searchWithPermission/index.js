@@ -17,6 +17,8 @@ import { width } from '../../utils/Dimenssion';
 import { fontScale } from '../../utils/Fonts';
 import { images } from '../../utils/Images';
 import { text } from '../../utils/Text';
+import RadioForm from 'react-native-simple-radio-button';
+import { getRole } from '../../utils/Logistics';
 
 const index = (props) => {
     const [showModal, setShowModal] = useState(false);
@@ -32,7 +34,7 @@ const index = (props) => {
     const [shopName, setShopName] = useState('Chọn cửa hàng');
     const [shopLabel, setShopLabel] = useState('Tất cả');
     const [empLabel, setEmpLabel] = useState('Tất cả');
-    const [empName, setEmpName] = useState('Chọn nhân viên');
+    const [empName, setEmpName] = useState('Chọn giao dịch viên');
 
     const [loading, setLoading] = useState(false);
     const [branchCode, setBranchCode] = useState('')
@@ -45,7 +47,11 @@ const index = (props) => {
 
     const [message, setMessage] = useState('')
     const navigation = useNavigation();
-    const [month, setMonth] = useState(props.month)
+    const [month, setMonth] = useState(props.month);
+
+    const [radioValue, setRadioValue] = useState(1);
+    const [fixed, setFixed] = useState(false);
+    const [selected,setSelected] = useState(false)
 
     const getBranchList = async () => {
         await getAllBranch().then((data) => {
@@ -59,14 +65,12 @@ const index = (props) => {
         if (branchCode == null) {
             await getAllShop(navigation, "").then((data) => {
                 if (data.status == "success") {
-                    console.log(data)
                     setShopList(data.data)
                 }
             })
         } else {
             await getAllShop(navigation, branchCode).then((data) => {
                 if (data.status == "success") {
-                    console.log(data)
                     setShopList(data.data)
                 }
             })
@@ -93,6 +97,7 @@ const index = (props) => {
 
 
     const onChangeBranch = async (item) => {
+        setSelected(true)
         if (item.shopCode == null) {
             setBranchLabel("Tất cả")
             setBranchName("Chọn chi nhánh")
@@ -114,7 +119,7 @@ const index = (props) => {
         }
         setShopLabel("Tất cả")
         setShopName("Chọn cửa hàng")
-        setEmpName("Chọn nhân viên")
+        setEmpName("Chọn giao dịch viên")
         setEmpLabel("Tất cả")
     }
 
@@ -135,13 +140,13 @@ const index = (props) => {
             getEmpList(branchCode, item.shopCode);
             setShowShopModal(!showShopModal)
         }
-        setEmpName("Chọn nhân viên")
+        setEmpName("Chọn giao dịch viên")
         setEmpLabel("Tất cả")
     }
 
     const onChangeEmp = async (item) => {
         if (item.id == null) {
-            setEmpName("Chọn nhân viên")
+            setEmpName("Chọn giao dịch viên")
             setEmpCode("");
             setEmpLabel("Tất cả")
             setDefaultEmpCode("")
@@ -193,14 +198,49 @@ const index = (props) => {
     useEffect(() => {
         getBranchList();
         getShopList("");
-        getEmpList("", "")
-    }, [''])
+        getEmpList("", "");
+        getRole().then((data) => {
+            if (data.role == "VMS_CTY") {
+
+            } else if (data.role == "MBF_CHINHANH") {
+                setBranchName(data.shopName);
+                setBranchCode(data.shopCode)
+                setFixed(true)
+            }else if (data.role == "MBF_CUAHANG") {
+                setBranchName(data.branchName);
+                setBranchCode(data.branchCode)
+                setFixed(true)
+            }
+        })
+    }, ['']);
+
+    var radio_props = [
+        { label: 'Top cao nhất', value: 1 },
+        { label: 'Top thấp nhất', value: 0 }
+    ];
+
+    const onRadioPress = (value) => {
+        setRadioValue(value)
+    }
+
+    const onChangeMonth2 = (month) => {
+        setMonth(month);
+        props.onDone ? props.onDone({"month": month,'radio':radioValue,'branchCode':branchCode}) : console.log('on Press');
+
+    }
+
+    const onDone2 = () => {
+        props.onDone ? props.onDone({"month": month,'radio':radioValue,'branchCode':branchCode}) : console.log('on Press');
+        setRadioValue(radioValue);
+        setShowModal(!showModal)
+    }
+
     return (
         <SafeAreaView>
             {
                 props.full ? <View style={[styles.level1Container, props.style, { width: props.width, alignSelf: "center" }]}>
-                    {props.hideMonthFilter ? null :<DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10), marginTop: -fontScale(20) }} onChangeDate={(value) => onChangeMonth(value)} />}
-                    <TouchableOpacity style={styles.level1SubContain} onPress={() => {setShowModal(!showModal),getBranchList(),getShopList(""),getEmpList("","")}}>
+                    {props.hideMonthFilter ? null : <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10), marginTop: -fontScale(20) }} onChangeDate={(value) => onChangeMonth(value)} />}
+                    <TouchableOpacity style={styles.level1SubContain} onPress={() => { setShowModal(!showModal), getBranchList(), getShopList(""), getEmpList("", "") }}>
                         <Image source={props.leftIcon} resizeMode="contain" style={styles.level1LeftIcon} />
                         <Text style={styles.level1Placeholder}>{props.placeholder}</Text>
                         <Image source={props.rightIcon} resizeMode="contain" style={styles.level1LeftIcon} />
@@ -309,7 +349,79 @@ const index = (props) => {
                             <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => onDone()} />
                         </View>
                     </Modal>
-                </View> : null
+                </View>
+                    :
+                    props.oneSelect
+                        ?
+                        <View style={props.style, { width: props.width, alignSelf: "center" }}>
+                             {props.hideMonthFilter ? null : <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10) }} onChangeDate={(value) => onChangeMonth2(value)} />}
+                            <TouchableOpacity style={styles.level1SubContain} onPress={() => { setShowModal(!showModal), getBranchList(), getShopList(""), getEmpList("", "") }}>
+                                <Image source={props.leftIcon} resizeMode="contain" style={styles.level1LeftIcon} />
+                                <Text style={styles.level1Placeholder}>{props.placeholder}</Text>
+                                <Image source={props.rightIcon} resizeMode="contain" style={styles.level1LeftIcon} />
+                            </TouchableOpacity>
+
+                            <Modal
+                                statusBarTranslucent={true}
+                                animationType={'slide'}
+                                transparent={true}
+                                visible={showModal}
+                                onRequestClose={() => setShowModal(!showModal)}>
+                                <TouchableOpacity style={{ flex: 2.1 }} onPress={() => setShowModal(!showModal)}>
+
+                                </TouchableOpacity>
+                                <View style={styles.level1ModalContainer}>
+                                    <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
+                                    <View style={{ alignSelf: "center" }}>
+                                        <RadioForm
+                                            radio_props={props.data || radio_props}
+                                            initial={radioValue==0?1:0}
+                                            formHorizontal
+                                            animation={true}
+                                            style={styles.radioForm}
+                                            labelStyle={{ fontSize: fontScale(14) }}
+                                            onPress={(value) => onRadioPress(value)}
+                                        />
+                                        {fixed == false ? <TouchableOpacity style={[styles.select1Container, { width: props.width }]} onPress={() => setShowSubModal(!showSubModal)}>
+                                            <Text style={styles.leftText}>{branchName ? branchName : props.select1LeftContainer}</Text>
+                                            <Text>{branchCode!="" ? "" : "Tất cả"}</Text>
+                                        </TouchableOpacity>
+                                            :
+                                            <View style={[styles.select1Container, { width: props.width }]} onPress={() => setShowSubModal(!showSubModal)}>
+                                                <Text style={styles.leftText}>{branchName ? branchName : props.select1LeftContainer}</Text>
+                                            </View>
+                                        }
+                                        <Modal
+                                            statusBarTranslucent={true}
+                                            animationType={'slide'}
+                                            transparent={true}
+                                            visible={showSubModal}
+                                            onRequestClose={() => setShowSubModal(!showSubModal)}>
+                                            <TouchableOpacity style={{ flex: 3 / 2.2 }} onPress={() => setShowSubModal(!showSubModal)}>
+
+                                            </TouchableOpacity>
+                                            <View style={styles.level1ModalContainer}>
+                                                <Text style={styles.level1ModalTitle}>{props.modalTitle}</Text>
+                                                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+                                                <FlatList
+                                                    data={branchList}
+                                                    keyExtractor={(item, index) => index.toString()}
+                                                    renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeBranch(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
+                                                        <Text>{item.shopName}</Text>
+                                                    </TouchableOpacity>}
+                                                />
+                                            </View>
+                                        </Modal>
+                                    </View>
+                                    <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
+                                        <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setShowModal(!showModal)} />
+                                        <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => onDone2()} />
+                                    </View>
+                                </View>
+                            </Modal>
+                        </View>
+                        :
+                        null
             }
         </SafeAreaView>
     );
@@ -381,7 +493,7 @@ const styles = StyleSheet.create({
 
     },
     searchInput: {
-        flexDirection:"row",
+        flexDirection: "row",
         shadowColor: colors.black,
         shadowOffset: {
             width: 0,
@@ -395,21 +507,22 @@ const styles = StyleSheet.create({
         marginHorizontal: fontScale(5),
         borderRadius: fontScale(20)
     },
-    inputRightIcon:{
+    inputRightIcon: {
         width: fontScale(20),
         height: fontScale(20),
-        position:"absolute",
-        top:fontScale(11),
-        right:fontScale(15)
+        position: "absolute",
+        top: fontScale(11),
+        right: fontScale(15)
     },
-    rightText:{
-        opacity:0.43,
-        fontSize:fontScale(15),
-        fontWeight:"bold"
+    rightText: {
+        opacity: 0.43,
+        fontSize: fontScale(15),
+        fontWeight: "bold"
     },
-    leftText:{
-        fontWeight:"bold"
-    }
+    leftText: {
+        fontWeight: "bold"
+    },
+    radioForm: { width: width - fontScale(65), justifyContent: "space-between" }
 })
 
 export default index;

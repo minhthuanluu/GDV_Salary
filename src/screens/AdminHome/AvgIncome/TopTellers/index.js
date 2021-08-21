@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, Text, FlatList, View, ActivityIndicator } from "react-native";
-import { Body, GeneralListItem, Header, Search, TableHeader } from "../../../../comps";
+import { Body, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from "../../../../comps";
 import { styles } from "./style";
 import { colors } from "../../../../utils/Colors";
 import { fontScale } from "../../../../utils/Fonts";
@@ -94,11 +94,9 @@ const AdminTopTellerAvgIncome = () => {
     })
   }
 
-  const getData = async (branchCode, shopCode, sort, branchName) => {
-    branchName && setPlaceHolder(branchName)
+  const getData = async (branchCode, shopCode, sort) => {
     setMessage("");
     setLoadingData(true);
-    setSort(sort)
     setData([])
     await getTopTellerByAvgIncome(navigation, branchCode, shopCode, sort).then((res) => {
       setLoadingData(false);
@@ -143,7 +141,7 @@ const AdminTopTellerAvgIncome = () => {
       getBranchList();
       setRole(data.role);
       if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-      
+
         await getData('', '', sort, defaultBranchName);
         setPlaceHolder(text.chooseBranch)
       } else if (data.role == ROLE.MBF_CHINHANH) {
@@ -174,7 +172,7 @@ const AdminTopTellerAvgIncome = () => {
       "hardwareBackPress",
       backAction
     );
-    
+
     // init();
     checkRole();
     getBranchList();
@@ -189,37 +187,15 @@ const AdminTopTellerAvgIncome = () => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.topTellers} />
       {notification ? <Text style={styles.notification}>{notification}</Text> : null}
-      <Search
-        rightIcon={images.searchlist}
-        dialogTitle="Chọn dữ liệu"
-        modalTitle={text.select}
-        placeholder={placeHolder}
-        searchSelectModal
-        data={[
-          { label: text.highestTop, value: 1 },
-          { label: text.lowestTop, value: 0 }
-        ]}
-        initialRadio={sort == 1 ? 0 : 1}
-        modalTitle={text.select}
-        width={width - fontScale(60)}
-        style={{ marginTop: fontScale(20) }}
+      <SearchWithPermission
+        oneSelect
+        hideMonthFilter
         leftIcon={images.teamwork}
-        dataOne={branchList}
-        dataTwo={shopList}
-        dataThree={empList}
-        index={branchList.map((item, index) => index)}
-        fieldOne={branchList.map((item) => item.shopName)}
-        fieldTwo={shopList.map((item) => item.shopName)}
-        fieldThree={empList.map((item, index) => item.maGDV)}
-        onChangePickerOne={(value) => onChangeBranch(value)}
-        showPicker={[true, false, false]}
-        fixed={role != ROLE.VMS_CTY && role != ROLE.ADMIN ? true : false}
-        fixedData={defaultShopName}
-        onPressOK={(value) =>
-          role == ROLE.VMS_CTY && role == ROLE.VMS_CTY ? getData(value.shopCode || defaultBranchCode, defaultShopCode, value.radio, value.shopName || defaultShopName) :
-            role == ROLE.MBF_CHINHANH ? getData(defaultShopCode, "", value.radio) : getData(defaultBranchCode, defaultShopCode, value.radio)
-        }
-      />
+        rightIcon={images.searchlist}
+        width={width - fontScale(50)}
+        placeholder="Tìm kiếm"
+        modalTitle="Vui lòng chọn"
+        onDone={(value) => getData(value.branchCode, "", value.radio)} />
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }} />
