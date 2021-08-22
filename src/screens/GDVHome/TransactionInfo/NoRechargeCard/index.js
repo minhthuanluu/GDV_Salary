@@ -138,7 +138,7 @@ const NoRechargeCard = (props) => {
                 {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                 <FlatList
-                    style={{ marginTop: fontScale(20) }}
+                    style={{ marginTop: fontScale(10) }}
                     keyExtractor={(item, index) => index.toString()}
                     data={searchData}
                     renderItem={({ item, index }) => {
