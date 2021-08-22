@@ -235,6 +235,6 @@ productivitySub: "Năng suất bình quân",
   outcomeDetail:"Chi tiết mục chi",
   generalFee:"Chi phí chung",
   outcomePlanSupport:"Kế hoạch dự chi hỗ trợ",
-  empAmount:"Số lượng GDV"
-  
+  empAmount:"Số lượng GDV",
+  planTwelveText:"Kế hoạch dự kiến chi hỗ trợ trong 12 tháng"
 };
