@@ -125,8 +125,8 @@ const index = (props) => {
                 <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" }}>Thông tin thêm nguồn hỗ trợ đến tháng N-1:</Text>
                 <View style={{ flexDirection: "row" }}>
                     <View style={{ marginLeft: fontScale(10) }}>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(30), fontWeight: "bold" }}>Tổng còn lại:</Text>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(30), fontWeight: "bold" }}>Tổng đã chi:</Text>
+                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" }}>Tổng còn lại:</Text>
+                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" }}>Tổng đã chi:</Text>
                     </View>
                     <View>
                         <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10), fontWeight: "bold", color: colors.lightBlue }}>{dataPlanSupport.outcomeTotal}</Text>
