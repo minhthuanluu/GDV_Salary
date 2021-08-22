@@ -110,7 +110,7 @@ const index = (props) => {
                     <View style={{
                         flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
                         shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(15), marginBottom: fontScale(15)
+                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(20), marginBottom: fontScale(5)
                     }}>
                         <View style={{ flex: 3 }}>
                             {
