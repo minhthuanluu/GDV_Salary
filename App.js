@@ -4,7 +4,7 @@ import { Image, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen, AdminTransInfoDashdoardScreen, AdminStatisticalBranchScreen, AdminStatisticalShopScreen, AdminStatisticalEmpScreen, AdminViolateWarningDashboardScreen, AdminEmpRegInfoScreen, AdminEmpRegInfoDetailScreen, AdminBranchTransInfoScreen, AdminShopTransInfoScreen, AdminEmpTransInfoScreen, DenyByWrongInfoScreen, AdminSubscriberQualityDashboardScreen, AdminBranchSubscriberQualityScreen, AdminShopSubscriberQualityScreen, AdminEmpSubscriberQualityScreen, AdminEmpThreeTimeScreen, AdminViolateSubscriberScreen, AdminSubscriberQualitySumBranchScreen, AdminSubscriberQualitySumShopScreen, AdminSubscriberQualitySumEmpScreen, AdminViolateSubscriberFastScreen, AdminViolateSubscriberFCardScreen, AdminViolateSubscriberOverThreeScreen, AdminViolateFastSubDetailScreen, AdminViolateSubscriberFCardDetailScreen, NoRechargeCardScreen } from './src/screens';
+import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen, AdminTransInfoDashdoardScreen, AdminStatisticalBranchScreen, AdminStatisticalShopScreen, AdminStatisticalEmpScreen, AdminViolateWarningDashboardScreen, AdminEmpRegInfoScreen, AdminEmpRegInfoDetailScreen, AdminBranchTransInfoScreen, AdminShopTransInfoScreen, AdminEmpTransInfoScreen, DenyByWrongInfoScreen, AdminSubscriberQualityDashboardScreen, AdminBranchSubscriberQualityScreen, AdminShopSubscriberQualityScreen, AdminEmpSubscriberQualityScreen, AdminEmpThreeTimeScreen, AdminViolateSubscriberScreen, AdminSubscriberQualitySumBranchScreen, AdminSubscriberQualitySumShopScreen, AdminSubscriberQualitySumEmpScreen, AdminViolateSubscriberFastScreen, AdminViolateSubscriberFCardScreen, AdminViolateSubscriberOverThreeScreen, AdminViolateFastSubDetailScreen, AdminViolateSubscriberFCardDetailScreen, NoRechargeCardScreen, AdminExpenseManagementDashboardScreen, AdminExpenseGeneralScreen, AdminExpenseDetailOutcomesScreen, AdminExpensePlanSupportScreen } from './src/screens';
 import { colors } from './src/utils/Colors';
 import { images } from './src/utils/Images';
 import { _retrieveData } from './src/utils/Storage';
@@ -112,7 +112,6 @@ const GDVStack = () => {
       <Stack.Screen name="SubscriberList" component={SubscriberListScreen} />
       <Stack.Screen name="TransactionInfo" component={TransactionInfoScreen} />
       <Stack.Screen name="NoRechargeCard" component={NoRechargeCardScreen} />
-      
       <Stack.Screen name="ProductivitySub" component={ProductivitySubScreen} />
     </Stack.Navigator>
   )
@@ -143,9 +142,12 @@ const AdminStack = () => {
       <Stack.Screen name="AdminAvgIncome" component={AdminAvgIncomeScreen} />
       <Stack.Screen name="AdminAvgIncomeShop" component={AdminAvgIncomeShopScreen} />
       <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} />
-      <Stack.Screen name="AdminExpenseManagement" component={AdminExpenseManagementScreen} />
-      <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
+      <Stack.Screen name="AdminExpenseManagementDashboard" component={AdminExpenseManagementDashboardScreen} />
+      <Stack.Screen name="AdminExpenseGeneral" component={AdminExpenseGeneralScreen} />
+      <Stack.Screen name="AdminExpenseDetailOutcomes" component={AdminExpenseDetailOutcomesScreen} />
+      <Stack.Screen name="AdminExpensePlanSupport" component={AdminExpensePlanSupportScreen} />
 
+      <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
       <Stack.Screen name="AdminSubscriberQualityDashboard" component={AdminSubscriberQualityDashboardScreen} />
       <Stack.Screen name="BranchSubscriberQuality" component={AdminBranchSubscriberQualityScreen} />
       <Stack.Screen name="ShopSubscriberQuality" component={AdminShopSubscriberQualityScreen} />

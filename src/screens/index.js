@@ -36,7 +36,10 @@ import AdminKPIDashboard from "./AdminHome/KPI/Dashboard"; // AdminHome > KPI
     import AdminProductivitySub from "./AdminHome/KPI/ProductivitySub"; // AdminHome > KPI > Năng suất bình quân
         import AdminDetailProductivitySub from "./AdminHome/KPI/ProductivitySub/Detail"; // AdminHome > KPI > Năng suất bình quân > Chi tiết năng suất bình quân
 import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  // AdminHome > Lương theo tháng
-    import AdminExpenseManagement from "./AdminHome/SalaryByMonth/ExpenseManagement"; // AdminHome > Lương theo tháng > Quản lý chi phí
+    import AdminExpenseManagementDasboard from "./AdminHome/SalaryByMonth/ExpenseManagement/Dashboard"; // AdminHome > Lương theo tháng > Quản lý chi phí
+        import AdminExpenseGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminExpenseDetailOutcomes from "./AdminHome/SalaryByMonth/ExpenseManagement/DetailOutcome" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi
+        import AdminExpensePlanSupport from "./AdminHome/SalaryByMonth/ExpenseManagement/PlanSupport" //AdminHome > Lương theo tháng > Quản lý chi phí > Kế hoạch dự chi hỗ trợ
     import AdminTopTellers from "./AdminHome/SalaryByMonth/TopTeller"; // AdminHome > Lương theo tháng >Top GDV
     import AdminSalaryGroup from "./AdminHome/SalaryByMonth/SalaryGroup"; // AdminHome > Lương theo tháng > Nhóm lương
     import AdminMonthSalary from "./AdminHome/SalaryByMonth/MonthSalary/Company"; // AdminHome > Lương theo tháng > Lương tháng
@@ -109,7 +112,10 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminProductivitySubScreen = () => {return <AdminProductivitySub />}
             export const AdminDetailProductivitySubScreen = () => {return <AdminDetailProductivitySub />}
     export const AdminSalaryByMonthDashboardScreen = () => {return <AdminSalaryByMonthDashboard />}
-        export const AdminExpenseManagementScreen = () => {return <AdminExpenseManagement />}
+        export const AdminExpenseManagementDashboardScreen = () => {return <AdminExpenseManagementDasboard />}
+            export const AdminExpenseGeneralScreen = () => {return <AdminExpenseGeneral/>}
+            export const AdminExpenseDetailOutcomesScreen = () => {return <AdminExpenseDetailOutcomes/>}
+            export const AdminExpensePlanSupportScreen = () => {return <AdminExpensePlanSupport/>}
         export const AdminTopTellersScreen = () => {return <AdminTopTellers />}
         export const AdminSalaryGroupScreen = () => {return <AdminSalaryGroup />}
         export const AdminMonthSalaryScreen = () => {return <AdminMonthSalary />}

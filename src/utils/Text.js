@@ -231,5 +231,10 @@ productivitySub: "Năng suất bình quân",
   activeDate:"Ngày TH",
   phoneNum:"Số ĐT",
   sumMoney:"Tổng tiền",
-  rechargeDate:"Ngày nạp"
+  rechargeDate:"Ngày nạp",
+  outcomeDetail:"Chi tiết mục chi",
+  generalFee:"Chi phí chung",
+  outcomePlanSupport:"Kế hoạch dự chi hỗ trợ",
+  empAmount:"Số lượng GDV"
+  
 };
