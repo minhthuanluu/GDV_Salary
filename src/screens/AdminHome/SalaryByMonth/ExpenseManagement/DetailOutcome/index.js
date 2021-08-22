@@ -11,10 +11,11 @@ import { dataOutcome } from "./db"
 import { ScrollView } from 'react-native';
 import { colors } from '../../../../../utils/Colors';
 
-const index = (props) => {
-    const [beginMonth, setBeginMonth] = useState('01' + '/' + moment(new Date()).format("YYYY"));
+const index = () => {
+    const [beginMonth, setBeginMonth] = useState(moment(new Date()).format("01/YYYY"));
     const [endMonth, setEndMonth] = useState(moment(new Date()).subtract(1, 'months').format("MM/YYYY"));
     const [data, setData] = useState(dataOutcome)
+    
     const onChangeBMonth = (month) => {
         setBeginMonth(month);
         console.log(month + ' - ' + endMonth);
@@ -34,7 +35,7 @@ const index = (props) => {
                 <DatePicker month={beginMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(10) }} onChangeDate={(date) => onChangeBMonth(date)} />
                 <DatePicker month={endMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(20) }} onChangeDate={(date) => onChangeEMonth(date)} />
             </View>
-            <Text style={styles.notification}>{'Số liệu hiển thị từ...'}</Text>
+            <Text style={styles.notification}>{data.notification}</Text>
             <Body />
             <View style={styles.subContainer}>
                 <ScrollView showsVerticalScrollIndicator={false}>
