@@ -111,6 +111,8 @@ function AvgIncomeByMonth(props) {
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.fixedAverageSalary} price={thoundsandSep(data.avgPermanentSalary)} />
                             <ListItem icon={images.contractSalary} title={text.upAverageSalary} price={thoundsandSep(data.avgContractSalary)} />
+                            <ListItem icon={images.vas} title={text.avgVasAffiliate} price={thoundsandSep(data.avgVasAffiliate)} />
+                            <ListItem icon={images.supportmoney} title={text.avgOutcomeSupport} price={thoundsandSep(data.avgOutcomeSupport)} />
                             <ListItem icon={images.incentive} title={text.averageIncentiveSpending} price={thoundsandSep(data.avgExpenIncentive)} />
                             <ListItem icon={images.otheroutcome} title={text.averageOtherCosts} price={thoundsandSep(data.avgOtherExpen)} />
                         </View>
@@ -121,6 +123,8 @@ function AvgIncomeByMonth(props) {
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.totalAverageSalary} price={thoundsandSep(data.totalPermanentSalary)} />
                             <ListItem icon={images.contractSalary} title={text.totalupAverageSalary} price={thoundsandSep(data.totalContractSalary)} />
+                            <ListItem icon={images.vas} title={text.totalAvgVasAffiliate} price={thoundsandSep(data.totalAvgVasAffiliate)} />
+                            <ListItem icon={images.supportmoney} title={text.totalAvgOutcomeSupport} price={thoundsandSep(data.totalAvgOutcomeSupport)} />
                             <ListItem icon={images.incentive} title={text.totalIncentiveSpending} price={thoundsandSep(data.totalExpenIncentive)} />
                             <ListItem icon={images.otheroutcome} title={text.totalOtherCosts} price={thoundsandSep(data.totalOtherExpen)} />
                         </View>

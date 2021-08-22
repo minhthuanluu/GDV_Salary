@@ -9,7 +9,7 @@ import { fontScale } from '../../utils/Fonts';
 
 const MonthYearPicker = (props) => {
     const { width } = Dimensions.get('window');
-    const [year, setYear] = useState(new Date().getFullYear());
+    const [year, setYear] = useState(props.defaultYear||new Date().getFullYear());
     const [yearArray, setYearArray] = useState([
         { "key": 0, "element": year },
         { "key": 1, "element": year + 1 },
@@ -75,11 +75,11 @@ const MonthYearPicker = (props) => {
             <View style={{ flex: 1 / 2, backgroundColor: 'white' }} >
                 <View style={styles.yearContainer}>
                     <TouchableOpacity onPress={() => onPrev()}>
-                        <Text style={{ fontSize: fontScale(14) }}>Năm trước</Text>
+                        <Text style={{ fontSize: fontScale(14) }}>Trở lại</Text>
                     </TouchableOpacity>
                     <Text style={styles.yearLabel}>Chọn năm</Text>
                     <TouchableOpacity onPress={() => onNext()}>
-                        <Text style={{ fontSize: fontScale(14) }}>Năm sau</Text>
+                        <Text style={{ fontSize: fontScale(14) }}>Kế tiếp</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.monthContainer}>
@@ -123,7 +123,7 @@ const styles = {
     },
 
     yearLabel: {
-        fontWeight: 'bold', fontSize: fontScale(22), color: colors.primary
+        fontWeight: 'bold', fontSize: fontScale(20), color: colors.primary
     },
 }
 

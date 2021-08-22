@@ -51,7 +51,7 @@ const index = (props) => {
 
     const [radioValue, setRadioValue] = useState(1);
     const [fixed, setFixed] = useState(false);
-    const [selected,setSelected] = useState(false)
+    const [selected, setSelected] = useState(false)
 
     const getBranchList = async () => {
         await getAllBranch().then((data) => {
@@ -206,7 +206,7 @@ const index = (props) => {
                 setBranchName(data.shopName);
                 setBranchCode(data.shopCode)
                 setFixed(true)
-            }else if (data.role == "MBF_CUAHANG") {
+            } else if (data.role == "MBF_CUAHANG") {
                 setBranchName(data.branchName);
                 setBranchCode(data.branchCode)
                 setFixed(true)
@@ -225,12 +225,12 @@ const index = (props) => {
 
     const onChangeMonth2 = (month) => {
         setMonth(month);
-        props.onDone ? props.onDone({"month": month,'radio':radioValue,'branchCode':branchCode}) : console.log('on Press');
+        props.onDone ? props.onDone({ "month": month, 'radio': radioValue, 'branchCode': branchCode }) : console.log('on Press');
 
     }
 
     const onDone2 = () => {
-        props.onDone ? props.onDone({"month": month,'radio':radioValue,'branchCode':branchCode}) : console.log('on Press');
+        props.onDone ? props.onDone({ "month": month, 'radio': radioValue, 'branchCode': branchCode }) : console.log('on Press');
         setRadioValue(radioValue);
         setShowModal(!showModal)
     }
@@ -271,6 +271,11 @@ const index = (props) => {
                                 <Text style={styles.rightText}>{empLabel != "" ? empLabel : props.select3RightContainer}</Text>
                             </TouchableOpacity>
 
+                            <View style={{ flexDirection: "row", alignSelf: "center",marginTop:fontScale(20) }}>
+                                <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setShowModal(!showModal)} />
+                                <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => onDone()} />
+                            </View>
+
                             {/* ------------ */}
                             <Modal
                                 statusBarTranslucent={true}
@@ -288,7 +293,7 @@ const index = (props) => {
                                         data={branchList}
                                         keyExtractor={(item, index) => index.toString()}
                                         renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeBranch(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
-                                            <Text>{item.shopName}</Text>
+                                            <Text style={{ fontSize: fontScale(13) }}>{item.shopName}</Text>
                                         </TouchableOpacity>}
                                     />
                                 </View>
@@ -310,7 +315,7 @@ const index = (props) => {
                                         data={shopList}
                                         keyExtractor={(item, index) => index.toString()}
                                         renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeShop(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
-                                            <Text>{item.shopName}</Text>
+                                            <Text style={{ fontSize: fontScale(13) }}>{item.shopName}</Text>
                                         </TouchableOpacity>}
                                     />
                                 </View>
@@ -338,23 +343,20 @@ const index = (props) => {
                                         data={empListTemp}
                                         keyExtractor={(item, index) => index.toString()}
                                         renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeEmp(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
-                                            <Text>{item.fullName}</Text>
+                                            <Text style={{ fontSize: fontScale(13) }}>{item.fullName}</Text>
                                         </TouchableOpacity>}
                                     />
                                 </View>
                             </Modal>
                         </View>
-                        <View style={{ flexDirection: "row", alignSelf: "center", position: "absolute", bottom: fontScale(50) }}>
-                            <Button wIcon style={{ marginRight: fontScale(30) }} label={text.cancle} color="red" width={fontScale(100)} icon={images.closeline} onPress={() => setShowModal(!showModal)} />
-                            <Button wIcon style={{ marginLeft: fontScale(30) }} label={text.search} color="#32A2FC" width={fontScale(100)} icon={images.sendline} onPress={() => onDone()} />
-                        </View>
+
                     </Modal>
                 </View>
                     :
                     props.oneSelect
                         ?
                         <View style={props.style, { width: props.width, alignSelf: "center" }}>
-                             {props.hideMonthFilter ? null : <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10) }} onChangeDate={(value) => onChangeMonth2(value)} />}
+                            {props.hideMonthFilter ? null : <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center", marginBottom: fontScale(10) }} onChangeDate={(value) => onChangeMonth2(value)} />}
                             <TouchableOpacity style={styles.level1SubContain} onPress={() => { setShowModal(!showModal), getBranchList(), getShopList(""), getEmpList("", "") }}>
                                 <Image source={props.leftIcon} resizeMode="contain" style={styles.level1LeftIcon} />
                                 <Text style={styles.level1Placeholder}>{props.placeholder}</Text>
@@ -375,7 +377,7 @@ const index = (props) => {
                                     <View style={{ alignSelf: "center" }}>
                                         <RadioForm
                                             radio_props={props.data || radio_props}
-                                            initial={radioValue==1?0:1}
+                                            initial={radioValue == 1 ? 0 : 1}
                                             formHorizontal
                                             animation={true}
                                             style={styles.radioForm}
@@ -384,7 +386,7 @@ const index = (props) => {
                                         />
                                         {fixed == false ? <TouchableOpacity style={[styles.select1Container, { width: props.width }]} onPress={() => setShowSubModal(!showSubModal)}>
                                             <Text style={styles.leftText}>{branchName ? branchName : props.select1LeftContainer}</Text>
-                                            <Text>{branchCode!="" ? "" : "Tất cả"}</Text>
+                                            <Text style={styles.rightText}>{branchCode != "" ? "" : "Tất cả"}</Text>
                                         </TouchableOpacity>
                                             :
                                             <View style={[styles.select1Container, { width: props.width }]} onPress={() => setShowSubModal(!showSubModal)}>
@@ -407,7 +409,7 @@ const index = (props) => {
                                                     data={branchList}
                                                     keyExtractor={(item, index) => index.toString()}
                                                     renderItem={({ item, index }) => <TouchableOpacity onPress={() => onChangeBranch(item)} style={[styles.item, { backgroundColor: index % 2 ? colors.white : colors.lightGrey }]}>
-                                                        <Text>{item.shopName}</Text>
+                                                        <Text style={{ fontSize: fontScale(13) }}>{item.shopName}</Text>
                                                     </TouchableOpacity>}
                                                 />
                                             </View>
@@ -455,6 +457,7 @@ const styles = StyleSheet.create({
         color: colors.black,
         flex: 1,
         paddingLeft: fontScale(15),
+        fontSize: fontScale(14),
         textAlign: "center"
     },
     level1ModalContainer: {
@@ -490,7 +493,7 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: fontScale(13),
-
+        fontSize: fontScale(13)
     },
     searchInput: {
         flexDirection: "row",
@@ -516,10 +519,11 @@ const styles = StyleSheet.create({
     },
     rightText: {
         opacity: 0.43,
-        fontSize: fontScale(15),
+        fontSize: fontScale(14),
         fontWeight: "bold"
     },
     leftText: {
+        fontSize: fontScale(14),
         fontWeight: "bold"
     },
     radioForm: { width: width - fontScale(65), justifyContent: "space-between" }

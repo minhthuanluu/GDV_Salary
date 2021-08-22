@@ -189,8 +189,12 @@ const index = (props) => {
                                             <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(2), top: fontScale(8) }} resizeMode="cover" />
                                         </TouchableOpacity>
                                         :
-                                        <View style={{ flexDirection: "row" }}>
-
+                                        <View style={{ flexDirection: "row" , backgroundColor: index % 2 ? colors.lightGrey : colors.white, paddingVertical: fontScale(8)}}>
+                                            <Text style={{ flex: 1.5, textAlign: "left", fontSize: fontScale(14), marginLeft: fontScale(5) }}>{item.empName}</Text>
+                                            <Text style={{ flex: 1, textAlign: "left", paddingLeft: fontScale(15), fontSize: fontScale(14) }}>{item.store}</Text>
+                                            <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.subAmount}</Text>
+                                            <Text style={{ flex: 1, textAlign: "center", fontSize: fontScale(14) }}>{item.topPerDay}</Text>
+                                            <Image key={item.empCode} source={images.eye} style={{ tintColor: colors.grey, width: fontScale(20), height: fontScale(17), position: "absolute", right: fontScale(2), top: fontScale(8) }} resizeMode="cover" />
                                         </View>
 
                                 }

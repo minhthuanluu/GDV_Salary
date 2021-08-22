@@ -141,6 +141,7 @@ productivitySub: "Năng suất bình quân",
   transAmount:"Giao dịch Fone -> card",
   trans2CAmount:"Giao dịch chặn 2c TBTS",
   foneCardNoMoney: "GD Fone -> card \n không nạp tiền",
+  foneCardNoMoney1: "GD Fone -> card không nạp tiền",
   transInfoAmount: "Giao dịch DKTT",
 
 
@@ -220,5 +221,15 @@ productivitySub: "Năng suất bình quân",
   chooseEmp:"Chọn nhân viên",
   teller:"GDV",
   avgSalPerEmp:"Lương BQ/GDV",
-  incentivePerEmp:"Khoán sp/GDV"
+  incentivePerEmp:"Khoán sp/GDV",
+  vasAffiliate:"Vas Affiliate",
+  supportOutcome:"Chi hỗ trợ",
+  avgVasAffiliate:"BQ Vas Affiliate",
+  avgOutcomeSupport: "BQ chi hỗ trợ",
+  totalAvgVasAffiliate: "Tổng Vas Affiliate",
+  totalAvgOutcomeSupport: "Tổng chi hỗ trợ",
+  activeDate:"Ngày TH",
+  phoneNum:"Số ĐT",
+  sumMoney:"Tổng tiền",
+  rechargeDate:"Ngày nạp"
 };

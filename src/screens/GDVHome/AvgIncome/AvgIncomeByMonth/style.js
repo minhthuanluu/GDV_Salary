@@ -13,13 +13,12 @@ export const styles = StyleSheet.create({
         top: fontScale(110)
     },
     body: {
-        marginTop: fontScale(60)
+        marginTop: fontScale(50)
     },
     notification: {
         color: colors.white,
         fontSize: fontScale(15),
-        textAlign: "center",
-        marginTop: fontScale(5)
+        textAlign: "center"
     },
     bodyScr: {
         marginTop: fontScale(14)

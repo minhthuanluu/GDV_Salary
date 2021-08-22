@@ -50,7 +50,9 @@ export const SalaryByMonth = {
   "monthlySalary": null,
   "permanentSalary": null,
   "contractSalary": null,
+  "vasAffiliate":null,
   "incentiveCost": null,
+  "supportCost":null,
   "sanctionCost": null,
   "others": null
 }
@@ -82,11 +84,15 @@ export const M_AvgIncomeByMonth = {
   "avgByMonth": "",
   "avgPermanentSalary": "",
   "avgContractSalary": "",
+  "avgVasAffiliate":"",
+  "avgOutcomeSupport":"",
   "avgExpenIncentive": "",
   "avgOtherExpen": "",
   "totalIncome": "",
   "totalPermanentSalar": "",
   "totalContractSalary": "",
+  "totalVasAffiliate":"",
+  "totalOutcomeSupport":"",
   "totalExpenIncentive": "",
   "totalOtherExpen": ""
 }

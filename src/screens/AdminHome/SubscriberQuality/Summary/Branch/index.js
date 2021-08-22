@@ -70,23 +70,11 @@ const index = (props) => {
     getData("", "");
   }, [])
 
-  // const _onChangeMonth = (value) => {
-  //   setMonth(value);
-  //   getData(value, "", "");
-  // };
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.subscriberQuality} />
-{/* ?      <Text style={styles.text}>{notification}</Text */}
       <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
-
-      {/* <DatePicker
-        month={month}
-        width={width - fontScale(120)}
-        style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      /> */}
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
@@ -110,8 +98,7 @@ const index = (props) => {
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminSubscriberQualitySummaryShop", {
                     item: {
-                      "branchCode": item.shopCode,
-                      // "month": month
+                      "branchCode": item.shopCode
                     }
                   })} />
                 { index == data.length - 1 ?
@@ -135,10 +122,7 @@ const index = (props) => {
               </View>
             )}
           />
-
-
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

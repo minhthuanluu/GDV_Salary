@@ -23,7 +23,7 @@ const Dashboard = (route) => {
 
   const [user, setUserData] = useState(UserObj);
   const [loading, setLoading] = useState(false);
-  const [branchList,setBranchList] = useState([])
+  const [branchList, setBranchList] = useState([])
 
   const getData = async () => {
     setLoading(true)
@@ -83,14 +83,12 @@ const Dashboard = (route) => {
       onHide: () => { }
     })
   }
-  const [year,setYear] = useState(moment(new Date()).format('YYYY'))
+  const [year, setYear] = useState(moment(new Date()).format('YYYY'))
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      {
-        <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user.displayName} maGDV={user.shopId.shopCode} />
-      }
-        {/* <YearPicker defaultYear={year} width={width-100} onPress={(value)=>console.log(value)}/> */}
+      <Header showBack={false} profile avatar={user.avatar != null ? { uri: imgUrl + user.avatar } : images.avatar} fullName={user.displayName} maGDV={user.shopId.shopCode} />
+      {/* <YearPicker defaultYear={year} width={width-fontScale(100)} onPress={(value)=>console.log(value)} style={{alignSelf:"center"}}/> */}
       <Body style={{ marginTop: fontScale(10) }} showInfo={false} />
       <View style={styles.body}>
         <MenuItem style={{ marginTop: fontScale(10) }} title={text.kpi} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.kpiByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminKPIDashboard")} />

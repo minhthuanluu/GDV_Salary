@@ -13,6 +13,7 @@ import SalaryByMonthContract from "./GDVHome/SalaryByMonth/Contract";
 import SalaryByMonthArrears from "./GDVHome/SalaryByMonth/Arrears";
 import AvgIncomeByMonth from "./GDVHome/AvgIncome/AvgIncomeByMonth";
 import TransactionInfo from "./GDVHome/TransactionInfo";
+import NoRechargeCard from "./GDVHome/TransactionInfo/NoRechargeCard"
 import SubscriberQuality from "./GDVHome/SubscriberQuality";
 import ProductivitySub from "./GDVHome/KPIByMonth/ProductivitySub";
 import Profile from "./Profile/Dashboard";
@@ -90,6 +91,7 @@ export const SalaryByMonthContractScreen = () => {return <SalaryByMonthContract 
 export const SalaryByMonthArrearsScreen = () => {return <SalaryByMonthArrears />}
 export const AvgIncomeByMonthScreen = () => {return <AvgIncomeByMonth />}
 export const TransactionInfoScreen = () => {return <TransactionInfo />}
+    export const NoRechargeCardScreen=()=>{return <NoRechargeCard/>}
 export const SubscriberQualityScreen = () => {return <SubscriberQuality />}
 export const ProductivitySubScreen = () => {return <ProductivitySub />}
 export const ProfileScreen = () => {return <Profile />}

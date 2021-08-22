@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/core';
 import Toast from 'react-native-toast-message';
 import { ActivityIndicator } from 'react-native';
 import { _retrieveData } from '../../../utils/Storage';
+import { ROLE } from '../../../utils/Roles';
 
 function index(props) {
     const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
@@ -63,10 +64,10 @@ function index(props) {
 
     const checkAdminTransInfoRole = async () => {
         await _retrieveData("userInfo").then((item) => {
-          if (item.userId.userGroupId.code == "VMS_CTY") {
+          if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
             navigation.navigate("AdminStatisticalBranch")
           }
-          if (item.userId.userGroupId.code == "MBF_CHINHANH") {
+          if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {
             navigation.navigate("AdminShopTransInfo", { item: { "branchCode": item?.userId.shopId.shopCode,"month":month } })
           }
           if (item.userId.userGroupId.code == "MBF_CUAHANG") {
