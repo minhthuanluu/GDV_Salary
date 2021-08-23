@@ -152,7 +152,7 @@ const SubscriberList = () => {
       <Header title={text.kpiByMonth} />
       <MetricStatus
         style={styles.status}
-        title={text.subscriberDevelopment}
+        title={notification&&text.subscriberDevelopment}
         status={notification}
       />
       <Search
@@ -176,7 +176,7 @@ const SubscriberList = () => {
         ]}
         width={width - fontScale(65)}
         onPress={(value) => filterDataType(data, value.value)}
-        style={{ marginTop: fontScale(20), marginRight: fontScale(5) }}
+        style={{ marginTop: fontScale(20)}}
       />
 
       <Body

@@ -1,12 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native";
-import {
-  Body,
-  DatePicker,
-  GeneralListItem,
-  Header,
-} from "../../../../../comps";
+import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps";
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
@@ -21,9 +15,8 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
-import { checkUserRole } from "../../../../../utils/Logistics";
 
-const index = (props) => {
+const index = () => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
@@ -33,7 +26,6 @@ const index = (props) => {
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
-
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
@@ -117,11 +109,11 @@ const index = (props) => {
                     <GeneralListItem
                       style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
                       monthSalaryGeneral
-                    key={index}
-                    title={generalData.shopName}
-                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
-                    icon={images.branch} />
+                      key={index}
+                      title={generalData.shopName}
+                      titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
+                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                      icon={images.branch} />
                     : null
                 }
               </View>

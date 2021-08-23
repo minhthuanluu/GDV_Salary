@@ -293,10 +293,10 @@ const Search = (props) => {
                             </View>
                         </Modal>
                     </View> :
-                    <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), marginHorizontal: width - (width - props.width / 12), backgroundColor: "white" }, props.style, styles.homeSearch]}>
+                    <View onPress={() => setSelectModal(!selectModal)} style={[{ flexDirection: 'row', width: props.width, paddingVertical: fontScale(2), alignSelf:"center", backgroundColor: "white" }, props.style, styles.homeSearch]}>
                         <Image resizeMode="contain" source={props.leftIcon} style={styles.leftIco} />
                         <View style={{ flex: 1, justifyContent: "center", alignContent: "center" }}>
-                            <TextInput placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText} />
+                            <TextInput style={{fontSize:fontScale(13)}} placeholder={props.placeHolder} textAlign="center" keyboardType={props.keyboardType} onChangeText={props.onChangeText} />
                         </View>
                         <Image resizeMode="contain" source={props.rightIcon} style={styles.rightIco} />
                     </View>

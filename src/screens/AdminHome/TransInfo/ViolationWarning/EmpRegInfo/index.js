@@ -171,7 +171,7 @@ const index = (props) => {
                     {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                     <FlatList
-                        style={{ marginTop: fontScale(20) }}
+                        style={{ marginTop: fontScale(20),marginBottom:fontScale(35) }}
                         keyExtractor={(item, index) => item.empCode.toString()}
                         data={data}
                         renderItem={({ item, index }) => {

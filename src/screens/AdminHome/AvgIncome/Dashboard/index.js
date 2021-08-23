@@ -38,7 +38,7 @@ const index = (props) => {
       <View style={styles.body}>
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.topTellers} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.toptellers} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeTopSellers")} />
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.grocontractSalaryAverage} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.otherExpenses} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminAvgIncomeSalaryGroup")} />
-        <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryAverage} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => checkAdminAvgIncomeRole()} />
+        <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryAverage} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.incentiveCost} width={width - fontScale(60)} onPress={() => checkAdminAvgIncomeRole()} />
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

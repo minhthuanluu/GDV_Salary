@@ -78,7 +78,7 @@ const Achieve = (props) => {
                                 <ListItem icon={images.sim} title={text.kpiPostpaidSubscribers} price={checkn(data.postPaid)} />
                                 <ListItem icon={images.vas} title={text.kpiVas} price={data.vas} />
                                 <ListItem icon={images.important} title={text.kpiImportant} price={data.importantKpi + '\n(Theo kế hoạch MNP)'} />
-                                <ListItem icon={images.retailsales} title={text.retailSales} price={thoundsandSep(data.retailSales)} />
+                                <ListItem icon={images.retailsales} title={text.retailSales} price={data.retailSales} />
                             </View>
                             <View style={[styles.detailInfo, { marginBottom: fontScale(20) }]}>
                                 <ListItem icon={images.percent} title={text.subRatio} justTitle />

@@ -157,7 +157,7 @@ const SubscriberQuality = () => {
                                 </View>
                                 <ListItem icon={images.contractDebt} title={text.contractDebt} price={thoundsandSep(data.contractDebt)} />
                             </View>
-                            <View style={{ flex: 1 }}>
+                            <View style={{ flex: 1,alignSelf:"center" }}>
                                 {
                                     showDetailVal == true ?
                                         <View style={styles.detailDialogInfo}>
@@ -186,7 +186,7 @@ const SubscriberQuality = () => {
                                             ],
                                             legend: [text.monthRevenue, text.totalDebtOverNinety]
                                         }}
-                                        width={width}
+                                        width={width-fontScale(20)}
                                         height={fontScale(350)}
                                         chartConfig={{
                                             flex:1,
@@ -215,7 +215,7 @@ const SubscriberQuality = () => {
                                                     x={x}
                                                     y={y - 10}
                                                     fill="black"
-                                                    fontSize="8"
+                                                    fontSize="5"
                                                     fontWeight="normal"
                                                     textAnchor="middle">
                                                     {showDetailVal == true && indexData == y ? indexData : null}

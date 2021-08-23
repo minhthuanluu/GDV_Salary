@@ -81,10 +81,21 @@ const index = (props) => {
                     data={data}
                     keyExtractor={(item, key) => item.shopCode.toString()}
                     renderItem={({ item, index }) =>
-                        <View style={{paddingBottom:index==data.length-1 ? fontScale(20): 0}}> 
+                        <View style={{paddingBottom:index==data.length-1 ? fontScale(70): 0}}> 
                             <GeneralListItem key={index} columns title={item.shopName} titleArray={["Lương BQ", "Khoán sp"]} item={[item.avgIncome, item.contractSalary]} />
                             {
-                                index == data.length - 1 ? <GeneralListItem styleCol2={{marginLeft:fontScale(0)}} styleCol4={{marginLeft:fontScale(0)}} style={{ marginBottom: fontScale(70),marginTop:-fontScale(20) }} fourColumnCompany title={generalData.shopName} titleArray={["Bình quân chi 1 tháng", "BQ lương cố định", "BQ lương khoán SP", "BQ lương KK", "BQ chi hỗ trợ"]} item={[generalData.avgIncome, generalData.permanentSalary, generalData.contractSalary, generalData.incentiveSalary, generalData.spenSupport]} icon={images.store} /> : null
+                                index == data.length - 1 ? 
+                                    <GeneralListItem 
+                                    styleCol1={{ marginLeft: fontScale(10) }}
+                                    styleCol3={{ marginLeft: fontScale(10), marginTop: fontScale(10) }}
+                                    styleCol2={{ marginLeft: fontScale(10), marginTop: fontScale(10) }} styleCol4={{ marginLeft: -fontScale(10) }}
+                                    styleCol5={{ marginTop: fontScale(10), marginLeft: -fontScale(10) }}
+                                    style={{ marginTop: -fontScale(10), marginHorizontal: fontScale(10), paddingHorizontal: fontScale(10) }}
+                                    twoColumnCompany
+                                    title={generalData.shopName}
+                                    titleArray={["BQ lương 1 tháng/GDV", "BQ lương cố định:", "BQ lương KK:", "BQ Vas Affiliate:", "BQ lương khoán SP:", "BQ chi hỗ trợ:"]}
+                                    item={[generalData.avgIncome, generalData.permanentSalary, generalData.incentiveSalary, generalData.avgVasAffiliate, generalData.contractSalary, generalData.spenSupport]} 
+                                        icon={images.store} /> : null
                             }
                         </View>
                     } />

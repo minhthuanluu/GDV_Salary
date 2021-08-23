@@ -110,10 +110,8 @@ const index = (props) => {
                 { index == data.length - 1 ?
                   <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
-                    contentStyle={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12, textAlign: "right", marginVertical: fontScale(8) }}
-                    titleStyle={{ fontSize: 12, marginVertical: fontScale(8) }}
-                    titleStyle1={{ fontSize: 12, marginVertical: fontScale(8), color: "#000000" }}
+                    contentStyle={{ fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: 12, marginVertical: fontScale(8) }}
                     twelveColumnCompany
                     title={generalData.shopName}
                     titleArr={["Tổng", "Top/ngày"]}

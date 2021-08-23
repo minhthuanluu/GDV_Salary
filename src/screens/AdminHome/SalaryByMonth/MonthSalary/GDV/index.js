@@ -95,10 +95,10 @@ const index = (props) => {
               <View style={{marginTop:index==0 ? -fontScale(50) : 0}}>
                 <GeneralListItem
                   style={{ marginTop: fontScale(5)}}
-                  sixColumnCompany
+                  monthSalaryEmpItem
                   rightIcon={images.store}
-                  titleArray={["KPI", "Tổng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                  item={[item.kpi, item.totalSalary, item.permanentSalary, item.incentiveSalary, item.supportOutcome, item.encouSalary, item.other]}
+                  titleArray={["KPI", "Tổng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
+                  item={[item.kpi, item.totalSalary, item.permanentSalary, item.incentiveSalary,item.vasAffiliateAmount, item.supportOutcome, item.encouSalary, item.other]}
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminMonthSalaryGDV", {
                     item: {

@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
-import { Image, StatusBar } from 'react-native';
+import { Image, StatusBar, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -11,6 +11,7 @@ import { _retrieveData } from './src/utils/Storage';
 import { fontScale } from './src/utils/Fonts';
 import { LogBox } from 'react-native';
 import Splash from './src/screens/Auth/Splash';
+import { width } from './src/utils/Dimenssion';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -31,7 +32,9 @@ const GDVBottomTab = () => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.user} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.user} />
+            </View>
           }
         }} />
       <Tab.Screen
@@ -40,7 +43,9 @@ const GDVBottomTab = () => {
         options={{
           tabBarLabel: 'Home',
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.home} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.home} />
+            </View>
           }
         }} />
       <Tab.Screen
@@ -49,7 +54,9 @@ const GDVBottomTab = () => {
         options={{
           tabBarLabel: 'Logout',
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.logout} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.logout} />
+            </View>
           }
         }} />
     </Tab.Navigator>
@@ -72,7 +79,9 @@ const AdminBottomTab = () => {
         options={{
           tabBarLabel: 'Profile',
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.user} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.user} />
+            </View>
           }
         }} />
       <Tab.Screen
@@ -80,8 +89,11 @@ const AdminBottomTab = () => {
         component={AdminStack}
         options={{
           tabBarLabel: 'Home',
+          unmountOnBlur: true,
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.home} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.home} />
+            </View>
           }
         }} />
       <Tab.Screen
@@ -90,7 +102,9 @@ const AdminBottomTab = () => {
         options={{
           tabBarLabel: 'Logout',
           tabBarIcon: ({ color, size, focused }) => {
-            return <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary }} resizeMode="cover" source={images.logout} />
+            return <View style={{ borderTopColor: focused ? colors.primary : colors.white, width: width / 3, borderTopWidth: fontScale(1), paddingTop: 10 }}>
+              <Image style={{ width: fontScale(size), height: fontScale(size), tintColor: focused == false ? colors.grey : colors.primary, alignSelf: "center" }} resizeMode="cover" source={images.logout} />
+            </View>
           }
         }} />
     </Tab.Navigator>

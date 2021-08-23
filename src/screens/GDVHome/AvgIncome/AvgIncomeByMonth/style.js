@@ -8,12 +8,10 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.primary
     },
     dateContainer: {
-        flexDirection: "row",
-        position: "absolute",
-        top: fontScale(110)
+        flexDirection: "row"
     },
     body: {
-        marginTop: fontScale(50)
+        marginTop: fontScale(20)
     },
     notification: {
         color: colors.white,

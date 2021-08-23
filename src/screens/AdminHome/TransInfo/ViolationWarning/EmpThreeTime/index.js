@@ -22,7 +22,7 @@ const index = (props) => {
     const navigation = useNavigation();
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [message,setMessage] = useState('');
+    const [message, setMessage] = useState('');
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
@@ -31,8 +31,8 @@ const index = (props) => {
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
             if (res.status == "success") {
-                    setData(res.data);
-                    setLoading(res.isLoading);
+                setData(res.data);
+                setLoading(res.isLoading);
             }
             if (res.length == 0) {
                 setLoading(false);
@@ -59,7 +59,7 @@ const index = (props) => {
                     onHide: () => navigation.goBack()
                 })
             }
-            
+
 
         })
     }
@@ -84,7 +84,7 @@ const index = (props) => {
                 leftIcon={images.teamwork}
                 rightIcon={images.searchlist}
                 width={width - fontScale(50)}
-                style={{marginTop:fontScale(10)}}
+                style={{ marginTop: fontScale(10) }}
                 month={month}
                 placeholder={text.search}
                 modalTitle={text.select}
@@ -96,37 +96,39 @@ const index = (props) => {
             />
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
-                {loading == true ? 
-                <ActivityIndicator size="small" color={colors.primary} /> 
-                : null}
                 <View style={{ marginTop: -fontScale(20) }}>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
-                        <TableHeader style={{ width: width /2 }} title={'GDVPTM'} />
-                        <TableHeader style={{ width: width /2 }} title={'Tên CH'} />
+                        <TableHeader style={{ width: width / 2 }} title={'GDVPTM'} />
+                        <TableHeader style={{ width: width / 2 }} title={'Tên CH'} />
                     </View>
-                    {message?<Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15),width:width }}>{message}</Text>:null}
-                    <FlatList
-                        showsVerticalScrollIndicator={false}
-                        data={data}
-                        style={{ marginTop: fontScale(10) }}
-                        keyExtractor={(item, index) => index.toString()}
-                        key={({ item }) => item.empName.toString()}
-                        renderItem={({ item, index }) => (
-                            <GeneralListItem
-                                item={item}
-                                index={index}
-                                fields={[
-                                    item.empName,
-                                    item.store
-                                ]}
-                                style={[
-                                    [{ textAlign: "left",marginLeft:width/8, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width/2}],
-                                    [{ textAlign: "left",marginLeft:width/21, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width/2 }],
-                                ]}
+                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15), width: width }}>{message}</Text> : null}
+                    <View>
+                        {loading == true ?
+                            <ActivityIndicator size="small" color={colors.primary} style={{marginTop:fontScale(15)}}/>
+                            : null}
+                        <FlatList
+                            showsVerticalScrollIndicator={false}
+                            data={data}
+                            style={{ marginTop: fontScale(10), marginBottom: fontScale(43) }}
+                            keyExtractor={(item, index) => index.toString()}
+                            key={({ item }) => item.empName.toString()}
+                            renderItem={({ item, index }) => (
+                                <GeneralListItem
+                                    item={item}
+                                    index={index}
+                                    fields={[
+                                        item.empName,
+                                        item.store
+                                    ]}
+                                    style={[
+                                        [{ textAlign: "left", marginLeft: width / 8, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width / 2 }],
+                                        [{ textAlign: "left", marginLeft: width / 21, fontSize: fontScale(14), textAlignVertical: "center" }, { width: width / 2 }],
+                                    ]}
 
-                            />
-                        )}
-                    />
+                                />
+                            )}
+                        />
+                    </View>
                 </View>
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />

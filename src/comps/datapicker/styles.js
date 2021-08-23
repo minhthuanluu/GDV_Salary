@@ -13,14 +13,15 @@ export const styles = StyleSheet.create({
         backgroundColor: colors.white,
         paddingVertical: fontScale(8),
         borderRadius: fontScale(12),
-
+        alignSelf:"center"
     },
     dateLabel: {
         flex: 1,
         fontSize: fontScale(14),
         textAlignVertical:"center",
-        color: "#848484",
-        paddingLeft:fontScale(145)
+        paddingVertical:fontScale(4),
+        textAlign:"center",
+        color: "#848484"
     },
     selectContent: {
         borderBottomColor: "#f1f1f1",
