@@ -1,6 +1,6 @@
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, StatusBar, View, Image, Text, ActivityIndicator, BackHandler } from 'react-native';
+import { SafeAreaView, StatusBar, View, Image, Text, ActivityIndicator } from 'react-native';
 import { updatePassword } from '../../../api';
 import { Input, Button, AuthTitle } from '../../../comps';
 import { colors } from '../../../utils/Colors';

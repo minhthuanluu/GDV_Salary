@@ -116,11 +116,12 @@ const index = (props) => {
                   index == data.length - 1 ?
                     <GeneralListItem
                       style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                      fiveColumnCompany
-                      title={generalData.shopName}
-                      titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
-                      icon={images.branch} />
+                      monthSalaryGeneral
+                    key={index}
+                    title={generalData.shopName}
+                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    icon={images.branch} />
                     : null
                 }
               </View>

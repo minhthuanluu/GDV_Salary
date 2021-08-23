@@ -1,6 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { FlatList } from "react-native";
+import { Image } from "react-native";
 import { BackHandler } from "react-native";
 import { View } from "react-native";
 import { StatusBar } from "react-native";
@@ -31,6 +32,7 @@ const ProductivitySub = (props) => {
     await getSubscriberProductivity(navigation).then((res) => {
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
+          console.log(res)
           setDateRange(res.data.dateRange);
           setData(res.data.data);
           setLoading(false);
@@ -49,13 +51,14 @@ const ProductivitySub = (props) => {
     });
 
     await getProfile(navigation).then((res) => {
-      if (res.status == "success") {
-        setLoading(false)
-        setUserData(res.data)
-      }
-      if (res.status == "failed") {
-        setLoading(false)
-      }
+      // if (res.status == "success") {
+      //   setLoading(false)
+      //   setUserData(res.data)
+      //   // console.log(res)
+      // }
+      // if (res.status == "failed") {
+      //   setLoading(false)
+      // }
     })
   };
 
@@ -73,10 +76,10 @@ const ProductivitySub = (props) => {
       backHandler.remove();
     };
   }, [""]);
-
+  const icons = [images.company, images.branch, images.store, images.splashshape];
+  const labels = ["TBTS:", "TBTT:", "Lượt KH:", "Lượt GD:"];
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
-      {/* <ListMenu data={listMenu[1]} icon={images.arrears}/> */}
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.kpiByMonth} />
       <Toast ref={(ref) => Toast.setRef(ref)} />
@@ -86,53 +89,28 @@ const ProductivitySub = (props) => {
       <View style={{ backgroundColor: colors.white, flex: 1 }}>
         <Text style={styles.text}>Năng suất bình quân</Text>
         {
-          loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginTop:fontScale(20)}}/> : null
+          loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null
         }
-        <FlatList 
+        <FlatList
           style={styles.list}
           data={data}
-          // data={listMenu}
-          keyExtractor={(index, item) => index.toString()}
-          renderItem={({ item, index }) => (
-            <ListMenu
-              data={item}
-              // onPress={()=>navigation.navigation("")}
-              labelData={["TBTS:"]}
-              labelDataTwo={["TBTT:"]}
-              labelDataThree={["Lượt KH:"]}
-              labelDataFour={["Lượt GD:"]}
-              index={index}
-              fieldData={[
-                item.shopName
-              ]}
-              fieldDataOne={[
-                item.postSub
-                
-                
-
-              ]}
-
-              fieldDataTwo={[
-                item.preSub
-              ]}
-
-              fieldDataThree={[
-                item.cusAmount
-              ]}
-
-              fieldDataFour={[
-                item.transAmount
-              ]}
-
-              fieldDataFour={[
-                item.transAmount
-              ]}
-              // iconOne
-              // icon={images.company}
-              icon={[images.company, images.branch, images.store, images.splashshape]}
-            />
-            // <Text>{JSON.stringify(item)}</Text>
-          )}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => {
+            return <View style={styles.bg} key={index.toString()}>
+              <Text style={styles.fieldData}>{item.shopName}</Text>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: fontScale(40) }}>
+                {
+                  labels.map((label, index) => {
+                    return <View style={{ flexDirection: "row", flex: 1 }}>
+                      <Text style={styles.labelDataOne} key={index.toString()}>{label}</Text>
+                      <Text style={styles.fieldDataTwo}>{index == 0 ? item.postSub : index == 1 ? item.preSub : index == 2 ? item.cusAmount : item.transAmount}</Text>
+                    </View>
+                  })
+                }
+              </View>
+              <Image source={icons[index]} style={styles.icon} />
+            </View>
+          }}
         />
       </View>
     </SafeAreaView>

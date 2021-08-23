@@ -21,6 +21,7 @@ export const AvgSalary = {
     "empAmount": '',
     "icon": '',
     "incentiveSalary": '',
+    "avgVasAffiliate":'',
     "permanentSalary": '',
     "shopCode": '',
     "shopName": '',

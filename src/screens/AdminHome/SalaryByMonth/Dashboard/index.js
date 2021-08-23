@@ -1,6 +1,8 @@
 import { useNavigation } from '@react-navigation/core';
 import moment from 'moment';
 import React, { useState } from 'react';
+import { useEffect } from 'react';
+import { Text } from 'react-native';
 import { SafeAreaView, View, StatusBar } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { Body, Header, MenuItem } from '../../../../comps';
@@ -16,16 +18,16 @@ import { styles } from './style';
 const AdminSalaryByMontHome = (props) => {
   const navigation = useNavigation();
   const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
-  const [user, setUser] = useState(User)
+  const [role, setRole] = useState('')
 
   const checkAdminSalaryByMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      let role = item?.userId.userGroupId.code;
+      console.log(item?.userId.userGroupId.code);
       setUser(item)
-      if (role == "VMS_CTY" || role=="ADMIN") {
+      if (item?.userId.userGroupId.code == "VMS_CTY" || item?.userId.userGroupId.code == "ADMIN") {
         navigation.navigate("AdminMonthSalary")
       }
-      if (role == "MBF_CHINHANH") {
+      if (item?.userId.userGroupId.code == "MBF_CHINHANH") {
         navigation.navigate("AdminMonthSalaryShop", {
           item: {
             "branchCode": item?.userId.shopId.shopCode,
@@ -33,7 +35,7 @@ const AdminSalaryByMontHome = (props) => {
           }
         })
       }
-      if (role == "MBF_CUAHANG") {
+      if (item?.userId.userGroupId.code == "MBF_CUAHANG") {
         navigation.navigate("AdminMonthSalaryGDV", {
           item: {
             branchCode: item?.userId.shopId.parentShopId.shopCode,
@@ -45,19 +47,27 @@ const AdminSalaryByMontHome = (props) => {
     })
   }
 
+  useEffect(() => {
+    const check = async () => {
+      await _retrieveData("userInfo").then((item) => {
+        setRole(item?.userId.userGroupId.code);
+      })
+    }
+    check();
+  })
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       {
         <Header title={text.salaryByMonth} />
       }
-      {/* <Text>{JSON.stringify(user)}</Text> */}
       <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
       <View style={styles.body}>
-        <MenuItem style={{ marginTop: fontScale(30) }} title={text.costManagement} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.otherExpenses} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminExpenseManagementDashboard")} />
+        {role == "VMS_CTY" ? <MenuItem style={{ marginTop: fontScale(30) }} title={text.costManagement} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.otherExpenses} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminExpenseManagementDashboard")} /> : null}
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.topTellers} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.toptellers} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminTopTellers")} />
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.grocontractSalary} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryGroup")} />
-        <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.incentiveCost} width={width - fontScale(60)} onPress={()=>checkAdminSalaryByMonthRole()} />
+        <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.incentiveCost} width={width - fontScale(60)} onPress={() => checkAdminSalaryByMonthRole()} />
 
 
       </View>

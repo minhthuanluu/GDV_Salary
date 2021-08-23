@@ -63,7 +63,7 @@ const Dashboard = (route) => {
     return () => {
       BackHandler.removeEventListener('hardwareBackPress', () => {
         if (!navigation.isFocused()) {
-          return false; 
+          return false;
         } else {
           BackHandler.exitApp();
           return true;
@@ -75,12 +75,8 @@ const Dashboard = (route) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Text>{
-        console.log(user.avatar)
-      }
-      </Text>
       {
-        <Header showBack={false} profile avatar={{ uri: imgUrl + user.avatar } } fullName={user&&user.displayName} maGDV={user&&user.userGroupId.code} />
+        user&&<Header showBack={false} profile avatar={{ uri: imgUrl + user.avatar }} fullName={user && user.displayName} maGDV={user && user.userGroupId.code} />
       }
       <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
       <View style={styles.body}>

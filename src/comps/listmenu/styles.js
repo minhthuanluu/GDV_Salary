@@ -20,9 +20,10 @@ export const styles = StyleSheet.create({
   bg: {
     backgroundColor: colors.white,
     borderRadius: fontScale(15),
-    paddingTop: -fontScale(9),
-    minHeight: fontScale(100),
-    
+    paddingBottom:fontScale(10),
+    marginTop:fontScale(30),
+    marginHorizontal:fontScale(10),
+    paddingHorizontal:fontScale(10),
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -44,8 +45,8 @@ export const styles = StyleSheet.create({
 
   icon: {
     position: "absolute",
-    right: fontScale(50),
-    top: fontScale(3),
+    right: fontScale(30),
+    top: -fontScale(10),
     resizeMode: "contain",
     width: fontScale(42),
     height: fontScale(42),

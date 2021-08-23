@@ -17,23 +17,12 @@ const ListMenu = (props) => {
         },
       ]}
     >
-      {/* view ? <View style={styles.container} onPress={onPress}>
-                    <View style={styles.bg}>
-                    <Text style={[styles.title,props.titleStyle]}>{title}</Text>
-                        <Image source={icon} style={styles.icon} />
-                        {
-                            value ? <Text style={styles.value}>{value}</Text> : null
-                        }
-                    </View>
-                </View> :
-                 */}
-
       <TouchableOpacity style={styles.container} onPress={props.onPress}>
         <View style={styles.bg}>
           <Text style={styles.fieldData}>{props.fieldData[0]}</Text>
           <View>
             <View style={{ flexDirection: "row", marginTop: 20 }}>
-              <View style={{ flexDirection: "row", flex: 1 }}>
+              <View style={{ flexDirection: "row", flex: 1 }} key={1}>
                 {props.labelData.map((item, index) => (
                   <Text style={styles.labelDataOne}>{item}</Text>
                 ))}
@@ -41,7 +30,7 @@ const ListMenu = (props) => {
                   <Text style={styles.fieldDataOne}>{item}</Text>
                 ))}
               </View>
-              <View style={{ flexDirection: "row", flex: 0.8 }}>
+              <View style={{ flexDirection: "row", flex: 0.8 }} key={2}>
                 {props.labelDataTwo.map((item, index) => (
                   <Text style={styles.labelDataTwo}>{item}</Text>
                 ))}
@@ -49,7 +38,7 @@ const ListMenu = (props) => {
                   <Text style={styles.fieldDataTwo}>{item}</Text>
                 ))}
               </View>
-              <View style={{ flexDirection: "row", flex: 0.8 }}>
+              <View style={{ flexDirection: "row", flex: 0.8 }} key={3}>
                 {props.labelDataThree.map((item, index) => (
                   <Text style={styles.labelDataThree}>{item}</Text>
                 ))}
@@ -57,7 +46,7 @@ const ListMenu = (props) => {
                   <Text style={styles.fieldDataThree}>{item}</Text>
                 ))}
               </View>
-              <View style={{ flexDirection: "row", flex: 0.8 }}>
+              <View style={{ flexDirection: "row", flex: 0.8 }} key={4}>
                 {props.labelDataFour.map((item, index) => (
                   <Text style={styles.labelDataFour}>{item}</Text>
                 ))}

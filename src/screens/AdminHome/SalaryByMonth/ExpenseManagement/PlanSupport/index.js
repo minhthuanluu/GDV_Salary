@@ -30,7 +30,7 @@ const index = (props) => {
                 }}>
                     <View style={{ flex: 3, marginTop: fontScale(10) }}>
                         {
-                            fstTitleLeft.map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                            fstTitleLeft.map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
                                 <Text style={{
                                     fontSize: fontScale(13),
                                     fontWeight: "bold",
@@ -54,7 +54,7 @@ const index = (props) => {
                                 dataPlanSupport.topShopOutcome,
                                 dataPlanSupport.pregnantOutcome,
                                 dataPlanSupport.othersOutcome
-                            ].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                            ].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
                                 <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                             </View>)
                         }
@@ -74,7 +74,7 @@ const index = (props) => {
                                 dataPlanSupport.topShopEmpAmount,
                                 dataPlanSupport.pregnantEmpAmount,
                                 dataPlanSupport.othersEmpAmount
-                            ].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                            ].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
                                 <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                             </View>)
                         }
@@ -93,7 +93,7 @@ const index = (props) => {
                                 dataPlanSupport.topShopBonusNumber,
                                 dataPlanSupport.pregnantBonusNumber,
                                 dataPlanSupport.othersBonusNumber
-                            ].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                            ].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                 <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                             </View>)
                         }
@@ -112,7 +112,7 @@ const index = (props) => {
                                 dataPlanSupport.topShopBonusTotal,
                                 dataPlanSupport.pregnantBonusTotal,
                                 dataPlanSupport.othersBonusTotal
-                            ].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                            ].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                 <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                             </View>)
                         }

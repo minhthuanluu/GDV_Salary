@@ -50,7 +50,7 @@ const index = () => {
                     }}>
                         <View style={{ flex: 3 }}>
                             {
-                                fstTitleLeft.map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                fstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{
                                         fontSize: fontScale(13),
                                         fontWeight: index == 1 || index == 4 || index == 8 || index == 14 ? "bold" : "normal",
@@ -65,7 +65,7 @@ const index = () => {
                                     dataOutcome.maintainBusiness, dataOutcome.postpaidSubBusiness, dataOutcome.ezBusiness,
                                     dataOutcome.cardBusiness, dataOutcome.servicesBusiness, dataOutcome.chargeableBusiness,
                                     dataOutcome.machineBusiness, dataOutcome.totalOutcomeSupportBusiness, dataOutcome.outcomeBusinessMaster,
-                                    dataOutcome.otherOutcomeBusinessMaster].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                    dataOutcome.otherOutcomeBusinessMaster].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                             }
@@ -77,7 +77,7 @@ const index = () => {
                                     dataOutcome.maintainEmp, dataOutcome.postpaidSubEmp, dataOutcome.ezEmp,
                                     dataOutcome.cardEmp, dataOutcome.servicesEmp, dataOutcome.chargeableEmp,
                                     dataOutcome.machineEmp, dataOutcome.totalOutcomeSupportEmp, dataOutcome.outcomeEmpMaster,
-                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                             }
@@ -89,7 +89,7 @@ const index = () => {
                                     dataOutcome.maintainBusinessMonth, dataOutcome.postpaidSubBusinessMonth, dataOutcome.ezBusinessMonth,
                                     dataOutcome.cardBusinessMonth, dataOutcome.servicesBusinessMonth, dataOutcome.chargeableBusinessMonth,
                                     dataOutcome.machineBusinessMonth, dataOutcome.totalOutcomeSupportBusinessMonth, dataOutcome.outcomeBusinessMonthMaster,
-                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                             }
@@ -101,7 +101,7 @@ const index = () => {
                                     dataOutcome.maintainBusinessMonth, dataOutcome.postpaidSubBusinessMonth, dataOutcome.ezBusinessMonth,
                                     dataOutcome.cardBusinessMonth, dataOutcome.servicesBusinessMonth, dataOutcome.chargeableBusinessMonth,
                                     dataOutcome.machineBusinessMonth, dataOutcome.totalOutcomeSupportBusinessMonth, dataOutcome.outcomeBusinessMonthMaster,
-                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                    dataOutcome.otherOutcomeEmpMaster].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                             }
@@ -115,7 +115,7 @@ const index = () => {
                     }}>
                         <View style={{ flex: 3 }}>
                             {
-                                sndTitleLeft.map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                sndTitleLeft.map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{
                                         fontSize: fontScale(13),
                                         fontWeight: index == 1 ? "bold" : "normal",
@@ -126,21 +126,21 @@ const index = () => {
                         </View>
                         <View style={{ flex: 1 }}>
                             {
-                                ["GDV", dataOutcome.otherTotalOutcomeEmp, dataOutcome.incentiveOutcomeBusinessEmp, dataOutcome.vasAffiEmp, dataOutcome.otherEmp].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["GDV", dataOutcome.otherTotalOutcomeEmp, dataOutcome.incentiveOutcomeBusinessEmp, dataOutcome.vasAffiEmp, dataOutcome.otherEmp].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }
                         </View>
                         <View style={{ flex: 1.8 }}>
                             {
-                                ["BQ 1 tháng", dataOutcome.otherTotalOutcomeBusinessMonth, dataOutcome.incentiveOutcomeBusinessMonth, dataOutcome.vasAffiBusinessMonth, dataOutcome.otherAvgMonth].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["BQ 1 tháng", dataOutcome.otherTotalOutcomeBusinessMonth, dataOutcome.incentiveOutcomeBusinessMonth, dataOutcome.vasAffiBusinessMonth, dataOutcome.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }
                         </View>
                         <View style={{ flex: 2.2 }}>
                             {
-                                ["BQ 1 GDV/tháng", dataOutcome.otherTotalOutcomeBusinessEmp, dataOutcome.incentiveOutcomeBusinessEmp, dataOutcome.vasAffiBusinessEmp, dataOutcome.otherAvgMonthEmp].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["BQ 1 GDV/tháng", dataOutcome.otherTotalOutcomeBusinessEmp, dataOutcome.incentiveOutcomeBusinessEmp, dataOutcome.vasAffiBusinessEmp, dataOutcome.otherAvgMonthEmp].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }
@@ -154,7 +154,7 @@ const index = () => {
                     }}>
                         <View style={{ flex: 3 }}>
                             {
-                                tstTitleLeft.map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                tstTitleLeft.map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{
                                         fontSize: fontScale(13),
                                         fontWeight: index == 1 ? "bold" : "normal",
@@ -165,21 +165,21 @@ const index = () => {
                         </View>
                         <View style={{ flex: 1 }}>
                             {
-                                ["Số tiền", dataOutcome.moneyFollow, dataOutcome.moneyArrears, dataOutcome.moneyPunishment].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["Số tiền", dataOutcome.moneyFollow, dataOutcome.moneyArrears, dataOutcome.moneyPunishment].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }
                         </View>
                         <View style={{ flex: 1.8 }}>
                             {
-                                ["BQ 1 tháng", dataOutcome.avgMonthFollow, dataOutcome.avgMonthArrears, dataOutcome.avgMonthPunishment].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["BQ 1 tháng", dataOutcome.avgMonthFollow, dataOutcome.avgMonthArrears, dataOutcome.avgMonthPunishment].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }
                         </View>
                         <View style={{ flex: 2.2 }}>
                             {
-                                ["BQ 1 GDV/tháng", dataOutcome.avgMonthEmpFollow, dataOutcome.avgMonthEmpArrears, dataOutcome.avgMonthEmpPunishment].map((item, index) => <View style={{ marginVertical: fontScale(10) }}>
+                                ["BQ 1 GDV/tháng", dataOutcome.avgMonthEmpFollow, dataOutcome.avgMonthEmpArrears, dataOutcome.avgMonthEmpPunishment].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                     <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                 </View>)
                             }

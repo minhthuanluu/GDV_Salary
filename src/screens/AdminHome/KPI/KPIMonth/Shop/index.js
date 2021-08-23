@@ -85,6 +85,7 @@ const index = (props) => {
                 <GeneralListItem
                   style={{ marginTop: fontScale(40) }}
                   columns
+                  topCenterData={["KPI tổng",item.kpiValue]}
                   rightIcon={images.store}
                   titleArray={["TBTS", "TBTT", "VAS"]}
                   item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
@@ -103,6 +104,7 @@ const index = (props) => {
                 index==data.length-1 ? <GeneralListItem
                 company
                 style={{ marginBottom: fontScale(70),marginTop:-fontScale(15) }}
+                topCenterData={["KPI tổng",item.kpiValue]}
                 icon={images.branch}
                 color={"#D19E01"}
                 titleArray={[

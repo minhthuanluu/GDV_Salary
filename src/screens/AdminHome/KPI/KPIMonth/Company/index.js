@@ -30,6 +30,7 @@ const index = (props) => {
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
+        console.log(data.data)
         setGeneralData(data.data.general);
         setLoading(false);
       }
@@ -88,6 +89,7 @@ const index = (props) => {
                   rightIcon={images.branch}
                   titleArray={["TBTS", "TBTT", "VAS"]}
                   item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
+                  topCenterData={["KPI tổng",item.kpiValue]}
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminKPIMonthShop", {
                     branchItem: {
@@ -101,6 +103,7 @@ const index = (props) => {
                   style={{  marginBottom: fontScale(80),marginTop: -fontScale(10) }}
                   icon={images.company}
                   color={"#D19E01"}
+                  topCenterData={["KPI tổng",item.kpiValue]}
                   titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
                   item={[checkn2(generalData.postPaid), checkn2(generalData.prePaid), checkn2(generalData.vas), generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
                   title={generalData.shopName}

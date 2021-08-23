@@ -30,6 +30,7 @@ const index = (props) => {
     setMessage("");
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
+        console.log(data)
         setLoading(false);
         if (data.length == 0) {
           setData([])
@@ -114,10 +115,11 @@ const index = (props) => {
                 { index == data.length - 1 ?
                   <GeneralListItem
                     style={{ marginBottom: fontScale(80), marginTop: -fontScale(15) }}
-                    fiveColumnCompany
+                    monthSalaryGeneral
+                    key={index}
                     title={generalData.shopName}
-                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.company} /> : null
                 }
               </View>

@@ -33,10 +33,10 @@ const SubscriberList = () => {
   const navigation = useNavigation();
 
   const pickerData = [
-      { id: 0, value: "Tất cả" },
-      { id: 1, value: "TT" },
-      { id: 2, value: "TS" },
-    ]
+    { id: 0, value: "Tất cả" },
+    { id: 1, value: "TT" },
+    { id: 2, value: "TS" },
+  ]
 
   const getData = async (status) => {
     setMessage("");
@@ -172,7 +172,7 @@ const SubscriberList = () => {
         icon={images.sim}
         placeholder="Tất cả"
         data={pickerData}
-        field={[pickerData[0].value,pickerData[1].value,pickerData[2].value
+        field={[pickerData[0].value, pickerData[1].value, pickerData[2].value
         ]}
         width={width - fontScale(65)}
         onPress={(value) => filterDataType(data, value.value)}
@@ -187,23 +187,20 @@ const SubscriberList = () => {
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={styles.sumKpiContainer}>
           <Text style={styles.sumKpiTitle}>{text.TBTT}: </Text>
-          <Text style={styles.preSub}>{postSub}      ;</Text>
+          <Text style={styles.preSub}>{postSub}</Text>
+          <Text style={styles.sumKpiTitle}>;</Text>
 
           <View style={styles.sumKpiContainerSecond}>
             <Text style={styles.sumKpiTitle}>{text.TBTS}: </Text>
             <Text style={styles.preSub}>{preSub}</Text>
           </View>
         </View>
-
-
-
-
         <View style={{ flexDirection: "row", marginTop: fontScale(12) }}>
           <TableHeader style={{ width: (width * 1.7) / 10 }} title={text.date} />
-          <TableHeader style={{  width: (width * 2.5) / 10 }} title={text.numberSub} />
+          <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.numberSub} />
           <TableHeader style={{ width: (width * 1.6) / 10 }} title={text.statusPaid} />
-          <TableHeader style={{ width: (width * 2.7) / 10}} title={text.type} />
-          <TableHeader style={{width: (width * 1) / 10 }} title={text.pckSub} />
+          <TableHeader style={{ width: (width * 2.7) / 10 }} title={text.type} />
+          <TableHeader style={{ width: (width * 1) / 10 }} title={text.pckSub} />
         </View>
         {loading == true ? (
           <ActivityIndicator

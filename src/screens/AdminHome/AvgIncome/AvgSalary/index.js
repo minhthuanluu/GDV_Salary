@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import { getAllAvgIncome } from '../../../../api';
@@ -15,19 +15,20 @@ import { fontScale } from '../../../../utils/Fonts';
 import { ActivityIndicator } from 'react-native';
 import { colors } from '../../../../utils/Colors';
 
-const index=(props)=> {
-    const [data,setData] = useState(AvgSalary);
+const index = (props) => {
+    const [data, setData] = useState(AvgSalary);
     const [generalData, setGeneralData] = useState(AvgSalary.general);
-    const [notification,setNotification] = useState('')
+    const [notification, setNotification] = useState('')
     const navigation = useNavigation();
 
     const [loading, setLoading] = useState(false);
 
-    const getData=async()=>{
+    const getData = async () => {
         setLoading(true)
-        await getAllAvgIncome(navigation,'','').then((res)=>{
+        await getAllAvgIncome(navigation, '', '').then((res) => {
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
+                    console.log(res.data)
                     setData(res.data.data);
                     setGeneralData(res.data.general)
                     setNotification(res.data.notification)
@@ -36,7 +37,7 @@ const index=(props)=> {
                     setData([]);
                     setLoading(false)
                 }
-                
+
             }
             if (res.status == "failed") {
                 setLoading(false);
@@ -57,34 +58,43 @@ const index=(props)=> {
         })
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         getData();
-    },[navigation])
+    }, [navigation])
 
     return (
         <SafeAreaView style={styles.container}>
-             <Header title={text.salAverage}/>
-             <Text style={styles.notif}>{notification}</Text>
-             <Body/>
-             <View style={styles.body}>
-                 {loading==true ? <ActivityIndicator size="small" color={colors.primary}/> : null}
-           
-                <FlatList 
+            <Header title={text.salAverage} />
+            <Text style={styles.notif}>{notification}</Text>
+            <Body />
+            <View style={styles.body}>
+                {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
+
+                <FlatList
                     showsVerticalScrollIndicator={false}
                     data={data}
-                    keyExtractor={(item,key)=>item.shopCode.toString()}
-                    renderItem={({item,index})=>
-                    <View style={{marginTop:fontScale(40),paddingBottom:index==data.length-1 ? fontScale(70): 0}}>
-                        <GeneralListItem style={{marginTop:-fontScale(10)}} onPress={()=>navigation.navigate("AdminAvgIncomeShop",{branchItem:item})} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp,text.incentivePerEmp,"SL GDV"]} item={[item.avgIncome,item.contractSalary,item.empAmount]} rightIcon={images.shop}/>
-                        {
-                            index==data.length-1 
-                                ? 
-                                <GeneralListItem styleCol2={{marginLeft:-fontScale(10)}} styleCol4={{marginLeft:-fontScale(10)}} style={{marginTop:-fontScale(20),marginHorizontal:fontScale(10),paddingHorizontal:fontScale(10)}} fourColumnCompany title={generalData.shopName} titleArray={["BQ lương 1 tháng/GDV","BQ lương cố định","BQ lương khoán SP","BQ lương KK","BQ chi hỗ trợ"]} item={[generalData.avgIncome,generalData.permanentSalary,generalData.contractSalary,generalData.incentiveSalary,generalData.spenSupport]} icon={images.company}/> : null
-                        }
-                    </View>
-                    }/>
-                
-             </View>
+                    keyExtractor={(item, key) => item.shopCode.toString()}
+                    renderItem={({ item, index }) =>
+                        <View style={{ marginTop: fontScale(40), paddingBottom: index == data.length - 1 ? fontScale(70) : 0 }}>
+                            <GeneralListItem style={{ marginTop: -fontScale(10) }} onPress={() => navigation.navigate("AdminAvgIncomeShop", { branchItem: item })} key={index} columns title={item.shopName} titleArray={[text.avgSalPerEmp, text.incentivePerEmp, "SL GDV"]} item={[item.avgIncome, item.contractSalary, item.empAmount]} rightIcon={images.shop} />
+                            {
+                                index == data.length - 1
+                                    ?
+                                    <GeneralListItem
+                                        styleCol1={{ marginLeft: fontScale(10) }}
+                                        styleCol3={{ marginLeft: fontScale(10), marginTop: fontScale(10) }}
+                                        styleCol2={{ marginLeft: fontScale(10), marginTop: fontScale(10) }} styleCol4={{ marginLeft: -fontScale(10) }}
+                                        styleCol5={{ marginTop: fontScale(10),marginLeft: -fontScale(10) }}
+                                        style={{ marginTop: -fontScale(10), marginHorizontal: fontScale(10), paddingHorizontal: fontScale(10) }}
+                                        twoColumnCompany
+                                        title={generalData.shopName}
+                                        titleArray={["BQ lương 1 tháng/GDV", "BQ lương cố định:", "BQ lương KK:", "BQ Vas Affiliate:", "BQ lương khoán SP:", "BQ chi hỗ trợ:"]}
+                                        item={[generalData.avgIncome, generalData.permanentSalary, generalData.incentiveSalary, generalData.avgVasAffiliate, generalData.contractSalary, generalData.spenSupport]} icon={images.company} /> : null
+                            }
+                        </View>
+                    } />
+
+            </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
