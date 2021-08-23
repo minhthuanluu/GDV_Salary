@@ -203,7 +203,7 @@ const index = (props) => {
                         <TableHeader style={{ width: (width * 3.2) / 10 }} title={'Số lần chặn'} />
                     </View>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginTop: fontScale(20)}} /> : null}
-                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
+                    {message ? <Text style={{ fontSize: fontScale(15),color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={data}

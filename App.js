@@ -12,6 +12,7 @@ import { fontScale } from './src/utils/Fonts';
 import { LogBox } from 'react-native';
 import Splash from './src/screens/Auth/Splash';
 import { width } from './src/utils/Dimenssion';
+import { Text } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

@@ -101,7 +101,7 @@ const index = (props) => {
                         <TableHeader style={{ width: width / 2 }} title={'GDVPTM'} />
                         <TableHeader style={{ width: width / 2 }} title={'Tên CH'} />
                     </View>
-                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(15), width: width }}>{message}</Text> : null}
+                    {message ? <Text style={{ fontSize: fontScale(15),color: colors.primary, textAlign: "center", marginTop: fontScale(15), width: width }}>{message}</Text> : null}
                     <View>
                         {loading == true ?
                             <ActivityIndicator size="small" color={colors.primary} style={{marginTop:fontScale(15)}}/>

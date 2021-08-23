@@ -10,7 +10,7 @@ const MonthYearPicker = (props) => {
     const { width } = Dimensions.get('window');
     const [month, setMonth] = useState(props.selectedMonth || month_data[new Date().getMonth()]);
     const [year, setYear] = useState(new Date().getFullYear());
-
+    console.log(props.defaultMonth)
     return (
         <Modal
             animationType="slide"

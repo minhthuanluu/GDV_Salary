@@ -168,7 +168,7 @@ const index = (props) => {
                         <TableHeader style={{ flex: 1.5, marginLeft: fontScale(10) }} title={'SLTB/tháng'} />
                         <TableHeader style={{ flex: 1.5 }} title={'Top/ngày'} />
                     </View>
-                    {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
+                    {message ? <Text style={{ fontSize: fontScale(15),color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                     <FlatList
                         style={{ marginTop: fontScale(20),marginBottom:fontScale(35) }}

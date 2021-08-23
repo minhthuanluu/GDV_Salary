@@ -138,7 +138,7 @@ const Search = (props) => {
                 <TouchableOpacity style={{ backgroundColor: colors.white, width: props.width || width - fontScale(120), alignSelf: "center", padding: fontScale(5), borderRadius: fontScale(17), marginVertical: fontScale(15), flexDirection: "row" }}
                     onPress={() => _onShowModal()}>
                     <Image source={props.leftIcon} resizeMode="cover" style={{ width: fontScale(25), height: fontScale(25) }} />
-                    <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center", paddingTop: fontScale(5) }}>{props.placeholder}</Text>
+                    <Text style={{ flex: 1, textAlign: "center", textAlignVertical: "center", paddingTop: fontScale(5),fontSize:fontScale(14) }}>{props.placeholder}</Text>
                     <Image resizeMode="contain" source={props.rightIcon} style={{ width: fontScale(20), height: fontScale(20), top: fontScale(3), right: fontScale(10) }} />
                 </TouchableOpacity>
                 <Modal

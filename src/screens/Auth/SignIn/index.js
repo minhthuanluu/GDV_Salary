@@ -75,7 +75,7 @@ const SignIn = (props) => {
                 <Input underline pwd title={text.password} width={width - fontScale(70)} style={styles.ipPwd}
                     onChangeText={(value) => [setPassword(value), setMessage('')]} />
                 <Button width={fontScale(150)} label={"Đăng nhập"} center style={styles.loginButton} onPress={() => signIn(userName, password)} />
-                <Text style={{ color: colors.white, textAlign: "center", marginTop: fontScale(15) }}>{message}</Text>
+                <Text style={{fontSize: fontScale(15), color: colors.white, textAlign: "center", marginTop: fontScale(15) }}>{message}</Text>
                 {loading == true ?
                     <ActivityIndicator size="small" color={colors.white} /> : null}
             </View>

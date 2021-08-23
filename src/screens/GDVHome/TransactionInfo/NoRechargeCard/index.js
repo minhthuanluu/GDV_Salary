@@ -135,7 +135,7 @@ const NoRechargeCard = (props) => {
                     <TableHeader style={{ width: width / 4 }} title={text.sumMoney} />
                     <TableHeader style={{ width: width / 4 }} title={text.rechargeDate} />
                 </View>
-                {message ? <Text style={{ color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
+                {message ? <Text style={{ fontSize: fontScale(15),color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
                 <FlatList
                     style={{ marginTop: fontScale(10) }}

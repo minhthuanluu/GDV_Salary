@@ -197,7 +197,7 @@ function index(props) {
                     <TableHeader style={{ flex: 1.5 }} title={'TB/tập'} />
                 </View>
                 {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(15) }} /> : null}
-                {message ? <Text style={{color:colors.primary,textAlign:"center",marginTop:fontScale(20)}}>{message}</Text> : null}
+                {message ? <Text style={{fontSize: fontScale(15),color:colors.primary,textAlign:"center",marginTop:fontScale(20)}}>{message}</Text> : null}
                 
                 <FlatList
                     style={{ marginTop: fontScale(10) }}

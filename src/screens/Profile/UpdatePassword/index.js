@@ -65,7 +65,7 @@ const UpdatePassword = () => {
                 <Input underline pwd title="Mật khẩu mới" width={width - fontScale(70)} style={styles.ipUsn} onChangeText={(value) => setNewPassword(value)} />
                 <Input underline pwd title="Xác nhận mật khẩu mới" width={width - fontScale(70)} style={styles.ipPwd} onChangeText={(value) => setReNewPassword(value)} />
                 <Button width={fontScale(150)} label={"Đổi mật khẩu"} center style={styles.loginButton} onPress={() => onChangePassword(oldPassword, newPassword, reNewPassword)} />
-                <Text style={{ textAlign: "center", color: colors.white, marginTop: fontScale(30) }}>{message}</Text>
+                <Text style={{ fontSize: fontScale(15),textAlign: "center", color: colors.white, marginTop: fontScale(30) }}>{message}</Text>
                 {
                     loading == true ? <ActivityIndicator size="small" color={colors.white} /> : null
                 }

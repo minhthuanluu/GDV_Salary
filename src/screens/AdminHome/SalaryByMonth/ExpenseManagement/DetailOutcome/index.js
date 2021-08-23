@@ -17,13 +17,11 @@ const index = () => {
     const [data, setData] = useState(dataOutcome)
     
     const onChangeBMonth = (month) => {
-        setBeginMonth(month);
-        console.log(month + ' - ' + endMonth);
+       
     }
 
     const onChangeEMonth = (month) => {
-        setEndMonth(month);
-        console.log(beginMonth + ' - ' + month);
+       
     }
     const fstTitleLeft = ["", "Tổng chi", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
     const sndTitleLeft = ["", "Tổng chi nguồn khác", "CFKK", "Vas Affi", "Khác"]
