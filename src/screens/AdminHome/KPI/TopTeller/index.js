@@ -209,8 +209,7 @@ const AdminTopTeller = () => {
                 `${item.empName}\n(${item.workPlace})`,
                 item.sumKpi,
                 item.postPaid,
-                item.prePaid,
-
+                item.prePaid
               ]}
               style={[
                 [styles.dateCol, { width: (width * 3.9) / 10 }],

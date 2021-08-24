@@ -98,7 +98,7 @@ const index = (props) => {
                   monthSalaryEmpItem
                   rightIcon={images.store}
                   titleArray={["KPI", "Tổng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
-                  item={[item.kpi, item.totalSalary, item.permanentSalary, item.incentiveSalary,item.vasAffiliateAmount, item.supportOutcome, item.encouSalary, item.other]}
+                  item={[item.kpi, item.totalSalary, item.permanentSalary, item.incentiveSalary,item.vasAffiliate, item.supportOutcome, item.encouSalary, item.other]}
                   title={item.shopName}
                   onPress={() => navigation.navigate("AdminMonthSalaryGDV", {
                     item: {
@@ -115,7 +115,7 @@ const index = (props) => {
                     key={index}
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliate, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.store} /> : null
                 }
               </View>

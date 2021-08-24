@@ -320,7 +320,7 @@ const GeneralListItem = (props) => {
                               <View>
                                 <Text style={{ fontSize: fontScale(18), marginLeft: fontScale(10), fontWeight: "bold", color: props.color }}>{props.title}</Text>
                                 <View style={{ flexDirection: "row", position: "absolute", width: width, justifyContent: "center" }}>
-                                  <Text style={{ fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{props.topCenterData && props.topCenterData[0]}: </Text>
+                                  <Text style={{ fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{props.topCenterData && props.topCenterData[0]}</Text>
                                   <Text style={{ fontWeight: "bold", color: '#1AC4D1', fontSize: fontScale(13) }}>{props.topCenterData && props.topCenterData[1]}</Text>
                                 </View>
                               </View>
@@ -348,7 +348,7 @@ const GeneralListItem = (props) => {
                             <View style={{ flexDirection: "row" }}>
                               <Text key={props.index} style={{ flex: 1, fontSize: fontScale(18), color: props.titleColor || "#2e2e31", fontWeight: "bold", marginLeft: fontScale(22), marginRight: fontScale(11), marginBottom: fontScale(5) }}>{props.title}</Text>
                               <View style={{ flexDirection: "row", position: "absolute", width: width, justifyContent: "center" }}>
-                                <Text style={{ fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{props.topCenterData && props.topCenterData[0]}: </Text>
+                                <Text style={{ fontWeight: "bold", fontSize: fontScale(12), color: colors.grey }}>{props.topCenterData && props.topCenterData[0]} </Text>
                                 <Text style={{ fontWeight: "bold", color: colors.primary, fontSize: fontScale(13) }}>{props.topCenterData && props.topCenterData[1]}</Text>
                               </View>
                             </View>

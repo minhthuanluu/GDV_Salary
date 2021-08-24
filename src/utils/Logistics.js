@@ -1,6 +1,5 @@
 // This file to define functions about logistics (Array, Timer, Compare,...)
 
-import moment from "moment";
 import { _retrieveData, _storeData } from "./Storage";
 import Toast from "react-native-toast-message";
 import { BackHandler } from "react-native";

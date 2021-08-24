@@ -176,7 +176,7 @@ const SubscriberList = () => {
         ]}
         width={width - fontScale(65)}
         onPress={(value) => filterDataType(data, value.value)}
-        style={{ marginTop: fontScale(20)}}
+        style={{ marginTop: fontScale(10)}}
       />
 
       <Body

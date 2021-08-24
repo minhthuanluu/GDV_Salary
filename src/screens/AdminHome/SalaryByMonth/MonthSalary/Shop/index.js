@@ -59,7 +59,7 @@ const index = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Header title={text.salaryMonth} />
+      <Header title={text.salaryMonth}/>
       <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -112,7 +112,7 @@ const index = () => {
                       key={index}
                       title={generalData.shopName}
                       titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
-                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                      item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.vasAffiliate, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                       icon={images.branch} />
                     : null
                 }

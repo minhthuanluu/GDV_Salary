@@ -6,11 +6,10 @@ import { fontScale } from '../../utils/Fonts';
 
 const MonthYearPicker = (props) => {
     const month_data = props.month_data;
-
-    const { width } = Dimensions.get('window');
+    const { width } = Dimensions.get("screen");
     const [month, setMonth] = useState(props.selectedMonth || month_data[new Date().getMonth()]);
     const [year, setYear] = useState(new Date().getFullYear());
-    console.log(props.defaultMonth)
+
     return (
         <Modal
             animationType="slide"

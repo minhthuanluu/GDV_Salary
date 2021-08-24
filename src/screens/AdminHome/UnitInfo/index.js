@@ -16,7 +16,6 @@ import { getUnitInfo } from '../../../adminapi';
 import { styles } from './style';
 
 const index = (props) => {
-  // const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState([]);
   const [message, setMessage] = useState('')
@@ -53,10 +52,6 @@ const index = (props) => {
       }
     })
   }
-  // const _setMonth = async (value) => {
-  //   setMonth(value)
-  //   await getData(value);
-  // }
 
   useEffect(() => {
     const backAction = () => {
@@ -78,7 +73,6 @@ const index = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <Header title={text.unitInformation} />
-      {/* <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _setMonth(date)} /> */}
       <Body />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginBottom: fontScale(10) }} /> : null}
@@ -91,7 +85,7 @@ const index = (props) => {
           headersTextColor={colors.primary}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           message={message}
-          widthArray={[1/4*width, 1/4*width,2/4*width-fontScale(35)]}
+          widthArray={[1 / 4 * width, 1 / 4 * width, 2 / 4 * width - fontScale(35)]}
           loadingIconStyle={{ marginLeft: -fontScale(height / 4) }}
           fields={
             data.map((item) => [
@@ -108,7 +102,7 @@ const index = (props) => {
           lastIcon={data.map((item, index) => item.detail == "true" ? images.eye : null)}
           lastIconStyle={{ tintColor: colors.grey }}
           seeDetail={data.map((item, index) => { return item.detail })}
-          onPress={(item) => item.detail == "true" ? navigation.navigate("AdminDetailUnitInfo", { "shopCode": item.shopCode }):null}
+          onPress={(item) => item.detail == "true" ? navigation.navigate("AdminDetailUnitInfo", { "shopCode": item.shopCode }) : null}
           fontWeight={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "bold" : "normal")}
           textColor={data.map((item, index) => index == 0 || item.shopType == "BRANCH" ? "#000" : "#D19E01")}
           rowBg={data.map((item, index) => item.shopType == "BRANCH" ? "#C6FBFB" : "#fff")}

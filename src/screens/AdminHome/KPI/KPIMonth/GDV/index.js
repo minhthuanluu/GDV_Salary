@@ -1,21 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { SafeAreaView, Text } from "react-native";
+import { StatusBar,FlatList, View, SafeAreaView, ActivityIndicator } from "react-native";
 import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps";
 import { styles } from "./style";
-import { images } from "../../../../../utils/Images";
-import moment from "moment";
-import { getKPIByMonth } from "../../../../../adminapi";
-import { width } from "../../../../../utils/Dimenssion";
-import { fontScale } from "../../../../../utils/Fonts";
-import { StatusBar } from "react-native";
 import { text } from "../../../../../utils/Text";
 import { colors } from "../../../../../utils/Colors";
-import { FlatList } from "react-native";
-import { ActivityIndicator } from "react-native";
-import { View } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { ScrollView } from "react-native";
+import { images } from "../../../../../utils/Images";
+import { fontScale } from "../../../../../utils/Fonts";
+import { getKPIByMonth } from "../../../../../adminapi";
+import { width } from "../../../../../utils/Dimenssion";
 import { checkn2 } from "../../../../../utils/Logistics";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import moment from "moment";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -100,8 +95,8 @@ const index = (props) => {
                     "Bán lẻ",
                     "% Lên gói",
                     "TBTT",
-                    " TBTS thoại gói > =99k", 'KPI tổng:']}
-                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas), item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine,item.kpiValue]}
+                    " TBTS thoại gói > =99k", 'KPI tổng: ']}
+                  item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas), item.importantPlan, item.retailRevenue, "", item.prePaidPck, item.postPaidOverNinetyNine, item.kpiValue]}
                   title={item.shopName}
                   onPress={() =>
                     navigation.navigate("AdminKPIMonthGDV", {
@@ -116,9 +111,9 @@ const index = (props) => {
                 {
                   index == data.length - 1 ? <GeneralListItem
                     company
-                    style={{ marginBottom: fontScale(80), marginTop: fontScale(35) }}
+                    style={{ marginBottom: fontScale(70), marginTop: fontScale(40) }}
+                    topCenterData={["KPI tổng: ", item.kpiValue]}
                     icon={images.store}
-
                     color={"#D19E01"}
                     titleArray={[
                       "TBTS",
@@ -140,6 +135,7 @@ const index = (props) => {
                       generalData.prePaidPck,
                       generalData.postPaidOverNinetyNine,
                     ]}
+
                     title={generalData.shopName}
                   /> : null
                 }

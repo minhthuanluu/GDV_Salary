@@ -101,7 +101,7 @@ const index = (props) => {
           ]}
           loadingIconStyle={{ marginLeft: -height / 5 }}
           fields={
-            data.map((item) => [
+            data.map((item,index) => [
               item.shopName,
               item.prePaid,
               item.postPaid,

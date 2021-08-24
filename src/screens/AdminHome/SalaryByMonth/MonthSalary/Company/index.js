@@ -13,8 +13,9 @@ import { colors } from "../../../../../utils/Colors";
 import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useBackButton, useFocusEffect, useNavigation, useRoute } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { useCallback } from "react";
 
 
 const index = (props) => {
@@ -24,13 +25,13 @@ const index = (props) => {
   const [generalData, setGeneralData] = useState({});
   const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
+  const route = useRoute();
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     setMessage("");
     await getMonthSalary(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
-        console.log(data)
         setLoading(false);
         if (data.length == 0) {
           setData([])
@@ -119,7 +120,7 @@ const index = (props) => {
                     key={index}
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliateAmount, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
+                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary,generalData.vasAffiliate, generalData.supportOutcome, generalData.encouSalary, generalData.other]}
                     icon={images.company} /> : null
                 }
               </View>

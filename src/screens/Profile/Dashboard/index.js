@@ -12,7 +12,7 @@ import { getProfile } from '../../../api';
 import { imgUrl } from '../../../api/untils';
 import { useIsFocused } from "@react-navigation/native";
 import { _storeData } from '../../../utils/Storage';
-import { backHandler, ToastNotif } from '../../../utils/Logistics';
+import { backHandler, checkInternetConnection, ToastNotif } from '../../../utils/Logistics';
 import Toast from 'react-native-toast-message';
 
 const DashBoard = () => {

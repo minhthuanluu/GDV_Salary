@@ -30,7 +30,6 @@ const TransactionInfo = (props) => {
         setLoading(true)
         await getTransactionInfo(month, navigation).then((res) => {
             if (res.status == "success") {
-                console.log(res.data)
                 setData(res.data);
                 setLoading(false);
             }
@@ -106,7 +105,7 @@ const TransactionInfo = (props) => {
                             <ListItem icon={images.transAmount} title={text.transInfoAmount} price={thoundsandSep(data.transcInfoAmount)} />
                             <ListItem icon={images.nonesim} title={text.trans2CAmount} price={thoundsandSep(data.denyTwoC)} />
                             <ListItem icon={images.sim} title={text.transAmount} price={thoundsandSep(data.preToPostPaid)} />
-                            <ListItem onPress={()=>console.log('NoRechargeCard')} style={styles.foneCardNoMoney} icon={images.foneCardNoMoney} iconStyle={{ marginTop: fontScale(19), marginLeft: 25 }} title={text.foneCardNoMoney} price={thoundsandSep(data.foneCardNoMoney)} />
+                            <ListItem onPress={()=>navigation.navigate('NoRechargeCard')} style={styles.foneCardNoMoney} icon={images.foneCardNoMoney} iconStyle={{ marginTop: fontScale(19), marginLeft: 25 }} title={text.foneCardNoMoney} price={thoundsandSep(data.foneCardNoMoney)} />
 
 
                         </View> :

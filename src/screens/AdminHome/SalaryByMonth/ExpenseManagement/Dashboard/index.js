@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { Body, DatePicker, Header, ListItem, MenuItem, Table } from '../../../../../comps';
+import { Body, Header, MenuItem } from '../../../../../comps';
 import { text } from '../../../../../utils/Text';
 import { width } from '../../../../../utils/Dimenssion';
 import moment from 'moment';
@@ -8,15 +8,10 @@ import { styles } from './style'
 import { fontScale } from '../../../../../utils/Fonts';
 import { colors } from '../../../../../utils/Colors';
 import { images } from '../../../../../utils/Images';
-import { Text } from 'react-native';
-import { ScrollView } from 'react-native';
-import { getExpenseManagement } from '../../../../../api';
 import { useEffect } from 'react';
 import { expenseManagement } from '../../../../../models/Admin';
-import { ActivityIndicator } from 'react-native';
 import { useNavigation } from '@react-navigation/core';
 import Toast from 'react-native-toast-message';
-import { ToastNotif } from '../../../../../utils/Logistics';
 
 const index = (props) => {
     const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
