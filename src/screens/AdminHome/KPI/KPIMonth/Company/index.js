@@ -13,9 +13,10 @@ import { colors } from "../../../../../utils/Colors";
 import { FlatList } from "react-native";
 import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { checkn2, ToastNotif } from "../../../../../utils/Logistics";
+import { variable } from "../../../../../utils/Variable";
 
 
 const index = (props) => {
@@ -91,19 +92,19 @@ const index = (props) => {
                   item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
                   topCenterData={["KPI tổng: ",item.kpiValue]}
                   title={item.shopName}
-                  onPress={() => navigation.navigate("AdminKPIMonthShop", {
+                  onPress={() => {navigation.navigate("AdminKPIMonthShop", {
                     branchItem: {
                       "branchCode": item.shopCode,
                       "month": month
                     }
-                  })}
+                  })}}
                 />
                 {index == data.length - 1 ? <GeneralListItem
                   company
                   style={{  marginBottom: fontScale(80),marginTop: -fontScale(10) }}
                   icon={images.company}
                   color={"#D19E01"}
-                  topCenterData={["KPI tổng: ",item.kpiValue]}
+                  topCenterData={["KPI tổng: ",generalData.kpiValue]}
                   titleArray={["TBTS", "TBTT", "Vas", "KHTT", "Bán lẻ", "% Lên gói", "TBTT", " TBTS thoại gói > =99k",]}
                   item={[checkn2(generalData.postPaid), checkn2(generalData.prePaid), checkn2(generalData.vas), generalData.importantPlan, generalData.retailRevenue, "", generalData.prePaidPck, generalData.postPaidOverNinetyNine]}
                   title={generalData.shopName}

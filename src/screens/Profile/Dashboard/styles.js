@@ -78,6 +78,7 @@ export const styles = StyleSheet.create({
         borderBottomWidth:fontScale(1),
         top:-fontScale(40)
     },
-    menuTitle:{fontSize:fontScale(20),color:colors.primary,textAlign:"center"}
+    menuTitle:{fontSize:fontScale(20),color:colors.primary,textAlign:"center"},
+    body:{ flex: 1, alignItems: "center", justifyContent: "center" }
 }
 )

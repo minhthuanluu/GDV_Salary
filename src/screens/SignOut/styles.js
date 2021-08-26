@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../utils/Colors";
-import { width } from "../../utils/Dimenssion";
+import { height, width } from "../../utils/Dimenssion";
 import { fontScale } from "../../utils/Fonts";
 
 export const styles = StyleSheet.create({
@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
         borderTopLeftRadius: fontScale(40),
         borderTopRightRadius: fontScale(40),
         position:"absolute",
+        height:height/5,
         width:width,
         bottom:0
     },

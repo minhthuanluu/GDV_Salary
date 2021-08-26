@@ -11,6 +11,7 @@ import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { checkn2 } from "../../../../../utils/Logistics";
+import { variable } from "../../../../../utils/Variable";
 
 const index = (props) => {
   const [data, setData] = useState({});
@@ -24,6 +25,7 @@ const index = (props) => {
     setLoading(true);
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
+        console.log(data.data)
         setData(data.data.data);
         setGeneralData(data.data.general);
         setLoading(false);
@@ -81,21 +83,23 @@ const index = (props) => {
                   titleArray={["TBTS", "TBTT", "VAS"]}
                   item={[checkn2(item.postPaid), checkn2(item.prePaid), checkn2(item.vas)]}
                   title={item.shopName}
-                  onPress={() =>
+                  onPress={() =>{
                     navigation.navigate("AdminKPIMonthGDV", {
                       branchItem: {
                         branchCode: route.params?.branchItem.branchCode,
                         shopCode: item.shopCode,
                         month: month,
                       },
-                    })
+                    });
+                    variable.month_KPIMonthShop=month
                   }
+                }
                 />
                 {
                   index == data.length - 1 ? <GeneralListItem
                     company
                     style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                    topCenterData={["KPI tổng: ", item.kpiValue]}
+                    topCenterData={["KPI tổng: ", generalData.kpiValue]}
                     icon={images.branch}
                     color={"#D19E01"}
                     titleArray={[
@@ -116,7 +120,7 @@ const index = (props) => {
                       generalData.retailRevenue,
                       "",
                       generalData.prePaidPck,
-                      generalData.postPaidOverNinetyNine,
+                      generalData.postPaidOverNinetyNine
                     ]}
 
                     title={generalData.shopName}
@@ -126,7 +130,6 @@ const index = (props) => {
               </View>
             )}
           />
-
         </View>
       </View>
     </SafeAreaView>

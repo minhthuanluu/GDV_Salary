@@ -25,6 +25,7 @@ const index = (props) => {
     setLoading(true);
     setData([])
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
+      console.log(data.data.data)
       if (data.status == "success") {
         if (data.length == 0) {
           setData([])
@@ -112,7 +113,7 @@ const index = (props) => {
                   index == data.length - 1 ? <GeneralListItem
                     company
                     style={{ marginBottom: fontScale(70), marginTop: fontScale(40) }}
-                    topCenterData={["KPI tổng: ", item.kpiValue]}
+                    topCenterData={["KPI tổng: ", generalData.kpiValue]}
                     icon={images.store}
                     color={"#D19E01"}
                     titleArray={[

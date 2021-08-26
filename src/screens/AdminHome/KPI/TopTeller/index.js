@@ -169,10 +169,9 @@ const AdminTopTeller = () => {
         rightIcon={images.searchlist}
         month={month}
         width={width - fontScale(50)}
-        placeholder="Tìm kiếm"
-        modalTitle="Vui lòng chọn"
-        onDone={(value)=>onSearch(value)}
-      />
+        placeholder={text.search}
+        modalTitle={text.select}
+        onDone={(value)=>onSearch(value)}/>
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }} />

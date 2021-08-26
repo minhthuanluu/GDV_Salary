@@ -1,5 +1,5 @@
 import moment from 'moment';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, StatusBar, View, Text, ActivityIndicator, ScrollView } from 'react-native';
 import { getContractSalaryByMonth, getProfile } from '../../../../api';
 import { Body, DatePicker, Header, ListItem, MetricStatus } from '../../../../comps';
@@ -7,6 +7,7 @@ import { ContractSalaryByMonth, UserObj } from '../../../../models/Data';
 import { colors } from '../../../../utils/Colors';
 import { width } from '../../../../utils/Dimenssion';
 import { fontScale } from '../../../../utils/Fonts';
+import { variable } from '../../../../utils/Variable';
 import { images } from '../../../../utils/Images';
 import { thoundsandSep } from '../../../../utils/Logistics';
 import { text } from '../../../../utils/Text';
@@ -65,12 +66,13 @@ const Contract = (props) => {
 
     const _onChangeMonth = async (value) => {
         setMonth(value);
-        await getData(value)
+        await getData(value);
+        variable.month_SalaryByMonth = value;
     }
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar translucent backgroundColor={colors.primary} />
-            <Header title={text.salaryByMonth} onPushParams={() => { contractMonth = month }} />
+            <Header title={text.salaryByMonth} onPushParams={() => { month_SalaryByMonth = month }} />
             <DatePicker month={month} width={width - fontScale(120)} style={{ alignSelf: "center" }} onChangeDate={(date) => _onChangeMonth(date)} />
             <MetricStatus title={text.numberStatus} status={data.status} style={{ alignSelf: "center", marginTop: fontScale(20) }} />
             <Body style={{ marginTop: fontScale(15) }} displayName={user.displayName} maGDV={user.gdvId.maGDV} />

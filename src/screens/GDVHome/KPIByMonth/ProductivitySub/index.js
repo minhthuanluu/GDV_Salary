@@ -36,7 +36,6 @@ const ProductivitySub = (props) => {
           setDateRange(res.data.dateRange);
           setData(res.data.data);
           setLoading(false);
-
         } else {
           setMessage("Ko có dữ liệu");
           setLoading(false)
@@ -49,17 +48,6 @@ const ProductivitySub = (props) => {
 
       }
     });
-
-    await getProfile(navigation).then((res) => {
-      // if (res.status == "success") {
-      //   setLoading(false)
-      //   setUserData(res.data)
-      //   // console.log(res)
-      // }
-      // if (res.status == "failed") {
-      //   setLoading(false)
-      // }
-    })
   };
 
   useEffect(() => {
@@ -71,7 +59,7 @@ const ProductivitySub = (props) => {
       "hardwareBackPress",
       backAction
     );
-    getData(); // gọi data thật
+    getData();
     return () => {
       backHandler.remove();
     };
@@ -102,8 +90,8 @@ const ProductivitySub = (props) => {
                 {
                   labels.map((label, index) => {
                     return <View style={{ flexDirection: "row", flex: 1 }}>
-                      <Text style={styles.labelDataOne} key={index.toString()}>{label}</Text>
-                      <Text style={styles.fieldDataTwo}>{index == 0 ? item.postSub : index == 1 ? item.preSub : index == 2 ? item.cusAmount : item.transAmount}</Text>
+                      <Text style={styles.labelDataOne} >{label}</Text>
+                      <Text style={styles.fieldDataTwo} key={index.toString()}>{index == 0 ? item.postSub : index == 1 ? item.preSub : index == 2 ? item.cusAmount : item.transAmount}</Text>
                     </View>
                   })
                 }

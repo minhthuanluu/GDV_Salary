@@ -8,6 +8,100 @@ import { styles } from './styles';
 
 const GeneralListItem = (props) => {
   return (
+    props.twentyFourColumnCompany ?
+    <TouchableOpacity style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#EFFEFF" }]} onPress={props.onPress}>
+      {/* <Text style={{ fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#D19E01" }}>{props.title}</Text> */}
+      <Text style={[props.textTitle,{fontSize: fontScale(13)}]}>{props.title}</Text>
+      {
+        props.titleArrayOne 
+        ?
+        <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
+          <Text style={[{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) },props.titleArrStyle]}>{props.titleArrayOne&&props.titleArrayOne[0]}</Text>
+          <Text style={[{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) },props.itemStyle]}>{props.item&&props.item[0]}</Text>
+        </View>
+        :
+        null }
+      <View>
+        <View style={{ flexDirection: "row", marginVertical: fontScale(6) }}>
+          {/* <Text style={ props.titleArrOneStyle }>{props.titleArr[0]}</Text>
+          <Text style={props.titleArrTwoStyle}>{props.titleArr[1]}</Text>
+          <Text style={props.titleArrThreeStyle}>{props.titleArr[2]}</Text>
+          <Text style={props.titleArrFourStyle}>{props.titleArr[3]}</Text> */}
+          {
+            props.titleArr.map((item,index)=><Text style={[props.titleArrTwoStyle,{fontSize: fontScale(13), flex:index==0||index==1 ? 1:1.5,marginLeft:index==0?fontScale(80):fontScale(10)}]}>{item}</Text>)
+          }
+        </View>
+      </View>
+      <Image source={props.icon} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(20), top: -fontScale(23) }} resizeMode="contain" />
+     
+        <View style={{flexDirection: "row"}}>
+        {props.titleArray?<View style={[{ marginLeft: -15 },props.titleContent]}>
+          <HItem title={props.titleArray[0]} titleStyle={props.titleStyle} />
+          <HItem title={props.titleArray[1]} titleStyle={props.titleStyle}/>
+          <HItem title={props.titleArray[2]} titleStyle={props.titleStyle}/>
+         {props.titleArray[3] ?<HItem title={props.titleArray[3]} titleStyle={props.titleStyle}/>:null}
+        </View>: null}
+        {/* HTKD */}
+        {props.itemAmountOne?<View style={props.viewContentStyle}>
+          <HItem content={props.itemAmountOne[0]} contentStyle={props.contentStyle}/>
+          <HItem content={props.itemAmountOne[1]} contentStyle={props.contentStyle}/>
+          <HItem content={props.itemAmountOne[2]} contentStyle={props.contentStyle}/>
+          <HItem content={props.itemAmountOne[3]} contentStyle={props.contentStyle}/>
+         
+        </View>: null}
+        {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(140),textAlign:"right"}}> */}
+        {/* GDV */}
+        {props.itemAmountTwo?<View style={props.viewOneContentStyle}>
+          <HItem content={props.itemAmountTwo[0]} contentStyle={props.contentStyle1} />
+          <HItem content={props.itemAmountTwo[1]} contentStyle={props.contentStyle1}/>
+          <HItem content={props.itemAmountTwo[2]} contentStyle={props.contentStyle1}/>
+        <HItem content={props.itemAmountTwo&&props.itemAmountTwo[3]} contentStyle={props.contentStyle1}/>
+        </View>: null}
+        {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(160),textAlign:"right"}}> */}
+        {/* Chenh lech */}
+        {props.itemPercent?<View style={props.viewTwoContentStyle}>
+          <HItem content={props.itemPercent[0]} contentStyle={props.contentStyle2} />
+          <HItem content={props.itemPercent[1]} contentStyle={props.contentStyle2}/>
+          <HItem content={props.itemPercent[2]} contentStyle={props.contentStyle2}/>
+          <HItem content={props.itemPercent&&props.itemPercent[3]} contentStyle={props.contentStyle2}/>
+        </View>: null}
+        {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(160),textAlign:"right"}}> */}
+      {/* Binh quan */}
+        {props.itemAmountFour?<View style={props.viewThreeContentStyle}>
+          <HItem content={props.itemAmountFour[0]} contentStyle={props.contentStyle2} />
+          <HItem content={props.itemAmountFour[1]} contentStyle={props.contentStyle2}/>
+          <HItem content={props.itemAmountFour[2]} contentStyle={props.contentStyle2}/>
+          <HItem content={props.itemAmountFour&&props.itemAmountFour[3]} contentStyle={props.contentStyle2}/>
+          
+        </View>: null}
+</View>
+{
+  props.titleArrayOne ? 
+  <>
+  {props.titleArrayOne[1]&&<View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+      <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne&&props.titleArrayOne[1]}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item&&props.item[1]}</Text>
+  </View>
+  }
+       {props.titleArrayOne[2]&& <View style={{ flexDirection: "row", marginVertical: fontScale(6) }}>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(28) }}>{props.titleArrayOne&&props.titleArrayOne[2]}</Text>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item&&props.item[2]}</Text>
+        </View>
+       }
+        
+       {props.titleArrayOne[3]&&<View style={{ flexDirection: "row", marginVertical: fontScale(6) }}>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(38) }}>{props.titleArrayOne&&props.titleArrayOne[3]}</Text>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item&&props.item[3]}</Text>
+        </View>
+        }
+       
+        {props.titleArrayOne[4]&&<View style={{ flexDirection: "row", marginVertical: fontScale(6) }}>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>{props.titleArrayOne&&props.titleArrayOne[4]}</Text>
+          <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{props.item&&props.item[4]}</Text>
+        </View>
+        }
+        </> : null }
+    </TouchableOpacity>:
     props.monthSalaryEmpItem ?
       <View style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#FFFFFF" }]}>
         <View style={{ flexDirection: "row" }}>

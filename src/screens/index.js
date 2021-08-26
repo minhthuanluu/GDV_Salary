@@ -37,7 +37,7 @@ import AdminKPIDashboard from "./AdminHome/KPI/Dashboard"; // AdminHome > KPI
         import AdminDetailProductivitySub from "./AdminHome/KPI/ProductivitySub/Detail"; // AdminHome > KPI > Năng suất bình quân > Chi tiết năng suất bình quân
 import AdminSalaryByMonthDashboard from "./AdminHome/SalaryByMonth/Dashboard";  // AdminHome > Lương theo tháng
     import AdminExpenseManagementDasboard from "./AdminHome/SalaryByMonth/ExpenseManagement/Dashboard"; // AdminHome > Lương theo tháng > Quản lý chi phí
-        import AdminExpenseGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        // import AdminExpenseGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
         import AdminExpenseDetailOutcomes from "./AdminHome/SalaryByMonth/ExpenseManagement/DetailOutcome" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi
         import AdminExpensePlanSupport from "./AdminHome/SalaryByMonth/ExpenseManagement/PlanSupport" //AdminHome > Lương theo tháng > Quản lý chi phí > Kế hoạch dự chi hỗ trợ
     import AdminTopTellers from "./AdminHome/SalaryByMonth/TopTeller"; // AdminHome > Lương theo tháng >Top GDV
@@ -82,6 +82,16 @@ import AdminAvgIncomeDashboard from "./AdminHome/AvgIncome/Dashboard"; // AdminH
         import AdminEmpTransInfo from "./AdminHome/TransInfo/Statistical/Emp" // AdminHome > Thông tin giao dịch > Emp
         import AdminEmpThreeTime from "./AdminHome/TransInfo/ViolationWarning/EmpThreeTime" // AdminHome > Cảnh báo vi phạm > GDV xuất hiện >=3 lần trong 6 tháng
     
+
+        import AdminExpenseManagementGeneralDasboard from "./AdminHome/SalaryByMonth/ExpenseManagement/GeneralDashboard"; // AdminHome > Lương theo tháng > Quản lý chi phí
+        import AdminExpenseGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminTotalSalaryCostGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General/TotalSalaryCost" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminSupportSalaryCostGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/General/SupportSalaryCost" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminMonthlyCostGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/MonthlyCost" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminPastMonthlyCostGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/MonthlyCost/PastmonthSalaryExpenses" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+        import AdminSupportPastMonthlyCostGeneral from "./AdminHome/SalaryByMonth/ExpenseManagement/MonthlyCost/SupportPastMonthSalary" //AdminHome > Lương theo tháng > Quản lý chi phí > Chi phí chung
+    
+    
 // GDV's screen
 export const HomeScreen = (route) => {return <Home route={route}/>}
 export const KPIByMonthDashboardScreen = (route) => {return <KPIByMonthDashboard route={route}/>}
@@ -112,8 +122,8 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminProductivitySubScreen = () => {return <AdminProductivitySub />}
             export const AdminDetailProductivitySubScreen = () => {return <AdminDetailProductivitySub />}
     export const AdminSalaryByMonthDashboardScreen = () => {return <AdminSalaryByMonthDashboard />}
-        export const AdminExpenseManagementDashboardScreen = () => {return <AdminExpenseManagementDasboard />}
-            export const AdminExpenseGeneralScreen = () => {return <AdminExpenseGeneral/>}
+        // export const AdminExpenseManagementDashboardScreen = () => {return <AdminExpenseManagementDasboard />}
+            // export const AdminExpenseGeneralScreen = () => {return <AdminExpenseGeneral/>}
             export const AdminExpenseDetailOutcomesScreen = () => {return <AdminExpenseDetailOutcomes/>}
             export const AdminExpensePlanSupportScreen = () => {return <AdminExpensePlanSupport/>}
         export const AdminTopTellersScreen = () => {return <AdminTopTellers />}
@@ -156,7 +166,15 @@ export const AdminHomeScreen = () => {return <AdminHome/>}
         export const AdminBranchTransInfoScreen = () => {return <AdminBranchTransInfo/>}
             export const AdminShopTransInfoScreen = () => {return <AdminShopTransInfo/>}
             export const AdminEmpTransInfoScreen = () => {return <AdminEmpTransInfo/>}
-        
+            export const AdminExpenseManagementDashboardScreen = () => {return <AdminExpenseManagementDasboard />}
+            export const AdminExpenseManagementGeneralDashboardScreen = () => {return <AdminExpenseManagementGeneralDasboard />}
+               export const AdminExpenseGeneralScreen = () => {return <AdminExpenseGeneral/>}
+               export const AdminTotalSalaryCostGeneralSCreen = () => {return <AdminTotalSalaryCostGeneral/>}
+               export const AdminSupportSalaryCostGeneralSCreen = () => {return <AdminSupportSalaryCostGeneral/>}
+               export const AdminMonthlyCostGeneralScreen = () => {return <AdminMonthlyCostGeneral/>}
+               export const AdminPastMonthlyCostGeneralScreen = () => {return <AdminPastMonthlyCostGeneral/>}
+               export const AdminSupportPastMonthlyCostGeneralScreen = () => {return <AdminSupportPastMonthlyCostGeneral/>}
+    
         
 // Auth's screen
 export const SignInScreen = () => {return <SignIn />}

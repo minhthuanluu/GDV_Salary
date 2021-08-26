@@ -80,21 +80,21 @@ export const AvgIncomeDashboard = {
 
 // Home > Bình Quân Thu Nhập > Bình Quân Tháng & Tổng Thu Nhập | getAvgIncomeByMonth
 export const M_AvgIncomeByMonth = {
-  "notification": "",
   "avgByMonth": "",
-  "avgPermanentSalary": "",
-  "avgContractSalary": "",
-  "avgVasAffiliate":"",
-  "avgOutcomeSupport":"",
+  "avgContractSalary":"",
   "avgExpenIncentive": "",
   "avgOtherExpen": "",
-  "totalIncome": "",
-  "totalPermanentSalar": "",
+  "avgOutcomeSupport": "",
+  "avgPermanentSalary": "",
+  "avgVasAffiliate": "",
+  "notification": "",
   "totalContractSalary": "",
-  "totalVasAffiliate":"",
-  "totalOutcomeSupport":"",
   "totalExpenIncentive": "",
-  "totalOtherExpen": ""
+  "totalIncome": "",
+  "totalOtherExpen": "",
+  "totalOutcomeSupport": "",
+  "totalPermanentSalary": "",
+  "totalVasAffiliate": ""
 }
 
 // Home > Chất Lượng Thuê Bao | getSubscriberQuality

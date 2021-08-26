@@ -99,6 +99,19 @@ const SubscriberQuality = () => {
     useEffect(() => {
         getData();
         _getProfile();
+        const backAction = () => {
+            navigation.goBack();
+            return true;
+        };
+
+        const backHandler = BackHandler.addEventListener(
+            "hardwareBackPress",
+            backAction
+        );
+
+        return () => {
+            backHandler.remove();
+        };
     }, [navigation]);
 
 

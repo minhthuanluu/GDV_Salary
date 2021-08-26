@@ -10,14 +10,15 @@ import { images } from '../../../../utils/Images';
 import { thoundsandSep, ToastNotif } from '../../../../utils/Logistics';
 import { text } from '../../../../utils/Text';
 import { styles } from './style';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import Toast from 'react-native-toast-message';
 import { FlatList } from 'react-native';
 import { Text } from 'react-native';
 import { getNoRechargeCard } from '../../../../api';
 
 const NoRechargeCard = (props) => {
-    const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+    const route = useRoute();
+    const [month, setMonth] = useState(route.params?.month || moment(new Date()).subtract(1, "months").format("MM/YYYY"));
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("")
@@ -38,6 +39,7 @@ const NoRechargeCard = (props) => {
             if (res.status == "success") {
                 if(res.data.data.length>0){
                     setData(res.data.data);
+                    console.log(res.data.data)
                     setSearchData(res.data.data);
                     setLoading(false);
                 }else{

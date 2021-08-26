@@ -17,6 +17,6 @@ export const styles = StyleSheet.create({
     forgotTextContainer: {
         justifyContent: "flex-end", marginHorizontal: fontScale(35), width: width / 3, paddingVertical: fontScale(2)
     },
-    trigleShape: { width: width + fontScale(20), left: -fontScale(10), top: height * 2 / 3 + fontScale(27) },
+    trigleShape: { width: width + fontScale(20), left: -fontScale(10), top: height * 2 / 3},
     loginButton: { marginTop: fontScale(50) }
 })

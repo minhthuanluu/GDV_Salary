@@ -1,5 +1,4 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { colors } from '../../utils/Colors';
 import { fontScale } from '../../utils/Fonts';
@@ -11,7 +10,7 @@ const MenuItem = (props) => {
         <View style={[style, { width: width, alignSelf: "center" }]}>
             {
                 view ? <View style={styles.container} onPress={onPress}>
-                    <View style={styles.bg}>
+                    <View style={[styles.bg,{shadowColor: "#888"}]}>
                         <Text style={[styles.title, props.titleStyle]}>{title}</Text>
                         <Image source={icon} style={[styles.icon, props.iconStyle]} />
                         {

@@ -44,14 +44,14 @@ const index = (props) => {
                     icon={images.otherExpenses}
                     width={width - fontScale(60)}
                     value={'   '}
-                    onPress={() => navigation.navigate("AdminExpenseGeneral")}
+                    onPress={() => navigation.navigate("AdminExpenseManagementGeneralDasboard")}
                 />
                  <MenuItem
                     style={{ marginTop: fontScale(50) }}
                     title={text.outcomeDetail}
                     icon={images.money}
                     width={width - fontScale(60)}
-                    value={'   '}
+                    value={''}
                     onPress={() => navigation.navigate("AdminExpenseDetailOutcomes")}
                 />
                  <MenuItem

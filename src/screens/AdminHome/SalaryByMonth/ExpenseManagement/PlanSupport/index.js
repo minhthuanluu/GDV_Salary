@@ -1,13 +1,13 @@
 import moment from 'moment';
 import React, { useState } from 'react';
-import { Text } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
 import { Body, Header, YearPicker } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { text } from '../../../../../utils/Text';
-import { dataPlanSupport } from './db';
+import { dataPlanSupport as data } from './db';
 import { styles } from './style';
 
 const index = (props) => {
@@ -18,6 +18,10 @@ const index = (props) => {
         setYear(year);
     }
 
+    const column1 = ["Mức chi", data.holidayBonusOutcome, "", data.stLunarOutcome, data.ndLunarOutcome, data.rdLunarOutcome, data.supportMasterOutcome, data.topEmpOutcome, data.topShopOutcome, data.pregnantOutcome, data.othersOutcome]
+    const column2 = ["SLNV", data.holidayBonusEmpAmount, "", data.stLunarEmpAmount, data.ndLunarEmpAmount, data.rdLunarEmpAmount, data.supportMasterEmpAmount, data.topEmpAmount, data.topShopEmpAmount, data.pregnantEmpAmount, data.othersEmpAmount]
+    const column3 = ["Số lần", data.holidayBonusNumber, "", data.stLunarBonusNumber, data.ndLunarBonusNumber, data.rdLunarBonusNumber, data.supportMasterBonusNumber, data.topEmpBonusNumber, data.topShopBonusNumber, data.pregnantBonusNumber, data.othersBonusNumber]
+    const column4 = ["Tổng tiền", data.holidayBonusTotal, "", data.stLunarBonusTotal, data.ndLunarBonusTotal, data.rdLunarBonusTotal, data.supportMasterTotal, data.topEmpBonusTotal, data.topShopBonusTotal, data.pregnantBonusTotal, data.othersBonusTotal]
     return (
         <SafeAreaView style={styles.container}>
             <Header title={text.outcomePlanSupport} />
@@ -28,109 +32,41 @@ const index = (props) => {
                 <View style={{
                     flexDirection: "row"
                 }}>
-                    <View style={{ flex: 3, marginTop: fontScale(10) }}>
+                    <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
                         {
-                            fstTitleLeft.map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
-                                <Text style={{
-                                    fontSize: fontScale(13),
-                                    fontWeight: "bold",
-                                    color: colors.grey,
-                                    marginLeft: index == 3 || index == 4 || index == 5 ? fontScale(20) : fontScale(5)
-                                }}>{item}</Text>
-                            </View>)
+                            fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index}/>)
                         }
                     </View>
-                    <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
-                        {
-                            [
-                                "Mức chi",
-                                dataPlanSupport.holidayBonusOutcome,
-                                "",
-                                dataPlanSupport.stLunarOutcome,
-                                dataPlanSupport.ndLunarOutcome,
-                                dataPlanSupport.rdLunarOutcome,
-                                dataPlanSupport.supportMasterOutcome,
-                                dataPlanSupport.topEmpOutcome,
-                                dataPlanSupport.topShopOutcome,
-                                dataPlanSupport.pregnantOutcome,
-                                dataPlanSupport.othersOutcome
-                            ].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
-                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                            </View>)
-                        }
-                    </View>
-
-                    <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
-                        {
-                            [
-                                "SLNV",
-                                dataPlanSupport.holidayBonusEmpAmount,
-                                "",
-                                dataPlanSupport.stLunarEmpAmount,
-                                dataPlanSupport.ndLunarEmpAmount,
-                                dataPlanSupport.rdLunarEmpAmount,
-                                dataPlanSupport.supportMasterEmpAmount,
-                                dataPlanSupport.topEmpAmount,
-                                dataPlanSupport.topShopEmpAmount,
-                                dataPlanSupport.pregnantEmpAmount,
-                                dataPlanSupport.othersEmpAmount
-                            ].map((item, index) => <View key={index.toString()}  style={{ marginVertical: fontScale(10) }}>
-                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                            </View>)
-                        }
-                    </View>
-                    <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
-                        {
-                            [
-                                "Số lần",
-                                dataPlanSupport.holidayBonusEmpAmount,
-                                "",
-                                dataPlanSupport.stLunarBonusNumber,
-                                dataPlanSupport.ndLunarBonusNumber,
-                                dataPlanSupport.rdLunarBonusNumber,
-                                dataPlanSupport.supportMasterBonusNumber,
-                                dataPlanSupport.topEmpBonusNumber,
-                                dataPlanSupport.topShopBonusNumber,
-                                dataPlanSupport.pregnantBonusNumber,
-                                dataPlanSupport.othersBonusNumber
-                            ].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                            </View>)
-                        }
-                    </View>
-                    <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
-                        {
-                            [
-                                "Tổng tiền",
-                                dataPlanSupport.holidayBonusTotal,
-                                "",
-                                dataPlanSupport.stLunarBonusTotal,
-                                dataPlanSupport.ndLunarBonusTotal,
-                                dataPlanSupport.rdLunarBonusTotal,
-                                dataPlanSupport.supportMasterTotal,
-                                dataPlanSupport.topEmpBonusTotal,
-                                dataPlanSupport.topShopBonusTotal,
-                                dataPlanSupport.pregnantBonusTotal,
-                                dataPlanSupport.othersBonusTotal
-                            ].map((item, index) => <View  key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                            </View>)
-                        }
-                    </View>
+                    <ScrollView horizontal>
+                        <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
+                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                                {column1.map((item, index) => <Column item={item} index={index} />)}
+                            </View>
+                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                                {column2.map((item, index) => <Column item={item} index={index} />)}
+                            </View>
+                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                                {column3.map((item, index) => <Column item={item} index={index} />)}
+                            </View>
+                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                                {column4.map((item, index) => <Column item={item} index={index} />)}
+                            </View>
+                        </View>
+                    </ScrollView>
                 </View>
                 <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" }}>Tổng chi hỗ trợ dự kiến:</Text>
-                    <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(20), fontWeight: "bold", color: colors.red }}>{dataPlanSupport.expectedOutcomeSupport}</Text>
+                    <Text style={styles.subTitle}>{text.expectedOutcomeSupport}:</Text>
+                    <Text style={styles.expectOutcome}>{data.expectedOutcomeSupport}</Text>
                 </View>
-                <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" }}>Thông tin thêm nguồn hỗ trợ đến tháng N-1:</Text>
+                <Text style={styles.subTitle}>{text.extendedInfo}:</Text>
                 <View style={{ flexDirection: "row" }}>
                     <View style={{ marginLeft: fontScale(10) }}>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" }}>Tổng còn lại:</Text>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" }}>Tổng đã chi:</Text>
+                        <Text style={styles.subTitleLeft}>{text.totalRemain}:</Text>
+                        <Text style={styles.subTitleLeft}>{text.totalOutcomed}:</Text>
                     </View>
                     <View>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10), fontWeight: "bold", color: colors.lightBlue }}>{dataPlanSupport.outcomeTotal}</Text>
-                        <Text style={{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10), fontWeight: "bold", color: colors.lightBlue }}>{dataPlanSupport.remainTotal}</Text>
+                        <Text style={styles.subContentLeft}>{data.outcomeTotal}</Text>
+                        <Text style={styles.subContentLeft}>{data.remainTotal}</Text>
                     </View>
                 </View>
             </View>
@@ -138,4 +74,24 @@ const index = (props) => {
     );
 }
 
+const LeftColumn = ({ item, index }) => {
+    return (
+        <View key={index+''} style={{ marginVertical: fontScale(10) }}>
+            <Text style={{
+                fontSize: fontScale(13),
+                fontWeight: "bold",
+                color: colors.grey,
+                marginLeft: index == 3 || index == 4 || index == 5 ? fontScale(20) : fontScale(5)
+            }}>{item}</Text>
+        </View>
+    )
+}
+
+const Column = ({ item, index }) => {
+    return (
+        <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+            <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+        </View>
+    )
+}
 export default index;

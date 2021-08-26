@@ -62,7 +62,7 @@ const DashBoard = () => {
                     <Text style={styles.staffName}>({userData&&userData.userGroupId.code})</Text>
                     <Image style={styles.avatar} source={userData.avatar == null ? images.avatar : { uri: imgUrl + userData.avatar }} />
                 </View>
-                <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+                <View style={styles.body}>
                     {
                         loading == true ? <ActivityIndicator size="small" color={colors.primary} /> :
                             <ScrollView style={{ paddingVertical: 10}} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>

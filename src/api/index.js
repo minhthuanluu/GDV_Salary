@@ -2367,8 +2367,6 @@ export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
   return data;
 }
 
-// getViolationEmployee
-
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên (xuất hiện >= 3 lần trong 6 tháng)
 export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=>{
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên")

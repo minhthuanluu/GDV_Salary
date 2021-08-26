@@ -9,6 +9,8 @@ import { fontScale } from '../../../utils/Fonts';
 import { backHandler, ToastNotif } from '../../../utils/Logistics';
 import { styles } from './styles';
 import Toast from 'react-native-toast-message';
+import { text } from '../../../utils/Text';
+import { images } from '../../../utils/Images';
 
 const UpdatePassword = () => {
     const [oldPassword, setOldPassword] = useState('');
@@ -54,17 +56,17 @@ const UpdatePassword = () => {
             <StatusBar backgroundColor={colors.primary} />
             <Toast ref={(ref) => Toast.setRef(ref)} />
             <View style={styles.bottomShape}>
-                <Image source={require("../../../assets/loginbg.png")} resizeMode="stretch" style={styles.trigleShape} />
+                <Image source={images.loginbg} resizeMode="stretch" style={styles.trigleShape} />
             </View>
             <View style={styles.mbfLogoContainer}>
-                <Image source={require("../../../assets/mblogo.png")} resizeMode="contain" style={styles.logo} />
+                <Image source={images.logo} resizeMode="contain" style={styles.logo} />
             </View>
             <View style={styles.topShape}>
-                <AuthTitle title="đổi mật khẩu" style={styles.authTitle} />
-                <Input underline pwd title="Mật khẩu cũ" width={width - fontScale(70)} style={styles.ipUsn} onChangeText={(value) => setOldPassword(value)} />
-                <Input underline pwd title="Mật khẩu mới" width={width - fontScale(70)} style={styles.ipUsn} onChangeText={(value) => setNewPassword(value)} />
-                <Input underline pwd title="Xác nhận mật khẩu mới" width={width - fontScale(70)} style={styles.ipPwd} onChangeText={(value) => setReNewPassword(value)} />
-                <Button width={fontScale(150)} label={"Đổi mật khẩu"} center style={styles.loginButton} onPress={() => onChangePassword(oldPassword, newPassword, reNewPassword)} />
+                <AuthTitle title={text.changePassword} style={styles.authTitle} />
+                <Input underline pwd title={text.oldPassword} width={width - fontScale(70)} style={styles.ipUsn} onChangeText={(value) => setOldPassword(value)} />
+                <Input underline pwd title={text.newPassword} width={width - fontScale(70)} style={styles.ipUsn} onChangeText={(value) => setNewPassword(value)} />
+                <Input underline pwd title={text.confirmPassword} width={width - fontScale(70)} style={styles.ipPwd} onChangeText={(value) => setReNewPassword(value)} />
+                <Button width={fontScale(150)} label={text.changePassword} center style={styles.loginButton} onPress={() => onChangePassword(oldPassword, newPassword, reNewPassword)} />
                 <Text style={{ fontSize: fontScale(15),textAlign: "center", color: colors.white, marginTop: fontScale(30) }}>{message}</Text>
                 {
                     loading == true ? <ActivityIndicator size="small" color={colors.white} /> : null

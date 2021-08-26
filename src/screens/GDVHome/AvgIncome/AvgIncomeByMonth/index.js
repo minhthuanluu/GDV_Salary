@@ -27,6 +27,7 @@ function AvgIncomeByMonth(props) {
     const getData = async (beginMonth, endMonth) => {
         setLoading(true)
         await getAvgIncomeByMonth(beginMonth, endMonth, navigation).then((res) => {
+            console.log(res.data)
             if (res.status == "success") {
                 setData(res.data);
                 setLoading(false);
@@ -97,20 +98,18 @@ function AvgIncomeByMonth(props) {
             </View>
             <ScrollView style={{ backgroundColor: colors.white }} showsVerticalScrollIndicator={false}>
                 {
-                    loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginBottom:fontScale(20)}}/> : null
+                    loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginBottom: fontScale(20) }} /> : null
 
                 }
                 <View style={{ backgroundColor: colors.white, paddingVertical: fontScale(30), flex: 1 }}>
-
                     <View>
-
                         <View style={[styles.sumKpiContainer, { marginTop: -fontScale(35) }]}>
                             <Text style={styles.sumKpiTitle}>{text.averageMonth}: </Text>
                             <Text style={styles.sumKpi}>{thoundsandSep(data.avgByMonth)}</Text>
                         </View>
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.fixedAverageSalary} price={thoundsandSep(data.avgPermanentSalary)} />
-                            <ListItem icon={images.contractSalary} title={text.upAverageSalary} price={thoundsandSep(data.avgContractSalary)} />
+                            <ListItem icon={images.contractSalary} title={text.avgContractSalary} price={thoundsandSep(data.avgContractSalary)} />
                             <ListItem icon={images.vas} title={text.avgVasAffiliate} price={thoundsandSep(data.avgVasAffiliate)} />
                             <ListItem icon={images.supportmoney} title={text.avgOutcomeSupport} price={thoundsandSep(data.avgOutcomeSupport)} />
                             <ListItem icon={images.incentive} title={text.averageIncentiveSpending} price={thoundsandSep(data.avgExpenIncentive)} />
@@ -122,9 +121,9 @@ function AvgIncomeByMonth(props) {
                         </View>
                         <View style={[styles.detailInfo, { marginTop: fontScale(15) }]}>
                             <ListItem icon={images.salaryByMonth} title={text.totalAverageSalary} price={thoundsandSep(data.totalPermanentSalary)} />
-                            <ListItem icon={images.contractSalary} title={text.totalupAverageSalary} price={thoundsandSep(data.totalContractSalary)} />
-                            <ListItem icon={images.vas} title={text.totalAvgVasAffiliate} price={thoundsandSep(data.totalAvgVasAffiliate)} />
-                            <ListItem icon={images.supportmoney} title={text.totalAvgOutcomeSupport} price={thoundsandSep(data.totalAvgOutcomeSupport)} />
+                            <ListItem icon={images.contractSalary} title={text.totalavgContractSalary} price={thoundsandSep(data.totalContractSalary)} />
+                            <ListItem icon={images.vas} title={text.totalAvgVasAffiliate} price={thoundsandSep(data.totalVasAffiliate)} />
+                            <ListItem icon={images.supportmoney} title={text.totalAvgOutcomeSupport} price={thoundsandSep(data.totalOutcomeSupport)} />
                             <ListItem icon={images.incentive} title={text.totalIncentiveSpending} price={thoundsandSep(data.totalExpenIncentive)} />
                             <ListItem icon={images.otheroutcome} title={text.totalOtherCosts} price={thoundsandSep(data.totalOtherExpen)} />
                         </View>
