@@ -27,7 +27,6 @@ function AvgIncomeByMonth(props) {
     const getData = async (beginMonth, endMonth) => {
         setLoading(true)
         await getAvgIncomeByMonth(beginMonth, endMonth, navigation).then((res) => {
-            console.log(res.data)
             if (res.status == "success") {
                 setData(res.data);
                 setLoading(false);

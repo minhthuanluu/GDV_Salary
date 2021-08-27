@@ -197,7 +197,7 @@ const AdminTopTellerAvgIncome = () => {
       <Body showInfo={false} style={{ marginTop: fontScale(15), zIndex: -10 }} />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
-          <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.GDV} />
+          <TableHeader style={{ width: (width * 3.9) / 10 }} title={text.teller} />
           <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.salaryAverage} />
           <TableHeader style={{ width: (width * 3.0) / 10 }} title={text.sumSalary} />
         </View>

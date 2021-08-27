@@ -32,7 +32,6 @@ const ProductivitySub = (props) => {
     await getSubscriberProductivity(navigation).then((res) => {
       if (res.status == "success") {
         if (res.data.length > 0 || res.data.data.length > 0) {
-          console.log(res)
           setDateRange(res.data.dateRange);
           setData(res.data.data);
           setLoading(false);

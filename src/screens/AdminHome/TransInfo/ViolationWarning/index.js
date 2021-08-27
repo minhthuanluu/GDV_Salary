@@ -29,7 +29,6 @@ function index(props) {
                 setLoading(false);
                 if (res.length > 0) {
                     setData(res.data)
-                    console.log(res.data)
                 }
             }
             if (res.status == "failed") {
@@ -42,10 +41,10 @@ function index(props) {
                     type: "error",
                     visibilityTime: 1000,
                     autoHide: true,
-                    onHide: () => navigation.navigate("AdminHome")
+                    onHide: () => navigation.goBack()
                 })
             }
-        })
+        });
     }
     const _onChangeMonth = async(value) => {
         setMonth(value)

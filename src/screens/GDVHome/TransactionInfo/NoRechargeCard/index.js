@@ -39,7 +39,6 @@ const NoRechargeCard = (props) => {
             if (res.status == "success") {
                 if(res.data.data.length>0){
                     setData(res.data.data);
-                    console.log(res.data.data)
                     setSearchData(res.data.data);
                     setLoading(false);
                 }else{

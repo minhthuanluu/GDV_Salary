@@ -52,7 +52,6 @@ function index(props) {
     }
 
     const _onChangeBranch = async (branchCode,value) => {
-        console.log(value)
         setBranchCode(branchCode);
         setShopList([]);
         setLoadingShop(true);
@@ -68,27 +67,7 @@ function index(props) {
         });
     }
 
-    const _onChangeShop = async (shopCode) => {
-        setShopCode(shopCode);
-        setEmpList([]);
-        console.log(branchCode + ' - ' + shopCode)
-        await getAllEmp(navigation, branchCode, shopCode).then((res) => {
-            if (res.status == "success") {
-                setEmpList(res.data);
-            }
-            if (res.status == 'failed') {
-            }
-
-        })
-    }
-
-    const _onChangeEmp = (empId) => {
-        setEmpCode(empId)
-    }
-
-
     const getData = async (branchCode, shopCode, empCode) => {
-        console.log(branchCode, shopCode, empCode)
         setLoading(true);
         setData([])
         await getFCardTrans(navigation, branchCode, shopCode, empCode).then((res) => {              
@@ -135,7 +114,6 @@ function index(props) {
     }
 
     const _onSearch = async (value) => {
-        console.log(value)
         await getData(value.branchCode, value.shopCode, value.empCode);
     }
 

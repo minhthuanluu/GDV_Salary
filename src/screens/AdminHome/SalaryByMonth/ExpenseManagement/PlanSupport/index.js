@@ -34,7 +34,7 @@ const index = (props) => {
                 }}>
                     <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
                         {
-                            fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index}/>)
+                            fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)
                         }
                     </View>
                     <ScrollView horizontal>
@@ -76,21 +76,23 @@ const index = (props) => {
 
 const LeftColumn = ({ item, index }) => {
     return (
-        <View key={index+''} style={{ marginVertical: fontScale(10) }}>
-            <Text style={{
-                fontSize: fontScale(13),
-                fontWeight: "bold",
-                color: colors.grey,
-                marginLeft: index == 3 || index == 4 || index == 5 ? fontScale(20) : fontScale(5)
-            }}>{item}</Text>
+        <View style={{ marginVertical: fontScale(10) }}>
+            <Text
+                key={index + ''}
+                style={{
+                    fontSize: fontScale(13),
+                    fontWeight: "bold",
+                    color: colors.grey,
+                    marginLeft: index == 3 || index == 4 || index == 5 ? fontScale(20) : fontScale(5)
+                }}>{item}</Text>
         </View>
     )
 }
 
 const Column = ({ item, index }) => {
     return (
-        <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-            <Text style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+        <View style={{ marginVertical: fontScale(10) }}>
+            <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
         </View>
     )
 }

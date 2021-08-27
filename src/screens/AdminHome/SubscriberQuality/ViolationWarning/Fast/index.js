@@ -90,7 +90,6 @@ function index(props) {
     const _onChangeShop = async (shopCode) => {
         setShopCode(shopCode);
         setEmpList([]);
-        console.log(branchCode + ' - ' + shopCode)
         await getAllEmp(navigation, branchCode, shopCode).then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);

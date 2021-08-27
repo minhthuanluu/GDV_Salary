@@ -14,7 +14,6 @@ export const login = async (userName, password) => {
     loading: null,
     error: null
   };
-  console.log(`${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`)
   await axios({
     method: POST,
     url: `${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`,
@@ -39,7 +38,6 @@ export const login = async (userName, password) => {
       }
     })
     .catch(async (error) => {
-      console.log(error)
       if (error) {
         data = {
           message: error.response.data.message,
@@ -141,7 +139,7 @@ export const getKPIByMonthDashboard = async (navigation) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `${token}`,
+      Authorization: `${token}`
     },
   }).then((res) => {
     if (res.status == 200) {
@@ -622,7 +620,6 @@ export const getTransactionInfo = async (month, navigation) => {
     loading: null,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}dashBoard/getTransactionInfo?month=01/${month}`,
@@ -852,8 +849,8 @@ export const signoutUser = async (navigation) => {
         await _removeData("userInfo").then((data) => {
           if (data == undefined) {
             navigation.navigate("SignIn");
-          }else{
-            
+          } else {
+
           }
         });
       }
@@ -1008,7 +1005,6 @@ export const getAllShop = async (navigation, branchCode) => {
       navigation.navigate("SignIn")
     }
   });
-  console.log(token)
   let data = {
     message: "",
     status: "",
@@ -1061,7 +1057,7 @@ export const getAllShop = async (navigation, branchCode) => {
   return data;
 };
 
-export const getAllEmp = async (navigation, branchCode,shopCode) => {
+export const getAllEmp = async (navigation, branchCode, shopCode) => {
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1528,8 +1524,8 @@ export const getExpenseManagement = async (month) => {
   return data;
 }
 // AdminHome > Lương theo tháng >Top GDV
-export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shopCode, empCode, sort) => {
-  console.log('getMonthSalaryTopTeller: '+month+'-'+ branchCode+'-'+ shopCode+'-'+ empCode+'-'+ sort)
+export const getMonthSalaryTopTeller = async (navigation, month, branchCode, shopCode, empCode, sort) => {
+  console.log('getMonthSalaryTopTeller: ' + month + '-' + branchCode + '-' + shopCode + '-' + empCode + '-' + sort)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -1546,10 +1542,9 @@ export const getMonthSalaryTopTeller = async (navigation,month, branchCode, shop
     length: 0,
     error: null,
   };
-  console.log(token)
-    await axios({
+  await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getMonthSalaryTopTeller?month=01/${month}&branchCode=${branchCode==null ? '':branchCode}&shopCode=${shopCode}&empCode=${empCode}&sort=${sort}`,
+    url: `${baseUrl}adminScreens/getMonthSalaryTopTeller?month=01/${month}&branchCode=${branchCode == null ? '' : branchCode}&shopCode=${shopCode}&empCode=${empCode}&sort=${sort}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1783,7 +1778,7 @@ export const getTransInfoWarning = async (navigation, month) => {
             length: Object.values(res.data).length,
             error: null
           };
-        }else {
+        } else {
           data = {
             data: res.data,
             isLoading: false,
@@ -1828,10 +1823,9 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     length: 0,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
-    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode==undefined?"":branchCode}&shopCode=${shopCode==undefined?"":shopCode}&empCode=${empCode==undefined?"":empCode}&month=01/${month}&type=${type}`,
+    url: `${baseUrl}adminScreens/getTransInfoWarningByType?branchCode=${branchCode == undefined ? "" : branchCode}&shopCode=${shopCode == undefined ? "" : shopCode}&empCode=${empCode == undefined ? "" : empCode}&month=01/${month}&type=${type}`,
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -1862,15 +1856,14 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
     })
     .catch((error) => {
       if (error) {
-        // data = {
-        //   message: error.response.data.message,
-        //   isLoading: false,
-        //   status: "failed",
-        //   length: 0,
-        //   data:null,
-        //   error: error.response.data
-        // };
-        console.log(error)
+        data = {
+          message: error.response.data.message,
+          isLoading: false,
+          status: "failed",
+          length: 0,
+          data: null,
+          error: error.response.data
+        };
       }
     });
   return data;
@@ -1895,7 +1888,6 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
     length: 0,
     error: null,
   };
-console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getDetailTransInfoWarningByType?empCode=${empCode}&month=01/${month}&type=${type}`,
@@ -1924,7 +1916,7 @@ console.log(token)
             length: res.data.data.length,
             error: null
           };
-        }else {
+        } else {
           data = {
             data: res.data,
             isLoading: false,
@@ -1943,7 +1935,7 @@ console.log(token)
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -1953,7 +1945,7 @@ console.log(token)
 
 
 // Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
-export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,empCode) => {
+export const getDenyByWrongInfo = async (navigation, month, branchCode, shopCode, empCode) => {
   console.log("getDenyByWrongInfo")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
@@ -1971,7 +1963,6 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
     length: 0,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getDenyByWrongInfo?branchCode=${branchCode}&empCode=${empCode}&month=01/${month}&shopCode=${shopCode}`,
@@ -2000,7 +1991,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
             length: Object.values(res.data.data).length,
             error: null
           };
-        }else {
+        } else {
           data = {
             data: res.data.data,
             isLoading: false,
@@ -2019,7 +2010,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2028,9 +2019,9 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode,shopCode,
 }
 
 // Admin > Thong tin giao dich > Canh bao vi pham > GDV bị chặn user do đấu sai kho số
-export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,empCode) => {
+export const getEmpThreeTime = async (navigation, month, branchCode, shopCode, empCode) => {
   console.log("getEmpThreeTime")
-  console.log(month, branchCode,shopCode,empCode)
+  console.log(month, branchCode, shopCode, empCode)
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2047,7 +2038,6 @@ export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,emp
     length: 0,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getEmpThreeTime?branchCode=${branchCode}&empCode=${empCode}&month=01/${month}&shopCode=${shopCode}`,
@@ -2086,7 +2076,7 @@ export const getEmpThreeTime = async (navigation, month, branchCode,shopCode,emp
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2113,7 +2103,6 @@ export const getViolate = async (navigation) => {
     length: 0,
     error: null,
   };
-  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getViolate`,
@@ -2152,7 +2141,7 @@ export const getViolate = async (navigation) => {
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2161,7 +2150,7 @@ export const getViolate = async (navigation) => {
 }
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB
-export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
+export const getFastTrans = async (navigation, branchCode, shopCode, empCode) => {
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB")
   console.log("getFastTrans")
   let token = "";
@@ -2209,7 +2198,7 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
             length: res.data.data.length,
             error: null
           };
-        }else{
+        } else {
           data = {
             data: res.data,
             isLoading: false,
@@ -2227,7 +2216,7 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2236,7 +2225,7 @@ export const getFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
 }
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết
-export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
+export const getDetailFastTrans = async (navigation, branchCode, shopCode, empCode) => {
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyển Fast/MD1/MDT >=1TB > Chi tiết")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
@@ -2293,7 +2282,7 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2302,7 +2291,7 @@ export const getDetailFastTrans=async(navigation,branchCode,shopCode,empCode)=>{
 }
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB
-export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
+export const getFCardTrans = async (navigation, branchCode, shopCode, empCode) => {
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > Chuyen FCard>3TB")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
@@ -2359,7 +2348,7 @@ export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2368,7 +2357,7 @@ export const getFCardTrans=async(navigation,branchCode,shopCode,empCode)=>{
 }
 
 // Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên (xuất hiện >= 3 lần trong 6 tháng)
-export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=>{
+export const getViolationEmployee = async (navigation, branchCode, shopCode, empCode) => {
   console.log("Home > Chất lượng thuê bao > Cảnh báo vi phạm > GDV vi phạm cả 2 nhóm trên")
   let token = "";
   await _retrieveData("userInfo").then((data) => {
@@ -2414,11 +2403,11 @@ export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=
             length: res.data.data.length,
             error: null
           };
-        }else{
+        } else {
           data = {
             data: res.data,
             isLoading: false,
-            message:text.dataIsNull,
+            message: text.dataIsNull,
             status: "success",
             length: res.data.data.length,
             error: null
@@ -2433,7 +2422,7 @@ export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
@@ -2441,8 +2430,8 @@ export const getViolationEmployee=async(navigation,branchCode,shopCode,empCode)=
   return data;
 }
 
-export const getNoRechargeCard=async(navigation,month)=>{
-  console.log("GDVHome > Thông tin giao dịch > GD Fone - card ko nạp tiền tháng: "+month)
+export const getNoRechargeCard = async (navigation, month) => {
+  console.log("GDVHome > Thông tin giao dịch > GD Fone - card ko nạp tiền tháng: " + month);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2457,7 +2446,7 @@ export const getNoRechargeCard=async(navigation,month)=>{
     data: null,
     isLoading: null,
     length: 0,
-    error: null,
+    error: null
   };
   await axios({
     method: GET,
@@ -2468,36 +2457,36 @@ export const getNoRechargeCard=async(navigation,month)=>{
       Authorization: `${token}`,
     },
   }).then((res) => {
-      if (res.status == 200) {
-        if (res.data.V_ERROR) {
-          data = {
-            message: "Chức năng này đang được bảo trì",
-            data: null,
-            isLoading: false,
-            status: "v_error",
-            length: 0,
-            error: null
-          }
-        } else if (res.data.data.length > 0) {
-          data = {
-            data: res.data,
-            isLoading: false,
-            status: "success",
-            length: res.data.data.length,
-            error: null
-          };
-        }else{
-          data = {
-            data: res.data,
-            isLoading: false,
-            message:text.dataIsNull,
-            status: "success",
-            length: res.data.data.length,
-            error: null
-          };
+    if (res.status == 200) {
+      if (res.data.V_ERROR) {
+        data = {
+          message: "Chức năng này đang được bảo trì",
+          data: null,
+          isLoading: false,
+          status: "v_error",
+          length: 0,
+          error: null
         }
+      } else if (res.data.data.length > 0) {
+        data = {
+          data: res.data,
+          isLoading: false,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
+      } else {
+        data = {
+          data: res.data,
+          isLoading: false,
+          message: text.dataIsNull,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
       }
-    })
+    }
+  })
     .catch((error) => {
       if (error) {
         data = {
@@ -2505,10 +2494,81 @@ export const getNoRechargeCard=async(navigation,month)=>{
           isLoading: false,
           status: "failed",
           length: 0,
-          data:null,
+          data: null,
           error: error.response.data
         };
       }
     });
+  return data;
+}
+
+export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
+  console.log("Home > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi from " + beginMonth + " to " + endMonth);
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null
+  };
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getDetailOutcome?beginMonth=01/${beginMonth}&endMonth=01/${endMonth}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  }).then((res) => {
+    if (res.status == 200) {
+      if (res.data.V_ERROR) {
+        data = {
+          message: "Chức năng này đang được bảo trì",
+          data: null,
+          isLoading: false,
+          status: "v_error",
+          length: 0,
+          error: null
+        }
+      } else if (Object.values(res.data.data).length > 0) {
+        data = {
+          data: res.data,
+          isLoading: false,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
+      } else {
+        data = {
+          data: res.data,
+          isLoading: false,
+          message: text.dataIsNull,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
+      }
+    }
+  }).catch((error) => {
+    if (error) {
+      data = {
+        message: error.response.data.message,
+        isLoading: false,
+        status: "failed",
+        length: 0,
+        data: null,
+        error: error.response.data
+      };
+    }
+  });
   return data;
 }

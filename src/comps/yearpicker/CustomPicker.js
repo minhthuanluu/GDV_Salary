@@ -35,7 +35,6 @@ const MonthYearPicker = (props) => {
             yearArr.push({ "key": i, "element": element + 12 });
         }
         setYearArray(yearArr);
-        console.log(selectedIndex)
     }
     const onPrev = () => {
         let yearArr = []
@@ -44,7 +43,6 @@ const MonthYearPicker = (props) => {
             yearArr.push({ "key": i, "element": element - 12 })
         }
         setYearArray(yearArr);
-        console.log(selectedIndex)
 
     }
 

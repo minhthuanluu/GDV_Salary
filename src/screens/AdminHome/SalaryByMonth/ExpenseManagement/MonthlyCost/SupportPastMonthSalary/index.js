@@ -30,10 +30,8 @@ const index = (props) => {
 
     const getData = async (month, branchcode, shopCode) => {
         setLoading(true);
-        setMessage("")
-        console.log(month+branchcode+shopCode)
+        setMessage("");
         await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
-          console.log()
           if (data.status == "success") {
             setLoading(false);
             if (data.length == 0) {
@@ -99,7 +97,7 @@ const index = (props) => {
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(10) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
@@ -141,14 +139,14 @@ const index = (props) => {
                     />  */}
                 
                     <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
+                    style={{ marginBottom: fontScale(100), marginTop: index==0 ? fontScale(10):-fontScale(50) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18),  fontWeight: "bold", color: props.textColor || "#151515"}}
                     // style={{flexDirection: "row", marginVertical: fontScale(0)}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(215),marginVertical: fontScale(11)}}
                     titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51),marginVertical: fontScale(11)}}
                     viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(185),textAlign:"right"}}

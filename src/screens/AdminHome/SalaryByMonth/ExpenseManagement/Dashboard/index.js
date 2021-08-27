@@ -27,7 +27,7 @@ const index = (props) => {
         setMonth(value)
     }
 
-    const fields = [text.totalOutcome, text.fixed, text.incentive, text.supportOutcome, text.otherExpenses]
+    const fields = [text.totalOutcomeFee, text.fixed, text.incentive, text.supportOutcome, text.otherExpenses]
 
     useEffect(() => {
         getData(month)
@@ -42,8 +42,8 @@ const index = (props) => {
                     style={{ marginTop: fontScale(30) }}
                     title={text.generalFee}
                     icon={images.otherExpenses}
+                    titleMenuStyle={{ paddingTop: fontScale(17) }}
                     width={width - fontScale(60)}
-                    value={'   '}
                     onPress={() => navigation.navigate("AdminExpenseManagementGeneralDasboard")}
                 />
                  <MenuItem
@@ -51,7 +51,7 @@ const index = (props) => {
                     title={text.outcomeDetail}
                     icon={images.money}
                     width={width - fontScale(60)}
-                    value={''}
+                    titleMenuStyle={{ paddingTop: fontScale(17) }}
                     onPress={() => navigation.navigate("AdminExpenseDetailOutcomes")}
                 />
                  <MenuItem
@@ -59,7 +59,7 @@ const index = (props) => {
                     title={text.outcomePlanSupport}
                     icon={images.list}
                     width={width - fontScale(60)}
-                    value={'   '}
+                    titleMenuStyle={{ paddingTop: fontScale(17) }}
                     onPress={() => navigation.navigate("AdminExpensePlanSupport")}
                 />
             </View>

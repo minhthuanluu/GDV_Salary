@@ -30,10 +30,8 @@ const index = (props) => {
 
     const getData = async (month, branchcode, shopCode) => {
         setLoading(true);
-        setMessage("")
-        console.log(month+branchcode+shopCode)
+        setMessage("");
         await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
-          console.log()
           if (data.status == "success") {
             setLoading(false);
             if (data.length == 0) {
@@ -99,7 +97,7 @@ const index = (props) => {
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(10) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
@@ -111,13 +109,13 @@ const index = (props) => {
                 {/*  */}
                
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
+                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? fontScale(10) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(145)}}
                     titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
                     titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
@@ -127,7 +125,7 @@ const index = (props) => {
                     twentyFourColumnCompany
                     // title={generalData.shopName}
                     title={item.shopName}
-                    titleArr={["HTKD","GDV","Chênh lệch"]}
+                    titleArr={["HTKD",text.teller,"Chênh lệch"]}
                     titleArray={["Tổng chi ", "Cố định", "Khoán sp","Chi khác"]}
                     // titleArrayOne={["Số dư đầu kỳ:","Số dư cuối kỳ:","Số tiền dùng chi hỗ trợ:"]}
                     // itemAmountOne={[item.cusAmount,item.transAmount,item.blocking2CAmount,item.subRegisterAmount,item.foneCardAmount,item.noRechargeAmount]}

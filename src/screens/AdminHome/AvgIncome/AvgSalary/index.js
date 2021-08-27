@@ -28,7 +28,6 @@ const index = (props) => {
         await getAllAvgIncome(navigation, '', '').then((res) => {
             if (res.status == "success") {
                 if (res.data.data.length > 0) {
-                    console.log(res.data)
                     setData(res.data.data);
                     setGeneralData(res.data.general)
                     setNotification(res.data.notification)

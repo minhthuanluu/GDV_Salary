@@ -42,6 +42,7 @@ const index = (props) => {
     const getData = async (month, branchCode, shopCode, empCode) => {
         console.log(month, branchCode, shopCode, empCode)
         setData([])
+        setMessage("")
         setLoading(true);
         await getDenyByWrongInfo(navigation, month, branchCode, shopCode, empCode).then((res) => {
             setMessage("");
@@ -123,7 +124,7 @@ const index = (props) => {
         await getData(value.month, value.branchCode, value.shopCode, value.empCode, key);
     }
 
-    const _getAllShop=async()=>{
+    const _getAllShop = async () => {
         await getAllShop(navigation, "").then((res) => {
             if (res.status == "success") {
                 setShopList(res.data);
@@ -135,7 +136,7 @@ const index = (props) => {
         });
     }
 
-    const _getAllEmp=async()=>{
+    const _getAllEmp = async () => {
         await getAllEmp(navigation, "", "").then((res) => {
             if (res.status == "success") {
                 setEmpList(res.data);
@@ -194,7 +195,7 @@ const index = (props) => {
                 select1Width={width - fontScale(30)}
                 onDone={(value) => _onSearch(value)}
             />
-            <Body style={{marginTop:-fontScale(10)}}/>
+            <Body style={{ marginTop: -fontScale(10) }} />
             <View style={{ flex: 1, backgroundColor: colors.white, }}>
                 <View>
                     <View style={{ flexDirection: "row", marginTop: fontScale(2) }}>
@@ -202,8 +203,8 @@ const index = (props) => {
                         <TableHeader style={{ width: (width * 2.6) / 10 }} title={'Tên CH'} />
                         <TableHeader style={{ width: (width * 3.2) / 10 }} title={'Số lần chặn'} />
                     </View>
-                {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{marginTop: fontScale(20)}} /> : null}
-                    {message ? <Text style={{ fontSize: fontScale(15),color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
+                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+                    {message ? <Text style={{ fontSize: fontScale(15), color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     <FlatList
                         showsVerticalScrollIndicator={false}
                         data={data}

@@ -184,7 +184,6 @@ const index = (props) => {
 
     const onChangeMonth = (month) => {
         setMonth(month);
-        console.log({ "month": month, "branchCode": defaultBranchCode, "branchName": branchName, "shopCode": defaultShopCode, "shopName": shopName, "empCode": defaultEmpCode, "empName": empName })
         props.onDone({ "month": month, "branchCode": defaultBranchCode, "branchName": branchName, "shopCode": defaultShopCode, "shopName": shopName, "empCode": defaultEmpCode, "empName": empName })
     }
 

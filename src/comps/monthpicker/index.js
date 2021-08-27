@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Image, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { images } from '../../utils/Images';
+import { colors } from '../../utils/Colors';
+import { fontScale } from '../../utils/Fonts';
 import CustomPicker from './CustomPicker';
 import { styles } from './styles';
 

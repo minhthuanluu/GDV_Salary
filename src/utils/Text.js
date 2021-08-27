@@ -1,28 +1,28 @@
 // define all of text uses in prj here
 
 export const text = {
-  dashboard: "Trang chủ",  
+  dashboard: "Trang chủ",
   saveChange: "Lưu thay đổi",
-  appName:"Giao dịch viên",
+  appName: "Giao dịch viên",
   //Login, Logout,...
   username: "Username",
   password: "Mật khẩu",
   login: "Đăng nhập",
-  phoneNumber:"Số điện thoại",
+  phoneNumber: "Số điện thoại",
   changePassword: "Đổi mật khẩu",
   forgotPassword: "Quên mật khẩu",
-  recoveryPassword:"Khôi phục mật khẩu",
-  typeYourUsername:"Vui lòng nhập Username!",
-  typeYourPassword:"Vui lòng nhập mật khẩu!",
+  recoveryPassword: "Khôi phục mật khẩu",
+  typeYourUsername: "Vui lòng nhập Username!",
+  typeYourPassword: "Vui lòng nhập mật khẩu!",
   oldPassword: "Mật khẩu cũ",
   newPassword: "Mật khẩu mới",
   repeatPassword: "Xác nhận mật khẩu",
-  confirmPassword:"Xác nhận mật khẩu mới",
+  confirmPassword: "Xác nhận mật khẩu mới",
   errorRepeatPassword: "Mật khẩu và xác nhận mật khẩu không giống nhau",
-  logoutMessage:"Bạn có muốn đăng xuất?",
+  logoutMessage: "Bạn có muốn đăng xuất?",
   saveChange: "Lưu thay đổi",
-  subscriberNotFound:"Không tìm thấy số thuê bao!",
-  dataIsNull:"Không có dữ liệu!",
+  subscriberNotFound: "Không tìm thấy số thuê bao!",
+  dataIsNull: "Không có dữ liệu!",
 
   //Home
   kpiByMonth: "KPI tháng hiện tại",
@@ -36,7 +36,7 @@ export const text = {
 
 
   //KPI theo tháng
-  kpiAchieved: "KPI đạt được", 
+  kpiAchieved: "KPI đạt được",
   provisionalSalary: "Tổng lương dự kiến",
 
 
@@ -52,9 +52,9 @@ export const text = {
   kpiPrepaidSubscribers: "KPI TBTT",
   kpiPostpaidSubscribers: "KPI TBTS",
   kpiVas: "KPI VAS",
-  kpiImportant:"KPI Kế hoạch trọng tâm",
-  retailSales:"Doanh thu bán lẻ",
-  subRatio:"Tỉ lệ đăng ký gói",
+  kpiImportant: "KPI Kế hoạch trọng tâm",
+  retailSales: "Doanh thu bán lẻ",
+  subRatio: "Tỉ lệ đăng ký gói",
   prepaidSubscribers: "TBTT",
   postpaidSubscribers: "TBTS thoại gói >= 99k",
 
@@ -74,7 +74,7 @@ export const text = {
   terminalServiceFee: "Phí thiết bị đầu cuối",
   orderServiceFee: "Phí dịch vụ khác",
   orderFee: "Phí khác",
-  ordersServiceFee:"Phí dịch vụ, thu cước, EZ, thẻ cào",
+  ordersServiceFee: "Phí dịch vụ, thu cước, EZ, thẻ cào",
   numberOfCustomers: "Lượt KH",
   transactions: "Lượt giao dịch",
   metricStatus: "Trạng thái số liệu",
@@ -84,26 +84,26 @@ export const text = {
   otherExpenses: "Chi khác",
   skynet: "Skynet",
 
-// Admin Lương theo tháng Dasboard
-costManagement: "Quản lý chi phí",
-topTellers: "Top GDV",
-grocontractSalary: "Nhóm lương",
-salaryMonth: "Lương tháng",
+  // Admin Lương theo tháng Dasboard
+  costManagement: "Quản lý chi phí",
+  topTellers: "Top GDV",
+  grocontractSalary: "Nhóm lương",
+  salaryMonth: "Lương tháng",
 
 
-// Admin Bình quân thu nhập
-grocontractSalaryAverage: "Nhóm lương BQ",
-salaryAverage: "Lương BQ",
-salAverage: "Lương bình quân",
+  // Admin Bình quân thu nhập
+  grocontractSalaryAverage: "Nhóm lương BQ",
+  salaryAverage: "Lương BQ",
+  salAverage: "Lương bình quân",
 
 
   // Tổng lương dự kiến
-  expectedSalaryMenu:"Thu nhập dự kiến từ tập TB \n trong tháng",
-  expectedSalary:"Thu nhập dự kiến từ tập TB trong tháng",
-  kpiS:"KPIs",
+  expectedSalaryMenu: "Thu nhập dự kiến từ tập TB \n trong tháng",
+  expectedSalary: "Thu nhập dự kiến từ tập TB trong tháng",
+  kpiS: "KPIs",
 
-//Năng suất bình quân
-productivitySub: "Năng suất bình quân",
+  //Năng suất bình quân
+  productivitySub: "Năng suất bình quân",
   // Bình quân thu nhập
   averageMonthlySalary: "BQ lương các tháng",
   averageSalaryInTheFirstQuarter: "Bình quân lương quý 1",
@@ -113,15 +113,15 @@ productivitySub: "Năng suất bình quân",
   totalavgContractSalary: "Tổng lương khoán",
 
   averageIncentiveSpending: "BQ chi khuyến khích",
-  totalIncentiveSpending:"Tổng chi khuyến khích",
-  averageOtherCosts: "BQ chi khác", 
-  totalOtherCosts: "Tổng chi khác", 
-  averageMonth:"BQ tháng" ,
-  averageAndAmount:"Bình quân thu nhập",
-  totalIncome:"Tổng thu nhập",
+  totalIncentiveSpending: "Tổng chi khuyến khích",
+  averageOtherCosts: "BQ chi khác",
+  totalOtherCosts: "Tổng chi khác",
+  averageMonth: "BQ tháng",
+  averageAndAmount: "Bình quân thu nhập",
+  totalIncome: "Tổng thu nhập",
 
   // Chất lượng thuê bao
-  subscriberQuality: "Chất lượng thuê bao", 
+  subscriberQuality: "Chất lượng thuê bao",
   debtPercent: "Tỉ lệ nợ/ Doanh thu",
   totalDebtNinety: "Tổng nợ >= 90  ngày",
   totalRevenue: "Tổng doanh thu",
@@ -131,16 +131,16 @@ productivitySub: "Năng suất bình quân",
   denyTwoC: "TBTS chặn 2c",
   contractDebt: "Nợ hợp đồng",
 
-  totalDebtOverNinety:"Nợ trên 90 ngày",
-  monthRevenue:"Doanh thu tháng",
-  monthDebt:"Nợ tháng",
+  totalDebtOverNinety: "Nợ trên 90 ngày",
+  monthRevenue: "Doanh thu tháng",
+  monthDebt: "Nợ tháng",
 
 
-//  Thông tin giao dịch
-  transactionsInfo:"Thông tin giao dịch",
-  customersCount:"Lượt khách hàng",
-  transAmount:"Giao dịch Fone -> card",
-  trans2CAmount:"Giao dịch chặn 2c TBTS",
+  //  Thông tin giao dịch
+  transactionsInfo: "Thông tin giao dịch",
+  customersCount: "Lượt khách hàng",
+  transAmount: "Giao dịch Fone -> card",
+  trans2CAmount: "Giao dịch chặn 2c TBTS",
   foneCardNoMoney: "GD Fone -> card \n không nạp tiền",
   foneCardNoMoney1: "GD Fone -> card không nạp tiền",
   transInfoAmount: "Giao dịch DKTT",
@@ -159,7 +159,7 @@ productivitySub: "Năng suất bình quân",
   TBTS: "TBTS",
 
   // Admin
-  
+
 
   // Profile
   profile: "Thông tin cá nhân",
@@ -168,83 +168,90 @@ productivitySub: "Năng suất bình quân",
   traderRating: "Xếp hạng giao dịch viên",
   storeRating: "Xếp loại cửa hàng",
   PDF: "PDF",
-  updateProfile: "Chỉnh sửa thông tin cá nhân"  ,
+  updateProfile: "Chỉnh sửa thông tin cá nhân",
 
   // Update Profile
-  staffName:"Tên nhân viên", 
+  staffName: "Tên nhân viên",
 
   // warning text
   typeUsername: "Vui lòng nhập Username!",
-  typePassword:"Vui lòng nhập mật khẩu!",
-  notif:"Thông báo",
-  updateInfoSuccess:"Cập nhật thông tin thành công",
+  typePassword: "Vui lòng nhập mật khẩu!",
+  notif: "Thông báo",
+  updateInfoSuccess: "Cập nhật thông tin thành công",
 
   // SignOut
-  yes:"Có",
-  cancle:"Hủy",
+  yes: "Có",
+  cancle: "Hủy",
 
 
   //Admin > KPI Group
-  kpi:"KPI",
+  kpi: "KPI",
   kpiGroup: "Nhóm KPI",
 
   //Admin > KPI Top GDV
-  GDV:"GDV",
-  sumKPI:"KPI tổng",
+  sumKPI: "KPI tổng",
 
   //Admin > AvgIncome Top GDV
   sumSalary: "Tổng lương",
-  
+
 
   //Admin > Lương theo tháng > Quản lý chi phí
-  expenseManagement:"Quản lý chi phí",
-  bussinessSupport:"Tổng chi HTKD",
-  empOutcome:"Tổng chi GDV",
-  totalSupportOutcome:"Tổng chi hỗ trợ",
-  supportOutcome:"Chi hỗ trợ",
+  expenseManagement: "Quản lý chi phí",
+  bussinessSupport: "Tổng chi HTKD",
+  empOutcome: "Tổng chi GDV",
+  totalOutcome: "Tổng chi",
+  totalSupportOutcome: "Tổng chi hỗ trợ",
+  supportOutcome: "Chi hỗ trợ",
   totalIncome: "Tổng thu",
-  fixedDifferent:"Chênh lệch cố định",
-  openingRemaining:"Dư đầu kỳ",
-  remainDiff:"Chênh lệch còn lại",
-  endRemaining:"Tồn cuối kỳ",
-  fixed:"Cố định",
-  incentive:"Khoán sp",
-  topSeller:"Top GDV",
-  totalOutcome:"Tổng chi phí",
-  search:"Tìm kiếm",
-  violateWarning:"Cảnh báo vi phạm", 
+  different: "Chênh lệch",
+  fixedDifferent: "Chênh lệch cố định",
+  openingRemaining: "Dư đầu kỳ",
+  remainDiff: "Chênh lệch còn lại",
+  endRemaining: "Tồn cuối kỳ",
+  fixed: "Cố định",
+  incentive: "Khoán sp",
+  topSeller: "Top GDV",
+  totalOutcomeFee: "Tổng chi phí",
+  search: "Tìm kiếm",
+  violateWarning: "Cảnh báo vi phạm",
   statistical: "Thống kê",
-  select:"Vui lòng chọn",
-  highestTop:"Top cao nhất",
-  lowestTop:"Top thấp nhất",
-  chooseBranch:"Chọn chi nhánh",
-  chooseShop:"Chọn cửa hàng",
-  chooseEmp:"Chọn nhân viên",
-  teller:"GDV",
-  avgSalPerEmp:"Lương BQ/GDV",
-  incentivePerEmp:"Khoán sp/GDV",
-  vasAffiliate:"Vas Affiliate",
-  supportOutcome:"Chi hỗ trợ",
-  avgVasAffiliate:"BQ Vas Affiliate",
+  select: "Vui lòng chọn",
+  highestTop: "Top cao nhất",
+  lowestTop: "Top thấp nhất",
+  chooseBranch: "Chọn chi nhánh",
+  chooseShop: "Chọn cửa hàng",
+  chooseEmp: "Chọn nhân viên",
+  teller: "GDV",
+  avgSalPerEmp: "Lương BQ/GDV",
+  incentivePerEmp: "Khoán sp/GDV",
+  vasAffiliate: "Vas Affiliate",
+  supportOutcome: "Chi hỗ trợ",
+  avgVasAffiliate: "BQ Vas Affiliate",
   avgOutcomeSupport: "BQ chi hỗ trợ",
   totalAvgVasAffiliate: "Tổng Vas Affiliate",
   totalAvgOutcomeSupport: "Tổng chi hỗ trợ",
-  activeDate:"Ngày TH",
-  phoneNum:"Số ĐT",
-  sumMoney:"Tổng tiền",
-  rechargeDate:"Ngày nạp",
-  outcomeDetail:"Chi tiết mục chi",
-  generalFee:"Chi phí chung",
-  outcomePlanSupport:"Kế hoạch dự chi hỗ trợ",
-  empAmount:"Số lượng GDV",
-  planTwelveText:"Kế hoạch dự kiến chi hỗ trợ trong 12 tháng",
-  totalRemain:"Tổng còn lại",
-  totalOutcomed:"Tổng đã chi",
-  expectedOutcomeSupport:"Tổng chi hỗ trợ dự kiến",
-  extendedInfo:"Thông tin thêm nguồn hỗ trợ đến tháng N-1",
+  activeDate: "Ngày TH",
+  phoneNum: "Số ĐT",
+  sumMoney: "Tổng tiền",
+  rechargeDate: "Ngày nạp",
+  outcomeDetail: "Chi tiết mục chi",
+  generalFee: "Chi phí chung",
+  outcomePlanSupport: "Kế hoạch dự chi hỗ trợ",
+  empAmount: "Số lượng GDV",
+  planTwelveText: "Kế hoạch dự kiến chi hỗ trợ trong 12 tháng",
+  totalRemain: "Tổng còn lại",
+  totalOutcomed: "Tổng đã chi",
+  expectedOutcomeSupport: "Tổng chi hỗ trợ dự kiến",
+  extendedInfo: "Thông tin thêm nguồn hỗ trợ đến tháng N-1",
   costManagement: "Quản lý chi phí",
-generalExpenses: "Chi phí chung",
-costAccumulation: "Lũy kế chi phí",
-monthlyExpenses: "Chi phí tháng",
-
+  generalExpenses: "Chi phí chung",
+  costAccumulation: "Lũy kế chi phí",
+  monthlyExpenses: "Chi phí tháng",
+  avgPerMonth: "BQ 1 tháng",
+  money: "Số tiền",
+  totalSalaryFee: "",
+  avgEmpPerMonth: "BQ 1 GDV/tháng",
+  empPerMonth: "1 GDV/tháng",
+  businessCoopPerMonth: "HTKD 1 tháng",
+  businessCoop: "HTKD"
 };

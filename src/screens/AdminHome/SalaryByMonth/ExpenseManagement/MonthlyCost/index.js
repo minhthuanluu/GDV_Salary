@@ -71,7 +71,7 @@ const index = (props) => {
       };
     
       useEffect(() => {
-        getData(month, "", "");
+        // getData(month, "", "");
       }, [month])
     
       const _onChangeMonth = (value) => {
@@ -98,26 +98,26 @@ const index = (props) => {
         showInfo={false}
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
-      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
-        <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
+      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(5) }}>
+        {/* {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null} */}
+        {/* <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text> */}
         {/* <View>
           <FlatList
             data={data}
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => ( */}
-              <ScrollView>
+              <ScrollView showsVerticalScrollIndicator={false}>
                 {/*  */}
                
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
+                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(30) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(145)}}
                     titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
                     titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
@@ -126,8 +126,8 @@ const index = (props) => {
                     viewTwoContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(120),textAlign:"right"}}
                     twentyFourColumnCompany
                     // title={generalData.shopName}
-                    title={"Chi phí lương tháng 7"}
-                    titleArr={["HTKD","GDV","Chênh lệch"]}
+                    title={`Chi phí lương tháng ${moment(new Date()).subtract(1,"months").format("MM")}`}
+                    titleArr={["HTKD",text.teller,"Chênh lệch"]}
                     titleArray={["Tổng chi ", "Cố định", "Khoán sp","Chi khác"]}
                     titleArrayOne={["Số dư đầu kỳ:","Số dư cuối kỳ:","Số tiền dùng chi hỗ trợ:"]}
                     // itemAmountOne={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount,generalData.subRegisterAmount,generalData.foneCardAmount,generalData.noRechargeAmount]}
@@ -142,17 +142,17 @@ const index = (props) => {
                     style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
+                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(215)}}
                     titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
                     viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(185),textAlign:"right"}}
                     viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(105),textAlign:"right"}}
                     twentyFourColumnCompany
                     // title={generalData.shopName}
-                    title={"Tổng chi hỗ trợ tháng 7"}
+                    title={`Tổng chi hỗ trợ tháng ${moment(new Date()).subtract(1,"months").format("MM")}`}
                     titleArr={["Tổng chi"]}
                     titleArray={["CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"]}
                     titleArrayOne={["Số dư đầu kỳ:","Còn lại:"]}

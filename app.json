@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "permissions":["ACCESS_NETWORK_STATE","INTERNET"],
+      "permissions":["ACCESS_NETWORK_STATE","INTERNET","SYSTEM_ALERT_WINDOW"],
       "package": "com.mf2app.gdvsalary"
     },
     "web": {

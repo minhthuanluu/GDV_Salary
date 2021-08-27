@@ -32,7 +32,6 @@ const index = (props) => {
     setMessage("")
     
     await getSummarySubQuality(branchcode, shopCode).then((data) => {
-      console.log(data.data.general)
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -139,7 +138,7 @@ const index = (props) => {
                   })} />
                 { index == data.length - 1 ? */}
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
+                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? fontScale(10) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18),  fontWeight: "bold", color: props.textColor || "#151515"}}
                     contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}

@@ -35,7 +35,6 @@ const index = (props) => {
           setData([])
           setMessage(data.message);
         } else {
-          console.log(data.data.notification)
           setNotification(data.data.notification)
           setData(data.data.data);
           setGeneralData(data.data.general);
@@ -68,7 +67,6 @@ const index = (props) => {
 
   useEffect(() => {
     const { branchCode, shopCode } = route.params?.item;
-    console.log(route.params?.item)
     getData(branchCode, shopCode);
   }, [navigation])
 

@@ -24,7 +24,6 @@ const index = (props) => {
         setLoading(true);
 
         await getDetailFastTrans(navigation, branchCode, shopCode, empCode).then((data) => {
-            console.log(data)
             setNotification(data.notification);
             setEmpName(data.empName);
             setLoading(false);
@@ -38,7 +37,6 @@ const index = (props) => {
     useEffect(() => {
         getData("", "", route.params?.empCode);
         console.log("Chat luong thue bao > Canh bao vi pham > "+title+" > Chi tiet")
-        console.log(route.params?.empCode)
     }, [navigation]);
 
     const searchSub = (text = "") => {
@@ -64,7 +62,7 @@ const index = (props) => {
             <Body />
             <View style={{ flex: 1, backgroundColor: colors.white }}>
                 <View style={{ justifyContent: "center", flexDirection: "row" }}>
-                    <Text style={{color:colors.black,fontSize:fontScale(15)}}>GDV: </Text>
+                    <Text style={{color:colors.black,fontSize:fontScale(15)}}>{text.teller}: </Text>
                     <Text style={{color:colors.darkYellow,fontSize:fontScale(15)}}>{empName}</Text>
                 </View>
                 <View style={{ flexDirection: "row", marginTop: fontScale(20) }}>

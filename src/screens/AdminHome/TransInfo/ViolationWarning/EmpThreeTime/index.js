@@ -6,15 +6,13 @@ import { Text } from 'react-native';
 import { SafeAreaView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import { getEmpThreeTime } from '../../../../../api';
-import { Body, DatePicker, GeneralListItem, Header, Search, SearchWithPermission, TableHeader } from '../../../../../comps';
+import { Body, GeneralListItem, Header, SearchWithPermission, TableHeader } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { images } from '../../../../../utils/Images';
 import { text } from '../../../../../utils/Text';
-import { getAllBranch, getAllEmp } from '../../../../../api';
 import { FlatList } from 'react-native';
-import { getAllShop } from '../../../../../adminapi';
 
 const index = (props) => {
     const route = useRoute();
@@ -26,8 +24,8 @@ const index = (props) => {
     const { key, title } = route.params;
 
     const getData = async (month, branchCode, shopCode, empCode) => {
-        setMessage("")
-        setData([])
+        setMessage("");
+        setData([]);
         setLoading(true)
         await getEmpThreeTime(navigation, month, branchCode, shopCode, empCode).then((res) => {
             if (res.status == "success") {

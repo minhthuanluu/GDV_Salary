@@ -20,7 +20,6 @@ const AdminSalaryByMontHome = (props) => {
 
   const checkAdminSalaryByMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      console.log(item?.userId.userGroupId.code);
       if (item?.userId.userGroupId.code == "VMS_CTY" || item?.userId.userGroupId.code == "ADMIN") {
         navigation.navigate("AdminMonthSalary")
       }

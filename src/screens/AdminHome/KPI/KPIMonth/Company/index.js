@@ -31,7 +31,6 @@ const index = (props) => {
     await getKPIByMonth(month, branchcode, shopCode).then((data) => {
       if (data.status == "success") {
         setData(data.data.data);
-        console.log(data.data)
         setGeneralData(data.data.general);
         setLoading(false);
       }

@@ -106,14 +106,7 @@ const Search = (props) => {
 
 
     const _onPressAdminOK = (dataOne, dataTwo, dataThree) => {
-        setSelectModalAdvanced(!selectModalAdvanced)
-        // console.log("advanced search")
-        // console.log('dataOne:')
-        // console.log(dataOne)
-        // console.log('\ndataTwo:\n')
-        // console.log(dataTwo)
-        // console.log('\ndataThree:')
-        // console.log(dataThree)
+        setSelectModalAdvanced(!selectModalAdvanced);
         let data = {
             "branchCode": dataOne.shopCode == undefined ? "" : dataOne.shopCode,
             "branchName": dataOne.shopName == undefined ? "" : dataOne.shopName,

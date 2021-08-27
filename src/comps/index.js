@@ -19,6 +19,7 @@ import ListMenu from "./listmenu";
 import Table from "./table";
 import SearchWithPermission from './searchWithPermission';
 import YearPicker from "./yearpicker";
+import DoubleMonthPicker from "./doublemonthpicker"
 
 export {
     Button,
@@ -41,5 +42,6 @@ export {
     ListMenu,
     Table,
     SearchWithPermission,
-    YearPicker
+    YearPicker,
+    DoubleMonthPicker
 }

@@ -32,7 +32,6 @@ const index = (props) => {
     setMessage("")
     
     await getSummarySubQuality(branchcode, shopCode).then((data) => {
-      console.log(data.data.general)
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -123,7 +122,7 @@ const index = (props) => {
                     twentyFourColumnCompany
                     // title={generalData.shopName}
                     
-                    titleArr={["HTKD","GDV","Chênh lệch","BQ 1 tháng"]}
+                    titleArr={["HTKD",text.teller,"Chênh lệch","BQ 1 tháng"]}
                     titleArray={["Tổng chi", "Cố định", "Khoán sp","Chi khác"]}
                     // titleArrayOne={[]}
                     // itemAmountOne={[item.rallyCancelAmount,item.rallyFCardAmount,item.rallyBlocking2CAmount,item.rallyFastAmount,item.rallyMDTAmount,item.rallyDebitContactAmount]}
