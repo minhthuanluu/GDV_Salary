@@ -157,7 +157,7 @@ export const text = {
   searchStatusPaid: "Nhập TT/TS",
   TBTT: "TBTT",
   TBTS: "TBTS",
-
+  repository:"Kho",
   // Admin
 
 

@@ -10,7 +10,6 @@ const GeneralListItem = (props) => {
   return (
     props.twentyFourColumnCompany ?
       <TouchableOpacity style={[styles.compContainer, props.style, { backgroundColor: props.backgroundColor || "#EFFEFF" }]} onPress={props.onPress}>
-        {/* <Text style={{ fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#D19E01" }}>{props.title}</Text> */}
         <Text style={[props.textTitle, { fontSize: fontScale(17) }]}>{props.title}</Text>
         {
           props.titleArrayOne && props.titleArrayOne[0]
@@ -32,7 +31,7 @@ const GeneralListItem = (props) => {
 
         <View style={{ flexDirection: "row" }}>
           {props.titleArray ? <View style={[{ marginLeft: -fontScale(15) }, props.titleContent]}>
-            <HItem title={props.titleArray[0]} titleStyle={props.titleStyle} />
+          <HItem title={props.titleArray[0]} titleStyle={{fontSize: 12, marginVertical: fontScale(8), color:colors.black }} />
             <HItem title={props.titleArray[1]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[2]} titleStyle={props.titleStyle} />
             {props.titleArray[3] ? <HItem title={props.titleArray[3]} titleStyle={props.titleStyle} /> : null}

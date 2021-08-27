@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
         fontWeight:"bold",
         color:colors.black,
         fontSize:fontScale(16),
+        marginTop:fontScale(10),
         textAlign:"center"
     },
     subTitle:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" },

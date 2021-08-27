@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     search: {
         marginTop: fontScale(20)
     },
-    dateCol: { textAlign: "center", fontSize: fontScale(14) },
+    dateCol: { textAlign: "center", fontSize: fontScale(13) },
     sumKpiContainer: {flexDirection: "row", alignSelf: "center", marginTop: -fontScale(35)},
     sumKpiTitle:{fontSize:fontScale(16)},
     sumKpiContainerSecond: {flexDirection: "row", alignSelf: "center", marginLeft: 20},

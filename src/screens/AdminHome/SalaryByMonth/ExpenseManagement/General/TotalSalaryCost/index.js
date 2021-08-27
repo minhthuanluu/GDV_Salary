@@ -80,13 +80,6 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.costAccumulation} />
-      {/* <Text style={styles.text}>Lũy kế chi phí tháng 07/2021</Text> */}
-      {/* <DatePicker
-        month={month}
-        width={width - fontScale(120)}
-        style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      /> */}
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}
@@ -94,7 +87,6 @@ const index = (props) => {
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
-        {/* <ScrollView horizontal> */}
         <View>
           <FlatList
             data={data}
@@ -156,10 +148,7 @@ const index = (props) => {
               
             )}
           />
-
-
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

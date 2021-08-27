@@ -44,7 +44,7 @@ const YearMonthPicker = (props) => {
                 setBeginMonth(month.item.name + '/' + month.year);
                 setBeginIndex(month.item.key);
                 props.onChangeMonth({
-                    'beginMonth': month.item.key + '/' + month.year,
+                    'beginMonth': month.item.key < 10 ? '0' + month.item.key + '/' + month.year : month.item.key + '/' + month.year,
                     'endMonth': endMonth.substring(6, endMonth.length)
                 })
             }
@@ -64,7 +64,7 @@ const YearMonthPicker = (props) => {
                 setEndIndex(month.item.key);
                 props.onChangeMonth({
                     'beginMonth': beginMonth.substring(6, month.length),
-                    'endMonth': month.item.key + '/' + month.year
+                    'endMonth': month.item.key < 10 ? '0' + month.item.key + '/' + month.year : month.item.key + '/' + month.year
                 })
             }
         }

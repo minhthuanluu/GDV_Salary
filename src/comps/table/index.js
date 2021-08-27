@@ -46,16 +46,16 @@ const index = (props) => {
                                                 headers.map((item, index) => hideFirstColHeader && index == 0 ? <View style={{paddingLeft: fontScale(6), width: widthArray[0] }}/> :
                                                     <View  key={index} style={{ width: widthArray && widthArray[index], flexDirection: "row", alignItems: "center", paddingHorizontal: fontScale(4) }}>
                                                         <Image source={headerIcons[index]} resizeMode="contain" style={{ width: headerStyle.icon.size, height: headerStyle.icon.size }} />
-                                                        <Text style={{ marginLeft: fontScale(5), color: headersTextColor, fontWeight: "bold", fontSize: headerStyle.text.size }}>{item}</Text>
+                                                        <Text key={index} style={{ marginLeft: fontScale(5), color: headersTextColor, fontWeight: "bold", fontSize: headerStyle.text.size }}>{item}</Text>
                                                     </View>) :
                                                 headers.map((item, index) => hideFirstColHeader && index == 0
                                                     ?
-                                                    <View key={index} style={{ justifyContent:"center",alignItems:"center", width: widthArray[1]+fontScale(25)}}>
-                                                        <Text style={{ marginLeft: fontScale(5), color: headersTextColor, fontWeight: "bold" }} />
+                                                    <View style={{ justifyContent:"center",alignItems:"center", width: widthArray[1]+fontScale(25)}}>
+                                                        <Text key={index} style={{ marginLeft: fontScale(5), color: headersTextColor, fontWeight: "bold" }} />
                                                     </View>
                                                     :
-                                                    <View key={index} style={{ marginRight:1,width: widthArray[index]}}>
-                                                        <Text style={{ color: headersTextColor, fontWeight: "bold", fontSize: headerStyle.text.size,textAlign:"center" }}>{item}</Text>
+                                                    <View style={{ marginRight:1,width: widthArray[index]}}>
+                                                        <Text key={index} style={{ color: headersTextColor, fontWeight: "bold", fontSize: headerStyle.text.size,textAlign:"center" }}>{item}</Text>
                                                     </View>)
                                         }
                                         {

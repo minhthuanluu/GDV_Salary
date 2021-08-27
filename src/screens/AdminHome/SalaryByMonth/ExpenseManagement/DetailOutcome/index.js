@@ -22,38 +22,10 @@ const index = () => {
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
-    const [setMonth,setSetMonth] = useState(true)
-
-    const onChangeBeginMonth = async (value) => {
-        if (value > endMonth == true) {
-            Toast.show({
-                text1: "Cảnh báo",
-                text2: "Tháng bắt đầu không được lớn hơn tháng kết thúc",
-                type: "error",
-                visibilityTime: 1000,
-                autoHide: true,
-                onHide: () => { setBeginMonth(moment(new Date()).format("01/YYYY"))}
-            })
-        } else {
-            setBeginMonth(value)
-            setEndMonth(endMonth)
-            await getData(value, endMonth);
-        }
-    }
-
-    const onChangeEndMonth = async (value) => {
-        if (beginMonth > value == true) {
-            setEndMonth(endMonth)
-        } else {
-            setEndMonth(value)
-            await getData(beginMonth, value);
-        }
-    }
 
     const getData = async (beginMonth, endMonth) => {
         setLoading(true)
         await getDetailOutcome(navigation, beginMonth, endMonth).then((res) => {
-            console.log(res.status)
             if (res.status == "success") {
                 setData(res.data);
                 setLoading(res.isLoading);
@@ -86,9 +58,9 @@ const index = () => {
 
     useEffect(() => {
         getData(beginMonth, endMonth);
-    }, [navigation])
+    }, [""])
 
-    const errorNotif = (message)=>{
+    const errorNotif = (message) => {
         Toast.show({
             text1: "Lưu ý",
             text2: message,
@@ -98,6 +70,10 @@ const index = () => {
         })
     }
 
+    const _onChangeMonth=async(value)=>{
+        await getData(value.beginMonth,value.endMonth);
+    }
+
     const fstTitleLeft = ["", "Tổng chi nguồn lương", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
     const sndTitleLeft = ["", "Tổng chi nguồn khác", "CFKK", "Vas Affi", "Khác"]
     const tstTitleLeft = ["", "Truy thu & Chế tài", "Truy thu", "Chế tài"]
@@ -105,9 +81,9 @@ const index = () => {
         <SafeAreaView style={styles.container}>
             <Header title={text.outcomeDetail} />
             <View style={styles.dateContainer}>
-                <DoubleMonthPicker beginMonth={beginMonth} endMonth={endMonth} 
-                onChangeMonth={(value)=>console.log(value)}
-                onError={(message)=>errorNotif(message)}
+                <DoubleMonthPicker beginMonth={beginMonth} endMonth={endMonth}
+                    onChangeMonth={(value) => _onChangeMonth(value)}
+                    onError={(message) => errorNotif(message)}
                 />
             </View>
             {data.notification ? <Text style={styles.notification}>{data.notification}</Text> : null}
@@ -283,7 +259,6 @@ const index = () => {
                 </ScrollView>
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
-
         </SafeAreaView>
     );
 }

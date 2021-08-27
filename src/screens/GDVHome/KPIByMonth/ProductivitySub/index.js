@@ -89,7 +89,7 @@ const ProductivitySub = (props) => {
                 {
                   labels.map((label, index) => {
                     return <View style={{ flexDirection: "row", flex: 1 }}>
-                      <Text style={styles.labelDataOne} >{label}</Text>
+                      <Text key={label} style={styles.labelDataOne} >{label}</Text>
                       <Text style={styles.fieldDataTwo} key={index.toString()}>{index == 0 ? item.postSub : index == 1 ? item.preSub : index == 2 ? item.cusAmount : item.transAmount}</Text>
                     </View>
                   })

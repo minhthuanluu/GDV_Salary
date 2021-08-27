@@ -4,6 +4,7 @@ import axios from "axios";
 import { _removeData, _retrieveData, _storeData } from "../utils/Storage";
 import { POST, GET, PUT, DELETE } from "./method";
 import { text } from "../utils/Text";
+import { dataPlanSupport } from "../screens/AdminHome/SalaryByMonth/ExpenseManagement/PlanSupport/db";
 
 // 1. Login Screen
 export const login = async (userName, password) => {
@@ -2502,6 +2503,7 @@ export const getNoRechargeCard = async (navigation, month) => {
   return data;
 }
 
+// Home > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi
 export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
   console.log("Home > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi from " + beginMonth + " to " + endMonth);
   let token = "";
@@ -2520,6 +2522,7 @@ export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
     length: 0,
     error: null
   };
+  console.log(token)
   await axios({
     method: GET,
     url: `${baseUrl}adminScreens/getDetailOutcome?beginMonth=01/${beginMonth}&endMonth=01/${endMonth}`,
@@ -2539,7 +2542,7 @@ export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
           length: 0,
           error: null
         }
-      } else if (Object.values(res.data.data).length > 0) {
+      } else if (res.data.data.length > 0) {
         data = {
           data: res.data,
           isLoading: false,
@@ -2557,16 +2560,91 @@ export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
           error: null
         };
       }
+      
     }
   }).catch((error) => {
     if (error) {
       data = {
-        message: error.response.data.message,
+        message: error.response&&error.response.data.message,
         isLoading: false,
         status: "failed",
         length: 0,
         data: null,
-        error: error.response.data
+        error: error
+      };
+    }
+  });
+  return data;
+}
+
+// Home > Quản lý chi phí > Kế hoạch dự chi hỗ trợ
+export const getOutcomeSupport = async (navigation,year) => {
+  console.log("Home > Quản lý chi phí > Kế hoạch dự chi hỗ trợ tháng "+year);
+  let token = "";
+  await _retrieveData("userInfo").then((data) => {
+    if (data != null) {
+      token = data.accessToken
+    } else {
+      navigation.navigate("SignIn")
+    }
+  });
+  let data = {
+    message: "",
+    status: "",
+    data: null,
+    isLoading: null,
+    length: 0,
+    error: null
+  };
+  console.log(token)
+  await axios({
+    method: GET,
+    url: `${baseUrl}adminScreens/getOutcomeSupport?year=01/01/${year}`,
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `${token}`,
+    },
+  }).then((res) => {
+    if (res.status == 200) {
+      if (res.data.V_ERROR) {
+        data = {
+          message: "Chức năng này đang được bảo trì",
+          data: null,
+          isLoading: false,
+          status: "v_error",
+          length: 0,
+          error: null
+        }
+      } else if (res.data.data.length > 0) {
+        data = {
+          data: res.data,
+          isLoading: false,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
+      } else {
+        data = {
+          data: res.data,
+          isLoading: false,
+          message: text.dataIsNull,
+          status: "success",
+          length: res.data.data.length,
+          error: null
+        };
+      }
+      
+    }
+  }).catch((error) => {
+    if (error) {
+      data = {
+        message: error.response&&error.response.data.message,
+        isLoading: false,
+        status: "failed",
+        length: 0,
+        data: null,
+        error: error
       };
     }
   });

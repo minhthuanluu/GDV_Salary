@@ -152,9 +152,8 @@ const SubscriberList = () => {
       <Header title={text.kpiByMonth} />
       <MetricStatus
         style={styles.status}
-        title={notification&&text.subscriberDevelopment}
-        status={notification}
-      />
+        title={notification && text.subscriberDevelopment}
+        status={notification}/>
       <Search
         style={styles.search}
         leftIcon={images.simlist}
@@ -164,26 +163,17 @@ const SubscriberList = () => {
         onChangeText={(value) => searchSub(value)}
         placeHolder={text.searchSub}
         keyboardType="number-pad"
-        width={width - fontScale(65)}
-      />
-
+        width={width - fontScale(65)}/>
       <DataPicker
         dialogTitle="Chọn dữ liệu"
         icon={images.sim}
         placeholder="Tất cả"
         data={pickerData}
-        field={[pickerData[0].value, pickerData[1].value, pickerData[2].value
-        ]}
+        field={[pickerData[0].value, pickerData[1].value, pickerData[2].value]}
         width={width - fontScale(65)}
         onPress={(value) => filterDataType(data, value.value)}
-        style={{ marginTop: fontScale(10)}}
-      />
-
-      <Body
-        showInfo={false}
-        style={{ marginTop: fontScale(15), zIndex: -10 }}
-      />
-
+        style={{ marginTop: fontScale(10) }}/>
+      <Body showInfo={false} style={{ marginTop: fontScale(15), zIndex: -10 }}/>
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <View style={styles.sumKpiContainer}>
           <Text style={styles.sumKpiTitle}>{text.TBTT}: </Text>
@@ -195,23 +185,16 @@ const SubscriberList = () => {
             <Text style={styles.preSub}>{preSub}</Text>
           </View>
         </View>
-        <View style={{ flexDirection: "row", marginTop: fontScale(12) }}>
-          <TableHeader style={{ width: (width * 1.7) / 10 }} title={text.date} />
-          <TableHeader style={{ width: (width * 2.5) / 10 }} title={text.numberSub} />
-          <TableHeader style={{ width: (width * 1.6) / 10 }} title={text.statusPaid} />
-          <TableHeader style={{ width: (width * 2.7) / 10 }} title={text.type} />
-          <TableHeader style={{ width: (width * 1) / 10 }} title={text.pckSub} />
+        <View style={{ flexDirection: "row", marginTop: fontScale(17) }}>
+          <TableHeader style={{ width: width / 6 }} title={text.date} />
+          <TableHeader style={{ width: width / 4.5 }} title={text.numberSub} />
+          <TableHeader style={{ width: width / 6.3 }} title={text.statusPaid} />
+          <TableHeader style={{ width: width / 6.5 }} title={text.type} />
+          <TableHeader style={{ width: width / 6 }} title={text.repository} />
+          <TableHeader style={{ width: width / 11 }} title={text.pckSub} />
         </View>
-        {loading == true ? (
-          <ActivityIndicator
-            size="small"
-            color={colors.primary}
-            style={{ marginTop: fontScale(10) }}
-          />
-        ) : null}
-
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(10) }} /> : null}
         {message ? <Text style={styles.message}>{message}</Text> : null}
-
         <FlatList
           showsVerticalScrollIndicator={false}
           data={searchData}
@@ -227,14 +210,16 @@ const SubscriberList = () => {
                 item.numberSub,
                 item.statusPaid,
                 item.type,
+                item.repository,
                 item.pckSub,
               ]}
               style={[
-                [styles.dateCol, { width: (width * 1.7) / 10 }],
-                [styles.dateCol, { width: (width * 2.5) / 10 }],
-                [styles.dateCol, { width: (width * 1.7) / 10 }],
-                [styles.dateCol, { width: (width * 3) / 10 }],
-                [styles.dateCol, { width: (width * 1) / 10 }],
+                [styles.dateCol, { width: width / 6 }],
+                [styles.dateCol, { width: width / 4.3 }],
+                [styles.dateCol, { width: width / 6 }],
+                [styles.dateCol, { width: width / 7 }],
+                [styles.dateCol, { width: width / 4.8 }],
+                [styles.dateCol, { width: width / 4 }],
               ]}
               lastIcon={item.pckSub == 1 ? images.check : images.cancle}
               lastIconViewStyle={{ alignItems: "center", flex: 0.5 }}

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, StatusBar, View, ActivityIndicator, BackHandler, ScrollView } from 'react-native';
 import { getAvgIncomeByMonth, getProfile } from '../../../../api';
-import { Body, DatePicker, Header, ListItem } from '../../../../comps';
+import { Body, DatePicker, DoubleMonthPicker, Header, ListItem } from '../../../../comps';
 import { M_AvgIncomeByMonth, UserObj } from '../../../../models/Data';
 import { colors } from '../../../../utils/Colors';
 import { width } from '../../../../utils/Dimenssion';
@@ -65,31 +65,26 @@ function AvgIncomeByMonth(props) {
         _getProfile();
     }, [""]);
 
-    const onChangeMonth = async (value) => {
-        if (value > sMonth == true) {
-
-        } else {
-            setMonth(value)
-            setSMonth(sMonth)
-            await getData(value, sMonth);
-        }
+    const errorNotif = (message)=>{
+        Toast.show({
+            text1: "Lưu ý",
+            text2: message,
+            type: "error",
+            visibilityTime: 2000,
+            autoHide: true
+        })
     }
 
-    const onChangeSMonth = async (value) => {
-        if (beginMonth > value == true) {
-            setSMonth(sMonth)
-        } else {
-            setSMonth(value)
-            await getData(beginMonth, value);
-        }
-    }
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar translucent backgroundColor={colors.primary} />
             <Header title={text.averageAndAmount} />
             <View style={styles.dateContainer}>
-                <DatePicker month={beginMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(10) }} onChangeDate={(date) => onChangeMonth(date)} />
-                <DatePicker month={sMonth} width={width / 2 - fontScale(20)} style={{ marginLeft: fontScale(20) }} onChangeDate={(date) => onChangeSMonth(date)} />
+            <DoubleMonthPicker 
+                beginMonth={beginMonth} 
+                endMonth={sMonth} 
+                onChangeMonth={(value)=>getData(value.beginMonth,value.endMonth)}
+                onError={(message)=>errorNotif(message)}/>
             </View>
             <View style={styles.body}>
                 <Text style={styles.notification}>{data.notification}</Text>
@@ -102,7 +97,7 @@ function AvgIncomeByMonth(props) {
                 }
                 <View style={{ backgroundColor: colors.white, paddingVertical: fontScale(30), flex: 1 }}>
                     <View>
-                        <View style={[styles.sumKpiContainer, { marginTop: -fontScale(35) }]}>
+                        <View style={[styles.sumKpiContainer, { marginTop: -fontScale(25) }]}>
                             <Text style={styles.sumKpiTitle}>{text.averageMonth}: </Text>
                             <Text style={styles.sumKpi}>{thoundsandSep(data.avgByMonth)}</Text>
                         </View>

@@ -1,22 +1,68 @@
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
 import { ScrollView, Text } from 'react-native';
 import { SafeAreaView, View } from 'react-native';
+import { getOutcomeSupport } from '../../../../../api';
 import { Body, Header, YearPicker } from '../../../../../comps';
 import { colors } from '../../../../../utils/Colors';
 import { width } from '../../../../../utils/Dimenssion';
 import { fontScale } from '../../../../../utils/Fonts';
 import { text } from '../../../../../utils/Text';
-import { dataPlanSupport as data } from './db';
+import { dataPlanSupport as data, dataPlanSupport } from './db';
 import { styles } from './style';
+import { useRoute, useNavigation } from '@react-navigation/core';
+import Toast from 'react-native-toast-message';
 
 const index = (props) => {
     const [year, setYear] = useState(moment(new Date()).format('YYYY'));
     const fstTitleLeft = ["", "Thưởng 5 lễ", "Thưởng tết ÂL", "Mức 1", "Mức 2", "Mức 3", "Hỗ trợ CHT", "GDV top", "CH top", "Nghỉ lúc có thai", "Khác"]
+    const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState('');
+    const navigation = useNavigation();
+    const [data,setData] = useState(dataPlanSupport)
 
-    const onChangeYear = (year) => {
+    const onChangeYear = async(year) => {
         setYear(year);
+        await getData(year);
     }
+
+    const getData = async (year) => {
+        setLoading(true)
+        await getOutcomeSupport(navigation,year).then((res)=>{
+            if (res.status == "success") {
+                setData(res.data);
+                setLoading(res.isLoading);
+                setMessage(res.message)
+            }
+            if (res.status == "failed") {
+                setLoading(res.isLoading);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => { }
+                })
+            }
+            if (res.status == "v_error") {
+                setLoading(res.isLoading);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => navigation.goBack()
+                })
+            }
+        })
+    }
+
+    useEffect(() => {
+        getData(year);
+    }, [""])
 
     const column1 = ["Mức chi", data.holidayBonusOutcome, "", data.stLunarOutcome, data.ndLunarOutcome, data.rdLunarOutcome, data.supportMasterOutcome, data.topEmpOutcome, data.topShopOutcome, data.pregnantOutcome, data.othersOutcome]
     const column2 = ["SLNV", data.holidayBonusEmpAmount, "", data.stLunarEmpAmount, data.ndLunarEmpAmount, data.rdLunarEmpAmount, data.supportMasterEmpAmount, data.topEmpAmount, data.topShopEmpAmount, data.pregnantEmpAmount, data.othersEmpAmount]
@@ -28,14 +74,11 @@ const index = (props) => {
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
             <Body />
             <View style={styles.subContainer}>
+                {loading==true ? <ActivityIndicator size="small" color={colors.primary}/>:null}
                 <Text style={styles.planTwelveText}>{text.planTwelveText}</Text>
-                <View style={{
-                    flexDirection: "row"
-                }}>
+                <View style={{flexDirection: "row"}}>
                     <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
-                        {
-                            fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)
-                        }
+                        {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                     </View>
                     <ScrollView horizontal>
                         <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
@@ -70,13 +113,14 @@ const index = (props) => {
                     </View>
                 </View>
             </View>
+            <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
     );
 }
 
 const LeftColumn = ({ item, index }) => {
     return (
-        <View style={{ marginVertical: fontScale(10) }}>
+        <View  style={{ marginVertical: fontScale(10) }}>
             <Text
                 key={index + ''}
                 style={{
