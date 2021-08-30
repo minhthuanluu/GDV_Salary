@@ -8,7 +8,7 @@ import { text } from '../../../../utils/Text';
 import { useNavigation } from '@react-navigation/core';
 import { fontScale } from '../../../../utils/Fonts';
 import { getKPIByMonthAchieve, getProfile } from '../../../../api';
-import { backHandler, checkn, thoundsandSep, ToastNotif } from '../../../../utils/Logistics';
+import { backHandler, checkn, ToastNotif } from '../../../../utils/Logistics';
 import { _retrieveData } from '../../../../utils/Storage';
 import { KPIByMonthAchieve, UserObj } from '../../../../models/Data';
 import Toast from 'react-native-toast-message';

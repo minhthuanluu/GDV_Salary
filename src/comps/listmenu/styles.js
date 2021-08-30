@@ -21,6 +21,7 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderRadius: fontScale(15),
     paddingBottom:fontScale(10),
+    marginBottom:fontScale(10),
     marginTop:fontScale(30),
     marginHorizontal:fontScale(10),
     paddingHorizontal:fontScale(10),
@@ -40,13 +41,14 @@ export const styles = StyleSheet.create({
   },
 
   list: {
+    flex:1,
     marginTop: fontScale(15)
   },
 
   icon: {
     position: "absolute",
     right: fontScale(30),
-    top: -fontScale(10),
+    top: -fontScale(25),
     resizeMode: "contain",
     width: fontScale(42),
     height: fontScale(42),

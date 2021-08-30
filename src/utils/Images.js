@@ -59,7 +59,7 @@ export const images = {
     productivitySub: require("../assets/ic_productivitySub.png"),
     company: require("../assets/ic_company.png"),
     branch: require("../assets/ic_branch.png"),
-    store: require("../assets/ic_store.png"),
+    store: require("../../assets/ic_workingShop.png"),
     skynet: require("../assets/SKYNET.png"),
     foneCardNoMoney: require("../assets/ic_foneCardNoMoney.png"),
     transAmount: require("../assets/ic_transcAmount.png"),

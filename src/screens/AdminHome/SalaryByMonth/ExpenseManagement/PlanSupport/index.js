@@ -30,8 +30,9 @@ const index = (props) => {
     const getData = async (year) => {
         setLoading(true)
         await getOutcomeSupport(navigation,year).then((res)=>{
+            console.log(res.data)
             if (res.status == "success") {
-                setData(res.data);
+                setData(res.data.data);
                 setLoading(res.isLoading);
                 setMessage(res.message)
             }
@@ -62,7 +63,7 @@ const index = (props) => {
 
     useEffect(() => {
         getData(year);
-    }, [""])
+    }, [year])
 
     const column1 = ["Mức chi", data.holidayBonusOutcome, "", data.stLunarOutcome, data.ndLunarOutcome, data.rdLunarOutcome, data.supportMasterOutcome, data.topEmpOutcome, data.topShopOutcome, data.pregnantOutcome, data.othersOutcome]
     const column2 = ["SLNV", data.holidayBonusEmpAmount, "", data.stLunarEmpAmount, data.ndLunarEmpAmount, data.rdLunarEmpAmount, data.supportMasterEmpAmount, data.topEmpAmount, data.topShopEmpAmount, data.pregnantEmpAmount, data.othersEmpAmount]
@@ -74,21 +75,21 @@ const index = (props) => {
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
             <Body />
             <View style={styles.subContainer}>
-                {loading==true ? <ActivityIndicator size="small" color={colors.primary}/>:null}
                 <Text style={styles.planTwelveText}>{text.planTwelveText}</Text>
+                {loading==true ? <ActivityIndicator size="small" color={colors.primary} style={{marginBottom:fontScale(5),marginTop:fontScale(10)}}/>:null}
                 <View style={{flexDirection: "row"}}>
                     <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
                         {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                     </View>
                     <ScrollView horizontal>
                         <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
-                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1.2, marginTop: fontScale(10) }}>
                                 {column1.map((item, index) => <Column item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1.2, marginTop: fontScale(10) }}>
                                 {column2.map((item, index) => <Column item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1, marginTop: fontScale(10) }}>
                                 {column3.map((item, index) => <Column item={item} index={index} />)}
                             </View>
                             <View style={{ flex: 1.5, marginTop: fontScale(10) }}>

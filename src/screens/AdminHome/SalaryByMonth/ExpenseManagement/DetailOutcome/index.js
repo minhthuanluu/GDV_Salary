@@ -26,8 +26,9 @@ const index = () => {
     const getData = async (beginMonth, endMonth) => {
         setLoading(true)
         await getDetailOutcome(navigation, beginMonth, endMonth).then((res) => {
+            console.log(res.data)
             if (res.status == "success") {
-                setData(res.data);
+                setData(res.data.data);
                 setLoading(res.isLoading);
                 setMessage(res.message)
             }
@@ -70,13 +71,13 @@ const index = () => {
         })
     }
 
-    const _onChangeMonth=async(value)=>{
-        await getData(value.beginMonth,value.endMonth);
+    const _onChangeMonth = async (value) => {
+        await getData(value.beginMonth, value.endMonth);
     }
 
-    const fstTitleLeft = ["", "Tổng chi nguồn lương", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
-    const sndTitleLeft = ["", "Tổng chi nguồn khác", "CFKK", "Vas Affi", "Khác"]
-    const tstTitleLeft = ["", "Truy thu & Chế tài", "Truy thu", "Chế tài"]
+    const fstTitleLeft = [" ", "Tổng chi nguồn lương", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "Vas", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
+    const sndTitleLeft = [" ", "Tổng chi nguồn khác", "CFKK", "Vas Affi", "Khác"]
+    const tstTitleLeft = [" ", "Truy thu & Chế tài", "Truy thu", "Chế tài"]
     return (
         <SafeAreaView style={styles.container}>
             <Header title={text.outcomeDetail} />
@@ -86,7 +87,6 @@ const index = () => {
                     onError={(message) => errorNotif(message)}
                 />
             </View>
-            {data.notification ? <Text style={styles.notification}>{data.notification}</Text> : null}
             <Body />
             <View style={styles.subContainer}>
                 <ScrollView showsVerticalScrollIndicator={false}>
@@ -95,20 +95,19 @@ const index = () => {
                         <Text style={styles.empAmountContent}>{data.empAmount}</Text>
                     </View>
                     {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
-                    {message ? <Text style={{ fontSize: fontScale(15), color: colors.primary, textAlign: "center", marginTop: fontScale(20), width: width }}>{message}</Text> : null}
                     <View style={{
                         flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
                         shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(15)
+                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(25)
                     }}>
-                        <View style={{ width: 1.5 / 6 * width }}>
+                        <View style={{ width: 1.5 / 4 * width }}>
                             {
-                                fstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                fstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10)}}>
                                     <Text style={{
                                         fontSize: fontScale(13),
                                         fontWeight: "bold",
                                         color: index == 1 || index == 4 || index == 8 || index == 14 ? "#000" : "#707070",
-                                        marginLeft: index == 4 || index == 8 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 ? fontScale(25) : fontScale(5)
+                                        marginLeft: index == 4 || index == 8 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
                                     }}>{item}</Text></View>)
                             }
                         </View>
@@ -116,59 +115,59 @@ const index = () => {
                             <View style={{ minWidth: 1 / 6 * width }}>
                                 {
                                     [text.businessCoop, data.outcomeBusiness, data.permanentBusiness, data.contractBusiness,
-                                    data.prepaidSubBusiness, data.commissionBusiness, data.ppgldBusiness,
-                                    data.maintainBusiness, data.postpaidSubBusiness, data.ezBusiness,
+                                    data.postpaidSubBusiness, data.commissionBusiness, data.ppgldBusiness,
+                                    data.maintainBusiness, data.prepaidSubBusiness, data.ezBusiness,data.vasBusiness,
                                     data.cardBusiness, data.servicesBusiness, data.chargeableBusiness,
-                                    data.machineBusiness, data.totalOutcomeSupportBusiness, data.outcomeBusinessMaster,
-                                    data.otherOutcomeBusinessMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    data.machineBusiness, data.totalOSB, data.outcomeBusinessMaster,
+                                    data.otherOBMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                            <View style={{ minWidth: 0.8 / 6 * width }}>
+                            <View style={{ minWidth: 0.8 / 6 * width,marginLeft:fontScale(5) }}>
                                 {
                                     [text.teller, data.outcomeEmp, data.permanentEmp, data.contractEmp,
                                     data.prepaidSubEmp, data.commissionEmp, data.ppgldEmp,
-                                    data.maintainEmp, data.postpaidSubEmp, data.ezEmp,
+                                    data.maintainEmp, data.postpaidSubEmp, data.ezEmp,data.vasEmp,
                                     data.cardEmp, data.servicesEmp, data.chargeableEmp,
-                                    data.machineEmp, data.totalOutcomeSupportEmp, data.outcomeEmpMaster,
-                                    data.otherOutcomeEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    data.machineEmp, data.totalOSE, data.outcomeEmpMaster,
+                                    data.otherOBEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                            <View style={{ minWidth: 0.8 / 3.8 * width }}>
+                            <View style={{ minWidth: 0.8 / 3.8 * width ,marginLeft:fontScale(5)}}>
                                 {
                                     [text.different, data.outcomeDiff, data.permanentDiff, data.contractDiff,
                                     data.prepaidSubDiff, data.commissionDiff, data.ppgldDiff,
-                                    data.maintainDiff, data.postpaidSubDiff, data.ezDiff,
+                                    data.maintainDiff, data.postpaidSubDiff, data.ezDiff,data.vasDiff,
                                     data.cardDiff, data.servicesDiff, data.chargeableDiff,
                                     data.machineDiff, data.totalOutcomeSupportDiff, data.outcomeDiffMaster,
-                                    data.otherOutcomeBusinessDiff].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    data.otherOBDiff].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                            <View style={{ width: 1.3 / 6 * width }}>
+                            <View style={{ minWidth: 1.3 / 6 * width ,marginLeft:fontScale(5)}}>
                                 {
                                     [text.businessCoopPerMonth, data.outcomeBusinessMonth, data.permanentBusinessMonth, data.contractBusinessMonth,
                                     data.prepaidSubBusinessMonth, data.commissionBusinessMonth, data.ppgldBusinessMonth,
-                                    data.maintainBusinessMonth, data.postpaidSubBusinessMonth, data.ezBusinessMonth,
+                                    data.maintainBusinessMonth, data.postpaidSubBusinessMonth, data.ezBusinessMonth,data.vasBusinessMonth,
                                     data.cardBusinessMonth, data.servicesBusinessMonth, data.chargeableBusinessMonth,
-                                    data.machineBusinessMonth, data.totalOutcomeSupportBusinessMonth, data.outcomeBusinessMonthMaster,
-                                    data.otherOutcomeBussinessMonthMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    data.machineBusinessMonth, data.totalOSBMonth, data.outcomeBusinessMonthMaster,
+                                    data.otherOBMonthMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                            <View style={{ width: 1.3 / 6 * width }}>
+                            <View style={{ minWidth: 1.3 / 5 * width,marginLeft:fontScale(5) }}>
                                 {
                                     [text.empPerMonth, data.outcomeEmpMonth, data.permanentEmpMonth, data.contractEmpMonth,
                                     data.prepaidSubEmpMonth, data.commissionEmpMonth, data.ppgldEmpMonth,
-                                    data.maintainEmpMonth, data.postpaidSubEmpMonth, data.ezEmpMonth,
+                                    data.maintainEmpMonth, data.postpaidSubEmpMonth, data.ezEmpMonth,data.vasEmpMonth,
                                     data.cardEmpMonth, data.servicesEmpMonth, data.chargeableEmpMonth,
-                                    data.machineEmpMonth, data.totalOutcomeSupportEmp, data.outcomeBusinessEmpMaster,
-                                    data.otherOutcomeBusinessEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    data.machineEmpMonth, data.totalOSEMonth, data.outcomeBusinessEmpMaster,
+                                    data.otherOBEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
@@ -193,23 +192,23 @@ const index = () => {
                             }
                         </View>
                         <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            <View style={{ width: 1 / 7 * width }}>
+                            <View style={{ width: 1 / 6 * width }}>
                                 {
-                                    [text.teller, data.otherTotalOutcomeEmp, data.incentiveOutcomeBusinessEmp, data.vasAffiEmp, data.otherEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.teller, data.otherTotalOE, data.incentiveOE, data.vasAffiEmp, data.otherEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 5 * width }}>
                                 {
-                                    [text.avgPerMonth, data.otherTotalOutcomeBusinessMonth, data.incentiveOutcomeBusinessMonth, data.vasAffiBusinessMonth, data.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.avgPerMonth, data.otherTotalOBMonth, data.incentiveOBMonth, data.vasAffiBusinessMonth, data.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 4 * width }}>
                                 {
-                                    [text.avgEmpPerMonth, data.otherTotalOutcomeBusinessEmp, data.incentiveOutcomeBusinessEmp, data.vasAffiBusinessEmp, data.otherAvgMonthEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.avgEmpPerMonth, data.otherTotalOBE, data.incentiveOBEmp, data.vasAffiBusinessEmp, data.otherAvgMonthEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }

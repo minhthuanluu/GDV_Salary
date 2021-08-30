@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { SafeAreaView, View, StatusBar, ActivityIndicator, BackHandler, } from "react-native";
+import { SafeAreaView, View, StatusBar, ActivityIndicator, } from "react-native";
 import { Body, DateView, Header, MenuItem } from "../../../../comps";
-import { styles } from "../../../../comps/body/style";
+// import { styles } from "../../../../comps/body/style";
 import { colors } from "../../../../utils/Colors";
 import { width } from "../../../../utils/Dimenssion";
 import { fontScale } from "../../../../utils/Fonts";
@@ -10,10 +10,11 @@ import { text } from "../../../../utils/Text";
 import { getKPIByMonthDashboard, getProfile } from "../../../../api";
 import { KPIByMonthDashboard, UserObj } from "../../../../models/Data";
 import { useNavigation } from "@react-navigation/core";
-import { backHandler, thoundsandSep, ToastNotif } from "../../../../utils/Logistics";
+import { thoundsandSep, ToastNotif } from "../../../../utils/Logistics";
 import { _retrieveData } from "../../../../utils/Storage";
 import Toast from "react-native-toast-message";
 import { useIsFocused, useRoute } from "@react-navigation/native";
+import { styles } from "./style";
 
 const DashBoard = () => {
   const [loading, setLoading] = useState(true);
@@ -80,10 +81,9 @@ const DashBoard = () => {
         style={{ marginTop: fontScale(27) }}
       />
       <View style={styles.body}>
-        {loading == true ? (
-          <ActivityIndicator size="small" color={colors.primary} />
-        ) : (
-          <>
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> :null}
+       
+          <View style={styles.subContainer}>
             <MenuItem
               style={{ marginTop: fontScale(30) }}
               title={text.kpiAchieved}
@@ -118,8 +118,7 @@ const DashBoard = () => {
               onPress={() => navigation.navigate("ExpectedSalary")}
             />
 
-          </>
-        )}
+          </View>
       </View>
     </SafeAreaView>
   );

@@ -15,8 +15,8 @@ const GeneralListItem = (props) => {
           props.titleArrayOne && props.titleArrayOne[0]
             ?
             <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
-              <Text style={[{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }, props.titleArrStyle]}>{props.titleArrayOne && props.titleArrayOne[0]}</Text>
-              <Text style={[{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }, props.itemStyle]}>{props.item && props.item[0]}</Text>
+              <Text style={[{ textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: colors.black, marginLeft: fontScale(10) }, props.titleArrStyle]}>{props.titleArrayOne && props.titleArrayOne[0]}</Text>
+              <Text style={[{ textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }, props.itemStyle]}>{props.item && props.item[0]}</Text>
             </View>
             :
             null}
@@ -31,34 +31,32 @@ const GeneralListItem = (props) => {
 
         <View style={{ flexDirection: "row" }}>
           {props.titleArray ? <View style={[{ marginLeft: -fontScale(15) }, props.titleContent]}>
-          <HItem title={props.titleArray[0]} titleStyle={{fontSize: 12, marginVertical: fontScale(8), color:colors.black }} />
+            <HItem title={props.titleArray[0]} titleStyle={{ fontSize: 12, marginVertical: fontScale(8), color: colors.black }} />
             <HItem title={props.titleArray[1]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[2]} titleStyle={props.titleStyle} />
             {props.titleArray[3] ? <HItem title={props.titleArray[3]} titleStyle={props.titleStyle} /> : null}
           </View> : null}
+        
           {/* HTKD */}
-          {props.itemAmountOne ? <View style={props.viewContentStyle}>
-            <HItem content={props.itemAmountOne[0]} contentStyle={props.contentStyle} />
+          {props.itemAmountOne && props.itemAmountOne ?<View style={props.viewContentStyle}>
+            <HItem content={props.itemAmountOne[0]} contentStyle={[props.contentStyle, { fontSize: 12, marginVertical: fontScale(8), color: colors.red }]} />
             <HItem content={props.itemAmountOne[1]} contentStyle={props.contentStyle} />
             <HItem content={props.itemAmountOne[2]} contentStyle={props.contentStyle} />
-            <HItem content={props.itemAmountOne[3]} contentStyle={props.contentStyle} />
-
+            {props.itemAmountOne[3]==null?<HItem content={props.itemAmountOne[3]} contentStyle={props.contentStyle} />:null}
           </View> : null}
-          {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(140),textAlign:"right"}}> */}
           {/* GDV */}
           {props.itemAmountTwo ? <View style={props.viewOneContentStyle}>
-            <HItem content={props.itemAmountTwo[0]} contentStyle={props.contentStyle1} />
+            <HItem content={props.itemAmountTwo[0]} contentStyle={[props.contentStyle1, { fontSize: 12, marginVertical: fontScale(8), color: colors.red }]} />
             <HItem content={props.itemAmountTwo[1]} contentStyle={props.contentStyle1} />
             <HItem content={props.itemAmountTwo[2]} contentStyle={props.contentStyle1} />
-            <HItem content={props.itemAmountTwo && props.itemAmountTwo[3]} contentStyle={props.contentStyle1} />
+            <HItem content={props.itemAmountTwo[3] && props.itemAmountTwo[3]} contentStyle={props.contentStyle1} />
           </View> : null}
-          {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(160),textAlign:"right"}}> */}
           {/* Chenh lech */}
           {props.itemPercent ? <View style={props.viewTwoContentStyle}>
-            <HItem content={props.itemPercent[0]} contentStyle={props.contentStyle2} />
+            <HItem content={props.itemPercent[0]} contentStyle={[props.contentStyle2, { fontSize: 12, marginVertical: fontScale(8), color: colors.red }]} />
             <HItem content={props.itemPercent[1]} contentStyle={props.contentStyle2} />
             <HItem content={props.itemPercent[2]} contentStyle={props.contentStyle2} />
-            <HItem content={props.itemPercent && props.itemPercent[3]} contentStyle={props.contentStyle2} />
+            <HItem content={props.itemPercent[3]} contentStyle={props.contentStyle2} />
           </View> : null}
           {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(160),textAlign:"right"}}> */}
           {/* Binh quan */}
@@ -67,7 +65,6 @@ const GeneralListItem = (props) => {
             <HItem content={props.itemAmountFour[1]} contentStyle={props.contentStyle2} />
             <HItem content={props.itemAmountFour[2]} contentStyle={props.contentStyle2} />
             <HItem content={props.itemAmountFour && props.itemAmountFour[3]} contentStyle={props.contentStyle2} />
-
           </View> : null}
         </View>
         {
@@ -200,28 +197,28 @@ const GeneralListItem = (props) => {
               <View style={{ flexDirection: "row", flex: 1 }}>
                 <View style={{ justifyContent: "space-between", flex: 2 }}>
                   {
-                    [props.titleArray[0], props.titleArray[1], props.titleArray[2], props.titleArray[3], props.titleArray[4], props.titleArray[5]].map((item,index) => {
+                    [props.titleArray[0], props.titleArray[1], props.titleArray[2], props.titleArray[3], props.titleArray[4], props.titleArray[5]].map((item, index) => {
                       return <Text key={index} style={[{ fontSize: fontScale(13), fontWeight: "bold", color: colors.grey }, props.titleStyle]}>{item} </Text>
                     })
                   }
                 </View>
                 <View style={{ flex: 1, justifyContent: "space-between", textAlign: "right" }}>
                   {
-                    [props.itemAmountOne[0], props.itemAmountOne[1], props.itemAmountOne[2], props.itemAmountOne[3], props.itemAmountOne[4], props.itemAmountOne[5]].map((item,index) => {
+                    [props.itemAmountOne[0], props.itemAmountOne[1], props.itemAmountOne[2], props.itemAmountOne[3], props.itemAmountOne[4], props.itemAmountOne[5]].map((item, index) => {
                       return <Text key={index} style={{ fontWeight: "bold", color: '#1AC4D1', fontSize: fontScale(12), textAlign: "right", marginRight: fontScale(8), marginVertical: fontScale(9) }}>{item}</Text>
                     })
                   }
                 </View>
                 <View style={{ flex: 1, justifyContent: "space-between", textAlign: "right" }}>
                   {
-                    [props.itemAmountTwo[0], props.itemAmountTwo[1], props.itemAmountTwo[2], props.itemAmountTwo[3], props.itemAmountTwo[4], props.itemAmountTwo[5]].map((item,index) => {
+                    [props.itemAmountTwo[0], props.itemAmountTwo[1], props.itemAmountTwo[2], props.itemAmountTwo[3], props.itemAmountTwo[4], props.itemAmountTwo[5]].map((item, index) => {
                       return <Text key={index} style={{ fontWeight: "bold", color: '#1AC4D1', fontSize: fontScale(12), textAlign: "right", marginRight: fontScale(8), marginVertical: fontScale(9) }}>{item}</Text>
                     })
                   }
                 </View>
                 <View style={{ flex: 1, justifyContent: "space-between", textAlign: "right" }}>
                   {
-                    [props.itemPercent[0], props.itemPercent[1], props.itemPercent[2], props.itemPercent[3], props.itemPercent[4], props.itemPercent[5]].map((item,index) => {
+                    [props.itemPercent[0], props.itemPercent[1], props.itemPercent[2], props.itemPercent[3], props.itemPercent[4], props.itemPercent[5]].map((item, index) => {
                       return <Text key={index} style={{ fontWeight: "bold", color: '#1AC4D1', fontSize: fontScale(12), textAlign: "right", marginRight: fontScale(8), marginVertical: fontScale(9) }}>{item}</Text>
                     })
                   }

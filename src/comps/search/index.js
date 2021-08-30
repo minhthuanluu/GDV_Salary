@@ -16,6 +16,7 @@ import DataPicker from '../datapicker/index';
 import Button from '../button';
 import { _retrieveData } from '../../utils/Storage';
 import { useFocusEffect } from '@react-navigation/core';
+import { ROLE } from '../../utils/Roles';
 
 const Search = (props) => {
     const { withDropdown, data, dataNotFoundText, keyboardType, style, main, loadingBranch, loadingShop } = props;
@@ -69,9 +70,9 @@ const Search = (props) => {
         const getUserRole = async () => {
             await _retrieveData("userInfo").then((item) => {
                 if (item != null) {
-                    if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY") {
+                    if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.ADMIN || item.userId.userGroupId.code == ROLE.VMS_CTY) {
                         setMultiChoice(true);
-                    } else if (item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+                    } else if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH || item.userId.userGroupId.code == ROLE.MBF_CUAHANG) {
                         setMultiChoice(false);
                     }
                 }

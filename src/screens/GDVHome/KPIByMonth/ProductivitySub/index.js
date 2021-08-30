@@ -78,6 +78,7 @@ const ProductivitySub = (props) => {
         {
           loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null
         }
+        <View style={{flex:1}}>
         <FlatList
           style={styles.list}
           data={data}
@@ -85,7 +86,7 @@ const ProductivitySub = (props) => {
           renderItem={({ item, index }) => {
             return <View style={styles.bg} key={index.toString()}>
               <Text style={styles.fieldData}>{item.shopName}</Text>
-              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: fontScale(40) }}>
+              <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: fontScale(30) }}>
                 {
                   labels.map((label, index) => {
                     return <View style={{ flexDirection: "row", flex: 1 }}>
@@ -99,6 +100,7 @@ const ProductivitySub = (props) => {
             </View>
           }}
         />
+        </View>
       </View>
     </SafeAreaView>
   );

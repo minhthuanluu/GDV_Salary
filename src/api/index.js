@@ -4,7 +4,6 @@ import axios from "axios";
 import { _removeData, _retrieveData, _storeData } from "../utils/Storage";
 import { POST, GET, PUT, DELETE } from "./method";
 import { text } from "../utils/Text";
-import { dataPlanSupport } from "../screens/AdminHome/SalaryByMonth/ExpenseManagement/PlanSupport/db";
 
 // 1. Login Screen
 export const login = async (userName, password) => {
@@ -74,7 +73,7 @@ export const getProfile = async (navigation) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Authorization: `${token}`
+      'Authorization': `${token}`
     },
   }).then((res) => {
     if (res.status == 200) {
@@ -111,7 +110,6 @@ export const getProfile = async (navigation) => {
           error: error
         };
       }
-
     }
   });
   return data;

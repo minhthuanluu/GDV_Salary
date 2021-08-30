@@ -26,7 +26,7 @@ const DashBoard = () => {
 
   const checkAdminSubscriberQualityRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
+      if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
         navigation.navigate("AdminSubscriberQualitySummaryBranch");
       }
       if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {

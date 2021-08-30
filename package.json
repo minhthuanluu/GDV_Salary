@@ -2,7 +2,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "HTTPS=true expo start --android",
+    "android": "HTTPS=false expo start --android",
     "ios": "HTTPS=true expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject"

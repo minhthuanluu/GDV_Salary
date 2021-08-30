@@ -30,11 +30,7 @@ const AdminTopTeller = () => {
   const [loading, setLoading] = useState(false);
   const [loadingData, setLoadingData] = useState(false);
   const navigation = useNavigation();
-  const [branchCode, setBranchCode] = useState("");
-  const [branchList, setBranchList] = useState([]);
-  const [shopList, setShopList] = useState([]);
   const [shopCode, setShopCode] = useState('');
-  const [empList, setEmpList] = useState([])
 
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
@@ -42,38 +38,6 @@ const AdminTopTeller = () => {
   const [role, setRole] = useState();
   const [defaultBranchCode, setDefaultBranchCode] = useState('');
   const [defaultBranchName, setDefaultBranchName] = useState('');
-  const [defaultShopCode, setDefaultShopCode] = useState('');
-  const [defaultShopName, setDefaultShopName] = useState('');
-
-  const getBranchList = async () => {
-    setLoading(true)
-    await getAllBranch(navigation).then((res) => {
-      if (res.status == "success") {
-        setLoading(false);
-        setBranchList(res.data);
-        setBranchCode(res.data[0].shopCode);
-      }
-      if (res.status == "failed") {
-        setLoading(false);
-      }
-      if (res.status == "v_error") {
-        Toast.show({
-          text1: "Cảnh báo",
-          text2: res.message,
-          type: "error",
-          visibilityTime: 1000,
-          autoHide: true,
-          onHide: () => navigation.navigate("AdminHome")
-        })
-      }
-    })
-  }
-
-  const onChangeBranch = (value) => {
-    setBranchCode(value.shopCode);
-    setDefaultBranchCode(value.shopCode);
-    setPlaceHolder(value.shopName);
-  }
 
   const getData = async (branchCode,month,sort) => {
     setMessage("");
@@ -100,9 +64,8 @@ const AdminTopTeller = () => {
 
   const checkRole = async () => {
     await getRole().then(async (data) => {
-      getBranchList();
       setRole(data.role)
-      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
+      if (data.role == ROLE.VP_CTY || data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         setPlaceHolder(text.chooseBranch);
         await getData("",month,1)
       } else if (data.role == ROLE.MBF_CHINHANH) {
@@ -123,37 +86,8 @@ const AdminTopTeller = () => {
 
   useEffect(() => {
     checkRole();
-    getBranchList()
-    // getData(branchCode,month,1);
-    // setPlaceHolder(text.chooseBranch)
     console.log("AdminHome > KPI > Top GDV")
   }, [""]);
-
-  const _onChangeMonth = async (value) => {
-    setPlaceHolder(text.chooseBranch)
-    await getRole().then(async (data) => {
-      setRole(data.role)
-      if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
-        setMonth(value);
-        await getData(defaultBranchCode, defaultBranchName, shopCode, value, sort);
-      } else if (data.role == ROLE.MBF_CHINHANH) {
-        setMonth(value);
-        setDefaultShopName(data.label);
-        setPlaceHolder(data.label);
-        setDefaultBranchName(data.branchName);
-        setDefaultShopCode(data.shopCode);
-        await getData(data.shopCode, data.label, "", value, sort);
-      } else if (data.role == ROLE.MBF_CUAHANG) {
-        setMonth(value);
-        setPlaceHolder(data.branchName);
-        setDefaultShopName(data.label);
-        setDefaultBranchName(data.shopName);
-        setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode, data.label, "", value, sort);
-
-      }
-    })
-  }
 
   const onSearch = async (value) => {
     await getData(value.branchCode, value.month,value.radio)

@@ -4,6 +4,7 @@ import { _retrieveData, _storeData } from "./Storage";
 import Toast from "react-native-toast-message";
 import { BackHandler } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
+import { ROLE } from "./Roles";
 
 export const thoundsandSep = (x) => {
   if (x != null || x != undefined) {
@@ -199,7 +200,7 @@ export const checkUserRole = async () => {
     if (item != null) {
       if (item.userId.userGroupId.code == "MBF_GDV") {
         role = 'GROUP_GDV'
-      } else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+      } else if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.ADMIN || item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.MBF_CHINHANH || item.userId.userGroupId.code == ROLE.MBF_CUAHANG) {
         role = "GROUP_ADMIN"
       }
       else {
@@ -216,13 +217,14 @@ export const checkUserRole = async () => {
 
 export const checkLogin = async (navigation) => {
   await _retrieveData("userInfo").then((item) => {
+    console.log(item)
     if (item != null) {
       console.log('token not null')
-      if (item.userId.userGroupId.code == "MBF_GDV") {
+      if (item.userId.userGroupId.code == ROLE.MBF_GDV) {
         setTimeout(() => {
           navigation.navigate("GDVHome");
         }, 3000);
-      } else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+      } else if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.ADMIN || item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.MBF_CHINHANH || item.userId.userGroupId.code == ROLE.MBF_CUAHANG) {
         navigation.navigate("AdminHome");
       } else {
         return "Bạn không có quyền sử dụng app"
@@ -318,8 +320,8 @@ export const getRole = async () => {
         description: item.userId.userGroupId.description,
         branchCode: "",
         branchName: item.userId.shopId.shopName,
-        shopCode:"",
-        shopName:"",
+        shopCode: "",
+        shopName: "",
         label: "Tất cả"
       }
     } else if (level == 2) {

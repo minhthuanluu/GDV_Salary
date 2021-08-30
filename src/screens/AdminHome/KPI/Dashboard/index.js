@@ -16,18 +16,18 @@ import { ROLE } from '../../../../utils/Roles';
 
 const KPIHome = (props) => {
   const [user, setUser] = useState(User);
-  const [month,setMonth] = useState(moment(new Date()).format("MM/YYYY"));
+  const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const navigation = useNavigation();
   const checkAdminKPIMonthRole = async () => {
     await _retrieveData("userInfo").then((item) => {
-      if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
+      if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
         navigation.navigate("AdminKPIMonth")
       }
       if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {
-        navigation.navigate("AdminKPIMonthShop", { branchItem: { "branchCode": item?.userId.shopId.shopCode,"month":month } })
+        navigation.navigate("AdminKPIMonthShop", { branchItem: { "branchCode": item?.userId.shopId.shopCode, "month": month } })
       }
       if (item.userId.userGroupId.code == ROLE.MBF_CUAHANG) {
-        navigation.navigate("AdminKPIMonthGDV", { branchItem: { "branchCode": item?.userId.shopId.parentShopId.shopCode,"shopCode" :item?.userId.shopId.shopCode,"month":month}})
+        navigation.navigate("AdminKPIMonthGDV", { branchItem: { "branchCode": item?.userId.shopId.parentShopId.shopCode, "shopCode": item?.userId.shopId.shopCode, "month": month } })
       }
     })
   }

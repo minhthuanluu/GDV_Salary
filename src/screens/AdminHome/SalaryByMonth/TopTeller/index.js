@@ -100,7 +100,7 @@ const index = (props) => {
         await getRole().then(async (data) => {
             getBranchList();
             setRole(data.role);
-            if (data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
+            if (data.role == ROLE.VP_CTY || data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
                 await getData('', month, sort);
             } else if (data.role == ROLE.MBF_CHINHANH) {
                 setSort(1);

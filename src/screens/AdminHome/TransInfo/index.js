@@ -64,7 +64,7 @@ function index(props) {
 
     const checkAdminTransInfoRole = async () => {
         await _retrieveData("userInfo").then((item) => {
-          if (item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
+          if (item.userId.userGroupId.code == ROLE.VP_CTY || item.userId.userGroupId.code == ROLE.VMS_CTY || item.userId.userGroupId.code == ROLE.ADMIN) {
             navigation.navigate("AdminStatisticalBranch")
           }
           if (item.userId.userGroupId.code == ROLE.MBF_CHINHANH) {

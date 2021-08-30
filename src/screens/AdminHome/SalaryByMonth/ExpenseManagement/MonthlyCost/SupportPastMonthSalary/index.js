@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../../com
 import { styles } from "./style";
 import { images } from "../../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary, getSummarySubQuality, getTransactionStatistics } from "../../../../../../adminapi";
+import { getKPIByMonth, getMonthSalary, getSummarySubQuality, getTotalSalaryMonthSupport, getTransactionStatistics } from "../../../../../../adminapi";
 import { width } from "../../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -15,23 +15,26 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
-
+import { useRoute } from "@react-navigation/core";
 
 const index = (props) => {
+    const route = useRoute();
     const [data, setData] = useState({});
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
     const [generalData, setGeneralData] = useState({});
-    const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+    const [month, setMonth] = useState(route.params?.month ||moment(new Date()).subtract(1, "months").format("MM/YYYY"));
     const navigation = useNavigation();
     const [notification, setNotification] = useState({})
 
 
 
-    const getData = async (month, branchcode, shopCode) => {
+    const getData = async (month) => {
         setLoading(true);
-        setMessage("");
-        await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
+        setMessage("")
+        // console.log(data)
+        await getTotalSalaryMonthSupport(month).then((data) => {
+          console.log(data.data.data)
           if (data.status == "success") {
             setLoading(false);
             if (data.length == 0) {
@@ -40,7 +43,7 @@ const index = (props) => {
             } else {
               
               setData(data.data.data);
-              setGeneralData(data.data.general);
+              // setGeneralData(data.data.general);
             }
           }
     
@@ -84,7 +87,6 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.monthlyExpenses} />
-      {/* <Text style={styles.text}>{notification}</Text> */}
       <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -97,7 +99,7 @@ const index = (props) => {
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(10) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
@@ -112,10 +114,10 @@ const index = (props) => {
                     style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(8) }}
+                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
+                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
+                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
+                    titleStyle={{fontSize: 12, marginVertical: fontScale(😎 }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(145)}}
                     titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
                     titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
@@ -139,7 +141,7 @@ const index = (props) => {
                     />  */}
                 
                     <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index==0 ? fontScale(10):-fontScale(50) }}
+                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18),  fontWeight: "bold", color: props.textColor || "#151515"}}
                     // style={{flexDirection: "row", marginVertical: fontScale(0)}}
@@ -153,13 +155,13 @@ const index = (props) => {
                     viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(105),textAlign:"right"}}
                     twentyFourColumnCompany
                     // title={generalData.shopName}
-                    title={item.shopName}
+                    title={item.branchCode}
                     icon={images.branch}
                     titleArr={["Tổng chi"]}
                     titleArray={["CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"]}
                     titleArrayOne={["","Còn lại:"]}
-                    // itemAmountOne={[item.cusAmount,item.transAmount,item.blocking2CAmount]}
-                    
+                    itemAmountOne={[item.incomeTotalOutcome,item.otherOutcomeMaster,item.incomeTotalOutcome]}
+                    item={["",item.supportRemain]}
                     
                     // itemPercent={[]}
                    

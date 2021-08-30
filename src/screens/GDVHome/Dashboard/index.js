@@ -15,7 +15,6 @@ import { styles } from './style';
 import { ToastNotif } from '../../../utils/Logistics';
 import Toast from 'react-native-toast-message';
 import { useIsFocused } from '@react-navigation/native';
-import { Text } from 'react-native';
 
 const Dashboard = (route) => {
   const navigation = useNavigation();
@@ -33,6 +32,7 @@ const Dashboard = (route) => {
       }
       if (res.status == "v_error") {
         ToastNotif('Cảnh báo', res.message, 'error', true);
+        setLoading(false)
       }
       if (res.status == "failed") {
         ToastNotif('Cảnh báo', res.message, 'error', true);
