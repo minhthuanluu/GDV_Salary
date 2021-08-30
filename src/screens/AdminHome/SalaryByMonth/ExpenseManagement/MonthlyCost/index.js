@@ -98,20 +98,12 @@ const index = (props) => {
         showInfo={false}
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
-      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
-        {/* <View>
-          <FlatList
-            data={data}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={(item, index) => index.toString()}
-            renderItem={({ item, index }) => ( */}
-              <ScrollView>
-                {/*  */}
-               
+              <ScrollView showsVerticalScrollIndicator={false}>
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
+                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(45) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
                     contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}

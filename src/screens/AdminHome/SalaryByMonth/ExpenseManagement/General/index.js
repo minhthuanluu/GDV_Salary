@@ -88,8 +88,8 @@ const index = (props) => {
         showInfo={false}
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
-      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         {/* <View>
           <FlatList
@@ -101,7 +101,7 @@ const index = (props) => {
                 {/*  */}
                
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
+                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(50) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
                     contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8)}}
@@ -109,12 +109,12 @@ const index = (props) => {
                     contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
                     titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
                     titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(85)}}
-                    titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(31)}}
+                    titleArrTwoStyle={{textAlign: "right", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: -fontScale(2)}}
                     titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(31)}}
                     titleArrFourStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(31)}}
                     viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(310),textAlign:"right"}}
                     viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(159),textAlign:"right"}}
-                    viewTwoContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(135),textAlign:"right"}}
+                    viewTwoContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(150),textAlign:"right"}}
                     viewThreeContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(135),textAlign:"right"}}
                     twentyFourColumnCompany
                     // title={generalData.shopName}

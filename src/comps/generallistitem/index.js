@@ -61,7 +61,7 @@ const GeneralListItem = (props) => {
           {/* <View style={{ justifyContent: "space-between", marginLeft: -fontScale(160),textAlign:"right"}}> */}
           {/* Binh quan */}
           {props.itemAmountFour ? <View style={props.viewThreeContentStyle}>
-            <HItem content={props.itemAmountFour[0]} contentStyle={props.contentStyle2} />
+            <HItem content={props.itemAmountFour[0]} contentStyle={[props.contentStyle2, { fontSize: 12, marginVertical: fontScale(8), color: colors.red }]} />
             <HItem content={props.itemAmountFour[1]} contentStyle={props.contentStyle2} />
             <HItem content={props.itemAmountFour[2]} contentStyle={props.contentStyle2} />
             <HItem content={props.itemAmountFour && props.itemAmountFour[3]} contentStyle={props.contentStyle2} />

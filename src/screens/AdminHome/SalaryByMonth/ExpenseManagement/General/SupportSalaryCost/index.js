@@ -80,12 +80,6 @@ const index = (props) => {
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.costAccumulation} />
       <Text style={styles.text}>{notification}</Text>
-      {/* <DatePicker
-        month={month}
-        width={width - fontScale(120)}
-        style={{ alignSelf: "center" }}
-        onChangeDate={(date) => _onChangeMonth(date)}
-      /> */}
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }}

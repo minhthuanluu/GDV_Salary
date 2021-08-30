@@ -91,7 +91,7 @@ const index = (props) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View>
+              <View style={{marginTop:index==0?fontScale(20):0}}>
                 <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
