@@ -20,16 +20,16 @@ const index = (props) => {
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState('');
     const navigation = useNavigation();
-    const [data,setData] = useState(dataPlanSupport)
+    const [data, setData] = useState(dataPlanSupport)
 
-    const onChangeYear = async(year) => {
+    const onChangeYear = async (year) => {
         setYear(year);
         await getData(year);
     }
 
     const getData = async (year) => {
         setLoading(true)
-        await getOutcomeSupport(navigation,year).then((res)=>{
+        await getOutcomeSupport(navigation, year).then((res) => {
             console.log(res.data)
             if (res.status == "success") {
                 setData(res.data.data);
@@ -75,44 +75,61 @@ const index = (props) => {
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
             <Body />
             <View style={styles.subContainer}>
-                <Text style={styles.planTwelveText}>{text.planTwelveText}</Text>
-                {loading==true ? <ActivityIndicator size="small" color={colors.primary} style={{marginBottom:fontScale(5),marginTop:fontScale(10)}}/>:null}
-                <View style={{flexDirection: "row"}}>
-                    <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
-                        {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
-                    </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                        <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
-                            <View style={{ flex: 1.3, marginTop: fontScale(10) }}>
-                                {column1.map((item, index) => <Column item={item} index={index} />)}
+                <ScrollView style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(10)}}>
+                    <View style={{
+                        paddingHorizontal: fontScale(10),
+                        paddingBottom: fontScale(15),
+                        borderRadius: fontScale(17),
+                        shadowColor: "#000",
+                        backgroundColor: colors.white,
+                        shadowOffset: {
+                            width: 0,
+                            height: 2,
+                        },
+                        shadowOpacity: 0.25,
+                        shadowRadius: 3.84,
+                        elevation: 5
+                    }}>
+                        <Text style={styles.planTwelveText}>{text.planTwelveText}</Text>
+                        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: fontScale(10) }} /> : null}
+                        <View style={{ flexDirection: "row", marginTop: fontScale(10) }}>
+                            <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
+                                {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1, marginTop: fontScale(10) }}>
-                                {column2.map((item, index) => <Column item={item} index={index} />)}
+                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
+                                    <View style={{ flex: 1.3, marginTop: fontScale(10) }}>
+                                        {column1.map((item, index) => <Column item={item} index={index} />)}
+                                    </View>
+                                    <View style={{ flex: 1, marginTop: fontScale(10) }}>
+                                        {column2.map((item, index) => <Column item={item} index={index} />)}
+                                    </View>
+                                    <View style={{ flex: 0.8, marginTop: fontScale(10) }}>
+                                        {column3.map((item, index) => <Column item={item} index={index} />)}
+                                    </View>
+                                    <View style={{ flex: 1.8, marginTop: fontScale(10) }}>
+                                        {column4.map((item, index) => <Column item={item} index={index} />)}
+                                    </View>
+                                </View>
+                            </ScrollView>
+                        </View>
+                        <View style={{ flexDirection: "row" }}>
+                            <Text style={styles.subTitle}>{text.expectedOutcomeSupport}:</Text>
+                            <Text style={styles.expectOutcome}>{data.expectedOutcomeSupport}</Text>
+                        </View>
+                        <Text style={styles.subTitle}>{text.extendedInfo}:</Text>
+                        <View style={{ flexDirection: "row" }}>
+                            <View style={{ marginLeft: fontScale(10) }}>
+                                <Text style={styles.subTitleLeft}>{text.totalRemain}:</Text>
+                                <Text style={styles.subTitleLeft}>{text.totalOutcomed}:</Text>
                             </View>
-                            <View style={{ flex: 0.8, marginTop: fontScale(10) }}>
-                                {column3.map((item, index) => <Column item={item} index={index} />)}
-                            </View>
-                            <View style={{ flex: 1.8, marginTop: fontScale(10) }}>
-                                {column4.map((item, index) => <Column item={item} index={index} />)}
+                            <View>
+                                <Text style={styles.subContentLeft}>{data.outcomeTotal}</Text>
+                                <Text style={styles.subContentLeft}>{data.remainTotal}</Text>
                             </View>
                         </View>
-                    </ScrollView>
-                </View>
-                <View style={{ flexDirection: "row" }}>
-                    <Text style={styles.subTitle}>{text.expectedOutcomeSupport}:</Text>
-                    <Text style={styles.expectOutcome}>{data.expectedOutcomeSupport}</Text>
-                </View>
-                <Text style={styles.subTitle}>{text.extendedInfo}:</Text>
-                <View style={{ flexDirection: "row" }}>
-                    <View style={{ marginLeft: fontScale(10) }}>
-                        <Text style={styles.subTitleLeft}>{text.totalRemain}:</Text>
-                        <Text style={styles.subTitleLeft}>{text.totalOutcomed}:</Text>
                     </View>
-                    <View>
-                        <Text style={styles.subContentLeft}>{data.outcomeTotal}</Text>
-                        <Text style={styles.subContentLeft}>{data.remainTotal}</Text>
-                    </View>
-                </View>
+                </ScrollView>
             </View>
             <Toast ref={(ref) => Toast.setRef(ref)} />
         </SafeAreaView>
@@ -121,7 +138,7 @@ const index = (props) => {
 
 const LeftColumn = ({ item, index }) => {
     return (
-        <View  style={{ marginVertical: fontScale(10) }}>
+        <View style={{ marginVertical: fontScale(10) }}>
             <Text
                 key={index + ''}
                 style={{

@@ -10,17 +10,18 @@ export const styles = StyleSheet.create({
     subContainer:{
         flex:1,
         backgroundColor:colors.white,
-        paddingHorizontal:fontScale(10)
+        paddingBottom:fontScale(15),
+        marginTop:-fontScale(25)
     },
     planTwelveText:{
         fontWeight:"bold",
         color:colors.black,
         fontSize:fontScale(16),
-        marginTop:-fontScale(10),
+        marginTop:fontScale(20),
         textAlign:"center"
     },
     subTitle:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" },
     expectOutcome:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(20), fontWeight: "bold", color: colors.red },
     subTitleLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" },
-    subContentLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10), fontWeight: "bold", color: colors.lightBlue }
+    subContentLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10),textAlign:"center", fontWeight: "bold", color: colors.lightBlue }
 })
