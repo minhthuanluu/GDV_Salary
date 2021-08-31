@@ -37,9 +37,7 @@ const index = (props) => {
           setData([])
           setMessage(data.message);
         } else {
-
           setData(data.data.data);
-          // setGeneralData(data.data.general);
         }
       }
 
@@ -94,17 +92,17 @@ const index = (props) => {
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
-        <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
-        <ScrollView showsVerticalScrollIndicator={false} style={{marginVertical:fontScale(20)}}>
+        {message ? <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text> : null}
+        <ScrollView showsVerticalScrollIndicator={false} style={{ marginVertical: fontScale(20) }}>
           <TouchableOpacity style={styles.outcomeSal}
             onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", { "month": month })}>
             <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
-            <NoftiContent title="Số dư đầu kỳ:" content={data.remainSalary} left={fontScale(10) }/>
+            <NoftiContent title="Số dư đầu kỳ:" content={data.remainSalary} left={fontScale(10)} />
             <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
               <View style={{ flex: 1 }}>
                 {["", "Tổng chi ", "Cố định", "Khoán sp", "Chi khác"].map((item, index) => <Item item={item} index={index} />)}
               </View>
-              <View style={{ flex:1 }}>
+              <View style={{ flex: 1 }}>
                 {[text.businessCoop, data.outcomeBusiness, data.permanentBusiness, data.contractBusiness, data.othersBusiness].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
               <View style={{ flex: 1 }}>
@@ -120,17 +118,18 @@ const index = (props) => {
               <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.remain}</Text>
             </View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey , marginLeft: fontScale(35) }}>Số tiền dùng chi hỗ trợ:</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(35) }}>Số tiền dùng chi hỗ trợ:</Text>
               <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.totalSupport}</Text>
             </View>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.outcomeSal}
-          itemAmountTwo={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount]}
-          itemPercent={[]}
-          item={[data.remainSupport,data.supportRemain]}
-          onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {
-            "month": month})}>
+            itemAmountTwo={[generalData.cusAmount, generalData.transAmount, generalData.blocking2CAmount]}
+            itemPercent={[]}
+            item={[data.remainSupport, data.supportRemain]}
+            onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {
+              "month": month
+            })}>
             {/* // navigation.navigate("AdminSupportPastMonthlySalary", { "month": month })}> */}
             <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>Tổng chi hỗ trợ tháng {month}</Text>
             <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
@@ -175,10 +174,10 @@ const ItemContent = ({ item, index }) => {
   )
 }
 
-const NoftiContent = ({ title, content,left }) => {
+const NoftiContent = ({ title, content, left }) => {
   return (
     <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
-      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.black,marginLeft:left}}>{title}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.black, marginLeft: left }}>{title}</Text>
       <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }}>{content}</Text>
     </View>
   )

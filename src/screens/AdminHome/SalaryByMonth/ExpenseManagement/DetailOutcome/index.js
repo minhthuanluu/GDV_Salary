@@ -98,7 +98,7 @@ const index = () => {
                     <View style={{
                         flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
                         shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(25)
+                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(25)
                     }}>
                         <View style={{ width: 1.5 / 4 * width }}>
                             {
@@ -177,7 +177,7 @@ const index = () => {
                     <View style={{
                         flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
                         shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(20), marginBottom: fontScale(5)
+                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(20), marginBottom: fontScale(5)
                     }}>
                         <View style={{ width: 2.1 / 6 * width }}>
                             {
@@ -219,7 +219,7 @@ const index = () => {
                     <View style={{
                         flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
                         shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(5), borderRadius: fontScale(20), marginTop: fontScale(15), marginBottom: fontScale(15)
+                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(15), marginBottom: fontScale(15)
                     }}>
                         <View style={{ width: 2 / 6 * width }}>
                             {
