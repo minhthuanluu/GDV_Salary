@@ -116,6 +116,7 @@ export const text = {
   totalIncentiveSpending: "Tổng chi khuyến khích",
   averageOtherCosts: "BQ chi khác",
   totalOtherCosts: "Tổng chi khác",
+  totalOutcome: "Tổng chi",
   averageMonth: "BQ tháng",
   averageAndAmount: "Bình quân thu nhập",
   totalIncome: "Tổng thu nhập",

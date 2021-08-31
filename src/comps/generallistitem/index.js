@@ -31,10 +31,13 @@ const GeneralListItem = (props) => {
 
         <View style={{ flexDirection: "row" }}>
           {props.titleArray ? <View style={[{ marginLeft: -fontScale(15) }, props.titleContent]}>
-            <HItem title={props.titleArray[0]} titleStyle={{ fontSize: 12, marginVertical: fontScale(8), color: colors.black }} />
+            {/* <HItem title={props.titleArray[0]} titleStyle={{ fontSize: 12, marginVertical: fontScale(8), color: colors.black }} />
             <HItem title={props.titleArray[1]} titleStyle={props.titleStyle} />
             <HItem title={props.titleArray[2]} titleStyle={props.titleStyle} />
-            {props.titleArray[3] ? <HItem title={props.titleArray[3]} titleStyle={props.titleStyle} /> : null}
+            {props.titleArray[3] ? <HItem title={props.titleArray[3]} titleStyle={props.titleStyle} /> : null} */}
+            {
+              props.titleArray.map((item)=><HItem title={item} titleStyle={props.titleStyle} />)
+            }
           </View> : null}
         
           {/* HTKD */}

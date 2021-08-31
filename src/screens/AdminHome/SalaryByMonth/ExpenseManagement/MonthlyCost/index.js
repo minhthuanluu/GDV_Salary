@@ -15,73 +15,67 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { TouchableOpacity } from "react-native";
 
 
 const index = (props) => {
-    const [data, setData] = useState({});
-    const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [generalData, setGeneralData] = useState({});
-    const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
-    const navigation = useNavigation();
-    // const [notification, setNotification] = useState({})
+  const [data, setData] = useState({});
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [generalData, setGeneralData] = useState({});
+  const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+  const navigation = useNavigation();
 
+  const getData = async (month) => {
+    setLoading(true);
+    setMessage("")
+    console.log(month)
+    await getMonthCost(month).then((data) => {
+      if (data.status == "success") {
+        setLoading(false);
+        if (data.length == 0) {
+          setData([])
+          setMessage(data.message);
+        } else {
 
+          setData(data.data.data);
+          // setGeneralData(data.data.general);
+        }
+      }
 
-    const getData = async (month) => {
-        setLoading(true);
-        setMessage("")
-        console.log(month)
-        await getMonthCost(month).then((data) => {
-          console.log()
-          if (data.status == "success") {
-            setLoading(false);
-            if (data.length == 0) {
-              setData([])
-              setMessage(data.message);
-            } else {
-              
-              setData(data.data.data);
-              // setGeneralData(data.data.general);
-            }
-          }
-    
-          if (data.status == "failed") {
-            setLoading(false);
-            Toast.show({
-              text1: "Cảnh báo",
-              text2: data.message,
-              type: "error",
-              visibilityTime: 1000,
-              autoHide: true,
-              onHide: () => navigation.goBack()
-            })
-          }
-          if (data.status == "v_error") {
-            Toast.show({
-              text1: "Cảnh báo",
-              text2: data.message,
-              type: "error",
-              visibilityTime: 1000,
-              autoHide: true,
-              onHide: () => navigation.goBack()
-            })
-          }
-        });
-      };
-    
-      useEffect(() => {
-        getData(month, "", "");
-      }, [month])
-    
-      const _onChangeMonth = (value) => {
-        setMonth(value);
-        getData(value, "", "");
-      };
-  // const _onChangeMonth = (value) => {
-  //   setMonth(value);
-  //   getData(value, "", "");
-  // };
+      if (data.status == "failed") {
+        setLoading(false);
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
+      if (data.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
+    });
+  };
+
+  useEffect(() => {
+    getData(month, "", "");
+  }, [month])
+
+  const _onChangeMonth = (value) => {
+    setMonth(value);
+    getData(value, "", "");
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
@@ -93,7 +87,7 @@ const index = (props) => {
         style={{ alignSelf: "center" }}
         onChangeDate={(date) => _onChangeMonth(date)}
       />
-     
+
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(12), zIndex: -10 }}
@@ -101,70 +95,62 @@ const index = (props) => {
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
-              <ScrollView showsVerticalScrollIndicator={false}>
-                  <GeneralListItem
-                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(45) }}
-                    backgroundColor={"#FFFFFF"}
-                    textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
-                    titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(145)}}
-                    titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
-                    titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
-                    viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(309),textAlign:"right"}}
-                    viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(131),textAlign:"right"}}
-                    viewTwoContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(110),textAlign:"right"}}
-                    twentyFourColumnCompany
-                    // title={generalData.shopName}
-                    title={"Chi phí lương tháng " + month}
-                    titleArr={["HTKD","GDV","Chênh lệch"]}
-                    titleArray={["Tổng chi ", "Cố định", "Khoán sp","Chi khác"]}
-                    titleArrayOne={["Số dư đầu kỳ:","Số dư cuối kỳ:","Số tiền dùng chi hỗ trợ:"]}
-                    itemAmountOne={[data.outcomeBusiness,data.permanentBusiness,data.contractBusiness,data.othersBusiness]}
-                    itemAmountTwo={[data.outcomeEmp,data.permanentEmp,data.contractEmp,data.othersEmp]}
-                    itemPercent={[data.outcomeDiff,data.permanentDiff,data.contractDiff,data.othersDiff]}
-                    
-                    item={[data.remainSalary,data.remain,data.totalSupport]}
-                    // icon={images.branch}
-                    onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", {
-                      "month": month
-                    })} /> 
-                
-                <GeneralListItem
-                    style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
-                    backgroundColor={"#FFFFFF"}
-                    textTitle={{fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
-                    titleStyle={{fontSize: fontScale(12), marginVertical: fontScale(8) }}
-                    titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(215)}}
-                    titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
-                    viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(185),textAlign:"right"}}
-                    viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(105),textAlign:"right"}}
-                    twentyFourColumnCompany
-                    // title={generalData.shopName}
-                    title={"Tổng chi hỗ trợ tháng " + month}
-                    titleArr={["Tổng chi"]}
-                    titleArray={["CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu",""]}
-                    titleArrayOne={["Số dư đầu kỳ:","Còn lại:"]}
-                    itemAmountOne={[data.outcomeMaster,data.otherOutcomeMaster,data.incomeTotalOutcome]}
-                    // itemAmountTwo={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount]}
-                    // itemPercent={[]}
-                    item={[data.remainSupport,data.supportRemain]}
-                    onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {
-                      "month": month
-                    })} /> 
-                     {/* // icon={images.company}  */}
-                   
-                {/* />  */}
-              {/* </View> */}
-            {/* )}
-          /> */}
+        <ScrollView showsVerticalScrollIndicator={false} style={{marginVertical:fontScale(20)}}>
+          <TouchableOpacity style={styles.outcomeSal}
+            onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", { "month": month })}>
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
+            <NoftiContent title="Số dư đầu kỳ:" content={data.remainSalary} left={fontScale(10) }/>
+            <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
+              <View style={{ flex: 1 }}>
+                {["", "Tổng chi ", "Cố định", "Khoán sp", "Chi khác"].map((item, index) => <Item item={item} index={index} />)}
+              </View>
+              <View style={{ flex:1 }}>
+                {[text.businessCoop, data.outcomeBusiness, data.permanentBusiness, data.contractBusiness, data.othersBusiness].map((item, index) => <ItemContent item={item} index={index} />)}
+              </View>
+              <View style={{ flex: 1 }}>
+                {[text.teller, data.outcomeEmp, data.permanentEmp, data.contractEmp, data.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+              </View>
+              <View style={{ flex: 1 }}>
+                {[text.different, data.outcomeEmp, data.permanentEmp, data.contractEmp, data.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+              </View>
 
+            </View>
+            <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Số dư cuối kỳ:</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.remain}</Text>
+            </View>
+            <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey , marginLeft: fontScale(35) }}>Số tiền dùng chi hỗ trợ:</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.totalSupport}</Text>
+            </View>
+          </TouchableOpacity>
 
+          <TouchableOpacity style={styles.outcomeSal}
+          itemAmountTwo={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount]}
+          itemPercent={[]}
+          item={[data.remainSupport,data.supportRemain]}
+          onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {
+            "month": month})}>
+            {/* // navigation.navigate("AdminSupportPastMonthlySalary", { "month": month })}> */}
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>Tổng chi hỗ trợ tháng {month}</Text>
+            <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
+              <Text style={styles.remainSalaryTitle}>{"Số dư đầu kỳ:"}</Text>
+              <Text style={styles.remainSalaryContent}>{data.remainSupport}</Text>
+            </View>
+            <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
+              <View style={{ flex: 1 }}>
+                {["", "CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"].map((item, index) => <Item item={item} index={index} />)}
+              </View>
+              <View style={{ flex: 1 }}>
+                {[text.totalOutcome, data.outcomeMaster, data.otherOutcomeMaster, data.incomeTotalOutcome].map((item, index) => <ItemContent item={item} index={index} />)}
+              </View>
+              <View style={{ flex: 1 }} />
+            </View>
+            <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Còn lại:</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.supportRemain}</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
 
       </View>
@@ -172,5 +158,30 @@ const index = (props) => {
     </SafeAreaView>
   );
 };
+
+const Item = ({ item, index }) => {
+  return (
+    <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+      <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.black : colors.grey, fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
+
+const ItemContent = ({ item, index }) => {
+  return (
+    <View style={{ marginVertical: fontScale(10) }}>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
+
+const NoftiContent = ({ title, content,left }) => {
+  return (
+    <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.black,marginLeft:left}}>{title}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }}>{content}</Text>
+    </View>
+  )
+}
 
 export default index;

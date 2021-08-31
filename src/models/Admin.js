@@ -213,3 +213,38 @@ export const DetailOutcome = {
       "avgMonthPunishment":null,
       "avgMonthEmpPunishment":null
 }
+
+export const AccumulatedCost = { 
+  'notification': null, 
+  'outcome': null, 
+  'outcomeBusiness': null, 
+  'outcomeEmp': null, 
+  'outcomeDiff': null, 
+  'outcomeAvg': null, 
+  'permanentBusiness': null, 
+  'permanentEmp': null, 
+  'permanentDiff': null, 
+  'permanentAvg': null, 
+  'contractBusiness': null, 
+  'contractEmp': null, 
+  'contractDiff': null, 
+  'contractAvg': null, 
+  'othersBusiness': null, 
+  'othersEmp': null, 
+  'othersDiff': null, 
+  'othersAvg': null, 
+  'remain': null, 
+  'expected': null, 
+  'diffMoney': null, 
+  'totalSupport':null, 
+ 
+  'totalOutcome': null, 
+  'outcomeMaster': null, 
+  'avgMaster': null, 
+  'otherOutcomeMaster': null, 
+  'otherAvgMaster': null, 
+  'incomeTotalOutcome': null, 
+  'incomeAvgOutcome': null, 
+  'supportRemain': null, 
+  'expectedSupport': null 
+ }

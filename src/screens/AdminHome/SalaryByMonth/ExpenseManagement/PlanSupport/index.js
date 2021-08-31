@@ -81,18 +81,18 @@ const index = (props) => {
                     <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
                         {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                     </View>
-                    <ScrollView horizontal>
+                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                         <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
-                            <View style={{ flex: 1.2, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1.3, marginTop: fontScale(10) }}>
                                 {column1.map((item, index) => <Column item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1.2, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1, marginTop: fontScale(10) }}>
                                 {column2.map((item, index) => <Column item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 0.8, marginTop: fontScale(10) }}>
                                 {column3.map((item, index) => <Column item={item} index={index} />)}
                             </View>
-                            <View style={{ flex: 1.5, marginTop: fontScale(10) }}>
+                            <View style={{ flex: 1.8, marginTop: fontScale(10) }}>
                                 {column4.map((item, index) => <Column item={item} index={index} />)}
                             </View>
                         </View>

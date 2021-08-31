@@ -16,69 +16,70 @@ import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { useRoute } from "@react-navigation/core";
+import { Image } from "react-native";
 
 const index = (props) => {
-    const route = useRoute();
-    const [data, setData] = useState({});
-    const [message, setMessage] = useState('');
-    const [loading, setLoading] = useState(false);
-    const [generalData, setGeneralData] = useState({});
-    const [month, setMonth] = useState(route.params?.month ||moment(new Date()).subtract(1, "months").format("MM/YYYY"));
-    const navigation = useNavigation();
-    const [notification, setNotification] = useState({})
+  const route = useRoute();
+  const [data, setData] = useState({});
+  const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [generalData, setGeneralData] = useState({});
+  const [month, setMonth] = useState(route.params?.month || moment(new Date()).subtract(1, "months").format("MM/YYYY"));
+  const navigation = useNavigation();
+  const [notification, setNotification] = useState({})
 
 
 
-    const getData = async (month) => {
-        setLoading(true);
-        setMessage("")
-        // console.log(data)
-        await getTotalSalaryMonthSupport(month).then((data) => {
-          console.log(data.data.data)
-          if (data.status == "success") {
-            setLoading(false);
-            if (data.length == 0) {
-              setData([])
-              setMessage(data.message);
-            } else {
-              
-              setData(data.data.data);
-              // setGeneralData(data.data.general);
-            }
-          }
-    
-          if (data.status == "failed") {
-            setLoading(false);
-            Toast.show({
-              text1: "Cảnh báo",
-              text2: data.message,
-              type: "error",
-              visibilityTime: 1000,
-              autoHide: true,
-              onHide: () => navigation.goBack()
-            })
-          }
-          if (data.status == "v_error") {
-            Toast.show({
-              text1: "Cảnh báo",
-              text2: data.message,
-              type: "error",
-              visibilityTime: 1000,
-              autoHide: true,
-              onHide: () => navigation.goBack()
-            })
-          }
-        });
-      };
-    
-      useEffect(() => {
-        getData(month, "", "");
-      }, [month])
-    
-      const _onChangeMonth = (value) => {
-        setMonth(value);
-        getData(value, "", "");
-      };
+  const getData = async (month) => {
+    setLoading(true);
+    setMessage("")
+    // console.log(data)
+    await getTotalSalaryMonthSupport(month).then((data) => {
+      console.log(data.data.data)
+      if (data.status == "success") {
+        setLoading(false);
+        if (data.length == 0) {
+          setData([])
+          setMessage(data.message);
+        } else {
+
+          setData(data.data.data);
+          // setGeneralData(data.data.general);
+        }
+      }
+
+      if (data.status == "failed") {
+        setLoading(false);
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
+      if (data.status == "v_error") {
+        Toast.show({
+          text1: "Cảnh báo",
+          text2: data.message,
+          type: "error",
+          visibilityTime: 1000,
+          autoHide: true,
+          onHide: () => navigation.goBack()
+        })
+      }
+    });
+  };
+
+  useEffect(() => {
+    getData(month, "", "");
+  }, [month])
+
+  const _onChangeMonth = (value) => {
+    setMonth(value);
+    getData(value, "", "");
+  };
   // const _onChangeMonth = (value) => {
   //   setMonth(value);
   //   getData(value, "", "");
@@ -93,12 +94,12 @@ const index = (props) => {
         style={{ alignSelf: "center" }}
         onChangeDate={(date) => _onChangeMonth(date)}
       />
-     
+
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(12), zIndex: -10 }}
       />
-      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
+      <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
@@ -107,44 +108,11 @@ const index = (props) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View>
-                {/*  */}
-               
-                  {/* <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
-                    backgroundColor={"#FFFFFF"}
-                    textTitle={{fontSize: fontScale(18), fontWeight: "bold", color: props.textColor || "#151515"}}
-                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
-                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
-                    contentStyle2={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(😎 }}
-                    titleStyle={{fontSize: 12, marginVertical: fontScale(😎 }}
-                    titleArrOneStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(145)}}
-                    titleArrTwoStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
-                    titleArrThreeStyle={{textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#CC9B02", marginLeft: fontScale(51)}}
-                    viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(269),textAlign:"right"}}
-                    viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(155),textAlign:"right"}}
-                    viewTwoContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(120),textAlign:"right"}}
-                    twentyFourColumnCompany
-                    // title={generalData.shopName}
-                    title={item.shopName}
-                    titleArr={["HTKD","GDV","Chênh lệch"]}
-                    titleArray={["Tổng chi ", "Cố định", "Khoán sp","Chi khác"]}
-                    // titleArrayOne={["Số dư đầu kỳ:","Số dư cuối kỳ:","Số tiền dùng chi hỗ trợ:"]}
-                    itemAmountOne={[item.cusAmount,item.transAmount,item.blocking2CAmount,item.subRegisterAmount,item.foneCardAmount,item.noRechargeAmount]}
-                    itemAmountTwo={[item.cusAmount,item.transAmount,item.blocking2CAmount,item.subRegisterAmount,item.foneCardAmount,item.noRechargeAmount]}
-                    itemPercent={[item.cusAmount,item.transAmount,item.blocking2CAmount,item.subRegisterAmount,item.foneCardAmount,item.noRechargeAmount]}
-                    
-                    item={["15 tỷ ( số tồn cuối kỳ của tháng 6 )","12 tỷ","0,5 tỷ"]}
-                    icon={images.branch}
-                    // onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral")} 
-
-                    />  */}
-                
-                    <GeneralListItem
-                    style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
+              <View style={{}}>
+                {/* <GeneralListItem
+                    style={{ marginTop:index==0?-fontScale(30):fontScale(10),marginBottom: index==data.length-1?fontScale(100):fontScale(30)}}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18),  fontWeight: "bold", color: props.textColor || "#151515"}}
-                    // style={{flexDirection: "row", marginVertical: fontScale(0)}}
                     contentStyle={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
                     contentStyle1={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
                     contentStyle2={{ fontSize: fontScale(12),textAlign:"right", marginVertical: fontScale(8) }}
@@ -154,7 +122,6 @@ const index = (props) => {
                     viewContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(185),textAlign:"right"}}
                     viewOneContentStyle={{justifyContent: "space-between", marginLeft: -fontScale(105),textAlign:"right"}}
                     twentyFourColumnCompany
-                    // title={generalData.shopName}
                     title={item.branchCode}
                     icon={images.branch}
                     titleArr={["Tổng chi"]}
@@ -162,22 +129,67 @@ const index = (props) => {
                     titleArrayOne={["","Còn lại:"]}
                     itemAmountOne={[item.incomeTotalOutcome,item.otherOutcomeMaster,item.incomeTotalOutcome]}
                     item={["",item.supportRemain]}
-                    
-                    // itemPercent={[]}
-                   
-                   
-                /> 
+                />  */}
+                <View style={[styles.outcomeSal, { marginTop: fontScale(50), marginBottom: index == data.length - 1 ? fontScale(40) : fontScale(10),
+                flex: 1,
+                margin: fontScale(5),
+                paddingHorizontal: fontScale(10),
+                paddingBottom: fontScale(15),
+                borderRadius: fontScale(17),
+                shadowColor: "#000",
+                backgroundColor: colors.white,
+                shadowOffset: {
+                  width: 0,
+                  height: 2,
+                },
+                shadowOpacity: 0.25,
+                shadowRadius: 3.84,
+                elevation: 5 }]}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: "#151515",marginTop:fontScale(10),marginLeft:fontScale(10) }}>{item.branchCode}</Text>
+                    <Image source={images.shop} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(10), top: -fontScale(25) }} resizeMode="contain" />
+                  </View>
+                  <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20),marginLeft:fontScale(10) }}>
+                    <View style={{ flex: 2 }}>
+                      {["", "CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"].map((item, index) => <Item item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      {[text.totalOutcome, item.outcomeMaster, item.otherOutcomeMaster, item.incomeTotalOutcome].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1 }}/>
+                  </View>
+                  <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
+                  <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Còn lại:</Text>
+                  <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{item.supportRemain}</Text>
+                </View>
+                </View>
+               
               </View>
-             )}
-          /> 
+            )}
+          />
 
 
-</View>
+        </View>
 
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
   );
 };
+
+const Item = ({ item, index }) => {
+  return (
+    <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+      <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.black : colors.grey, fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
+const ItemContent = ({ item, index }) => {
+  return (
+    <View style={{ marginVertical: fontScale(10) }}>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
 
 export default index;

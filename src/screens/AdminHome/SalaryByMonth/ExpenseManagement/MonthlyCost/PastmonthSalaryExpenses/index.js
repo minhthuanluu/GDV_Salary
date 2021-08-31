@@ -16,6 +16,7 @@ import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
 import { useRoute } from "@react-navigation/core";
+import { Image } from "react-native";
 
 const index = (props) => {
   const route = useRoute();
@@ -89,13 +90,8 @@ const index = (props) => {
         style={{ alignSelf: "center" }}
         onChangeDate={(date) => _onChangeMonth(date)}
       />
-
-      <Body
-        showInfo={false}
-        style={{ marginTop: fontScale(12), zIndex: -10 }}
-      />
-      <View style={{ flex: 1, backgroundColor: colors.white, marginTop: -fontScale(15) }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
+      <View style={{ flex: 1, backgroundColor: colors.white, paddingTop: fontScale(30), marginTop: fontScale(20), borderTopLeftRadius: fontScale(50), borderTopRightRadius: fontScale(50) }}>
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
@@ -106,8 +102,8 @@ const index = (props) => {
               <View>
                 {/*  */}
 
-                <GeneralListItem
-                  style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
+                {/* <GeneralListItem
+                  style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(15) : -fontScale(55) }}
                   backgroundColor={"#FFFFFF"}
                   textTitle={{ fontSize: fontScale(18), fontWeight: "bold", color: props.textColor || "#151515" }}
                   contentStyle={{ fontSize: fontScale(12), textAlign: "right", marginVertical: fontScale(8) }}
@@ -129,12 +125,11 @@ const index = (props) => {
                   itemAmountOne={[item.outcomeBusiness, item.permanentBusiness, item.contractBusiness, item.othersBusiness]}
                   itemAmountTwo={[item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp]}
                   itemPercent={[item.outcomeDiff, item.permanentDiff, item.contractDiff, item.othersDiff]}
-
                   // item={["15 tỷ ( số tồn cuối kỳ của tháng 6 )","12 tỷ","0,5 tỷ"]}
                   icon={images.branch}
                 // onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral")} 
 
-                />
+                /> */}
 
                 {/* <GeneralListItem
                     style={{ marginBottom: fontScale(90), marginTop: -fontScale(55) }}
@@ -162,6 +157,26 @@ const index = (props) => {
                      // icon={images.company}  />  */}
 
                 {/* />  */}
+                <View style={[styles.outcomeSal, { marginTop: fontScale(50), marginBottom: index == data.length - 1 ? fontScale(40) : fontScale(10) }]}>
+                  <View style={{ flexDirection: "row" }}>
+                    <Text style={{ fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: "#151515" }}>{item.branchCode}</Text>
+                    <Image source={images.shop} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(20), top: -fontScale(45) }} resizeMode="contain" />
+                  </View>
+                  <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
+                    <View style={{ flex: 1 }}>
+                      {["", text.totalOutcome, "Cố định", "Khoán sp", "Chi khác"].map((item, index) => <Item item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      {[text.businessCoop, item.outcomeBusiness, item.permanentBusiness, item.contractBusiness, item.othersBusiness].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      {[text.teller, item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1 }}>
+                      {[text.different, item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                  </View>
+                </View>
               </View>
             )}
           />
@@ -173,4 +188,18 @@ const index = (props) => {
   );
 };
 
+const Item = ({ item, index }) => {
+  return (
+    <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+      <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.black : colors.grey, fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
+const ItemContent = ({ item, index }) => {
+  return (
+    <View style={{ marginVertical: fontScale(10) }}>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
 export default index;

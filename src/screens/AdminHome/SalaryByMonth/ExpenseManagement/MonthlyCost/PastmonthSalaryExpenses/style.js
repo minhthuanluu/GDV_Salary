@@ -12,5 +12,20 @@ export const styles = StyleSheet.create({
         fontSize: fontScale(14),
         color:colors.white,
         textAlign:"center"
+    },
+    outcomeSal:{
+        margin: fontScale(5),
+        paddingHorizontal: fontScale(5),
+        paddingVertical: fontScale(15),
+        borderRadius: fontScale(17),
+        shadowColor: "#000",
+        backgroundColor: colors.white,
+        shadowOffset: {
+          width: 0,
+          height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
     }
 })

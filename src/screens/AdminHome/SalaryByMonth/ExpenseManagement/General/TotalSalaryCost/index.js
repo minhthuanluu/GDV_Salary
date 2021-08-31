@@ -15,6 +15,7 @@ import { ActivityIndicator } from "react-native";
 import { View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Toast from "react-native-toast-message";
+import { Image } from "react-native";
 
 
 const index = (props) => {
@@ -30,7 +31,7 @@ const index = (props) => {
   const getData = async () => {
     setLoading(true);
     setMessage("")
-    
+
     await getTotalSalaryCost(navigation).then((data) => {
       // console.log(data.data.general)
       if (data.status == "success") {
@@ -91,8 +92,8 @@ const index = (props) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View style={{marginTop:index==0?fontScale(20):0}}>
-                <GeneralListItem
+              <View style={{ marginTop: index == 0 ? fontScale(20) : fontScale(40), marginBottom: index == data.length - 1 ? fontScale(40) : 0 }}>
+                {/* <GeneralListItem
                     style={{ marginBottom: fontScale(100), marginTop: index == 0 ? -fontScale(36) : -fontScale(55) }}
                     backgroundColor={"#FFFFFF"}
                     textTitle={{fontSize: fontScale(18), fontWeight: "bold", color: props.textColor || "#151515"}}
@@ -121,9 +122,46 @@ const index = (props) => {
                     item={[]}
                   title={item. branchCode}
                   icon={images.branch}
-                   />
+                   /> */}
+                <View style={{
+                  flex: 1,
+                  margin: fontScale(5),
+                  paddingHorizontal: fontScale(10),
+                  paddingBottom: fontScale(15),
+                  borderRadius: fontScale(17),
+                  shadowColor: "#000",
+                  backgroundColor: colors.white,
+                  shadowOffset: {
+                    width: 0,
+                    height: 2,
+                  },
+                  shadowOpacity: 0.25,
+                  shadowRadius: 3.84,
+                  elevation: 5
+                }}>
+                  <Text style={{color:colors.black,fontSize:fontScale(18),marginTop:fontScale(15),fontWeight:"bold"}}>{item.branchCode}</Text>
+                  <View style={{ flexDirection: "row" }}>
+                    <View style={{ flex: 0.8, marginTop: fontScale(20) }}>
+                      {["", "Tổng chi ", "Cố định", "Khoán sp", "Chi khác"].map((item, index) => <Item item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 0.8, marginTop: fontScale(20) }}>
+                      {["HTKD", item.outcomeBusiness, item.permanentBusiness, item.contractBusiness, item.othersBusiness].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 0.8, marginTop: fontScale(20) }}>
+                      {["GDV", item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1, marginTop: fontScale(20) }}>
+                      {["Chênh lệch", item.outcomeDiff, item.permanentDiff, item.contractDiff, item.othersDiff].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    <View style={{ flex: 1, marginTop: fontScale(20) }}>
+                      {["BQ 1 tháng", item.outcomeAvg, item.permanentAvg, item.contractAvg, item.othersAvg].map((item, index) => <ItemContent item={item} index={index} />)}
+                    </View>
+                    
+                    <Image source={images.branch} resizeMode="cover" style={{ width: fontScale(40), height: fontScale(40), position: "absolute", right: fontScale(10), top: -fontScale(55) }} />
+                  </View>
+                </View>
               </View>
-              
+
             )}
           />
         </View>
@@ -133,5 +171,21 @@ const index = (props) => {
     </SafeAreaView>
   );
 };
+
+const Item = ({ item, index }) => {
+  return (
+    <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+      <Text style={{ fontSize: fontScale(13), color: colors.grey, fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
+
+const ItemContent = ({ item, index }) => {
+  return (
+    <View style={{ marginVertical: fontScale(10) }}>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+    </View>
+  )
+}
 
 export default index;
