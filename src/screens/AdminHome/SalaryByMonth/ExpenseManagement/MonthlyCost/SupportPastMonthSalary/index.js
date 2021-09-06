@@ -108,7 +108,7 @@ const index = (props) => {
             showsVerticalScrollIndicator={false}
             keyExtractor={(item, index) => index.toString()}
             renderItem={({ item, index }) => (
-              <View style={{}}>
+              <View >
                 {/* <GeneralListItem
                     style={{ marginTop:index==0?-fontScale(30):fontScale(10),marginBottom: index==data.length-1?fontScale(100):fontScale(30)}}
                     backgroundColor={"#FFFFFF"}
@@ -130,47 +130,24 @@ const index = (props) => {
                     itemAmountOne={[item.incomeTotalOutcome,item.otherOutcomeMaster,item.incomeTotalOutcome]}
                     item={["",item.supportRemain]}
                 />  */}
-                <View style={[styles.outcomeSal, { marginTop: fontScale(50), marginBottom: index == data.length - 1 ? fontScale(40) : fontScale(10),
-                flex: 1,
-                margin: fontScale(5),
-                paddingHorizontal: fontScale(10),
-                paddingBottom: fontScale(15),
-                borderRadius: fontScale(17),
-                shadowColor: "#000",
-                backgroundColor: colors.white,
-                shadowOffset: {
-                  width: 0,
-                  height: 2,
-                },
-                shadowOpacity: 0.25,
-                shadowRadius: 3.84,
-                elevation: 5 }]}>
+                <View style={[styles.outcomeSal, { marginBottom: index == data.length - 1 ? fontScale(40) : fontScale(10), }]}>
                   <View style={{ flexDirection: "row" }}>
-                    <Text style={{ fontSize: fontScale(18), textAlign: "center", fontWeight: "bold", color: "#151515",marginTop:fontScale(10),marginLeft:fontScale(10) }}>{item.branchCode}</Text>
-                    <Image source={images.shop} style={{ width: fontScale(47), height: fontScale(47), position: "absolute", right: fontScale(10), top: -fontScale(25) }} resizeMode="contain" />
+                    <Text style={styles.branchCode}>{item.branchCode}</Text>
+                    <Image source={images.shop} style={styles.branchIcon} resizeMode="contain" />
                   </View>
-                  <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20),marginLeft:fontScale(10) }}>
-                    <View style={{ flex: 2 }}>
-                      {["", "CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"].map((item, index) => <Item item={item} index={index} />)}
-                    </View>
-                    <View style={{ flex: 1 }}>
-                      {[text.totalOutcome, item.outcomeMaster, item.otherOutcomeMaster, item.incomeTotalOutcome].map((item, index) => <ItemContent item={item} index={index} />)}
-                    </View>
-                    <View style={{ flex: 1 }}/>
+                  <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20), marginLeft: fontScale(10) }}>
+                    <View style={{ flex: 2 }}>{["", "CF hỗ trợ CHT ", "CF hỗ trợ khác", "Thu"].map((item, index) => <Item item={item} index={index} />)}</View>
+                    <View style={{ flex: 1 }}>{[text.totalOutcome, item.outcomeMaster, item.otherOutcomeMaster, item.incomeTotalOutcome].map((item, index) => <ItemContent item={item} index={index} />)}</View>
+                    <View style={{ flex: 1 }} />
                   </View>
                   <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
-                  <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Còn lại:</Text>
-                  <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{item.supportRemain}</Text>
+                    <Text style={styles.remainTitle}>{text.remain}:</Text>
+                    <Text style={styles.remainContent}>{item.supportRemain}</Text>
+                  </View>
                 </View>
-                </View>
-               
               </View>
-            )}
-          />
-
-
+            )}/>
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>

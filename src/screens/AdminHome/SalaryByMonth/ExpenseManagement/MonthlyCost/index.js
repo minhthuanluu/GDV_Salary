@@ -19,7 +19,28 @@ import { TouchableOpacity } from "react-native";
 
 
 const index = (props) => {
-  const [data, setData] = useState({});
+  const [data, setData] = useState({
+    "contractBusiness": null,
+    "contractDiff": null,
+    "contractEmp": null,
+    "incomeTotalOutcome": null,
+    "otherOutcomeMaster": null,
+    "othersBusiness": null,
+    "othersDiff": null,
+    "othersEmp": null,
+    "outcomeBusiness": null,
+    "outcomeDiff": null,
+    "outcomeEmp": null,
+    "outcomeMaster": null,
+    "permanentBusiness": null,
+    "permanentDiff": null,
+    "permanentEmp": null,
+    "remain": null,
+    "remainSalary": null,
+    "remainSupport": null,
+    "supportRemain": null,
+    "totalSupport": null,
+  });
   const [message, setMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [generalData, setGeneralData] = useState({});
@@ -29,9 +50,9 @@ const index = (props) => {
   const getData = async (month) => {
     setLoading(true);
     setMessage("")
-    console.log(month)
     await getMonthCost(month).then((data) => {
       if (data.status == "success") {
+        console.log(data.data.data)
         setLoading(false);
         if (data.length == 0) {
           setData([])
@@ -78,7 +99,6 @@ const index = (props) => {
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.monthlyExpenses} />
-      {/* <Text style={styles.text}>{notification}</Text> */}
       <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -93,7 +113,7 @@ const index = (props) => {
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(25) }} /> : null}
         {message ? <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text> : null}
-        <ScrollView showsVerticalScrollIndicator={false} style={{ marginVertical: fontScale(20) }}>
+        <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: fontScale(20) }}>
           <TouchableOpacity style={styles.outcomeSal}
             onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", { "month": month })}>
             <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
@@ -109,7 +129,7 @@ const index = (props) => {
                 {[text.teller, data.outcomeEmp, data.permanentEmp, data.contractEmp, data.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
               <View style={{ flex: 1 }}>
-                {[text.different, data.outcomeEmp, data.permanentEmp, data.contractEmp, data.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+                {[text.different, data.outcomeDiff, data.permanentDiff, data.contractDiff, data.othersDiff].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
 
             </View>
@@ -123,14 +143,8 @@ const index = (props) => {
             </View>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.outcomeSal}
-            itemAmountTwo={[generalData.cusAmount, generalData.transAmount, generalData.blocking2CAmount]}
-            itemPercent={[]}
-            item={[data.remainSupport, data.supportRemain]}
-            onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {
-              "month": month
-            })}>
-            {/* // navigation.navigate("AdminSupportPastMonthlySalary", { "month": month })}> */}
+          <TouchableOpacity style={[styles.outcomeSal, { marginBottom: fontScale(40) }]}
+            onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {"month": month})}>
             <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>Tổng chi hỗ trợ tháng {month}</Text>
             <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
               <Text style={styles.remainSalaryTitle}>{"Số dư đầu kỳ:"}</Text>

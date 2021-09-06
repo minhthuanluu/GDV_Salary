@@ -165,7 +165,6 @@ const index = (props) => {
             )}
           />
         </View>
-
       </View>
       <Toast ref={(ref) => Toast.setRef(ref)} />
     </SafeAreaView>
@@ -174,8 +173,8 @@ const index = (props) => {
 
 const Item = ({ item, index }) => {
   return (
-    <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-      <Text style={{ fontSize: fontScale(13), color: colors.grey, fontWeight: "bold" }}>{item}</Text>
+    <View style={{ marginVertical: fontScale(10) }}>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: colors.grey, fontWeight: "bold" }}>{item}</Text>
     </View>
   )
 }

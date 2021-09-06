@@ -35,7 +35,6 @@ const index = (props) => {
     setMessage("")
     console.log(month)
     await getTotalSalaryMonthCost(month).then((data) => {
-      console.log()
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -173,7 +172,7 @@ const index = (props) => {
                       {[text.teller, item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
                     </View>
                     <View style={{ flex: 1 }}>
-                      {[text.different, item.outcomeEmp, item.permanentEmp, item.contractEmp, item.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
+                      {[text.different, item.outcomeDiff, item.permanentDiff, item.contractDiff, item.othersDiff].map((item, index) => <ItemContent item={item} index={index} />)}
                     </View>
                   </View>
                 </View>

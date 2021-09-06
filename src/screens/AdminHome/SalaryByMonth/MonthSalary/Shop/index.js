@@ -110,6 +110,7 @@ const index = () => {
                       style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
                       monthSalaryGeneral
                       key={index}
+                      backgroundColor={"#EFFEFF"}
                       title={generalData.shopName}
                       titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}
                       item={generalData && [generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.vasAffiliate, generalData.supportOutcome, generalData.encouSalary, generalData.other]}

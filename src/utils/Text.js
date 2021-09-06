@@ -254,5 +254,6 @@ export const text = {
   avgEmpPerMonth: "BQ 1 GDV/tháng",
   empPerMonth: "1 GDV/tháng",
   businessCoopPerMonth: "HTKD 1 tháng",
-  businessCoop: "HTKD"
+  businessCoop: "HTKD",
+  remain:"Còn lại"
 };

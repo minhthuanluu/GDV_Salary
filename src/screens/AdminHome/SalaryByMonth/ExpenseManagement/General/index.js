@@ -34,7 +34,6 @@ const index = (props) => {
     setMessage("")
 
     await getAccumulatedCost(navigation).then((data) => {
-      console.log(data.data.data)
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -74,11 +73,7 @@ const index = (props) => {
   useEffect(() => {
     getData("");
   }, [])
-
-  // const _onChangeMonth = (value) => {
-  //   setMonth(value);
-  //   getData(value, "", "");
-  // };
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
@@ -92,39 +87,24 @@ const index = (props) => {
         {loading == true ? <ActivityIndicator size="small" color={colors.primary} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <TouchableOpacity style={{
-            flex: 1,
-            margin: fontScale(5),
-            paddingHorizontal: fontScale(10),
-            paddingBottom: fontScale(15),
-            borderRadius: fontScale(17),
-            shadowColor: "#000",
-            backgroundColor: colors.white,
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.25,
-            shadowRadius: 3.84,
-            elevation: 5
-          }}
+          <TouchableOpacity style={styles.squareShapeOne}
           onPress={() => navigation.navigate("AdminTotalSalaryCostGeneral")}>
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginVertical: fontScale(10) }]}>{"Tổng chi phí lương "}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginVertical: fontScale(10) }]}>{"Tổng chi phí lương"}</Text>
             <NoftiContent title="Nguồn chi:" content={data.outcome} left={fontScale(10)} />
             <View style={{ flexDirection: "row" }}>
-              <View style={{ flex: 0.7, marginTop: fontScale(5) }}>
+              <View style={{ flex: 0.7, marginTop: fontScale(5) }} index={0}>
                 {["", "Tổng chi ", "Cố định", "Khoán sp", "Chi khác"].map((item, index) => <Item item={item} index={index} />)}
               </View>
-              <View style={{ flex: 0.8, marginTop: fontScale(5) }}>
+              <View style={{ flex: 0.8, marginTop: fontScale(5) }} index={1}>
                 {["HTKD", data.outcomeBusiness, data.permanentBusiness, data.contractBusiness, data.othersBusiness].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
-              <View style={{ flex: 0.8, marginTop: fontScale(5) }}>
+              <View style={{ flex: 0.8, marginTop: fontScale(5) }} index={2}>
                 {["GDV", data.outcomeEmp, data.permanentEmp, data.contractEmp, data.othersEmp].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
-              <View style={{ flex: 0.9, marginTop: fontScale(5) }}>
+              <View style={{ flex: 0.9, marginTop: fontScale(5) }} index={3}>
                 {["Chênh lệch", data.outcomeDiff, data.permanentDiff, data.contractDiff, data.othersDiff].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
-              <View style={{ flex: 0.8, marginTop: fontScale(5) }}>
+              <View style={{ flex: 0.8, marginTop: fontScale(5) }} index={4}>
                 {["BQ 1 tháng", data.outcomeAvg, data.permanentAvg, data.contractAvg, data.othersAvg].map((item, index) => <ItemContent item={item} index={index} />)}
               </View>
             </View>

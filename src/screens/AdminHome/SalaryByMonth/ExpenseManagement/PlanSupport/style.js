@@ -11,7 +11,8 @@ export const styles = StyleSheet.create({
         flex:1,
         backgroundColor:colors.white,
         paddingBottom:fontScale(15),
-        marginTop:-fontScale(25)
+        borderTopLeftRadius: fontScale(50), borderTopRightRadius: fontScale(50) ,
+        marginTop:fontScale(30)
     },
     planTwelveText:{
         fontWeight:"bold",

@@ -71,16 +71,18 @@ function index(props) {
         setLoading(true);
         setData([])
         await getFCardTrans(navigation, branchCode, shopCode, empCode).then((res) => {              
-            setLoading(false)
+            
+            console.log(res)
             if(res.length==0){
                 setMessage(text.dataIsNull)
+                setLoading(res.isLoading)
             }
             if (res.status == "success") {
                 setMessage("");
                 if (res.length == 0) {
                     setLoading(res.isLoading);
                     setMessage(text.dataIsNull)
-                    setNotification(res.notification)
+                    setNotification(res.data.notification)
                 } else {
                     setNotification(res.data.notification)
                     setData(res.data.data);
@@ -151,7 +153,8 @@ function index(props) {
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: colors.primary }}>
             <Header title={title} />
-            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(5),marginTop:-fontScale(5), textAlign: "center" }}>{notification}</Text>
+            <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(10), textAlign: "center" }}>{notification}</Text>
+            {/* <Text style={{ color: colors.white,fontWeight:"bold",fontSize:fontScale(14),marginBottom:fontScale(5),marginTop:-fontScale(5), textAlign: "center" }}>{notification}</Text> */}
             <SearchWithPermission
                 full
                 hideMonthFilter

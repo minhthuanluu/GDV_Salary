@@ -112,6 +112,7 @@ const index = (props) => {
                   <GeneralListItem
                     style={{ marginBottom: fontScale(80), marginTop: fontScale(35) }}
                     monthSalaryGeneral
+                    backgroundColor={"#EFFEFF"}
                     key={index}
                     title={generalData.shopName}
                     titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp","Vas Affiliate", "Chi hỗ trợ", "CFKK", "Khác"]}

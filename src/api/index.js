@@ -2320,6 +2320,7 @@ export const getFCardTrans = async (navigation, branchCode, shopCode, empCode) =
   })
     .then((res) => {
       if (res.status == 200) {
+        console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
             message: "Chức năng này đang được bảo trì",
@@ -2329,7 +2330,7 @@ export const getFCardTrans = async (navigation, branchCode, shopCode, empCode) =
             length: 0,
             error: null
           }
-        } else if (Object.values(res.data.data).length > 0) {
+        } else if (Object.values(res.data).length > 0) {
           data = {
             data: res.data,
             isLoading: false,

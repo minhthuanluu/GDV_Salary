@@ -73,12 +73,17 @@ const index = (props) => {
         <SafeAreaView style={styles.container}>
             <Header title={text.outcomePlanSupport} />
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
-            <Body />
+            {/* <Body /> */}
             <View style={styles.subContainer}>
-                <ScrollView style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(10)}}>
+                <ScrollView style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(5)}}>
                     <View style={{
+                        flex:1,
                         paddingHorizontal: fontScale(10),
+                        marginHorizontal:fontScale(3),
                         paddingBottom: fontScale(15),
+                        marginBottom:fontScale(10),
+                        marginTop:fontScale(20),
+                        zIndex:100,
                         borderRadius: fontScale(17),
                         shadowColor: "#000",
                         backgroundColor: colors.white,
