@@ -89,7 +89,8 @@ const index = (props) => {
         <ScrollView showsVerticalScrollIndicator={false}>
           <TouchableOpacity style={styles.squareShapeOne}
           onPress={() => navigation.navigate("AdminTotalSalaryCostGeneral")}>
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginVertical: fontScale(10) }]}>{"Tổng chi phí lương"}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10) }]}>{"Tổng chi phí lương"}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom:fontScale(10),marginTop: fontScale(5) }]}>{"(Đơn vị tính: triệu đồng)"}</Text>
             <NoftiContent title="Nguồn chi:" content={data.outcome} left={fontScale(10)} />
             <View style={{ flexDirection: "row" }}>
               <View style={{ flex: 0.7, marginTop: fontScale(5) }} index={0}>
@@ -131,7 +132,8 @@ const index = (props) => {
             elevation: 5
           }}
           onPress={() => navigation.navigate("AdminSupportSalaryCostGeneral")}>
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginVertical: fontScale(10) }]}>{"Tổng chi hỗ trợ"}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10) }]}>{"Tổng chi hỗ trợ"}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom:fontScale(10),marginTop: fontScale(5) }]}>{"(Đơn vị tính: triệu đồng)"}</Text>
             <NoftiContent title="Nguồn tổng:" content={data.totalOutcome} left={fontScale(10)} />
             <View style={{ flexDirection: "row" }}>
               <View style={{ flex: 1, marginTop: fontScale(5) }}>
@@ -146,8 +148,7 @@ const index = (props) => {
               <View style={{ flex: 0.5 }}/>
             </View>
             <NoftiContent title="Còn lại:" content={data.supportRemain} left={fontScale(10)} />
-            <NoftiContent title="Số tiền hỗ trợ CHT đến 31/12:" titleColor={colors.grey} content={data.expected} left={fontScale(20)} />
-
+            <NoftiContent title="Số tiền hỗ trợ CHT đến 31/12:" titleColor={colors.grey} content={data.expectedSupport} left={fontScale(20)} />
           </TouchableOpacity>
         </ScrollView>
 

@@ -75,7 +75,7 @@ const index = (props) => {
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
             {/* <Body /> */}
             <View style={styles.subContainer}>
-                <ScrollView style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(5)}}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(5)}}>
                     <View style={{
                         flex:1,
                         paddingHorizontal: fontScale(10),
@@ -96,23 +96,24 @@ const index = (props) => {
                         elevation: 5
                     }}>
                         <Text style={styles.planTwelveText}>{text.planTwelveText}</Text>
+                        <Text style={{ fontSize: fontScale(12), textAlign: "center", fontWeight: "bold", color: "#686565", opacity: 0.59, marginBottom: fontScale(10), marginTop: fontScale(5) }}>{"(Đơn vị tính: triệu đồng)"}</Text>
                         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: fontScale(10) }} /> : null}
-                        <View style={{ flexDirection: "row", marginTop: fontScale(10) }}>
+                        <View style={{ flexDirection: "row" }}>
                             <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
                                 {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                             </View>
                             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                                 <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
-                                    <View style={{ flex: 1.3, marginTop: fontScale(10) }}>
+                                    <View style={{ flex: 1.3 }}>
                                         {column1.map((item, index) => <Column item={item} index={index} />)}
                                     </View>
-                                    <View style={{ flex: 1, marginTop: fontScale(10) }}>
+                                    <View style={{ flex: 1 }}>
                                         {column2.map((item, index) => <Column item={item} index={index} />)}
                                     </View>
-                                    <View style={{ flex: 0.8, marginTop: fontScale(10) }}>
+                                    <View style={{ flex: 0.8 }}>
                                         {column3.map((item, index) => <Column item={item} index={index} />)}
                                     </View>
-                                    <View style={{ flex: 1.8, marginTop: fontScale(10) }}>
+                                    <View style={{ flex: 1.8 }}>
                                         {column4.map((item, index) => <Column item={item} index={index} />)}
                                     </View>
                                 </View>

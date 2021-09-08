@@ -116,7 +116,10 @@ const index = (props) => {
         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: fontScale(20) }}>
           <TouchableOpacity style={styles.outcomeSal}
             onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", { "month": month })}>
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
+            {/* <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom: fontScale(10) }]}>{"(Đơn vị tính: triệu đồng)"}</Text> */}
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10) }]}>{"Chi phí lương tháng " + month}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom:fontScale(10),marginTop: fontScale(5)}]}>{"(Đơn vị tính: triệu đồng)"}</Text>
             <NoftiContent title="Số dư đầu kỳ:" content={data.remainSalary} left={fontScale(10)} />
             <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
               <View style={{ flex: 1 }}>
@@ -145,7 +148,9 @@ const index = (props) => {
 
           <TouchableOpacity style={[styles.outcomeSal, { marginBottom: fontScale(40) }]}
             onPress={() => navigation.navigate("AdminSupportPastMonthlyCostGeneral", {"month": month})}>
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>Tổng chi hỗ trợ tháng {month}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10)  }]}>Tổng chi hỗ trợ tháng {month}</Text>
+            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom:fontScale(10),marginTop: fontScale(5)}]}>{"(Đơn vị tính: triệu đồng)"}</Text>
+            
             <View style={[{ flexDirection: "row", marginVertical: fontScale(15) }]}>
               <Text style={styles.remainSalaryTitle}>{"Số dư đầu kỳ:"}</Text>
               <Text style={styles.remainSalaryContent}>{data.remainSupport}</Text>

@@ -90,169 +90,241 @@ const index = () => {
             <Body />
             <View style={styles.subContainer}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={styles.empAmount}>
-                        <Text style={styles.empAmountTitle}>{text.empAmount}: </Text>
-                        <Text style={styles.empAmountContent}>{data.empAmount}</Text>
-                    </View>
-                    {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
-                    <View style={{
-                        flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(25)
-                    }}>
-                        <View style={{ width: 1.5 / 4 * width }}>
-                            {
-                                fstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10)}}>
-                                    <Text style={{
-                                        fontSize: fontScale(13),
-                                        fontWeight: "bold",
-                                        color: index == 1 || index == 4 || index == 8 || index == 14 ? "#000" : "#707070",
-                                        marginLeft: index == 4 || index == 8 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
-                                    }}>{item}</Text></View>)
-                            }
+                    <View style={{marginTop:fontScale(10)}}>
+                        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20),marginBottom:fontScale(10) }} /> : null}
+                        <View style={{
+                            backgroundColor: "#fff", shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
+                            elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20)
+                        }}>
+                            <View style={[styles.empAmount,{marginTop:fontScale(20)}]}>
+                                <Text style={styles.empAmountTitle}>{text.empAmount}: </Text>
+                                <Text style={styles.empAmountContent}>{data.empAmount}</Text>
+                            </View>
+                            <Text style={{ fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565", opacity: 0.59, marginBottom: fontScale(10), marginTop: fontScale(5) }}>{"(Đơn vị tính: triệu đồng)"}</Text>
+                            <View style={{
+                                flexDirection: "row", marginHorizontal: fontScale(7), marginTop: fontScale(15)
+                            }}>
+                                <View style={{ width: 1.5 / 4 * width }}>
+                                    {
+                                        fstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                            <Text style={{
+                                                fontSize: fontScale(13),
+                                                fontWeight: "bold",
+                                                color: index == 1 || index == 4 || index == 8 || index == 15 ? "#000" : "#707070",
+                                                marginLeft: index == 4 || index == 8|| index == 9 ||index==10 ||index==11||index==12||index==13||index==14? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
+                                            }}>{item}</Text></View>)
+                                    }
+                                </View>
+                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                    <View style={{ minWidth: 1 / 6 * width }}>
+                                        {
+                                            [text.businessCoop,
+                                            data.outcomeBusiness, //Tổng chi nguồn lương HTKD
+                                            data.permanentBusiness, //cố định HTKD
+                                            data.contractBusiness,// khoán sp HTKD
+                                            data.postpaidSubBusiness, // TBTS HTKD
+                                            data.commissionBusiness, // hoa hồng HTKD
+                                            data.ppgldBusiness, // PPGLĐ HTKD
+                                            data.maintainBusiness, // Duy trì HTKD
+                                            data.prepaidSubBusiness, //TBTT HTKD
+                                            data.vasBusiness,// Vas HTKD
+                                            data.ezBusiness, // ez HTKD
+                                            data.cardBusiness, // Thẻ cào HTKD
+                                            data.servicesBusiness, //D.vụ sau BH HTKD
+                                            data.chargeableBusiness, // Thu cước HTKD
+                                            data.machineBusiness, // Bán máy HTKD
+                                            data.totalOSB, // tổng chi hỗ trợ
+                                            data.outcomeBusinessMaster, // chi CHT
+                                            data.otherOBMaster // chi hỗ trợ khác
+                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            </View>)
+                                        }
+                                    </View>
+                                    <View style={{ minWidth: 0.8 / 6 * width, marginLeft: fontScale(5) }}>
+                                        {
+                                            [text.teller,
+                                            data.outcomeEmp, //tổng chi nguồn lương GDV
+                                            data.permanentEmp, //cố đinh GDV
+                                            data.contractEmp, // khoán sp GDV
+                                            data.postpaidSubEmp, // TBTS GDV
+                                            data.commissionEmp, // hoa hồng GDV
+                                            data.ppgldEmp, // PPGLD GDV
+                                            data.maintainEmp, // duy trì GDV
+                                            data.prepaidSubEmp, // TBTT GDV
+                                            data.vasEmp, // vas GDV
+                                            data.ezEmp, // ez GDV
+                                            data.cardEmp, // thẻ cào GDV
+                                            data.servicesEmp, // D.vụ sau BH GDV
+                                            data.chargeableEmp, // thu cước GDV
+                                            data.machineEmp, // bán máy GDV
+                                            data.totalOSE, // tổng chi hỗ trợ
+                                            data.outcomeEmpMaster, // chi CHT
+                                            data.otherOBEmpMaster // chi hỗ trợ khác
+                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            </View>)
+                                        }
+                                    </View>
+                                    <View style={{ minWidth: 0.8 / 3.8 * width, marginLeft: fontScale(5) }}>
+                                        {
+                                            [text.different,
+                                            data.outcomeDiff, // tổng chi nguồn lương chênh lệch
+                                            data.permanentDiff, // cố định chênh lệch
+                                            data.contractDiff, // khoán sp chênh lệch
+                                            data.postpaidSubDiff, // TBTS chênh lệch
+                                            data.commissionDiff, // hoa hồng chênh lệch
+                                            data.ppgldDiff, // PPGLĐ chênh lệch
+                                            data.maintainDiff, // duy trì chênh lệch
+                                            data.prepaidSubDiff, // TBTT chênh lệch
+                                            data.vasDiff, // Vas chênh lệch
+                                            data.ezDiff, // ez chênh lệch
+                                            data.cardDiff, // thẻ cào chênh lệch
+                                            data.servicesDiff, // D.vụ sau BH chênh lệch
+                                            data.chargeableDiff, // thu cước chênh lệch
+                                            data.machineDiff, // bán máy chênh lệch
+                                            data.totalOutcomeSupportDiff, // tổng chi hỗ trợ chênh lệch
+                                            data.outcomeDiffMaster, // chi CHT chênh lệch
+                                            data.otherOBDiff // chi hỗ trợ khác
+                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            </View>)
+                                        }
+                                    </View>
+                                    <View style={{ minWidth: 1.3 / 6 * width, marginLeft: fontScale(5) }}>
+                                        {
+                                            [text.businessCoopPerMonth,
+                                            data.outcomeBusinessMonth, // tổng chi nguồn lương HTKD 1 tháng
+                                            data.permanentBusinessMonth, // cố định HTKD 1 tháng
+                                            data.contractBusinessMonth, // khoán sp HTKD 1 tháng
+                                            data.postpaidSubBusinessMonth, // TBTS HTKD 1 tháng
+                                            data.commissionBusinessMonth, // hoa hồng HTKD 1 tháng
+                                            data.ppgldBusinessMonth, // PPGLĐ HTKD 1 tháng
+                                            data.maintainBusinessMonth, // duy trì HTKD 1 tháng
+                                            data.prepaidSubBusinessMonth, // TBTT HTKD 1 tháng
+                                            data.vasBusinessMonth, // vas HTKD 1 tháng
+                                            data.ezBusinessMonth, // ez HTKD 1 tháng
+                                            data.cardBusinessMonth, // thẻ cào 1 tháng
+                                            data.servicesBusinessMonth, // D.vụ sau BH 1 tháng
+                                            data.chargeableBusinessMonth, // Thu cước 1 tháng
+                                            data.machineBusinessMonth, // bán máy 1 tháng
+                                            data.totalOSBMonth, // tổng chi hỗ trợ 1 tháng
+                                            data.outcomeBusinessMonthMaster, // chi CHT 1 tháng
+                                            data.otherOBMonthMaster // chi hỗ trợ khác
+                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            </View>)
+                                        }
+                                    </View>
+                                    <View style={{ minWidth: 1.3 / 5 * width, marginLeft: fontScale(5) }}>
+                                        {
+                                            [text.empPerMonth,
+                                            data.outcomeEmpMonth,
+                                            data.permanentEmpMonth,
+                                            data.contractEmpMonth,
+                                            data.postpaidSubEmpMonth,
+                                            data.commissionEmpMonth,
+                                            data.ppgldEmpMonth,
+                                            data.maintainEmpMonth,
+                                            data.prepaidSubEmpMonth,
+                                            data.vasEmpMonth,
+                                            data.ezEmpMonth,
+                                            data.cardEmpMonth,
+                                            data.servicesEmpMonth,
+                                            data.chargeableEmpMonth,
+                                            data.machineEmpMonth,
+                                            data.totalOSEMonth,
+                                            data.outcomeBusinessEmpMaster,
+                                            data.otherOBEmpMaster
+                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            </View>)
+                                        }
+                                    </View>
+                                </ScrollView>
+                            </View>
                         </View>
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                            <View style={{ minWidth: 1 / 6 * width }}>
+                        <View style={{
+                            flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84,
+                            elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(20), marginBottom: fontScale(5)
+                        }}>
+                            <View style={{ width: 2.1 / 6 * width }}>
                                 {
-                                    [text.businessCoop, data.outcomeBusiness, data.permanentBusiness, data.contractBusiness,
-                                    data.postpaidSubBusiness, data.commissionBusiness, data.ppgldBusiness,
-                                    data.maintainBusiness, data.prepaidSubBusiness, data.ezBusiness,data.vasBusiness,
-                                    data.cardBusiness, data.servicesBusiness, data.chargeableBusiness,
-                                    data.machineBusiness, data.totalOSB, data.outcomeBusinessMaster,
-                                    data.otherOBMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                    sndTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                        <Text style={{
+                                            fontSize: fontScale(13),
+                                            fontWeight: "bold",
+                                            color: index == 1 ? "#000" : "#707070",
+                                            marginLeft: index == 1 ? fontScale(5) : fontScale(15)
+                                        }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                            <View style={{ minWidth: 0.8 / 6 * width,marginLeft:fontScale(5) }}>
-                                {
-                                    [text.teller, data.outcomeEmp, data.permanentEmp, data.contractEmp,
-                                    data.prepaidSubEmp, data.commissionEmp, data.ppgldEmp,
-                                    data.maintainEmp, data.postpaidSubEmp, data.ezEmp,data.vasEmp,
-                                    data.cardEmp, data.servicesEmp, data.chargeableEmp,
-                                    data.machineEmp, data.totalOSE, data.outcomeEmpMaster,
-                                    data.otherOBEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                    </View>)
-                                }
-                            </View>
-                            <View style={{ minWidth: 0.8 / 3.8 * width ,marginLeft:fontScale(5)}}>
-                                {
-                                    [text.different, data.outcomeDiff, data.permanentDiff, data.contractDiff,
-                                    data.prepaidSubDiff, data.commissionDiff, data.ppgldDiff,
-                                    data.maintainDiff, data.postpaidSubDiff, data.ezDiff,data.vasDiff,
-                                    data.cardDiff, data.servicesDiff, data.chargeableDiff,
-                                    data.machineDiff, data.totalOutcomeSupportDiff, data.outcomeDiffMaster,
-                                    data.otherOBDiff].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                    </View>)
-                                }
-                            </View>
-                            <View style={{ minWidth: 1.3 / 6 * width ,marginLeft:fontScale(5)}}>
-                                {
-                                    [text.businessCoopPerMonth, data.outcomeBusinessMonth, data.permanentBusinessMonth, data.contractBusinessMonth,
-                                    data.prepaidSubBusinessMonth, data.commissionBusinessMonth, data.ppgldBusinessMonth,
-                                    data.maintainBusinessMonth, data.postpaidSubBusinessMonth, data.ezBusinessMonth,data.vasBusinessMonth,
-                                    data.cardBusinessMonth, data.servicesBusinessMonth, data.chargeableBusinessMonth,
-                                    data.machineBusinessMonth, data.totalOSBMonth, data.outcomeBusinessMonthMaster,
-                                    data.otherOBMonthMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                    </View>)
-                                }
-                            </View>
-                            <View style={{ minWidth: 1.3 / 5 * width,marginLeft:fontScale(5) }}>
-                                {
-                                    [text.empPerMonth, data.outcomeEmpMonth, data.permanentEmpMonth, data.contractEmpMonth,
-                                    data.prepaidSubEmpMonth, data.commissionEmpMonth, data.ppgldEmpMonth,
-                                    data.maintainEmpMonth, data.postpaidSubEmpMonth, data.ezEmpMonth,data.vasEmpMonth,
-                                    data.cardEmpMonth, data.servicesEmpMonth, data.chargeableEmpMonth,
-                                    data.machineEmpMonth, data.totalOSEMonth, data.outcomeBusinessEmpMaster,
-                                    data.otherOBEmpMaster].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                    </View>)
-                                }
-                            </View>
-                        </ScrollView>
-                    </View>
-                    <View style={{
-                        flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 2, }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(20), marginBottom: fontScale(5)
-                    }}>
-                        <View style={{ width: 2.1 / 6 * width }}>
-                            {
-                                sndTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                    <Text style={{
-                                        fontSize: fontScale(13),
-                                        fontWeight: "bold",
-                                        color: index == 1 ? "#000" : "#707070",
-                                        marginLeft: index == 1 ? fontScale(5) : fontScale(15)
-                                    }}>{item}</Text>
-                                </View>)
-                            }
+                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                <View style={{ width: 1 / 6 * width }}>
+                                    {
+                                        [text.teller, data.otherTotalOE, data.incentiveOE, data.vasAffiEmp, data.otherEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        </View>)
+                                    }
+                                </View>
+                                <View style={{ width: 1 / 5 * width }}>
+                                    {
+                                        [text.avgPerMonth, data.otherTotalOBMonth, data.incentiveOBMonth, data.vasAffiBusinessMonth, data.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        </View>)
+                                    }
+                                </View>
+                                <View style={{ width: 1 / 4 * width }}>
+                                    {
+                                        [text.avgEmpPerMonth, data.otherTotalOBE, data.incentiveOBEmp, data.vasAffiBusinessEmp, data.otherAvgMonthEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        </View>)
+                                    }
+                                </View>
+                            </ScrollView>
                         </View>
-                        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+
+                        <View style={{
+                            flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
+                            shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
+                            elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(15), marginBottom: fontScale(15)
+                        }}>
+                            <View style={{ width: 2 / 6 * width }}>
+                                {
+                                    tstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                        <Text style={{
+                                            fontSize: fontScale(13),
+                                            fontWeight: "bold",
+                                            color: index == 1 ? "#000" : "#707070",
+                                            marginLeft: index == 1 ? fontScale(5) : fontScale(15)
+                                        }}>{item}</Text>
+                                    </View>)
+                                }
+                            </View>
                             <View style={{ width: 1 / 6 * width }}>
                                 {
-                                    [text.teller, data.otherTotalOE, data.incentiveOE, data.vasAffiEmp, data.otherEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.money, data.moneyFollow, data.moneyArrears, data.moneyPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 5 * width }}>
                                 {
-                                    [text.avgPerMonth, data.otherTotalOBMonth, data.incentiveOBMonth, data.vasAffiBusinessMonth, data.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.avgPerMonth, data.avgMonthFollow, data.avgMonthArrears, data.avgMonthPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 4 * width }}>
                                 {
-                                    [text.avgEmpPerMonth, data.otherTotalOBE, data.incentiveOBEmp, data.vasAffiBusinessEmp, data.otherAvgMonthEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                    [text.avgEmpPerMonth, data.avgMonthEmpFollow, data.avgMonthEmpArrears, data.avgMonthEmpPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                         <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
-                        </ScrollView>
-                    </View>
-
-                    <View style={{
-                        flexDirection: "row", backgroundColor: "#fff", shadowColor: "#000",
-                        shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
-                        elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20), marginTop: fontScale(15), marginBottom: fontScale(15)
-                    }}>
-                        <View style={{ width: 2 / 6 * width }}>
-                            {
-                                tstTitleLeft.map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                    <Text style={{
-                                        fontSize: fontScale(13),
-                                        fontWeight: "bold",
-                                        color: index == 1 ? "#000" : "#707070",
-                                        marginLeft: index == 1 ? fontScale(5) : fontScale(15)
-                                    }}>{item}</Text>
-                                </View>)
-                            }
-                        </View>
-                        <View style={{ width: 1 / 6 * width }}>
-                            {
-                                [text.money, data.moneyFollow, data.moneyArrears, data.moneyPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                    <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                </View>)
-                            }
-                        </View>
-                        <View style={{ width: 1 / 5 * width }}>
-                            {
-                                [text.avgPerMonth, data.avgMonthFollow, data.avgMonthArrears, data.avgMonthPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                    <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                </View>)
-                            }
-                        </View>
-                        <View style={{ width: 1 / 4 * width }}>
-                            {
-                                [text.avgEmpPerMonth, data.avgMonthEmpFollow, data.avgMonthEmpArrears, data.avgMonthEmpPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                    <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
-                                </View>)
-                            }
                         </View>
                     </View>
                 </ScrollView>

@@ -16,7 +16,7 @@ const ProfileItem = (props) => {
                         ?
                         <TextInput keyboardType={props.type == "email" ? "email-address" : props.type == "number" ? "number-pad" : props.type == "phone" ? "phone-pad" : "default"} style={[styles.inputContent, { width: width - fontScale(90) }]} onChangeText={props.onChangeText} defaultValue={props.defaultValue} value={props.value} />
                         :
-                        props.linking ? <TouchableOpacity onPress={props.openLink}><Text style={styles.textContent}>{props.value}</Text></TouchableOpacity>
+                        props.linking ? <TouchableOpacity onPress={props.openLink}><Text style={[styles.textContent,{fontSize:fontScale(15)}]}>{props.value}</Text></TouchableOpacity>
                             : <Text style={styles.textContent}>{props.value ? props.value : '...'}</Text>
 
 

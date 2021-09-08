@@ -71,7 +71,7 @@ const DashBoard = () => {
                                     <ProfileItem icon={images.workingShop} title={text.workingShop} size={fontScale(25)} value={userData.shopId ? userData.shopId.shopName : "..."} />
                                     <ProfileItem icon={images.traderRating} title={text.traderRating} size={fontScale(25)} value={"..."} />
                                     <ProfileItem icon={images.traderRating} title={text.storeRating} size={fontScale(25)} value={"..."} />
-                                    <ProfileItem linking icon={images.pdf} title={text.PDF} size={fontScale(25)} value={"..."} openLink={() => Linking.openURL('http://hochiminh.mobifone.vn/HDSD_AppNVBH.pdf')} />
+                                    <ProfileItem linking icon={images.pdf} title={text.PDF} size={fontScale(25)} value={"Hướng dẫn sử dụng App Lương"} openLink={() => Linking.openURL('http://hochiminh.mobifone.vn/download/HDSD_AppGDV.pdf')} />
                                 </View>
                             </ScrollView>
                     }
