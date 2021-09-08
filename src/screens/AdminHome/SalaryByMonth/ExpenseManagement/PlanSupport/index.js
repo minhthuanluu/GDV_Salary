@@ -75,15 +75,15 @@ const index = (props) => {
             <YearPicker defaultYear={year} width={width - fontScale(100)} onPress={(value) => onChangeYear(value)} style={{ alignSelf: "center" }} />
             {/* <Body /> */}
             <View style={styles.subContainer}>
-                <ScrollView showsVerticalScrollIndicator={false} style={{paddingTop:fontScale(15),paddingHorizontal:fontScale(5)}}>
+                <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: fontScale(15), paddingHorizontal: fontScale(5) }}>
                     <View style={{
-                        flex:1,
+                        flex: 1,
                         paddingHorizontal: fontScale(10),
-                        marginHorizontal:fontScale(3),
+                        marginHorizontal: fontScale(3),
                         paddingBottom: fontScale(15),
-                        marginBottom:fontScale(10),
-                        marginTop:fontScale(20),
-                        zIndex:100,
+                        marginBottom: fontScale(10),
+                        marginTop: fontScale(20),
+                        zIndex: 100,
                         borderRadius: fontScale(17),
                         shadowColor: "#000",
                         backgroundColor: colors.white,
@@ -99,25 +99,27 @@ const index = (props) => {
                         <Text style={{ fontSize: fontScale(12), textAlign: "center", fontWeight: "bold", color: "#686565", opacity: 0.59, marginBottom: fontScale(10), marginTop: fontScale(5) }}>{"(Đơn vị tính: triệu đồng)"}</Text>
                         {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginVertical: fontScale(10) }} /> : null}
                         <View style={{ flexDirection: "row" }}>
-                            <View style={{ marginTop: fontScale(10), width: 1 / 3.8 * width }}>
+                            <View style={{ flex: 0.7 }}>
                                 {fstTitleLeft.map((item, index) => <LeftColumn item={item} index={index} />)}
                             </View>
-                            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                                <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
-                                    <View style={{ flex: 1.3 }}>
-                                        {column1.map((item, index) => <Column item={item} index={index} />)}
+                            <View style={{flex:1.7}}>
+                                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                                    <View style={{ flexDirection: "row", width: 2 / 3 * width }}>
+                                        <View style={{ flex: 1.3 }}>
+                                            {column1.map((item, index) => <Column item={item} index={index} />)}
+                                        </View>
+                                        <View style={{ flex: 1 }}>
+                                            {column2.map((item, index) => <Column item={item} index={index} />)}
+                                        </View>
+                                        <View style={{ flex: 0.8 }}>
+                                            {column3.map((item, index) => <Column item={item} index={index} />)}
+                                        </View>
+                                        <View style={{ flex: 1.8 }}>
+                                            {column4.map((item, index) => <Column item={item} index={index} />)}
+                                        </View>
                                     </View>
-                                    <View style={{ flex: 1 }}>
-                                        {column2.map((item, index) => <Column item={item} index={index} />)}
-                                    </View>
-                                    <View style={{ flex: 0.8 }}>
-                                        {column3.map((item, index) => <Column item={item} index={index} />)}
-                                    </View>
-                                    <View style={{ flex: 1.8 }}>
-                                        {column4.map((item, index) => <Column item={item} index={index} />)}
-                                    </View>
-                                </View>
-                            </ScrollView>
+                                </ScrollView>
+                            </View>
                         </View>
                         <View style={{ flexDirection: "row" }}>
                             <Text style={styles.subTitle}>{text.expectedOutcomeSupport}:</Text>

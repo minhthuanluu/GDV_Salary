@@ -220,23 +220,23 @@ const index = () => {
                                     <View style={{ minWidth: 1.3 / 5 * width, marginLeft: fontScale(5) }}>
                                         {
                                             [text.empPerMonth,
-                                            data.outcomeEmpMonth,
-                                            data.permanentEmpMonth,
-                                            data.contractEmpMonth,
-                                            data.postpaidSubEmpMonth,
-                                            data.commissionEmpMonth,
-                                            data.ppgldEmpMonth,
-                                            data.maintainEmpMonth,
-                                            data.prepaidSubEmpMonth,
-                                            data.vasEmpMonth,
-                                            data.ezEmpMonth,
-                                            data.cardEmpMonth,
-                                            data.servicesEmpMonth,
-                                            data.chargeableEmpMonth,
-                                            data.machineEmpMonth,
-                                            data.totalOSEMonth,
-                                            data.outcomeBusinessEmpMaster,
-                                            data.otherOBEmpMaster
+                                            data.outcomeEmpMonth, //tổng chi nguồn lương 1 GDV/tháng
+                                            data.permanentEmpMonth, // cố định 1 GDV/tháng
+                                            data.contractEmpMonth, // khoán sp 1 GDV/tháng
+                                            data.postpaidSubEmpMonth, // TBTS 1 GDV/tháng
+                                            data.commissionEmpMonth, // hoa hồng 1 GDV/tháng
+                                            data.ppgldEmpMonth, // PPGLĐ 1 GDV/tháng
+                                            data.maintainEmpMonth, // duy trì 1 GDV/tháng
+                                            data.prepaidSubEmpMonth, // TBTT 1 GDV/tháng
+                                            data.vasEmpMonth, // Vas 1 GDV/tháng
+                                            data.ezEmpMonth, // ez 1 GDV/tháng
+                                            data.cardEmpMonth, // card 1 GDV/tháng
+                                            data.servicesEmpMonth, // D.vụ sau BH 1 GDV/tháng
+                                            data.chargeableEmpMonth, // thu cước 1 GDV/tháng
+                                            data.machineEmpMonth, // bán máy 1 GDV/tháng
+                                            data.totalOSEMonth, // tổng chi hỗ trợ 1 GDV/tháng
+                                            data.otherOutcomeEmpMaster, // chi CHT 1 GDV/tháng
+                                            data.otherOBEmpMaster // chi hỗ trợ khác 1 GDV/tháng
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                                 <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
                                             </View>)

@@ -38,7 +38,7 @@ const YearMonthPicker = (props) => {
         if (month.year > endMonth.substring(9, endMonth.length)) {
             console.log("Năm bắt đầu phải nhỏ hơn năm kết thúc")
         } else {
-            if (month.item.key >= endMonth.substring(6, 8)) {
+            if (month.item.key > endMonth.substring(6, 8)) {
                 props.onError && props.onError("Tháng bắt đầu phải nhỏ hơn tháng kết thúc")
             } else {
                 setBeginMonth(month.item.name + '/' + month.year);
@@ -57,7 +57,7 @@ const YearMonthPicker = (props) => {
         if (month.year < beginMonth.substring(9, beginMonth.length)) {
             props.onError && props.onError("Tháng bắt đầu phải nhỏ hơn tháng kết thúc")
         } else {
-            if (month.item.key <= beginMonth.substring(6, 8)) {
+            if (month.item.key < beginMonth.substring(6, 8)) {
                 props.onError && props.onError("Tháng bắt đầu phải nhỏ hơn tháng kết thúc")
             } else {
                 setEndMonth(month.item.name + '/' + month.year);
@@ -72,10 +72,7 @@ const YearMonthPicker = (props) => {
     }
 
     useEffect(() => {
-        // console.log('begin month: '+props.beginMonth.substring(1,2))
-        // console.log('end month: '+props.endMonth)
-
-
+     
     })
 
     return (
