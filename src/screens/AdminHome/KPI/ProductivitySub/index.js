@@ -103,8 +103,8 @@ const index = (props) => {
           fields={
             data.map((item,index) => [
               item.shopName,
-              item.prePaid,
               item.postPaid,
+              item.prePaid,
               item.cusTurn,
               item.transaction,
               item.empAmount
