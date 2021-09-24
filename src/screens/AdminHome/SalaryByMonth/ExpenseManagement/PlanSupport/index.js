@@ -162,7 +162,7 @@ const LeftColumn = ({ item, index }) => {
 const Column = ({ item, index }) => {
     return (
         <View style={{ marginVertical: fontScale(10) }}>
-            <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+            <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? colors.darkYellow : "#289AF3", textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
         </View>
     )
 }

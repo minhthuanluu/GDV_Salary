@@ -61,9 +61,7 @@ const Dashboard = (route) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      {
-        <Header title={text.generalExpenses} />
-      }
+      <Header title={text.generalExpenses} />
       <Body style={{ marginTop: fontScale(10) }} showInfo={false} />
       <View style={styles.body}>
         <MenuItem
@@ -74,11 +72,11 @@ const Dashboard = (route) => {
           width={width - fontScale(60)}
           onPress={() => navigation.navigate("AdminExpenseGeneral")} />
         <MenuItem
-          style={{ marginTop: fontScale(45) }} 
-          title={text.monthlyExpenses} 
-          titleMenuStyle={{ paddingTop: fontScale(17) }} 
-          icon={images.money} 
-          width={width - fontScale(60)} 
+          style={{ marginTop: fontScale(45) }}
+          title={text.monthlyExpenses}
+          titleMenuStyle={{ paddingTop: fontScale(17) }}
+          icon={images.money}
+          width={width - fontScale(60)}
           onPress={() => navigation.navigate("AdminMonthlyCostGeneral")} />
 
       </View>

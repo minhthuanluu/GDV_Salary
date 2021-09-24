@@ -90,14 +90,14 @@ const index = () => {
             <Body />
             <View style={styles.subContainer}>
                 <ScrollView showsVerticalScrollIndicator={false}>
-                    <View style={{marginTop:fontScale(10)}}>
-                        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20),marginBottom:fontScale(10) }} /> : null}
+                    <View style={{ marginTop: fontScale(10) }}>
+                        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20), marginBottom: fontScale(10) }} /> : null}
                         <View style={{
                             backgroundColor: "#fff", shadowColor: "#000",
                             shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.25, shadowRadius: 3.84,
                             elevation: 5, marginHorizontal: fontScale(7), borderRadius: fontScale(20)
                         }}>
-                            <View style={[styles.empAmount,{marginTop:fontScale(20)}]}>
+                            <View style={[styles.empAmount, { marginTop: fontScale(20) }]}>
                                 <Text style={styles.empAmountTitle}>{text.empAmount}: </Text>
                                 <Text style={styles.empAmountContent}>{data.empAmount}</Text>
                             </View>
@@ -111,8 +111,8 @@ const index = () => {
                                             <Text style={{
                                                 fontSize: fontScale(13),
                                                 fontWeight: "bold",
-                                                color: index == 1 || index == 4 || index == 8 || index == 15 ? "#000" : "#707070",
-                                                marginLeft: index == 4 || index == 8|| index == 9 ||index==10 ||index==11||index==12||index==13||index==14? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
+                                                color: index == 1 || index == 4 || index >= 8 && index <= 15 ? "#000" : "#707070",
+                                                marginLeft: index == 4 || index >= 8 && index <= 14 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
                                             }}>{item}</Text></View>)
                                     }
                                 </View>
@@ -138,7 +138,14 @@ const index = () => {
                                             data.outcomeBusinessMaster, // chi CHT
                                             data.otherOBMaster // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                                <Text style={{
+                                                    fontSize: fontScale(13),
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
+                                                            : index >= 5 && index <= 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    textAlign: "center",
+                                                    fontWeight: "bold"
+                                                }}>{item}</Text>
                                             </View>)
                                         }
                                     </View>
@@ -163,7 +170,14 @@ const index = () => {
                                             data.outcomeEmpMaster, // chi CHT
                                             data.otherOBEmpMaster // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                               <Text style={{
+                                                    fontSize: fontScale(13),
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
+                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    textAlign: "center",
+                                                    fontWeight: "bold"
+                                                }}>{item}</Text>
                                             </View>)
                                         }
                                     </View>
@@ -188,7 +202,14 @@ const index = () => {
                                             data.outcomeDiffMaster, // chi CHT chênh lệch
                                             data.otherOBDiff // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                                  <Text style={{
+                                                    fontSize: fontScale(13),
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
+                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    textAlign: "center",
+                                                    fontWeight: "bold"
+                                                }}>{item}</Text>
                                             </View>)
                                         }
                                     </View>
@@ -213,7 +234,14 @@ const index = () => {
                                             data.outcomeBusinessMonthMaster, // chi CHT 1 tháng
                                             data.otherOBMonthMaster // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                                 <Text style={{
+                                                    fontSize: fontScale(13),
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
+                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    textAlign: "center",
+                                                    fontWeight: "bold"
+                                                }}>{item}</Text>
                                             </View>)
                                         }
                                     </View>
@@ -238,7 +266,14 @@ const index = () => {
                                             data.otherOutcomeEmpMaster, // chi CHT 1 GDV/tháng
                                             data.otherOBEmpMaster // chi hỗ trợ khác 1 GDV/tháng
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                                 <Text style={{
+                                                    fontSize: fontScale(13),
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
+                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    textAlign: "center",
+                                                    fontWeight: "bold"
+                                                }}>{item}</Text>
                                             </View>)
                                         }
                                     </View>
@@ -266,21 +301,21 @@ const index = () => {
                                 <View style={{ width: 1 / 6 * width }}>
                                     {
                                         [text.teller, data.otherTotalOE, data.incentiveOE, data.vasAffiEmp, data.otherEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                         </View>)
                                     }
                                 </View>
                                 <View style={{ width: 1 / 5 * width }}>
                                     {
                                         [text.avgPerMonth, data.otherTotalOBMonth, data.incentiveOBMonth, data.vasAffiBusinessMonth, data.otherAvgMonth].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                           <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                         </View>)
                                     }
                                 </View>
                                 <View style={{ width: 1 / 4 * width }}>
                                     {
                                         [text.avgEmpPerMonth, data.otherTotalOBE, data.incentiveOBEmp, data.vasAffiBusinessEmp, data.otherAvgMonthEmp].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                            <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                         </View>)
                                     }
                                 </View>
@@ -307,21 +342,21 @@ const index = () => {
                             <View style={{ width: 1 / 6 * width }}>
                                 {
                                     [text.money, data.moneyFollow, data.moneyArrears, data.moneyPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 5 * width }}>
                                 {
                                     [text.avgPerMonth, data.avgMonthFollow, data.avgMonthArrears, data.avgMonthPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>
                             <View style={{ width: 1 / 4 * width }}>
                                 {
                                     [text.avgEmpPerMonth, data.avgMonthEmpFollow, data.avgMonthEmpArrears, data.avgMonthEmpPunishment].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : colors.lightBlue, textAlign: "center", fontWeight: index == 0 ? "bold" : "normal" }}>{item}</Text>
+                                        <Text style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01':index==1?colors.red : colors.lightBlue, textAlign: "center", fontWeight: "bold" }}>{item}</Text>
                                     </View>)
                                 }
                             </View>

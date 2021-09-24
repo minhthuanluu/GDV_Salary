@@ -29,5 +29,5 @@ export const styles = StyleSheet.create({
         elevation: 5
       },
     remainSalaryTitle:{ textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: colors.black, marginLeft: fontScale(10) },
-    remainSalaryContent:{ textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }
+    remainSalaryContent:{ textAlign: "center", fontSize: fontScale(14), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(10) }
 })

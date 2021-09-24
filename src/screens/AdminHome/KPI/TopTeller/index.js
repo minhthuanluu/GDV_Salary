@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { SafeAreaView, StatusBar, Text, FlatList, View, ActivityIndicator } from "react-native";
-import {
-  Body,
-  DatePicker,
-  GeneralListItem,
-  Header,
-  Search,
-  SearchWithPermission,
-  TableHeader,
-} from "../../../../comps";
+import { Body, GeneralListItem, Header, SearchWithPermission, TableHeader } from "../../../../comps";
 import { styles } from "./style";
 import { colors } from "../../../../utils/Colors";
 import { fontScale } from "../../../../utils/Fonts";
@@ -16,10 +8,9 @@ import { images } from "../../../../utils/Images";
 import { text } from "../../../../utils/Text";
 import { useNavigation } from "@react-navigation/native";
 import { width } from "../../../../utils/Dimenssion";
-import { BackHandler } from "react-native";
 import moment from "moment";
 import Toast from 'react-native-toast-message';
-import { getAdminKPIMonthTopTeller, getAllBranch } from "../../../../adminapi";
+import { getAdminKPIMonthTopTeller } from "../../../../adminapi";
 import { _retrieveData } from "../../../../utils/Storage";
 import { getRole } from "../../../../utils/Logistics";
 import { ROLE } from "../../../../utils/Roles";
@@ -31,7 +22,7 @@ const AdminTopTeller = () => {
   const [loadingData, setLoadingData] = useState(false);
   const navigation = useNavigation();
   const [shopCode, setShopCode] = useState('');
-
+  const [defaultShopName, setDefaultShopName] = useState('');
   const [month, setMonth] = useState(moment(new Date()).format("MM/YYYY"));
   const [sort, setSort] = useState(1);
   const [placeHolder, setPlaceHolder] = useState(text.chooseBranch);
@@ -39,7 +30,7 @@ const AdminTopTeller = () => {
   const [defaultBranchCode, setDefaultBranchCode] = useState('');
   const [defaultBranchName, setDefaultBranchName] = useState('');
 
-  const getData = async (branchCode,month,sort) => {
+  const getData = async (branchCode, month, sort) => {
     setMessage("");
     setLoadingData(true);
     setData([]);
@@ -67,7 +58,7 @@ const AdminTopTeller = () => {
       setRole(data.role)
       if (data.role == ROLE.VP_CTY || data.role == ROLE.VMS_CTY || data.role == ROLE.ADMIN) {
         setPlaceHolder(text.chooseBranch);
-        await getData("",month,1)
+        await getData("", month, 1)
       } else if (data.role == ROLE.MBF_CHINHANH) {
         setDefaultShopName(data.label);
         setPlaceHolder(data.label);
@@ -79,7 +70,7 @@ const AdminTopTeller = () => {
         setPlaceHolder(data.label);
         setDefaultBranchName(data.shopName);
         setDefaultBranchCode(data.shopCode);
-        await getData(data.branchCode,month, sort);
+        await getData(data.branchCode, month, sort);
       }
     })
   }
@@ -90,13 +81,13 @@ const AdminTopTeller = () => {
   }, [""]);
 
   const onSearch = async (value) => {
-    await getData(value.branchCode, value.month,value.radio)
+    await getData(value.branchCode, value.month, value.radio)
   }
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
       <Header title={text.topTellers} />
-      <SearchWithPermission  
+      <SearchWithPermission
         oneSelect
         leftIcon={images.teamwork}
         rightIcon={images.searchlist}
@@ -104,7 +95,7 @@ const AdminTopTeller = () => {
         width={width - fontScale(50)}
         placeholder={text.search}
         modalTitle={text.select}
-        onDone={(value)=>onSearch(value)}/>
+        onDone={(value) => onSearch(value)} />
       <Body
         showInfo={false}
         style={{ marginTop: fontScale(15), zIndex: -10 }} />

@@ -24,5 +24,5 @@ export const styles = StyleSheet.create({
     subTitle:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(5), fontWeight: "bold" },
     expectOutcome:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(20), fontWeight: "bold", color: colors.red },
     subTitleLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(15), fontWeight: "bold" },
-    subContentLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10),textAlign:"center", fontWeight: "bold", color: colors.lightBlue }
+    subContentLeft:{ fontSize: fontScale(14), marginTop: fontScale(15), marginLeft: fontScale(10),textAlign:"center", fontWeight: "bold", color: "#289AF3" }
 })

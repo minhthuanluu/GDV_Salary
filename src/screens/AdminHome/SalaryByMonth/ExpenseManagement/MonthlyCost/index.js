@@ -116,9 +116,7 @@ const index = (props) => {
         <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: fontScale(20) }}>
           <TouchableOpacity style={styles.outcomeSal}
             onPress={() => navigation.navigate("AdminPastMonthlyCostGeneral", { "month": month })}>
-            {/* <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515" }]}>{"Chi phí lương tháng " + month}</Text>
-            <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom: fontScale(10) }]}>{"(Đơn vị tính: triệu đồng)"}</Text> */}
-            <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10) }]}>{"Chi phí lương tháng " + month}</Text>
+           <Text style={[props.textTitle, { fontSize: fontScale(17), textAlign: "center", fontWeight: "bold", color: "#151515", marginTop: fontScale(10) }]}>{"Chi phí lương tháng " + month}</Text>
             <Text style={[props.textTitle, { fontSize: fontScale(11), textAlign: "center", fontWeight: "bold", color: "#686565",opacity:0.59, marginBottom:fontScale(10),marginTop: fontScale(5)}]}>{"(Đơn vị tính: triệu đồng)"}</Text>
             <NoftiContent title="Số dư đầu kỳ:" content={data.remainSalary} left={fontScale(10)} />
             <View style={{ flexDirection: "row", flex: 1, marginRight: fontScale(20) }}>
@@ -138,11 +136,11 @@ const index = (props) => {
             </View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
               <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Số dư cuối kỳ:</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.remain}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(21) }}>{data.remain}</Text>
             </View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
               <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.grey, marginLeft: fontScale(35) }}>Số tiền dùng chi hỗ trợ:</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.totalSupport}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(21) }}>{data.totalSupport}</Text>
             </View>
           </TouchableOpacity>
 
@@ -166,7 +164,7 @@ const index = (props) => {
             </View>
             <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
               <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: colors.black, marginLeft: fontScale(18) }}>Còn lại:</Text>
-              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(21) }}>{data.supportRemain}</Text>
+              <Text style={{ textAlign: "center", fontSize: fontScale(15), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(21) }}>{data.supportRemain}</Text>
             </View>
           </TouchableOpacity>
         </ScrollView>
@@ -188,7 +186,7 @@ const Item = ({ item, index }) => {
 const ItemContent = ({ item, index }) => {
   return (
     <View style={{ marginVertical: fontScale(10) }}>
-      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : "#289AF3", textAlign: "right", fontWeight: "bold" }}>{item}</Text>
     </View>
   )
 }
@@ -197,7 +195,7 @@ const NoftiContent = ({ title, content, left }) => {
   return (
     <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
       <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: colors.black, marginLeft: left }}>{title}</Text>
-      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }}>{content}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(10) }}>{content}</Text>
     </View>
   )
 }

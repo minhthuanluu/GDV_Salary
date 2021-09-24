@@ -169,7 +169,7 @@ const Item = ({ item, index }) => {
 const ItemContent = ({ item, index }) => {
   return (
     <View style={{ marginVertical: fontScale(10) }}>
-      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : colors.lightBlue, textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : "#289AF3", textAlign: "right", fontWeight: "bold" }}>{item}</Text>
     </View>
   )
 }
@@ -178,7 +178,7 @@ const NoftiContent = ({ title, content, left, titleColor }) => {
   return (
     <View style={{ flexDirection: "row", marginVertical: fontScale(10) }}>
       <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: titleColor || colors.black, marginLeft: left }}>{title}</Text>
-      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#1AC4D1", marginLeft: fontScale(10) }}>{content}</Text>
+      <Text style={{ textAlign: "center", fontSize: fontScale(13), fontWeight: "bold", color: "#289AF3", marginLeft: fontScale(10) }}>{content}</Text>
     </View>
   )
 }
