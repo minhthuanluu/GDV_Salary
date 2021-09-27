@@ -140,7 +140,7 @@ const Item = ({ item, index }) => {
 const ItemContent = ({ item, index }) => {
   return (
     <View style={{ marginVertical: fontScale(10) }}>
-      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : "#289AF3", textAlign: "right", fontWeight: "bold" }}>{item}</Text>
+      <Text key={index.toString()} style={{ fontSize: fontScale(13), color: index == 0 ? '#D19E01' : index == 1 ? colors.red : "#1AC4D1", textAlign: "right", fontWeight: "bold" }}>{item}</Text>
     </View>
   )
 }

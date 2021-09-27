@@ -75,7 +75,7 @@ const index = () => {
         await getData(value.beginMonth, value.endMonth);
     }
 
-    const fstTitleLeft = [" ", "Tổng chi nguồn lương", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "Vas", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
+    const fstTitleLeft = [" ", "Tổng chi nguồn lương", "Cố định", "Khoán sp", "TBTS", "Hoa hồng", "PPGLĐ", "Duy trì", "TBTT", "Vas", "EZ", "Thẻ cào", "D.vụ sau BH", "Thu cước", "Bán máy","Phí KK Quý 1","Khác", "Tổng chi hỗ trợ", "Chi CHT", "Chi hỗ trợ khác"]
     const sndTitleLeft = [" ", "Tổng chi nguồn khác", "CFKK", "Vas Affi", "Khác"]
     const tstTitleLeft = [" ", "Truy thu & Chế tài", "Truy thu", "Chế tài"]
     return (
@@ -111,8 +111,8 @@ const index = () => {
                                             <Text style={{
                                                 fontSize: fontScale(13),
                                                 fontWeight: "bold",
-                                                color: index == 1 || index == 4 || index >= 8 && index <= 15 ? "#000" : "#707070",
-                                                marginLeft: index == 4 || index >= 8 && index <= 14 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
+                                                color: index == 1 || index == 4 || index >= 8 && index <= 17 ? "#000" : "#707070",
+                                                marginLeft: index == 4 || index >= 8 && index < 17 ? fontScale(13) : index == 5 || index == 6 || index == 7 || index == 9 || index == 10 || index == 11 || index == 12 || index == 13 || index == 14 ? fontScale(25) : fontScale(5)
                                             }}>{item}</Text></View>)
                                     }
                                 </View>
@@ -134,15 +134,19 @@ const index = () => {
                                             data.servicesBusiness, //D.vụ sau BH HTKD
                                             data.chargeableBusiness, // Thu cước HTKD
                                             data.machineBusiness, // Bán máy HTKD
+
+                                            data.firstQuarterBusiness,//Phí KK quý 1 HTKD
+                                            data.othersBusiness,//phí khác HTKD
+                                            
                                             data.totalOSB, // tổng chi hỗ trợ
                                             data.outcomeBusinessMaster, // chi CHT
                                             data.otherOBMaster // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
                                                 <Text style={{
                                                     fontSize: fontScale(13),
-                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
-                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
-                                                            : index >= 5 && index <= 7 ? "#A3CEF1" : colors.lightBlue,
+                                                    color: index == 0 ? '#D19E01' : index == 1||index==17 ? colors.red :
+                                                        index == 4 || index >= 8 && index<=17 ? "#289AF3"
+                                                            : index >= 5 && index <= 7 ? "#643335" : colors.lightBlue,
                                                     textAlign: "center",
                                                     fontWeight: "bold"
                                                 }}>{item}</Text>
@@ -166,19 +170,23 @@ const index = () => {
                                             data.servicesEmp, // D.vụ sau BH GDV
                                             data.chargeableEmp, // thu cước GDV
                                             data.machineEmp, // bán máy GDV
-                                            data.totalOSE, // tổng chi hỗ trợ
-                                            data.outcomeEmpMaster, // chi CHT
-                                            data.otherOBEmpMaster // chi hỗ trợ khác
+
+                                            data.firstQuarterEmp,//Phí KK quý 1 GDV
+                                            data.othersEmp,//Phí khác GDV
+                                            
+                                            data.totalOSE, // tổng chi hỗ trợ GDV
+                                            data.outcomeEmpMaster, // chi CHT  GDV
+                                            data.otherOBEmpMaster // chi hỗ trợ khác GDv
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                               <Text style={{
-                                                    fontSize: fontScale(13),
-                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
-                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
-                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
-                                                    textAlign: "center",
-                                                    fontWeight: "bold"
-                                                }}>{item}</Text>
-                                            </View>)
+                                            <Text style={{
+                                                fontSize: fontScale(13),
+                                                color: index == 0 ? '#D19E01' : index == 1||index==17 ? colors.red :
+                                                    index == 4 || index >= 8 && index<=17 ? "#289AF3"
+                                                        : index >= 5 && index <= 7 ? "#643335" : colors.lightBlue,
+                                                textAlign: "center",
+                                                fontWeight: "bold"
+                                            }}>{item}</Text>
+                                        </View>)
                                         }
                                     </View>
                                     <View style={{ minWidth: 0.8 / 3.8 * width, marginLeft: fontScale(5) }}>
@@ -198,19 +206,23 @@ const index = () => {
                                             data.servicesDiff, // D.vụ sau BH chênh lệch
                                             data.chargeableDiff, // thu cước chênh lệch
                                             data.machineDiff, // bán máy chênh lệch
+                                            
+                                            data.firstQuarterDiff,//Phí KK quý 1 Chênh lệch
+                                            data.othersDiff,//Phí khác Chênh lệch
+
                                             data.totalOutcomeSupportDiff, // tổng chi hỗ trợ chênh lệch
                                             data.outcomeDiffMaster, // chi CHT chênh lệch
                                             data.otherOBDiff // chi hỗ trợ khác
                                             ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                  <Text style={{
-                                                    fontSize: fontScale(13),
-                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
-                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
-                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
-                                                    textAlign: "center",
-                                                    fontWeight: "bold"
-                                                }}>{item}</Text>
-                                            </View>)
+                                            <Text style={{
+                                                fontSize: fontScale(13),
+                                                color: index == 0 ? '#D19E01' : index == 1||index==17 ? colors.red :
+                                                    index == 4 || index >= 8 && index<=17 ? "#289AF3"
+                                                        : index >= 5 && index <= 7 ? "#643335" : colors.lightBlue,
+                                                textAlign: "center",
+                                                fontWeight: "bold"
+                                            }}>{item}</Text>
+                                        </View>)
                                         }
                                     </View>
                                     <View style={{ minWidth: 1.3 / 6 * width, marginLeft: fontScale(5) }}>
@@ -230,19 +242,23 @@ const index = () => {
                                             data.servicesBusinessMonth, // D.vụ sau BH 1 tháng
                                             data.chargeableBusinessMonth, // Thu cước 1 tháng
                                             data.machineBusinessMonth, // bán máy 1 tháng
+                                            
+                                            data.firstQuarterBM,//Phí KK quý 1 HTKD 1 tháng
+                                            data.othersBM,//Phí khác HTKD 1 tháng
+                                            
                                             data.totalOSBMonth, // tổng chi hỗ trợ 1 tháng
                                             data.outcomeBusinessMonthMaster, // chi CHT 1 tháng
                                             data.otherOBMonthMaster // chi hỗ trợ khác
-                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                 <Text style={{
-                                                    fontSize: fontScale(13),
-                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
-                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
-                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
-                                                    textAlign: "center",
-                                                    fontWeight: "bold"
-                                                }}>{item}</Text>
-                                            </View>)
+                                        ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                        <Text style={{
+                                            fontSize: fontScale(13),
+                                            color: index == 0 ? '#D19E01' : index == 1||index==17 ? colors.red :
+                                                index == 4 || index >= 8 && index<=17 ? "#289AF3"
+                                                    : index >= 5 && index <= 7 ? "#643335" : colors.lightBlue,
+                                            textAlign: "center",
+                                            fontWeight: "bold"
+                                        }}>{item}</Text>
+                                    </View>)
                                         }
                                     </View>
                                     <View style={{ minWidth: 1.3 / 5 * width, marginLeft: fontScale(5) }}>
@@ -262,19 +278,23 @@ const index = () => {
                                             data.servicesEmpMonth, // D.vụ sau BH 1 GDV/tháng
                                             data.chargeableEmpMonth, // thu cước 1 GDV/tháng
                                             data.machineEmpMonth, // bán máy 1 GDV/tháng
+
+                                            data.firstQuarterEM,//Phí KK quý 1 1 GDV/tháng
+                                            data.othersEM,//Phí khác 1 GDV/tháng
+                                            
                                             data.totalOSEMonth, // tổng chi hỗ trợ 1 GDV/tháng
                                             data.otherOutcomeEmpMaster, // chi CHT 1 GDV/tháng
                                             data.otherOBEmpMaster // chi hỗ trợ khác 1 GDV/tháng
-                                            ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
-                                                 <Text style={{
-                                                    fontSize: fontScale(13),
-                                                    color: index == 0 ? '#D19E01' : index == 1||index==15 ? colors.red :
-                                                        index == 4 || index >= 8 && index<=14 ? "#289AF3"
-                                                            : index == 5 || index == 6 || index == 7 ? "#A3CEF1" : colors.lightBlue,
-                                                    textAlign: "center",
-                                                    fontWeight: "bold"
-                                                }}>{item}</Text>
-                                            </View>)
+                                        ].map((item, index) => <View key={index.toString()} style={{ marginVertical: fontScale(10) }}>
+                                        <Text style={{
+                                            fontSize: fontScale(13),
+                                            color: index == 0 ? '#D19E01' : index == 1||index==17 ? colors.red :
+                                                index == 4 || index >= 8 && index<=17 ? "#289AF3"
+                                                    : index >= 5 && index <= 7 ? "#643335" : colors.lightBlue,
+                                            textAlign: "center",
+                                            fontWeight: "bold"
+                                        }}>{item}</Text>
+                                    </View>)
                                         }
                                     </View>
                                 </ScrollView>
