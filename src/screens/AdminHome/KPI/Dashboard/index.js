@@ -18,7 +18,7 @@ const KPIHome=(props)=> {
     await _retrieveData("userInfo").then((item) => {
       let role = user?.userId.userGroupId.code;
       setUser(item)
-      if (role == "VMS_CTY") {
+      if (role == "VMS_CTY" || role=="VP_CTY") {
         navigation.navigate("AdminKPIMonth")
       } 
       if (role == "MBF_CHINHANH") {

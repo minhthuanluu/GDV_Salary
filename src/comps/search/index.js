@@ -61,7 +61,7 @@ const Search = (props) => {
         const getUserRole = async () => {
             await _retrieveData("userInfo").then((item) => {
                 if (item != null) {
-                    if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY") {
+                    if (item.userId.userGroupId.code == "VP_CTY"||item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY") {
                         setMultiChoice(true);
                     } else if (item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
                         setMultiChoice(false);

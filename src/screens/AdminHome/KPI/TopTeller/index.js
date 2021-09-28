@@ -205,7 +205,7 @@ const AdminTopTeller = () => {
         onChangePickerOne={(value, index) => onChangeBranch(value.shopCode, value.shopName)}
         showPicker={[true, false, false]}
         onPressOK={(value) => getData(value.shopCode, month, value.radio, value.shopName)}
-        fixed={role != "VMS_CTY" ? true : false}
+        fixed={role != "VMS_CTY" || role != "VP_CTY" ? true : false}
         fixedData={defaultShopName}
       />
 

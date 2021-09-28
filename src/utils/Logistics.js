@@ -200,7 +200,7 @@ export const checkUserRole = async () => {
     if (item != null) {
       if (item.userId.userGroupId.code == "MBF_GDV") {
         role = 'GROUP_GDV'
-      } else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+      } else if (item.userId.userGroupId.code =="VP_CTY"||item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
         role = "GROUP_ADMIN"
       }
       else {
@@ -225,7 +225,7 @@ export const checkLogin = async (navigation) => {
           navigation.navigate("GDVHome")
         }, 3000);
       }
-      else if (item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
+      else if (item.userId.userGroupId.code =="VP_CTY"||item.userId.userGroupId.code == "ADMIN" || item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {
         navigation.navigate("AdminHome")
       }
       // else if (item.userId.userGroupId.code == "VMS_CTY" || item.userId.userGroupId.code == "MBF_CHINHANH" || item.userId.userGroupId.code == "MBF_CUAHANG") {

@@ -4,7 +4,7 @@ import { Body, DatePicker, GeneralListItem, Header } from "../../../../../comps"
 import { styles } from "./style";
 import { images } from "../../../../../utils/Images";
 import moment from "moment";
-import { getKPIByMonth, getMonthSalary } from "../../../../../adminapi";
+import { getKPIByMonth, getMonthSalary, getTransactionStatistics } from "../../../../../adminapi";
 import { width } from "../../../../../utils/Dimenssion";
 import { fontScale } from "../../../../../utils/Fonts";
 import { StatusBar } from "react-native";
@@ -24,12 +24,14 @@ const index = (props) => {
   const [generalData, setGeneralData] = useState({});
   const [month, setMonth] = useState(moment(new Date()).subtract(1, "months").format("MM/YYYY"));
   const navigation = useNavigation();
+  const [notification, setNotification] = useState({})
 
   const getData = async (month, branchcode, shopCode) => {
     setLoading(true);
     setMessage("")
     console.log(month+branchcode+shopCode)
-    await getMonthSalary(month, branchcode, shopCode).then((data) => {
+    await getTransactionStatistics(month, branchcode, shopCode).then((data) => {
+      console.log()
       if (data.status == "success") {
         setLoading(false);
         if (data.length == 0) {
@@ -77,7 +79,7 @@ const index = (props) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar translucent backgroundColor={colors.primary} />
-      <Header title={text.salaryMonth} />
+      <Header title={text.transactionsInfo} />
       <DatePicker
         month={month}
         width={width - fontScale(120)}
@@ -89,7 +91,7 @@ const index = (props) => {
         style={{ marginTop: fontScale(15), zIndex: -10 }}
       />
       <View style={{ flex: 1, backgroundColor: colors.white }}>
-        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: fontScale(20) }} /> : null}
+        {loading == true ? <ActivityIndicator size="small" color={colors.primary} style={{ marginTop: -fontScale(20) }} /> : null}
         <Text style={{ color: colors.primary, textAlign: "center" }}>{message && message}</Text>
         <View>
           <FlatList
@@ -99,13 +101,13 @@ const index = (props) => {
             renderItem={({ item, index }) => (
               <View>
                 <GeneralListItem
-                  style={{ marginTop: fontScale(20) }}
+                  style={{ marginTop: fontScale(29) }}
                   columns
                   rightIcon={images.branch}
-                  titleArray={["Tổng lương", "Khoán sp", "SLGDV"]}
-                  item={[item.totalSalary, item.incentiveSalary, item.totalEmp]}
+                  titleArray={["Chặn 2c", "DKTT", "SLGDV", "GD", "KH"]}
+                  item={[item.blocking2CAmount, item.subRegisterAmount, item.totalEmp, item.transAmount, item.cusAmount]}
                   title={item.shopName}
-                  onPress={() => navigation.navigate("AdminMonthSalaryShop", {
+                  onPress={() => navigation.navigate("AdminShopTransInfo", {
                     item: {
                       "branchCode": item.shopCode,
                       "month": month
@@ -113,11 +115,19 @@ const index = (props) => {
                   })} />
                 { index == data.length - 1 ?
                   <GeneralListItem
-                    style={{ marginBottom: fontScale(70), marginTop: -fontScale(15) }}
-                    fiveColumnCompany
+                    style={{ marginBottom: fontScale(100), marginTop: -fontScale(15) }}
+                    contentStyle={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
+                    contentStyle1={{ fontSize: 12,textAlign:"right", marginVertical: fontScale(8) }}
+                    titleStyle={{fontSize: 12, marginVertical: fontScale(8)}}
+                    titleStyle1={{fontSize: 12, marginVertical: fontScale(8), color: "#000000"}}
+                    twelveColumnCompany
                     title={generalData.shopName}
-                    titleArray={["Tổng chi 1 tháng", "Cố định", "Khoán sp", "Chi hỗ trợ", "CFKK", "Khác", "VasAffiliateAmount"]}
-                    item={generalData&&[generalData.monthOutcome, generalData.permanentSalary, generalData.incentiveSalary, generalData.supportOutcome, generalData.encouSalary, generalData.other, generalData.vasAffiliateAmount]}
+                    titleArr={["Tổng","Top/ngày"]}
+                    titleArray={["Lượng KH:", "Lượt giao dịch:", "+  Chặn 2c TBTS:  ","+  ĐKTT:","+  Fone -> Card:","     +   Ko nạp tiền: "]}
+                    titleArrayOne={["Vi phạm kho số:"]}
+                    itemAmountOne={[generalData.cusAmount,generalData.transAmount,generalData.blocking2CAmount,generalData.subRegisterAmount,generalData.foneCardAmount,generalData.noRechargeAmount]}
+                    itemAmountTwo={[generalData.cusTopDay,generalData.transTopDay,generalData.blocking2CTopDay,generalData.subRegisterTopDay,generalData.foneCardTopDay,generalData.noRechargeTopDay]}
+                    item={[generalData.violateAmount]}
                     icon={images.company} /> : null
                 }
               </View>

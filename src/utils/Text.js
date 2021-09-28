@@ -88,7 +88,9 @@ costManagement: "Quản lý chi phí",
 topTellers: "Top GDV",
 groupSalary: "Nhóm lương",
 salaryMonth: "Lương tháng",
-
+generalExpenses: "Chi phí chung",
+costAccumulation: "Lũy kế chi phí",
+monthlyExpenses: "Chi phí tháng",
 
 // Admin Bình quân thu nhập
 groupSalaryAverage: "Nhóm lương BQ",

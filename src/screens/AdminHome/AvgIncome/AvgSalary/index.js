@@ -81,7 +81,14 @@ const index=(props)=> {
                         {
                             index==data.length-1 
                                 ? 
-                                <GeneralListItem styleCol2={{marginLeft:-fontScale(10)}} styleCol4={{marginLeft:-fontScale(10)}} style={{marginTop:-fontScale(20),marginHorizontal:fontScale(10),paddingHorizontal:fontScale(10)}} fourColumnCompany title={generalData.shopName} titleArray={["BQ lương 1 tháng/GDV","BQ lương cố định","BQ lương khoán SP","BQ lương KK","BQ chi hỗ trợ"]} item={[generalData.avgIncome,generalData.permanentSalary,generalData.contractSalary,generalData.incentiveSalary,generalData.spenSupport]} icon={images.company}/> : null
+                                <GeneralListItem 
+                                 styleCol2={{marginLeft:-fontScale(10)}} 
+                                 styleCol4={{marginLeft:-fontScale(10)}} style={{marginTop:-fontScale(20),marginHorizontal:fontScale(10),paddingHorizontal:fontScale(10)}} 
+                                 fourColumnCompany title={generalData.shopName} 
+                                 titleArray={["BQ lương 1 tháng/GDV","BQ lương cố định","BQ lương khoán SP","BQ lương KK","BQ chi hỗ trợ"]} 
+                                 item={[generalData.avgIncome,generalData.permanentSalary,generalData.contractSalary,generalData.incentiveSalary,generalData.spenSupport]} 
+                                 icon={images.company}/> 
+                                 : null
                         }
                     </View>
                     }/>

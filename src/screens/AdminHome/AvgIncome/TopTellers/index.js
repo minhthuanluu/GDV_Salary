@@ -211,7 +211,7 @@ const AdminTopTellerAvgIncome = () => {
         // onChangePickerTwo={(value) => onChangeShop(value.shopCode)}
         // onChangePickerThree={(value) => onChangeEmp(value.maGDV)}
         showPicker={[true, false, false]}
-        fixed={role != "VMS_CTY" ? true : false}
+        fixed={role != "VMS_CTY" || role!="VP_CTY" ? true : false}
         fixedData={defaultShopName}
         onPressOK={async (value) => await getData(value.shopCode, value.radio, value.shopName)}
       />

@@ -21,7 +21,7 @@ const index = (props) => {
     console.log('go to Lương Bình Quân')
      _retrieveData("userInfo").then((item) => {
       setUser(item)
-      if (item.userId.userGroupId.code == "VMS_CTY") {
+      if (item.userId.userGroupId.code == "VMS_CTY" ||item.userId.userGroupId.code == "VP_CTY") {
         navigation.navigate("AdminAvgIncome")
       } 
       if (item.userId.userGroupId.code == "MBF_CHINHANH") {

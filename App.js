@@ -4,7 +4,7 @@ import { Image, StatusBar } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen } from './src/screens';
+import { AchieveScreen, AvgIncomeByMonthScreen, SubscriberListScreen, ExpectedSalaryScreen, HomeScreen, KPIByMonthDashboardScreen, ProfileScreen, SalaryByMonthContractScreen, SalaryByMonthDashboardScreen, SalaryByMonthFixedwageScreen, SignInScreen, SignOutScreen, SplashScreen, SubscriberQualityScreen, TransactionInfoScreen, UpdatePasswordScreen, UpdateProfileScreen, ProductivitySubScreen, TestScreen, AdminHomeScreen, AdminKPIDashboardScreen, AdminTopTellersKPIScreen, AdminKPIGroupKPIScreen, AdminKPIMonthScreen, AdminProductivitySubScreen, AdminSalaryByMonthDashboardScreen, AdminExpenseManagementScreen, AdminTopTellersScreen, AdminSalaryGroupScreen, AdminMonthSalaryScreen, AdminAvgIncomeDashboardScreen, AdminAvgIncomeTopSellersScreen, AdminAvgIncomeSalaryGroupScreen, AdminAvgIncomeScreen, AdminDetailProductivitySubScreen, AdminKPIMonthShopScreen, AdminKPIMonthGDVScreen, AdminAvgIncomeShopScreen, AdminAvgIncomeTellersScreen, AdminMonthSalaryShopScreen, AdminMonthSalaryGDVScreen, AdminUnitInfoScreen, AdminDetailUnitInfoScreen, AdminImageDetailUnitInfoScreen, AdminBranchTransInfoScreen, AdminShopTransInfoScreen, AdminEmpTransInfoScreen, AdminBranchSubcriberQualityScreen, AdminShopSubcriberQualityScreen, AdminEmpSubcriberQualityScreen, AdminExpenseManagementDashboardScreen, AdminExpenseGeneralScreen, AdminExpenseDetailOutcomesScreen, AdminExpensePlanSupportScreen, AdminExpenseManagementGeneralDashboardScreen, AdminTotalSalaryCostGeneralSCreen, AdminSupportSalaryCostGeneralSCreen, AdminMonthlyCostGeneralScreen, AdminPastMonthlyCostGeneralScreen, AdminSupportPastMonthlyCostGeneralScreen } from './src/screens';
 import { colors } from './src/utils/Colors';
 import { images } from './src/utils/Images';
 import { _retrieveData } from './src/utils/Storage';
@@ -142,10 +142,27 @@ const AdminStack = () => {
       <Stack.Screen name="AdminAvgIncomeShop" component={AdminAvgIncomeShopScreen} />
       <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} />
       <Stack.Screen name="AdminExpenseManagement" component={AdminExpenseManagementScreen} />
+      <Stack.Screen name="AdminExpenseManagementDashboard" component={AdminExpenseManagementDashboardScreen} />
+      <Stack.Screen name="AdminExpenseManagementGeneralDasboard" component={AdminExpenseManagementGeneralDashboardScreen} />
+     <Stack.Screen name="AdminExpenseGeneral" component={AdminExpenseGeneralScreen} />
+     <Stack.Screen name="AdminTotalSalaryCostGeneral" component={AdminTotalSalaryCostGeneralSCreen} />
+     <Stack.Screen name="AdminSupportSalaryCostGeneral" component={AdminSupportSalaryCostGeneralSCreen} />
+     <Stack.Screen name="AdminExpenseDetailOutcomes" component={AdminExpenseDetailOutcomesScreen} />
+     <Stack.Screen name="AdminExpensePlanSupport" component={AdminExpensePlanSupportScreen} />
+     <Stack.Screen name="AdminMonthlyCostGeneral" component={AdminMonthlyCostGeneralScreen} />
+     <Stack.Screen name="AdminPastMonthlyCostGeneral" component={AdminPastMonthlyCostGeneralScreen} />
+     <Stack.Screen name="AdminSupportPastMonthlyCostGeneral" component={AdminSupportPastMonthlyCostGeneralScreen} />
       <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
       <Stack.Screen name="AdminUnitInfo" component={AdminUnitInfoScreen} />
       <Stack.Screen name="AdminDetailUnitInfo" component={AdminDetailUnitInfoScreen} />
       <Stack.Screen name="AdminImageDetailUnitInfo" component={AdminImageDetailUnitInfoScreen} />
+      <Stack.Screen name="AdminBranchTransInfo" component={AdminBranchTransInfoScreen} />
+      <Stack.Screen name="AdminShopTransInfo" component={AdminShopTransInfoScreen} />
+      <Stack.Screen name="AdminEmpTransInfo" component={AdminEmpTransInfoScreen} />
+      <Stack.Screen name="AdminBranchSubcriberQuality" component={AdminBranchSubcriberQualityScreen} />
+      <Stack.Screen name="AdminShopSubcriberQuality" component={AdminShopSubcriberQualityScreen} />
+      <Stack.Screen name="AdminEmpSubcriberQuality" component={AdminEmpSubcriberQualityScreen} />
+      
       
       {/* AdminExpenseManagementScreen || AdminKPIGroupKPI || AdminTopTellers*/}
     </Stack.Navigator>

@@ -194,7 +194,7 @@ const index = (props) => {
                 showPicker={[true, false, false]}
                 onPressOK={(value) => getData(month, branchCode || defaultShopCode, shopCode, empCode, value.sort)}
                 onShowModalSearch={(value) => console.log(value)}
-                fixed={role != "VMS_CTY" ? true : false}
+                fixed={role != "VMS_CTY" || role!="VP_CTY" ? true : false}
                 fixedData={defaultShopName}
             />
             <Body />

@@ -22,7 +22,7 @@ const AdminSalaryByMontHome = (props) => {
     await _retrieveData("userInfo").then((item) => {
       let role = item?.userId.userGroupId.code;
       setUser(item)
-      if (role == "VMS_CTY") {
+      if (role == "VMS_CTY"|| role == "VP_CTY") {
         navigation.navigate("AdminMonthSalary")
       }
       if (role == "MBF_CHINHANH") {
@@ -54,7 +54,7 @@ const AdminSalaryByMontHome = (props) => {
       {/* <Text>{JSON.stringify(user)}</Text> */}
       <Body style={{ marginTop: fontScale(27) }} showInfo={false} />
       <View style={styles.body}>
-        <MenuItem style={{ marginTop: fontScale(30) }} title={text.costManagement} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.otherExpenses} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminExpenseManagement")} />
+        <MenuItem style={{ marginTop: fontScale(30) }} title={text.costManagement} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.otherExpenses} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminExpenseManagementGeneralDasboard")} />
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.topTellers} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.toptellers} iconStyle={{ width: fontScale(60), height: fontScale(80), marginTop: -15 }} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminTopTellers")} />
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.groupSalary} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.salaryByMonth} width={width - fontScale(60)} onPress={() => navigation.navigate("AdminSalaryGroup")} />
         <MenuItem style={{ marginTop: fontScale(60) }} title={text.salaryMonth} titleMenuStyle={{ paddingTop: fontScale(17) }} icon={images.incentiveCost} width={width - fontScale(60)} onPress={() => checkAdminSalaryByMonthRole()} />
