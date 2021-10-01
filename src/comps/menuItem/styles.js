@@ -42,7 +42,7 @@ export const styles = StyleSheet.create({
     right: fontScale(30),
     fontSize: fontScale(18),
     fontWeight: "bold",
-    color: "#00BECC",
+    color: colors.primary,
     top: -fontScale(12),
     
   },

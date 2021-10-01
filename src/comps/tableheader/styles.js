@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import { colors } from "../../utils/Colors";
 import { fontScale } from "../../utils/Fonts";
 
 export const styles = StyleSheet.create({
@@ -13,7 +14,7 @@ export const styles = StyleSheet.create({
         marginTop: 0
     },
     title: {
-        color: '#20B8B8',
+        color: colors.primary,
         fontSize: fontScale(14),
         fontWeight: 'bold',
         marginLeft:fontScale(4),

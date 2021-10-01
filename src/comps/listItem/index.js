@@ -15,7 +15,7 @@ const ListItem = (props) => {
                     {
                         jusTitle ? null :
                             <View style={styles.price}>
-                                <Text style={[styles.price, { color: "#00BECC", fontSize: fontScale(18), fontWeight: "bold" }]}>{price}</Text>
+                                <Text style={[styles.price, { color: "#289AF3", fontSize: fontScale(18), fontWeight: "bold" }]}>{price}</Text>
                             </View>
                     }
                 </> : <>
@@ -39,7 +39,7 @@ const ListItem = (props) => {
                         {
                             jusTitle ? null :
                                 <View style={styles.price}>
-                                    <Text style={[styles.price, { color: "#00BECC", fontSize: fontScale(18), fontWeight: "bold" }]}>{price}</Text>
+                                    <Text style={[styles.price, { color: "#289AF3", fontSize: fontScale(18), fontWeight: "bold" }]}>{price}</Text>
                                 </View>
                         }
                     </> : <>

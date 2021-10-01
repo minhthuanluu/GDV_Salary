@@ -30,7 +30,7 @@ const MenuItem = (props) => {
                                 {
                                     props.data.map((item, index) => <View style={{ flexDirection: "row", flex: index == 0 ? 0.5 : 1, marginTop: fontScale(20), marginLeft: index == 0 ? fontScale(30) : 0, right: index != 0 ? fontScale(10) : fontScale(10), position: index == 1 ? "absolute" : "relative" }} key={index}>
                                         <Text key={index} style={{ fontSize: fontScale(15), fontWeight: "bold", color: colors.grey }}>{titleArray[index]}</Text>
-                                        <Text style={{ fontSize: fontScale(15), fontWeight: "bold", textAlign: "right", marginLeft: fontScale(5), color: colors.lightBlue }}>{item}</Text>
+                                        <Text style={{ fontSize: fontScale(15), fontWeight: "bold", textAlign: "right", marginLeft: fontScale(5), color: colors.primary }}>{item}</Text>
                                     </View>)
                                 }
                             </View>

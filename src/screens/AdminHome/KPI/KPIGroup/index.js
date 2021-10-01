@@ -99,7 +99,7 @@ const index = () => {
             "<70%",
             "Tổng GDV"
           ]}
-          headersTextColor={"#00BECC"}
+          headersTextColor={"#289AF3"}
           headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
           headerMarginLeft = {fontScale(14)}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}

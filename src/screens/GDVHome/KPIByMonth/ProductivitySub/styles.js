@@ -44,7 +44,7 @@ export const styles = StyleSheet.create({
     right: fontScale(30),
     fontSize: fontScale(18),
     fontWeight: "bold",
-    color: "#00BECC",
+    color: "#289AF3",
     top: -fontScale(12),
     
   },

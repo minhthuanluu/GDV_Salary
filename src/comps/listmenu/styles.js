@@ -1,6 +1,5 @@
 import { StyleSheet } from "react-native";
 import { colors } from "../../utils/Colors";
-import { width } from "../../utils/Dimenssion";
 import { fontScale } from "../../utils/Fonts";
 
 export const styles = StyleSheet.create({
@@ -66,7 +65,7 @@ export const styles = StyleSheet.create({
     right: fontScale(30),
     fontSize: fontScale(18),
     fontWeight: "bold",
-    color: "#00BECC",
+    color: "#289AF3",
     top: -fontScale(12),
   },
   
@@ -94,13 +93,6 @@ export const styles = StyleSheet.create({
     fontSize: fontScale(15)
     
   },
-
-
-//   labelDataFive: {
-// marginLeft: 20
-//   },
-
-
   fieldData: {
     color: "#151515",
     marginTop: fontScale(8),
@@ -110,32 +102,30 @@ export const styles = StyleSheet.create({
     width: "75%"
   },
   fieldDataOne: {
-    color: "#00BECC",
+    color: "#289AF3",
     marginLeft: fontScale(5),
     fontWeight: "bold",
     fontSize: fontScale(15),
   },
 
   fieldDataTwo: {
-    color: "#00BECC",
+    color: "#289AF3",
     marginLeft: fontScale(5),
     fontWeight: "bold",
     fontSize: fontScale(15),
   },
   fieldDataThree: {
-    color: "#00BECC",
+    color: "#289AF3",
     marginLeft: fontScale(5),
     fontWeight: "bold",
     fontSize: fontScale(15),
   },
   fieldDataFour: {
-    color: "#00BECC",
+    color: "#289AF3",
     marginLeft: fontScale(5),
     fontWeight: "bold",
-    fontSize: fontScale(15),
-    
+    fontSize: fontScale(15)
   },
-
   bodyScr: {
     marginTop: fontScale(18)
   }

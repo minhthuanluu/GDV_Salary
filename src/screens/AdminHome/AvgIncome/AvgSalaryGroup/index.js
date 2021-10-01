@@ -91,7 +91,7 @@ const index = () => {
             "<12tr",
             "Tổng GDV",
           ]}
-          headersTextColor={"#00BECC"}
+          headersTextColor={"#289AF3"}
           headerStyle={{ icon: { size: fontScale(15) }, text: { size: fontScale(14) } }}
           headerMarginLeft = {0.3/10*width}
           // headerIcons={[images.branch, images.company, images.workingShop, images.close]}

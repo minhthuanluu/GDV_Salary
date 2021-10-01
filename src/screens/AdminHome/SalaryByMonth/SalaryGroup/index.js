@@ -94,7 +94,7 @@ const index = () => {
             table
             numColumn={6}
             headers={["", ">=20tr", ">=17tr", ">=12tr", "<12tr", "Tổng GDV"]}
-            headersTextColor={"#00BECC"}
+            headersTextColor={"#289AF3"}
             headerStyle={{ icon: { size: 15 }, text: { size: fontScale(14) } }}
             headerMarginLeft={0.5 / 10 * width}
             widthArray={[

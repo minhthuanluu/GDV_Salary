@@ -145,22 +145,15 @@ const AdminStack = () => {
       <Stack.Screen name="AdminSalaryByMonthDashboard" component={AdminSalaryByMonthDashboardScreen} />
       <Stack.Screen name="AdminTopTellers" component={AdminTopTellersScreen} />
       <Stack.Screen name="AdminSalaryGroup" component={AdminSalaryGroupScreen} />
-
       <Stack.Screen name="AdminMonthSalary" component={AdminMonthSalaryScreen} />
       <Stack.Screen name="AdminMonthSalaryShop" component={AdminMonthSalaryShopScreen} />
       <Stack.Screen name="AdminMonthSalaryGDV" component={AdminMonthSalaryGDVScreen} />
-
       <Stack.Screen name="AdminAvgIncomeDashboard" component={AdminAvgIncomeDashboardScreen} />
       <Stack.Screen name="AdminAvgIncomeTopSellers" component={AdminAvgIncomeTopSellersScreen} />
       <Stack.Screen name="AdminAvgIncomeSalaryGroup" component={AdminAvgIncomeSalaryGroupScreen} />
       <Stack.Screen name="AdminAvgIncome" component={AdminAvgIncomeScreen} />
       <Stack.Screen name="AdminAvgIncomeShop" component={AdminAvgIncomeShopScreen} />
       <Stack.Screen name="AdminAvgIncomeTellers" component={AdminAvgIncomeTellersScreen} />
-      {/* <Stack.Screen name="AdminExpenseManagementDashboard" component={AdminExpenseManagementDashboardScreen} /> */}
-      {/* <Stack.Screen name="AdminExpenseGeneral" component={AdminExpenseGeneralScreen} /> */}
-      {/* <Stack.Screen name="AdminExpenseDetailOutcomes" component={AdminExpenseDetailOutcomesScreen} /> */}
-      {/* <Stack.Screen name="AdminExpensePlanSupport" component={AdminExpensePlanSupportScreen} /> */}
-
       <Stack.Screen name="AdminDetailProductivitySub" component={AdminDetailProductivitySubScreen} />
       <Stack.Screen name="AdminSubscriberQualityDashboard" component={AdminSubscriberQualityDashboardScreen} />
       <Stack.Screen name="BranchSubscriberQuality" component={AdminBranchSubscriberQualityScreen} />
@@ -171,12 +164,10 @@ const AdminStack = () => {
       <Stack.Screen name="AdminViolateSubscriberFCard" component={AdminViolateSubscriberFCardScreen} />
       <Stack.Screen name="AdminViolateSubscriberFCardDetail" component={AdminViolateSubscriberFCardDetailScreen} />
       <Stack.Screen name="AdminViolateSubscriberOverThree" component={AdminViolateSubscriberOverThreeScreen} />
-
       <Stack.Screen name="AdminSubscriberQualitySummaryBranch" component={AdminSubscriberQualitySumBranchScreen} />
       <Stack.Screen name="AdminSubscriberQualitySummaryShop" component={AdminSubscriberQualitySumShopScreen} />
       <Stack.Screen name="AdminSubscriberQualitySummaryEmp" component={AdminSubscriberQualitySumEmpScreen} />
       <Stack.Screen name="AdminViolateFastSubDetail" component={AdminViolateFastSubDetailScreen} />
-
       <Stack.Screen name="AdminTransInfoDashdoard" component={AdminTransInfoDashdoardScreen} />
       <Stack.Screen name="AdminStatisticalBranch" component={AdminStatisticalBranchScreen} />
       <Stack.Screen name="AdminStatisticalShop" component={AdminStatisticalShopScreen} />
@@ -186,16 +177,12 @@ const AdminStack = () => {
       <Stack.Screen name="AdminEmpRegInfoDetail" component={AdminEmpRegInfoDetailScreen} />
       <Stack.Screen name="AdminDenyByWrongInfo" component={DenyByWrongInfoScreen} />
       <Stack.Screen name="AdminEmpThreeTime" component={AdminEmpThreeTimeScreen} />
-
-
       <Stack.Screen name="AdminUnitInfo" component={AdminUnitInfoScreen} />
       <Stack.Screen name="AdminDetailUnitInfo" component={AdminDetailUnitInfoScreen} />
       <Stack.Screen name="AdminImageDetailUnitInfo" component={AdminImageDetailUnitInfoScreen} />
-
       <Stack.Screen name="AdminBranchTransInfo" component={AdminBranchTransInfoScreen} />
       <Stack.Screen name="AdminShopTransInfo" component={AdminShopTransInfoScreen} />
       <Stack.Screen name="AdminEmpTransInfo" component={AdminEmpTransInfoScreen} />
-
       <Stack.Screen name="AdminExpenseManagementDashboard" component={AdminExpenseManagementDashboardScreen} />
       <Stack.Screen name="AdminExpenseManagementGeneralDasboard" component={AdminExpenseManagementGeneralDashboardScreen} />
       <Stack.Screen name="AdminExpenseGeneral" component={AdminExpenseGeneralScreen} />

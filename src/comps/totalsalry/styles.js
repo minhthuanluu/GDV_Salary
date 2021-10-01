@@ -22,7 +22,7 @@ export const styles = StyleSheet.create({
 
   },
   salary: {
-    color: "#00BECC",
+    color: "#289AF3",
     fontWeight: 'bold',
     fontSize:fontScale(19)
   },
