@@ -2,9 +2,10 @@
   "expo": {
     "name": "GDV Salary",
     "slug": "gdvsalary",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "owner": "mf2app",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -13,7 +14,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.mf2app.gdvsalary"
+      "bundleIdentifier": "com.mf2app.gdvsalary",
+      "buildNumber": "1.0.1"
     },
     "android": {
       "adaptiveIcon": {
