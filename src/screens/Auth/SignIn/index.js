@@ -32,7 +32,7 @@ const SignIn = (props) => {
             await login(userName, password, navigation).then(async (res) => {
                 if (res.status == "success") {
                     setLoading(false);
-                    checkLogin(navigation);
+                    await checkLogin(navigation);
 
                 } else if (res.status == "failed") {
                         setLoading(false)
