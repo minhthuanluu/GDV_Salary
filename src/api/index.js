@@ -7,7 +7,6 @@ import { text } from "../utils/Text";
 
 // 1. Login Screen
 export const login = async (userName, password) => {
-  console.log(`${baseUrl}login?password=${encodeURIComponent(password)}&userName=${encodeURIComponent(userName)}`)
   let data = {
     message: "",
     status: "",

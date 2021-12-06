@@ -68,7 +68,7 @@ const index = (props) => {
   useEffect(() => {
     const { branchCode, shopCode } = route.params?.item;
     getData(branchCode, shopCode);
-  }, [navigation])
+  }, [navigation]);
 
   return (
     <SafeAreaView style={styles.container}>

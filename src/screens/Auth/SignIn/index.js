@@ -62,9 +62,7 @@ const SignIn = (props) => {
     return (
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor={colors.primary} translucent />
-            <View style={styles.bottomShape}>
-                <Image source={images.loginbg} resizeMode="stretch" style={styles.trigleShape} />
-            </View>
+            
             <View style={styles.mbfLogoContainer}>
                 <Image source={images.mblogo} resizeMode="contain" style={styles.logo} />
             </View>
@@ -78,6 +76,9 @@ const SignIn = (props) => {
                 <Text style={{ color: colors.white, textAlign: "center", marginTop: fontScale(15) }}>{message}</Text>
                 {loading == true ?
                     <ActivityIndicator size="small" color={colors.white} /> : null}
+            </View>
+            <View style={styles.bottomShape}>
+                <Image source={images.loginbg} resizeMode="stretch" style={styles.trigleShape} />
             </View>
         </SafeAreaView>
     );
