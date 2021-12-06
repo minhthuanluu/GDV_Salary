@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     ipPwd: { marginHorizontal: fontScale(35), marginTop: fontScale(40) },
     bottomShape: { flex: 2, width: width, bottom: -fontScale(70) },
     background: { width: width, height: height, bottom: 0, position: "absolute" },
-    mbfLogoContainer: { flex: 1, top: height/4 },
+    mbfLogoContainer: { flex: 1 },
     logo: { width: width * 2 / 3, alignSelf: "center" },
     forgotText: { alignSelf: "flex-end", fontSize: fontScale(17), color: colors.white },
     forgotTextContainer: {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StatusBar, Text, View, Image, ActivityIndicator, BackHandler } from 'react-native';
 import { Input, Button, AuthTitle } from '../../../comps';
 import { colors } from '../../../utils/Colors';
-import { width } from '../../../utils/Dimenssion';
+import { height, width } from '../../../utils/Dimenssion';
 import { fontScale } from '../../../utils/Fonts';
 import { useNavigation } from '@react-navigation/core';
 import { styles } from './style';
@@ -11,14 +11,16 @@ import { _retrieveData, _storeData } from '../../../utils/Storage';
 import { text } from '../../../utils/Text';
 import { images } from '../../../utils/Images';
 import { checkLogin } from '../../../utils/Logistics';
+import { Keyboard } from 'react-native';
 
 const SignIn = (props) => {
     const [userName, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('');
     const [loading, setLoading] = useState(false);
-
+    const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const navigation = useNavigation();
+    const [logoTop,setLogoTop] = useState(height/4)
 
     const signIn = async (userName = "", password = "") => {
         if (userName.length == 0) {
@@ -42,6 +44,8 @@ const SignIn = (props) => {
         }
     }
 
+
+
     useEffect(() => {
         const backAction = () => {
             BackHandler.exitApp();
@@ -53,8 +57,25 @@ const SignIn = (props) => {
             backAction
         );
 
+        const keyboardDidShowListener = Keyboard.addListener(
+            'keyboardDidShow',
+            () => {
+              setKeyboardVisible(true); // or some other action
+              setLogoTop(height/7)
+            }
+          );
+          const keyboardDidHideListener = Keyboard.addListener(
+            'keyboardDidHide',
+            () => {
+              setKeyboardVisible(false); // or some other action
+              setLogoTop(height/4)
+            }
+          );
+
         return () => {
             backHandler.remove();
+            keyboardDidHideListener.remove();
+            keyboardDidShowListener.remove();
         };
 
     }, [navigation])
@@ -63,10 +84,10 @@ const SignIn = (props) => {
         <SafeAreaView style={styles.container}>
             <StatusBar backgroundColor={colors.primary} translucent />
             
-            <View style={styles.mbfLogoContainer}>
+            <View style={{...styles.mbfLogoContainer, top: logoTop}}>
                 <Image source={images.mblogo} resizeMode="contain" style={styles.logo} />
             </View>
-            <View style={styles.topShape}>
+            <View style={{...styles.topShape,top:logoTop}}>
                 <AuthTitle title={text.login} style={styles.authTitle} />
                 <Input underline title={text.username} width={width - fontScale(70)} style={styles.ipUsn}
                     onChangeText={(value) => [setUsername(value), setMessage('')]} />
