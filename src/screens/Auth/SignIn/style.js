@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     authTitle: { marginLeft: fontScale(35) },
     ipUsn: { marginHorizontal: fontScale(35), marginTop: fontScale(40) },
     ipPwd: { marginHorizontal: fontScale(35), marginTop: fontScale(40) },
-    bottomShape: { flex: 2, width: width, bottom: -fontScale(70) },
+    bottomShape: { flex: 2, width: width, bottom: -fontScale(70),zIndex:-10 },
     background: { width: width, height: height, bottom: 0, position: "absolute" },
     mbfLogoContainer: { flex: 1 },
     logo: { width: width * 2 / 3, alignSelf: "center" },

@@ -20,7 +20,7 @@ const SignIn = (props) => {
     const [loading, setLoading] = useState(false);
     const [isKeyboardVisible, setKeyboardVisible] = useState(false);
     const navigation = useNavigation();
-    const [logoTop,setLogoTop] = useState(height/4)
+    const [logoTop,setLogoTop] = useState(height/4.5)
 
     const signIn = async (userName = "", password = "") => {
         if (userName.length == 0) {
@@ -61,14 +61,14 @@ const SignIn = (props) => {
             'keyboardDidShow',
             () => {
               setKeyboardVisible(true); // or some other action
-              setLogoTop(height/7)
+              setLogoTop(height/6)
             }
           );
           const keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             () => {
               setKeyboardVisible(false); // or some other action
-              setLogoTop(height/4)
+              setLogoTop(height/4)  
             }
           );
 
@@ -98,9 +98,9 @@ const SignIn = (props) => {
                 {loading == true ?
                     <ActivityIndicator size="small" color={colors.white} /> : null}
             </View>
-            <View style={styles.bottomShape}>
+            {isKeyboardVisible==true ? <View style={styles.bottomShape}/> :<View style={styles.bottomShape}>
                 <Image source={images.loginbg} resizeMode="stretch" style={styles.trigleShape} />
-            </View>
+            </View>}
         </SafeAreaView>
     );
 }
