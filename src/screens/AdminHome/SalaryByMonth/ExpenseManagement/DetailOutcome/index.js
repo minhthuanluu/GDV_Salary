@@ -17,7 +17,7 @@ import { ActivityIndicator } from 'react-native';
 
 const index = () => {
     const [beginMonth, setBeginMonth] = useState(moment(new Date()).format("01/YYYY"));
-    const [endMonth, setEndMonth] = useState(moment(new Date()).subtract(1, 'months').format("MM/YYYY"));
+    const [endMonth, setEndMonth] = useState(moment(new Date()).format("MM/YYYY"));
     const [data, setData] = useState(dataOutcome)
     const navigation = useNavigation();
     const [loading, setLoading] = useState(false);
@@ -26,12 +26,24 @@ const index = () => {
     const getData = async (beginMonth, endMonth) => {
         setLoading(true)
         await getDetailOutcome(navigation, beginMonth, endMonth).then((res) => {
-            console.log(res.data)
-            if (res.status == "success") {
+            console.log(res)
+            if(res.length==0){
+                setLoading(res.isLoading);
+                Toast.show({
+                    text1: "Cảnh báo",
+                    text2: res.message,
+                    type: "error",
+                    visibilityTime: 1000,
+                    autoHide: true,
+                    onHide: () => { }
+                })
+            }
+            else if (res.status == "success") {
                 setData(res.data.data);
                 setLoading(res.isLoading);
                 setMessage(res.message)
             }
+
             if (res.status == "failed") {
                 setLoading(res.isLoading);
                 Toast.show({
@@ -72,6 +84,7 @@ const index = () => {
     }
 
     const _onChangeMonth = async (value) => {
+        console.log(value)
         await getData(value.beginMonth, value.endMonth);
     }
 

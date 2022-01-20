@@ -132,8 +132,8 @@ const index = (props) => {
                                 <Text style={styles.subTitleLeft}>{text.totalOutcomed}:</Text>
                             </View>
                             <View>
-                                <Text style={styles.subContentLeft}>{data.outcomeTotal}</Text>
                                 <Text style={styles.subContentLeft}>{data.remainTotal}</Text>
+                                <Text style={styles.subContentLeft}>{data.outcomeTotal}</Text>
                             </View>
                         </View>
                     </View>

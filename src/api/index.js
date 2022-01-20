@@ -2503,7 +2503,7 @@ export const getNoRechargeCard = async (navigation, month) => {
 }
 
 // Home > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi
-export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
+export const getDetailOutcome = async (navigation, beginMonth, endMonth) => {
   console.log("Home > Lương theo tháng > Quản lý chi phí > Chi tiết mục chi from " + beginMonth + " to " + endMonth);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
@@ -2532,39 +2532,41 @@ export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
     },
   }).then((res) => {
     if (res.status == 200) {
-      if (res.data.V_ERROR) {
+      // console.log(res.data.data != null&&res.data.data.length > 0)
+      // console.log(res.data)
+      if (res.data&&res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
           length: 0,
           error: null
         }
-      } else if (res.data.data.length > 0) {
+      } else if (res.data&&res.data.data == null || res.data&&res.data.data==[]) {
         data = {
-          data: res.data,
-          isLoading: false,
-          status: "success",
-          length: res.data.data.length,
-          error: null
-        };
-      } else {
-        data = {
-          data: res.data,
+          data: [],
           isLoading: false,
           message: text.dataIsNull,
           status: "success",
-          length: res.data.data.length,
+          length: 0,
+          error: null
+        };
+      }else {
+        data = {
+          data: res.data&&res.data || res.data.data,
+          isLoading: false,
+          status: "success",
+          length: res.data&&res.data.data&&res.data.data.length,
           error: null
         };
       }
-      
     }
   }).catch((error) => {
+    console.log(error)
     if (error) {
       data = {
-        message: error.response&&error.response.data.message,
+        message: error.response && error.response.data.message,
         isLoading: false,
         status: "failed",
         length: 0,
@@ -2577,8 +2579,8 @@ export const getDetailOutcome = async (navigation,beginMonth, endMonth) => {
 }
 
 // Home > Quản lý chi phí > Kế hoạch dự chi hỗ trợ
-export const getOutcomeSupport = async (navigation,year) => {
-  console.log("Home > Quản lý chi phí > Kế hoạch dự chi hỗ trợ tháng "+year);
+export const getOutcomeSupport = async (navigation, year) => {
+  console.log("Home > Quản lý chi phí > Kế hoạch dự chi hỗ trợ tháng " + year);
   let token = "";
   await _retrieveData("userInfo").then((data) => {
     if (data != null) {
@@ -2633,12 +2635,12 @@ export const getOutcomeSupport = async (navigation,year) => {
           error: null
         };
       }
-      
+
     }
   }).catch((error) => {
     if (error) {
       data = {
-        message: error.response&&error.response.data.message,
+        message: error.response && error.response.data.message,
         isLoading: false,
         status: "failed",
         length: 0,
