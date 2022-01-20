@@ -79,7 +79,7 @@ export const getProfile = async (navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -144,7 +144,7 @@ export const getKPIByMonthDashboard = async (navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -211,7 +211,7 @@ export const getKPIByMonthAchieve = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -274,7 +274,7 @@ export const getTempSalary = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -336,7 +336,7 @@ export const getSubscriberList = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -394,7 +394,7 @@ export const getSalaryByMonth = async (month, navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -455,7 +455,7 @@ export const getContractSalaryByMonth = async (month, navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -513,7 +513,7 @@ export const getAvgIncomeByMonth = async (beginMonth, endMonth, navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -572,7 +572,7 @@ export const getSubscriberQuality = async (navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -631,7 +631,7 @@ export const getTransactionInfo = async (month, navigation) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -898,7 +898,7 @@ export const getSubscriberProductivity = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -961,7 +961,7 @@ export const getAllBranch = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1024,7 +1024,7 @@ export const getAllShop = async (navigation, branchCode) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1085,7 +1085,7 @@ export const getAllEmp = async (navigation, branchCode, shopCode) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1146,7 +1146,7 @@ export const getAdminKPITopTeller = async (navigation, branchCode, month, sort) 
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1207,7 +1207,7 @@ export const getKPIGroup = async (navigation, month) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1269,7 +1269,7 @@ export const getAdminKPIMonthTopTeller = async (navigation, branchCode, month, s
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1340,7 +1340,7 @@ export const getProductivitySubByMonth = async (navigation, month) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1411,7 +1411,7 @@ export const getDetailProductivitySubByMonth = async (navigation, month, shopCod
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1482,7 +1482,7 @@ export const getExpenseManagement = async (month) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1554,7 +1554,7 @@ export const getMonthSalaryTopTeller = async (navigation, month, branchCode, sho
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1626,7 +1626,7 @@ export const getAllAvgIncome = async (navigation, branchCode, shopCode) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1699,7 +1699,7 @@ export const getTransInfoDashboard = async (navigation, month) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1762,7 +1762,7 @@ export const getTransInfoWarning = async (navigation, month) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1835,7 +1835,7 @@ export const getTransInfoWarningByType = async (navigation, month, branchCode, s
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1900,7 +1900,7 @@ export const getDetailTransInfoWarningByType = async (navigation, month, empCode
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -1975,7 +1975,7 @@ export const getDenyByWrongInfo = async (navigation, month, branchCode, shopCode
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2050,7 +2050,7 @@ export const getEmpThreeTime = async (navigation, month, branchCode, shopCode, e
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2115,7 +2115,7 @@ export const getViolate = async (navigation) => {
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2182,7 +2182,7 @@ export const getFastTrans = async (navigation, branchCode, shopCode, empCode) =>
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2256,7 +2256,7 @@ export const getDetailFastTrans = async (navigation, branchCode, shopCode, empCo
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2323,7 +2323,7 @@ export const getFCardTrans = async (navigation, branchCode, shopCode, empCode) =
         console.log(res.data)
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2388,7 +2388,7 @@ export const getViolationEmployee = async (navigation, branchCode, shopCode, emp
       if (res.status == 200) {
         if (res.data.V_ERROR) {
           data = {
-            message: "Chức năng này đang được bảo trì",
+            message: res.data.V_ERROR,
             data: null,
             isLoading: false,
             status: "v_error",
@@ -2460,7 +2460,7 @@ export const getNoRechargeCard = async (navigation, month) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
@@ -2608,7 +2608,7 @@ export const getOutcomeSupport = async (navigation, year) => {
     if (res.status == 200) {
       if (res.data.V_ERROR) {
         data = {
-          message: "Chức năng này đang được bảo trì",
+          message: res.data.V_ERROR,
           data: null,
           isLoading: false,
           status: "v_error",
