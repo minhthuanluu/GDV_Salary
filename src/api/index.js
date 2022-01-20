@@ -2532,8 +2532,6 @@ export const getDetailOutcome = async (navigation, beginMonth, endMonth) => {
     },
   }).then((res) => {
     if (res.status == 200) {
-      // console.log(res.data.data != null&&res.data.data.length > 0)
-      // console.log(res.data)
       if (res.data&&res.data.V_ERROR) {
         data = {
           message: res.data.V_ERROR,

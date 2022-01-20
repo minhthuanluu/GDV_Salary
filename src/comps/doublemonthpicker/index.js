@@ -38,7 +38,9 @@ const YearMonthPicker = (props) => {
         if (month.year > endMonth.substring(9, endMonth.length)) {
             console.log("Năm bắt đầu phải nhỏ hơn năm kết thúc")
         } else {
-            if (month.item.key > endMonth.substring(6, 8) || month.year > endMonth.substring(9, endMonth.length)) {
+            console.log(month);
+            console.log(endMonth)
+            if (month.item.key > endMonth.substring(6, 8) && month.year > endMonth.substring(9, endMonth.length)) {
                 props.onError && props.onError("Tháng bắt đầu phải nhỏ hơn tháng kết thúc")
             } else {
                 setBeginMonth(month.item.name + '/' + month.year);
